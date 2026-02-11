@@ -15,6 +15,7 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 LABEL="com.autocompany.loop"
 PLIST_PATH="$HOME/Library/LaunchAgents/${LABEL}.plist"
+PAUSE_FLAG="${SCRIPT_DIR}/.auto-loop-paused"
 
 # --- Uninstall ---
 if [ "${1:-}" = "--uninstall" ]; then
@@ -59,6 +60,8 @@ echo "  Claude:  $CLAUDE_PATH"
 echo "  PATH:    $DAEMON_PATH"
 
 mkdir -p "$HOME/Library/LaunchAgents" "$SCRIPT_DIR/logs"
+# Install implies active running state
+rm -f "$PAUSE_FLAG"
 
 # Unload existing if running
 if launchctl list 2>/dev/null | grep -q "$LABEL"; then
@@ -85,7 +88,13 @@ cat > "$PLIST_PATH" << EOF
     <string>${SCRIPT_DIR}</string>
 
     <key>KeepAlive</key>
-    <true/>
+    <dict>
+        <key>PathState</key>
+        <dict>
+            <key>${PAUSE_FLAG}</key>
+            <false/>
+        </dict>
+    </dict>
 
     <key>RunAtLoad</key>
     <true/>
@@ -121,4 +130,6 @@ echo "Commands:"
 echo "  ./monitor.sh            # Watch live logs"
 echo "  ./monitor.sh --status   # Check status"
 echo "  ./stop-loop.sh          # Stop the loop (daemon will restart it)"
+echo "  ./stop-loop.sh --pause-daemon   # Pause daemon (no auto-restart)"
+echo "  ./stop-loop.sh --resume-daemon  # Resume daemon"
 echo "  ./install-daemon.sh --uninstall  # Remove daemon completely"

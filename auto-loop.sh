@@ -14,9 +14,9 @@
 #   kill $(cat .auto-loop.pid)  # Force stop
 #
 # Config (env vars):
-#   MODEL=sonnet                # Claude model (default: sonnet)
-#   MAX_BUDGET_PER_CYCLE=5      # USD per cycle (default: 5)
+#   MODEL=opus                # Claude model (default: opus)
 #   LOOP_INTERVAL=30            # Seconds between cycles (default: 30)
+#   CYCLE_TIMEOUT_SECONDS=1800  # Max seconds per cycle before force-kill
 #   MAX_CONSECUTIVE_ERRORS=5    # Circuit breaker threshold
 #   COOLDOWN_SECONDS=300        # Cooldown after circuit break
 #   LIMIT_WAIT_SECONDS=3600     # Wait on usage limit
@@ -37,8 +37,8 @@ STATE_FILE="$PROJECT_DIR/.auto-loop-state"
 
 # Loop settings (all overridable via env vars)
 MODEL="${MODEL:-opus}"
-MAX_BUDGET_PER_CYCLE="${MAX_BUDGET_PER_CYCLE:-5}"
 LOOP_INTERVAL="${LOOP_INTERVAL:-30}"
+CYCLE_TIMEOUT_SECONDS="${CYCLE_TIMEOUT_SECONDS:-1800}"
 MAX_CONSECUTIVE_ERRORS="${MAX_CONSECUTIVE_ERRORS:-5}"
 COOLDOWN_SECONDS="${COOLDOWN_SECONDS:-300}"
 LIMIT_WAIT_SECONDS="${LIMIT_WAIT_SECONDS:-3600}"
@@ -94,7 +94,6 @@ ERROR_COUNT=$error_count
 LAST_RUN=$(date '+%Y-%m-%d %H:%M:%S')
 STATUS=$1
 MODEL=$MODEL
-MAX_BUDGET_PER_CYCLE=$MAX_BUDGET_PER_CYCLE
 EOF
 }
 
@@ -137,6 +136,87 @@ restore_consensus() {
     fi
 }
 
+validate_consensus() {
+    if [ ! -s "$CONSENSUS_FILE" ]; then
+        return 1
+    fi
+    if ! grep -q "^# Auto Company Consensus" "$CONSENSUS_FILE"; then
+        return 1
+    fi
+    if ! grep -q "^## Next Action" "$CONSENSUS_FILE"; then
+        return 1
+    fi
+    if ! grep -q "^## Company State" "$CONSENSUS_FILE"; then
+        return 1
+    fi
+    return 0
+}
+
+run_claude_cycle() {
+    local prompt="$1"
+    local output_file timeout_flag
+
+    output_file=$(mktemp)
+    timeout_flag=$(mktemp)
+
+    set +e
+    (
+        cd "$PROJECT_DIR" && claude -p "$prompt" \
+            --model "$MODEL" \
+            --dangerously-skip-permissions \
+            --output-format json
+    ) > "$output_file" 2>&1 &
+    local claude_pid=$!
+
+    (
+        sleep "$CYCLE_TIMEOUT_SECONDS"
+        if kill -0 "$claude_pid" 2>/dev/null; then
+            echo "1" > "$timeout_flag"
+            kill -TERM "$claude_pid" 2>/dev/null || true
+            sleep 5
+            kill -KILL "$claude_pid" 2>/dev/null || true
+        fi
+    ) &
+    local watchdog_pid=$!
+
+    wait "$claude_pid"
+    EXIT_CODE=$?
+
+    kill "$watchdog_pid" 2>/dev/null || true
+    wait "$watchdog_pid" 2>/dev/null || true
+    set -e
+
+    OUTPUT=$(cat "$output_file")
+    rm -f "$output_file"
+
+    if [ -s "$timeout_flag" ]; then
+        CYCLE_TIMED_OUT=1
+        EXIT_CODE=124
+    else
+        CYCLE_TIMED_OUT=0
+    fi
+    rm -f "$timeout_flag"
+}
+
+extract_cycle_metadata() {
+    RESULT_TEXT=""
+    CYCLE_COST=""
+    CYCLE_SUBTYPE=""
+    CYCLE_TYPE=""
+
+    if command -v jq &>/dev/null; then
+        RESULT_TEXT=$(echo "$OUTPUT" | jq -r '.result // empty' 2>/dev/null | head -c 2000 || true)
+        CYCLE_COST=$(echo "$OUTPUT" | jq -r '.total_cost_usd // empty' 2>/dev/null || true)
+        CYCLE_SUBTYPE=$(echo "$OUTPUT" | jq -r '.subtype // empty' 2>/dev/null || true)
+        CYCLE_TYPE=$(echo "$OUTPUT" | jq -r '.type // empty' 2>/dev/null || true)
+    else
+        RESULT_TEXT=$(echo "$OUTPUT" | head -c 2000 || true)
+        CYCLE_COST=$(echo "$OUTPUT" | sed -n 's/.*"total_cost_usd":\([0-9.]*\).*/\1/p' | head -1 || true)
+        CYCLE_SUBTYPE=$(echo "$OUTPUT" | sed -n 's/.*"subtype":"\([^"]*\)".*/\1/p' | head -1 || true)
+        CYCLE_TYPE=$(echo "$OUTPUT" | sed -n 's/.*"type":"\([^"]*\)".*/\1/p' | head -1 || true)
+    fi
+}
+
 # === Setup ===
 
 mkdir -p "$LOG_DIR" "$PROJECT_DIR/memories"
@@ -176,7 +256,7 @@ error_count=0
 
 log "=== Auto Company Loop Started (PID $$) ==="
 log "Project: $PROJECT_DIR"
-log "Model: $MODEL | Budget: \$${MAX_BUDGET_PER_CYCLE}/cycle | Interval: ${LOOP_INTERVAL}s | Breaker: ${MAX_CONSECUTIVE_ERRORS} errors"
+log "Model: $MODEL | Interval: ${LOOP_INTERVAL}s | Timeout: ${CYCLE_TIMEOUT_SECONDS}s | Breaker: ${MAX_CONSECUTIVE_ERRORS} errors"
 
 # === Main Loop ===
 
@@ -214,38 +294,35 @@ $CONSENSUS
 
 This is Cycle #$loop_count. Act decisively."
 
-    # Run Claude Code in headless mode
-    set +e
-    OUTPUT=$(cd "$PROJECT_DIR" && claude -p "$FULL_PROMPT" \
-        --model "$MODEL" \
-        --max-budget-usd "$MAX_BUDGET_PER_CYCLE" \
-        --dangerously-skip-permissions \
-        --output-format json \
-        2>&1)
-    EXIT_CODE=$?
-    set -e
+    # Run Claude Code in headless mode with per-cycle timeout
+    run_claude_cycle "$FULL_PROMPT"
 
     # Save full output to cycle log
     echo "$OUTPUT" > "$cycle_log"
 
-    # Extract result and cost
-    RESULT_TEXT=""
-    CYCLE_COST=""
-    if command -v jq &>/dev/null; then
-        RESULT_TEXT=$(echo "$OUTPUT" | jq -r '.result // empty' 2>/dev/null | head -c 2000 || true)
-        CYCLE_COST=$(echo "$OUTPUT" | jq -r '.total_cost_usd // empty' 2>/dev/null || true)
+    # Extract result fields for status classification
+    extract_cycle_metadata
+
+    cycle_failed_reason=""
+    if [ "$CYCLE_TIMED_OUT" -eq 1 ]; then
+        cycle_failed_reason="Timed out after ${CYCLE_TIMEOUT_SECONDS}s"
+    elif [ $EXIT_CODE -ne 0 ]; then
+        cycle_failed_reason="Exit code $EXIT_CODE"
+    elif [ "$CYCLE_SUBTYPE" != "success" ]; then
+        cycle_failed_reason="Non-success subtype '${CYCLE_SUBTYPE:-unknown}'"
+    elif ! validate_consensus; then
+        cycle_failed_reason="consensus.md validation failed after cycle"
     fi
 
-    if [ $EXIT_CODE -eq 0 ]; then
-        log_cycle $loop_count "OK" "Completed (cost: \$${CYCLE_COST:-unknown})"
+    if [ -z "$cycle_failed_reason" ]; then
+        log_cycle $loop_count "OK" "Completed (cost: \$${CYCLE_COST:-unknown}, subtype: ${CYCLE_SUBTYPE:-unknown})"
         if [ -n "$RESULT_TEXT" ]; then
             log_cycle $loop_count "SUMMARY" "$(echo "$RESULT_TEXT" | head -c 300)"
         fi
         error_count=0
-
     else
         error_count=$((error_count + 1))
-        log_cycle $loop_count "FAIL" "Exit code $EXIT_CODE (cost: \$${CYCLE_COST:-unknown}, errors: $error_count/$MAX_CONSECUTIVE_ERRORS)"
+        log_cycle $loop_count "FAIL" "$cycle_failed_reason (cost: \$${CYCLE_COST:-unknown}, subtype: ${CYCLE_SUBTYPE:-unknown}, errors: $error_count/$MAX_CONSECUTIVE_ERRORS)"
 
         # Restore consensus on failure
         restore_consensus

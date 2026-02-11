@@ -16,6 +16,8 @@ PROJECT_DIR="$SCRIPT_DIR"
 LOG_DIR="$PROJECT_DIR/logs"
 STATE_FILE="$PROJECT_DIR/.auto-loop-state"
 PID_FILE="$PROJECT_DIR/.auto-loop.pid"
+PAUSE_FLAG="$PROJECT_DIR/.auto-loop-paused"
+LABEL="com.autocompany.loop"
 
 case "${1:-}" in
     --status)
@@ -29,6 +31,14 @@ case "${1:-}" in
             fi
         else
             echo "Loop: NOT RUNNING"
+        fi
+
+        if [ -f "$PAUSE_FLAG" ]; then
+            echo "Daemon: PAUSED (.auto-loop-paused present)"
+        elif launchctl list 2>/dev/null | grep -q "$LABEL"; then
+            echo "Daemon: LOADED ($LABEL)"
+        else
+            echo "Daemon: NOT LOADED"
         fi
 
         if [ -f "$STATE_FILE" ]; then
@@ -68,7 +78,7 @@ case "${1:-}" in
     --cycles)
         echo "=== Cycle History ==="
         if [ -f "$LOG_DIR/auto-loop.log" ]; then
-            grep -E "Cycle #[0-9]+ \[(OK|FAIL|START|LIMIT|BREAKER)\]" "$LOG_DIR/auto-loop.log" | tail -50
+            grep -E "Cycle #[0-9]+ \[(OK|FAIL|START|LIMIT|BUDGET|BREAKER)\]" "$LOG_DIR/auto-loop.log" | tail -50
         else
             echo "No log found."
         fi
