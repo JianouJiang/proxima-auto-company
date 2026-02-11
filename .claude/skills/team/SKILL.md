@@ -21,14 +21,18 @@ $ARGUMENTS
 |-------|------|------|
 | CEO | `ceo-bezos` | 战略决策、商业模式、PR/FAQ、优先级 |
 | CTO | `cto-vogels` | 技术架构、技术选型、系统设计 |
+| 逆向思考 | `critic-munger` | 质疑决策、识别致命缺陷、Pre-Mortem、防止集体幻觉 |
 | 产品设计 | `product-norman` | 产品定义、用户体验、可用性 |
 | UI 设计 | `ui-duarte` | 视觉设计、设计系统、配色排版 |
 | 交互设计 | `interaction-cooper` | 用户流程、Persona、交互模式 |
 | 全栈开发 | `fullstack-dhh` | 代码实现、技术方案、开发 |
 | QA | `qa-bach` | 测试策略、质量把控、Bug 分析 |
+| DevOps/SRE | `devops-hightower` | 部署流水线、CI/CD、基础设施、监控运维 |
 | 营销 | `marketing-godin` | 定位、品牌、获客、内容 |
 | 运营 | `operations-pg` | 用户运营、增长、社区、PMF |
-| 销售 | `sales-ross` | 定价、销售漏斗、转化 |
+| 销售 | `sales-ross` | 销售漏斗、转化策略 |
+| CFO | `cfo-campbell` | 定价策略、财务模型、成本控制、单位经济 |
+| 调研分析 | `research-thompson` | 市场调研、竞品分析、行业趋势、机会发现 |
 
 ## 执行步骤
 

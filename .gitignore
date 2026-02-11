@@ -129,6 +129,14 @@ secrets.json
 progress.json
 status.json
 logs/
+
+# Auto-loop state files
+.auto-loop.pid
+.auto-loop-state
+.auto-loop-stop
+
+# Projects directory (each project has its own git)
+projects/
 .vscode-test-web
 **/.vitepress/cache
 **/.vitepress/.temp
