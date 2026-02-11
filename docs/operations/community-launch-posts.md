@@ -3,7 +3,7 @@
 > **Author**: operations-pg (Paul Graham model)
 > **Date**: 2026-02-12
 > **Purpose**: Cold-start community launch drafts with interaction playbook
-> **Product URL**: https://cron-pulse.com (Early Preview -- soft launch on workers.dev)
+> **Product URL**: https://cron-pulse.com (v1.0.0 released)
 
 ---
 
@@ -43,18 +43,19 @@ I tried Healthchecks.io (solid tool, I used it for 2 years) but wanted to build
 something on edge infrastructure instead of a single server. So I built CronPulse
 on Cloudflare Workers.
 
-Note: this is an early preview, still running on Cloudflare's free workers.dev
-subdomain. The code is open source (AGPL-3.0) on GitHub:
+The code is open source (AGPL-3.0) on GitHub:
 https://github.com/nicepkg/cronpulse
-
-Email alerts are coming soon -- webhook and Slack alerts work now.
 
 How it works:
   curl -fsS https://cron-pulse.com/ping/YOUR_CHECK_ID
 
 Add that to the end of any cron script. If CronPulse does not hear from it within
-the expected window + grace period, it sends you an alert (Slack or webhook;
-email alerts coming soon). When the job recovers, you get notified too.
+the expected window + grace period, it sends you an alert (email, Slack, or
+webhook). When the job recovers, you get notified too.
+
+There is also a CLI (`npx cron-pulse-cli init "My Backup" --every 1h`) that
+creates a check and outputs a ready-to-use crontab line, and a GitHub Action
+for monitoring CI/CD pipelines.
 
 The whole thing is one monolith Worker on Cloudflare. Stack:
 - Workers for compute + routing
@@ -148,7 +149,7 @@ single server to fail. Setup is one curl:
   curl -fsS https://cron-pulse.com/ping/YOUR_CHECK_ID
 
 Add it to the end of your cron script. If the ping does not arrive on time,
-you get an alert (Slack or webhook; email alerts coming soon).
+you get an alert (email, Slack, or webhook).
 
 Free tier: 10 checks with 7-day history.
 Paid: $5/mo for 50 checks if you need more.
@@ -160,14 +161,17 @@ Pros of CronPulse (hosted):
 - Zero maintenance -- no Docker container to keep updated
 - Global edge network, sub-5ms ping response anywhere
 - Free tier covers most personal setups
+- CLI and GitHub Action for easy integration
 
 Cons vs self-hosted Healthchecks.io:
 - Your monitoring data lives on someone else's infrastructure
 - You depend on Cloudflare's availability
 - Fewer notification integrations (3 vs 25+)
 
-Update: CronPulse is now open source (AGPL-3.0). Full code on GitHub:
+CronPulse is open source (AGPL-3.0). Full code on GitHub:
 https://github.com/nicepkg/cronpulse
+
+You can also self-host it on your own Cloudflare account.
 
 I genuinely think both approaches are valid. If you run critical infra and want
 full control, self-host HC. If you want monitoring that is independent from your
@@ -250,9 +254,9 @@ This plugs into PagerDuty, OpsGenie, or any incident management tool
 that accepts webhooks.
 
 Pricing:
-- Free: 10 checks, email alerts
-- $5/mo: 50 checks, email + Slack + webhook
-- $15/mo: 200 checks, REST API access
+- Free: 10 checks, email + Slack + webhook alerts
+- $5/mo: 50 checks, REST API, CLI
+- $15/mo: 200 checks, priority support
 - $49/mo: 1,000 checks
 
 For context: Cronitor charges ~$2/monitor/month. Better Stack starts at
@@ -337,14 +341,20 @@ Things I learned building this:
 4. Magic Link auth works via direct link display during preview (email delivery coming next)
 5. The hardest part was not the code -- it was deciding what NOT to build
 
-What I deliberately did not build for v1:
-- No cron expression parsing (interval + grace period is simpler)
-- No team management
-- No SDK (just curl)
+What I deliberately did not build:
+- No team management (yet)
+- No SDK (just curl -- and now a CLI)
 - No mobile app
 - No AI anything
 
 Every feature I skipped was a feature I wanted to build. But shipping > perfecting.
+
+What I did build after launch based on feedback:
+- Cron expression parsing (`0 2 * * *` auto-calculates intervals)
+- CLI tool (`npx cron-pulse-cli init "Backup" --every 1h`)
+- GitHub Action for CI/CD monitoring
+- Status badges for READMEs
+- Public status pages
 
 The whole thing is open source (AGPL-3.0): https://github.com/nicepkg/cronpulse
 
@@ -442,7 +452,7 @@ Before posting ANY of these:
 - [ ] You have tested the product yourself with 3-5 real cron jobs for at least 48 hours
 - [x] Demo mode login works (magic link shown directly)
 
-**Soft launch strategy**: We are launching on the workers.dev URL intentionally. This is an early preview to collect real feedback before investing in a custom domain. For HN and Reddit, a workers.dev URL paired with honesty about the stage actually builds credibility -- it signals "I shipped, I am iterating, I want your input."
+**Launch status**: Product is live at cron-pulse.com with custom domain, v1.0.0 released on GitHub. All features (email, Slack, webhook alerts, CLI, GitHub Action) are production-ready.
 
 ---
 
@@ -523,4 +533,4 @@ If you get 5 activated users from this launch, it is a success. Everything else 
 > **Document**: `docs/operations/community-launch-posts.md`
 > **Version**: v1.0
 > **Related**: `docs/marketing/ph-listing.md`, `docs/marketing/ph-launch-checklist.md`
-> **Next Action**: Execute soft launch on workers.dev URL, then migrate to cron-pulse.com when ready
+> **Next Action**: Posts are ready. Human needs to post them on HN/Reddit following the schedule in Section 5.
