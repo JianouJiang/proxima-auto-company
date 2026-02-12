@@ -1,9 +1,18 @@
-.PHONY: start stop status last cycles monitor pause resume install uninstall team help
+.PHONY: start start-awake awake stop status last cycles monitor pause resume install uninstall team help
 
 # === Quick Start ===
 
 start: ## Start the auto-loop in foreground
 	./auto-loop.sh
+
+start-awake: ## Start loop and prevent macOS sleep while running
+	caffeinate -d -i -s $(MAKE) start
+
+awake: ## Prevent macOS sleep while current loop PID is running
+	@test -f .auto-loop.pid || (echo "No .auto-loop.pid found. Run 'make start' first."; exit 1)
+	@pid=$$(cat .auto-loop.pid); \
+	echo "Keeping Mac awake while PID $$pid is running..."; \
+	caffeinate -d -i -s -w $$pid
 
 stop: ## Stop the loop gracefully
 	./stop-loop.sh

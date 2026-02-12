@@ -87,16 +87,33 @@ make install
 ```bash
 make help       # 查看所有命令
 make start      # 前台启动循环
+make start-awake# 前台启动 + 防止 macOS 睡眠
 make stop       # 停止循环
 make status     # 查看状态 + 最新共识
 make monitor    # 实时日志
 make last       # 上一轮完整输出
 make cycles     # 历史周期摘要
+make awake      # 已在跑时，为当前 PID 挂防睡眠
 make install    # 安装 launchd 守护进程
 make uninstall  # 卸载守护进程
 make pause      # 暂停（不自动拉起）
 make resume     # 恢复
 ```
+
+## 防止 Mac 睡眠（推荐）
+
+macOS 的屏保/锁屏通常不会杀进程，但系统睡眠会让任务暂停。长时间运行建议开启防睡眠：
+
+```bash
+make start-awake   # 启动循环并保持系统唤醒（直到循环退出）
+
+# 如果循环已经在跑（比如你已执行 make start）：
+make awake         # 读取 .auto-loop.pid 并对该 PID 挂 caffeinate
+```
+
+说明：
+- 这两个命令依赖 macOS 自带 `caffeinate`
+- `make awake` 会在 PID 结束后自动退出
 
 ## 运作机制
 
