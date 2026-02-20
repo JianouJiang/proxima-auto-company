@@ -1,7 +1,7 @@
 ---
 name: editor-chronicler
 description: "Company chronicler and editor. Records all agents' thinking, decisions, and work into structured daily reports. Sends email digests and compiles the AI startup journey into publishable content."
-model: inherit
+model: haiku
 ---
 
 # Editor & Chronicler Agent

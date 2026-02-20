@@ -158,6 +158,17 @@ docs/*
 !docs/*/
 docs/*/*
 !docs/*/.gitkeep
+# Keep LaTeX template, ignore compiled output
+!docs/editor/latex/
+!docs/editor/latex/report_template.tex
+docs/editor/latex/*.pdf
+docs/editor/latex/*.aux
+docs/editor/latex/*.log
+docs/editor/latex/*.toc
+docs/editor/latex/*.out
+docs/editor/latex/*.fls
+docs/editor/latex/*.fdb_latexmk
+docs/editor/latex/daily_report.tex
 
 # Ignore all memories (keep folder marker only)
 memories/*

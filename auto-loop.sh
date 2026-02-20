@@ -359,17 +359,28 @@ This is Cycle #$loop_count. Act decisively. Remember: FOUNDER CONSTRAINTS overri
         fi
     fi
 
-    # Send daily report email (once per day, check if report exists)
+    # ── Per-round progress email (plain text, every successful cycle) ──
+    if [ -z "$cycle_failed_reason" ]; then
+        log_cycle $loop_count "EMAIL" "Sending round progress email..."
+        python3 "$PROJECT_DIR/send_daily_report.py" round "$loop_count" "$CONSENSUS_FILE" 2>/dev/null \
+            && log_cycle $loop_count "EMAIL" "Round email sent." \
+            || log_cycle $loop_count "EMAIL" "Round email failed (non-fatal)."
+    fi
+
+    # ── Daily PDF report (once per day, after 18:00 or when daily file exists) ──
     today_date=$(date '+%Y-%m-%d')
-    daily_report="$PROJECT_DIR/docs/editor/daily-${today_date}.md"
-    daily_sent_flag="$PROJECT_DIR/logs/.daily-sent-${today_date}"
-    if [ -f "$daily_report" ] && [ ! -f "$daily_sent_flag" ]; then
-        log_cycle $loop_count "EMAIL" "Sending daily report for $today_date..."
-        if python3 "$PROJECT_DIR/send_daily_report.py" "$today_date" 2>/dev/null; then
+    current_hour=$(date '+%H')
+    daily_sent_flag="$PROJECT_DIR/logs/.daily-pdf-sent-${today_date}"
+    if [ ! -f "$daily_sent_flag" ] && [ "$current_hour" -ge 18 ]; then
+        log_cycle $loop_count "EMAIL" "Compiling and sending daily PDF report for $today_date..."
+        if python3 "$PROJECT_DIR/send_daily_report.py" daily "$today_date" 2>/dev/null; then
             touch "$daily_sent_flag"
-            log_cycle $loop_count "EMAIL" "Daily report sent successfully."
+            log_cycle $loop_count "EMAIL" "Daily PDF report sent successfully."
         else
-            log_cycle $loop_count "EMAIL" "Failed to send daily report (non-fatal)."
+            log_cycle $loop_count "EMAIL" "Daily PDF failed, trying plain text fallback..."
+            python3 "$PROJECT_DIR/send_daily_report.py" daily --skip-pdf "$today_date" 2>/dev/null \
+                && touch "$daily_sent_flag" \
+                || log_cycle $loop_count "EMAIL" "Daily report send failed entirely (non-fatal)."
         fi
     fi
 

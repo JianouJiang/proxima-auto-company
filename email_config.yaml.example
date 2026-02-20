@@ -3,5 +3,5 @@ email:
   provider: gmail          # "gmail", "qq", or "163"
   address: you@gmail.com
   password: xxxx-xxxx-xxxx-xxxx   # Gmail App Password (NOT account password)
-  recipient: you@gmail.com
+  recipient: you@gmail.com, collaborator@example.com
   subject_prefix: "[Auto Company]"
