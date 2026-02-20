@@ -48,12 +48,12 @@ TTL: 3600 seconds per key
 
 | Component | Status | Details |
 |-----------|--------|---------|
-| D1 Database | ✅ Live | ID: 413b402d-f259-4b79-b7e4-3ab887c8a431 |
-| KV Namespace | ✅ Live | ID: 82359391e9704000a8d5f1efadf9b27f |
-| Pages Functions | 🟡 Deploying | Functions dir: functions/api/ |
-| Frontend (React) | ✅ Built | Output: frontend/dist/ |
-| ANTHROPIC_API_KEY | 🔴 Required | Must be set in Pages secrets |
-| Live URL | - | https://coldcopy-au3.pages.dev |
+| D1 Database | ✅ Live | ID: 413b402d-f259-4b79-b7e4-3ab887c8a431, 3 tables created |
+| KV Namespace | ✅ Live | ID: 82359391e9704000a8d5f1efadf9b27f, rate limiting ready |
+| Pages Functions | ✅ Deployed | Working: /api/session, /api/generate routing correct |
+| Frontend (React) | ✅ Built | Output: frontend/dist/, all assets loading |
+| ANTHROPIC_API_KEY | 🔴 REQUIRED | Must be set in Pages secrets before generation works |
+| Live URL | ✅ Deployed | https://1b41a14c.coldcopy-au3.pages.dev (latest) |
 
 ---
 
@@ -131,8 +131,11 @@ Pre-deployment:
 - [x] TypeScript compilation (no errors)
 - [x] Frontend builds successfully
 - [x] Functions directory recognized by Cloudflare
+- [x] Pages Functions routing configured correctly
+- [x] D1 database created and accessible
+- [x] KV namespace created and accessible
 
-After API key set:
+After API key set (PENDING):
 - [ ] Session creation on first form submission
 - [ ] D1 write succeeds (check timestamps)
 - [ ] Claude API integration works (3-5s response)
