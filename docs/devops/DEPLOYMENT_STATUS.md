@@ -1,8 +1,10 @@
 # ColdCopy Backend Deployment Status
 
-**Status:** In Progress (Day 3-5 of 7-day sprint)
-**Last Updated:** 2026-02-20
+**Status:** ⚠️ BLOCKED — Awaiting ANTHROPIC_API_KEY (Day 3 of 7-day sprint)
+**Last Updated:** 2026-02-20 (Cycle 6 Status)
 **DevOps:** Kelsey Hightower
+
+**Current Blocker:** Backend is code-complete and infrastructure ready, but deployment blocked by missing ANTHROPIC_API_KEY. See detailed status: [CYCLE-6-DEPLOYMENT-STATUS.md](./CYCLE-6-DEPLOYMENT-STATUS.md)
 
 ---
 
@@ -48,12 +50,13 @@ TTL: 3600 seconds per key
 
 | Component | Status | Details |
 |-----------|--------|---------|
-| D1 Database | ✅ Live | ID: 413b402d-f259-4b79-b7e4-3ab887c8a431, 3 tables created |
+| D1 Database | ✅ Live | ID: 413b402d-f259-4b79-b7e4-3ab887c8a431, schema applied (sessions, sequences tables) |
 | KV Namespace | ✅ Live | ID: 82359391e9704000a8d5f1efadf9b27f, rate limiting ready |
-| Pages Functions | ✅ Deployed | Working: /api/session, /api/generate routing correct |
-| Frontend (React) | ✅ Built | Output: frontend/dist/, all assets loading |
-| ANTHROPIC_API_KEY | 🔴 REQUIRED | Must be set in Pages secrets before generation works |
-| Live URL | ✅ Deployed | https://1b41a14c.coldcopy-au3.pages.dev (latest) |
+| Backend Code | ✅ Complete | /api/generate session quota bug fixed, ready to deploy |
+| Frontend Build | ✅ Verified | Built in 6.48s, 370kB gzipped, no errors |
+| Frontend Live | ✅ Deployed | https://coldcopy-au3.pages.dev (frontend only, backend pending) |
+| ANTHROPIC_API_KEY | ❌ BLOCKING | NOT SET — deployment cannot proceed without this |
+| Backend Deployment | ⏸️ Ready | Code ready, infrastructure ready, waiting for API key |
 
 ---
 
