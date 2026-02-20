@@ -31,12 +31,14 @@ PROJECT_DIR="$SCRIPT_DIR"
 
 LOG_DIR="$PROJECT_DIR/logs"
 CONSENSUS_FILE="$PROJECT_DIR/memories/consensus.md"
+CONSTRAINTS_FILE="$PROJECT_DIR/memories/constraints.md"
 PROMPT_FILE="$PROJECT_DIR/PROMPT.md"
 PID_FILE="$PROJECT_DIR/.auto-loop.pid"
 STATE_FILE="$PROJECT_DIR/.auto-loop-state"
 
 # Loop settings (all overridable via env vars)
-MODEL="${MODEL:-opus}"
+# Default to sonnet to save costs; individual agents use opus/haiku as needed via team skill
+MODEL="${MODEL:-sonnet}"
 LOOP_INTERVAL="${LOOP_INTERVAL:-30}"
 CYCLE_TIMEOUT_SECONDS="${CYCLE_TIMEOUT_SECONDS:-1800}"
 MAX_CONSECUTIVE_ERRORS="${MAX_CONSECUTIVE_ERRORS:-5}"
@@ -116,7 +118,11 @@ rotate_logs() {
 
     # Rotate main log if over 10MB
     local log_size
-    log_size=$(stat -f%z "$LOG_DIR/auto-loop.log" 2>/dev/null || echo 0)
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+        log_size=$(stat -f%z "$LOG_DIR/auto-loop.log" 2>/dev/null || echo 0)
+    else
+        log_size=$(stat -c%s "$LOG_DIR/auto-loop.log" 2>/dev/null || echo 0)
+    fi
     if [ "$log_size" -gt 10485760 ]; then
         mv "$LOG_DIR/auto-loop.log" "$LOG_DIR/auto-loop.log.old"
         log "Main log rotated (was ${log_size} bytes)"
@@ -279,10 +285,17 @@ while true; do
     # Backup consensus before cycle
     backup_consensus
 
-    # Build prompt with consensus pre-injected
+    # Build prompt with constraints + consensus pre-injected
     PROMPT=$(cat "$PROMPT_FILE")
     CONSENSUS=$(cat "$CONSENSUS_FILE" 2>/dev/null || echo "No consensus file found. This is the very first cycle.")
+    CONSTRAINTS=$(cat "$CONSTRAINTS_FILE" 2>/dev/null || echo "No constraints file found.")
     FULL_PROMPT="$PROMPT
+
+---
+
+## ⛔ FOUNDER CONSTRAINTS (IMMUTABLE — ALL AGENTS MUST OBEY)
+
+$CONSTRAINTS
 
 ---
 
@@ -292,7 +305,7 @@ $CONSENSUS
 
 ---
 
-This is Cycle #$loop_count. Act decisively."
+This is Cycle #$loop_count. Act decisively. Remember: FOUNDER CONSTRAINTS override all other decisions."
 
     # Run Claude Code in headless mode with per-cycle timeout
     run_claude_cycle "$FULL_PROMPT"
@@ -343,6 +356,20 @@ This is Cycle #$loop_count. Act decisively."
             sleep $COOLDOWN_SECONDS
             error_count=0
             log "Circuit breaker reset. Resuming..."
+        fi
+    fi
+
+    # Send daily report email (once per day, check if report exists)
+    today_date=$(date '+%Y-%m-%d')
+    daily_report="$PROJECT_DIR/docs/editor/daily-${today_date}.md"
+    daily_sent_flag="$PROJECT_DIR/logs/.daily-sent-${today_date}"
+    if [ -f "$daily_report" ] && [ ! -f "$daily_sent_flag" ]; then
+        log_cycle $loop_count "EMAIL" "Sending daily report for $today_date..."
+        if python3 "$PROJECT_DIR/send_daily_report.py" "$today_date" 2>/dev/null; then
+            touch "$daily_sent_flag"
+            log_cycle $loop_count "EMAIL" "Daily report sent successfully."
+        else
+            log_cycle $loop_count "EMAIL" "Failed to send daily report (non-fatal)."
         fi
     fi
 

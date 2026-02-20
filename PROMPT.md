@@ -4,6 +4,10 @@
 
 ## 工作周期
 
+### 0. 检查约束（最高优先级）
+
+Founder Constraints 已预加载在本 prompt 中。**这些约束不可违反，不可修改，优先级高于一切决策。** 每个 agent 在做任何决定前必须先检查是否符合约束。如不符合，必须调整方案直到符合。
+
 ### 1. 看共识
 
 当前共识已预加载在本 prompt 末尾。如果没有，读 `memories/consensus.md`。
@@ -17,11 +21,25 @@
 
 优先级：**Ship > Plan > Discuss**
 
-### 3. 组队执行
+### 3. 组队执行（串行 + 模型分级）
 
-读 `.claude/skills/team/SKILL.md`，按里面的流程组建团队执行任务。每轮选 3-5 个最相关的 agent，不要全部拉上。
+读 `.claude/skills/team/SKILL.md`，按里面的流程组建团队执行任务。
 
-### 4. 更新共识（必须）
+**关键规则：**
+- 每轮选 **2-4 个**最相关的 agent，不要全部拉上
+- **必须串行执行**：一个 agent 完成后再启动下一个，禁止并行 spawn
+- **模型分级**：战略 agent 用 opus，中层用 sonnet，执行层用 haiku（详见 team skill）
+- 每轮结束前必须让 `editor-chronicler` 记录本轮工作（用 haiku 即可）
+
+### 4. 编年记录（每轮必做）
+
+在更新共识前，让 `editor-chronicler` 记录本轮工作：
+- 将本轮所有 agent 的思考、决策、产出写入 `docs/editor/daily-YYYY-MM-DD.md`（追加模式）
+- 将重大事件写入 `docs/editor/chronicle.md`
+- 如果是当天最后一个 cycle（或已过18:00），生成完整的每日报告邮件摘要
+- 发送邮件命令：`python3 send_daily_report.py` （auto-loop 会在 cycle 结束后自动检测并发送）
+
+### 5. 更新共识（必须）
 
 结束前**必须**更新 `memories/consensus.md`，格式：
 

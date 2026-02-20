@@ -1,6 +1,6 @@
 #!/bin/bash
 # ============================================================
-# Auto Company — Live Monitor
+# Auto Company — Live Monitor (macOS + Linux)
 # ============================================================
 # Watch the auto-loop output in real-time.
 #
@@ -17,7 +17,15 @@ LOG_DIR="$PROJECT_DIR/logs"
 STATE_FILE="$PROJECT_DIR/.auto-loop-state"
 PID_FILE="$PROJECT_DIR/.auto-loop.pid"
 PAUSE_FLAG="$PROJECT_DIR/.auto-loop-paused"
-LABEL="com.autocompany.loop"
+
+# Platform detection
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    PLATFORM="macos"
+    LABEL="com.autocompany.loop"
+else
+    PLATFORM="linux"
+    SERVICE_NAME="autocompany-loop"
+fi
 
 case "${1:-}" in
     --status)
@@ -35,10 +43,20 @@ case "${1:-}" in
 
         if [ -f "$PAUSE_FLAG" ]; then
             echo "Daemon: PAUSED (.auto-loop-paused present)"
-        elif launchctl list 2>/dev/null | grep -q "$LABEL"; then
-            echo "Daemon: LOADED ($LABEL)"
+        elif [ "$PLATFORM" = "macos" ]; then
+            if launchctl list 2>/dev/null | grep -q "$LABEL"; then
+                echo "Daemon: LOADED ($LABEL via launchd)"
+            else
+                echo "Daemon: NOT LOADED"
+            fi
         else
-            echo "Daemon: NOT LOADED"
+            if systemctl --user is-active "$SERVICE_NAME" &>/dev/null; then
+                echo "Daemon: ACTIVE ($SERVICE_NAME via systemd)"
+            elif systemctl --user is-enabled "$SERVICE_NAME" &>/dev/null; then
+                echo "Daemon: ENABLED but INACTIVE ($SERVICE_NAME via systemd)"
+            else
+                echo "Daemon: NOT INSTALLED"
+            fi
         fi
 
         if [ -f "$STATE_FILE" ]; then

@@ -113,6 +113,7 @@ dmypy.json
 *.key
 credentials.json
 secrets.json
+email_config.yaml
 
 # ====================
 # Project-specific
@@ -161,3 +162,4 @@ docs/*/*
 # Ignore all memories (keep folder marker only)
 memories/*
 !memories/.gitkeep
+!memories/constraints.md

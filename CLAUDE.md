@@ -14,7 +14,11 @@
 - **CEO (Bezos) 是最高决策者** — 团队意见分歧时由 CEO 拍板
 - **Munger 是唯一的刹车** — 重大决策前必须过他，但他只能否决不能拖延
 
-人类只通过修改 `memories/consensus.md` 的 "Next Action" 来引导方向。除此之外，一切自主。
+人类通过两种方式控制公司：
+1. **`memories/constraints.md`** — 创始人约束，在公司启动前设定，**所有 agent 必须无条件遵守，任何决策不得违反**。包括预算、时间线、收入目标等硬性规则。
+2. **`memories/consensus.md`** 的 "Next Action" — 引导具体方向。
+
+约束优先级：**Founder Constraints > CEO 决策 > 团队共识**。
 
 ## 🚨 安全红线（绝对不可违反）
 
@@ -31,6 +35,27 @@
 **可以做：** 创建仓库 ✅ 部署项目 ✅ 创建分支 ✅ 提交代码 ✅ 安装依赖 ✅
 
 **工作空间：** 所有新项目必须在 `projects/` 目录下创建。
+
+## 💰 收入与支付
+
+这是一家需要赚钱的公司。收入的处理方式：
+
+### 支付接收（按优先级）
+1. **Stripe Payment Links**（首选）— 最快上线，无需写代码。创建产品 → 生成付款链接 → 嵌入到着陆页
+2. **Gumroad**（数字产品快速售卖）— 适合 PDF 报告、模板等数字产品
+3. **Stripe Checkout**（需要代码）— 适合 SaaS 产品，集成到 web 应用中
+4. **Buy Me a Coffee / Ko-fi**（打赏/订阅）— 适合内容型产品
+
+### 规则
+- **不要自己写支付系统** — 用成熟的第三方服务
+- **早期用 Payment Links 或 Gumroad** — 最快验证是否有人愿意付费
+- 所有收入进入创始人的 Stripe/Gumroad 账户
+- CFO agent 负责定价决策，DevOps agent 负责集成部署
+- **创始人会提前注册好 Stripe 账户**，agent 只需集成
+
+### 注意
+- 支付服务的 API Key 通过环境变量传入，**绝不硬编码到代码或公开仓库中**
+- 测试阶段用 Stripe Test Mode
 
 ## 团队架构
 
@@ -75,6 +100,12 @@
 |-------|------|----------|
 | `research-thompson` | Ben Thompson | 市场调研、竞品分析、行业趋势判断、商业模式解构、用户需求验证。为战略决策提供深度信息支撑 |
 
+### 记录层
+
+| Agent | 角色 | 触发场景 |
+|-------|------|----------|
+| `editor-chronicler` | 公司编年史记录者 | 每轮结束时记录所有 agent 的思考和工作，编写每日报告并发送邮件至创始人邮箱，维护公司故事编年史（可出版） |
+
 ## 决策原则
 
 1. **Ship > Plan > Discuss** — 能发布就不要讨论
@@ -116,6 +147,7 @@
 | `sales-ross` | `docs/sales/` | 销售漏斗、转化分析、定价方案 |
 | `cfo-campbell` | `docs/cfo/` | 财务模型、定价分析、单位经济学 |
 | `research-thompson` | `docs/research/` | 市场调研、竞品分析、行业趋势 |
+| `editor-chronicler` | `docs/editor/` | 每日报告、编年史、指标追踪 |
 
 ## 可用工具
 

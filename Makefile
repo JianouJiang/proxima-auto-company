@@ -5,14 +5,24 @@
 start: ## Start the auto-loop in foreground
 	./auto-loop.sh
 
-start-awake: ## Start loop and prevent macOS sleep while running
+start-awake: ## Start loop and prevent system sleep while running
+ifeq ($(shell uname),Darwin)
 	caffeinate -d -i -s $(MAKE) start
+else
+	systemd-inhibit --what=idle:sleep --who="Auto Company" --why="AI loop running" --mode=block $(MAKE) start 2>/dev/null || $(MAKE) start
+endif
 
-awake: ## Prevent macOS sleep while current loop PID is running
+awake: ## Prevent system sleep while current loop PID is running
 	@test -f .auto-loop.pid || (echo "No .auto-loop.pid found. Run 'make start' first."; exit 1)
+ifeq ($(shell uname),Darwin)
 	@pid=$$(cat .auto-loop.pid); \
-	echo "Keeping Mac awake while PID $$pid is running..."; \
+	echo "Keeping system awake while PID $$pid is running..."; \
 	caffeinate -d -i -s -w $$pid
+else
+	@pid=$$(cat .auto-loop.pid); \
+	echo "Keeping system awake while PID $$pid is running..."; \
+	echo "(On Linux, use 'systemd-inhibit' or disable sleep in system settings)"
+endif
 
 stop: ## Stop the loop gracefully
 	./stop-loop.sh
@@ -31,12 +41,12 @@ cycles: ## Show cycle history summary
 monitor: ## Tail live logs (Ctrl+C to exit)
 	./monitor.sh
 
-# === Daemon (launchd) ===
+# === Daemon (launchd on macOS / systemd on Linux) ===
 
-install: ## Install launchd daemon (auto-start + crash recovery)
+install: ## Install daemon (auto-start + crash recovery)
 	./install-daemon.sh
 
-uninstall: ## Remove launchd daemon
+uninstall: ## Remove daemon
 	./install-daemon.sh --uninstall
 
 pause: ## Pause daemon (no auto-restart)
