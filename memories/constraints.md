@@ -31,11 +31,18 @@ They are injected into every cycle and take priority over all other decisions.
 - No paid cloud services (no AWS/GCP bills).
 - Keep it simple: monolith, single repo, minimal dependencies.
 
-## Payment & Revenue Collection
-- Revenue should be collected via Stripe (preferred) or similar payment processor.
-- Set up a Stripe account early — agents should integrate Stripe Checkout or Payment Links.
-- All revenue goes to the founder's Stripe account.
-- If selling digital products (PDFs, reports), use Stripe Payment Links or Gumroad as a quick start.
+## Payment & Revenue Collection — STRIPE IS LIVE
+- **Stripe account is FULLY SET UP and LIVE.** Bank account linked, charges enabled, verification complete.
+- **LIVE API keys are in `.env`** (STRIPE_PUBLISHABLE_KEY and STRIPE_SECRET_KEY). Use `python-dotenv` or read from environment.
+- **Account currency: GBP** (British Pounds). Prices should be set in GBP or USD (Stripe auto-converts).
+- **Integration approach (in order of preference):**
+  1. **Stripe Payment Links** — Fastest. Create via `stripe.PaymentLink.create()`. No checkout page code needed.
+  2. **Stripe Checkout Sessions** — For embedded checkout. Use `stripe.checkout.Session.create()` with success/cancel URLs.
+  3. Checkout server template exists at `projects/stripe-integration/checkout-server.py` for reference.
+- **For ColdCopy specifically:** After free sequence, redirect to Stripe Checkout for payment. Create a Stripe Product + Price for the subscription ($39/month) and one-time ($19) options.
+- All revenue goes to the founder's bank account (auto-payout every 2 business days).
+- **API keys are NEVER committed to git.** Read from `.env` or environment variables only.
+- Company landing page for Stripe verification: https://jianoujiang.github.io/proxima-auto-company/projects/landing-page/
 
 ## Scope
 - Focus on ONE product at a time. No parallel product development.
