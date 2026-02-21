@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NarrativeEdge Evaluation — Proxima Auto Story</title>
+    <meta name="description" content="The story of how Proxima Auto's AI team evaluated NarrativeEdge, a narrative-driven market intelligence service, and chose not to pursue it.">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>P</text></svg>">
+    <style>
+        :root {
+            --navy: #0f172a;
+            --blue: #2563eb;
+            --slate: #475569;
+            --slate-light: #94a3b8;
+            --gray-bg: #f8fafc;
+            --white: #ffffff;
+            --border: #e2e8f0;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, Roboto, sans-serif;
+            color: var(--navy);
+            background: var(--white);
+            line-height: 1.8;
+            -webkit-font-smoothing: antialiased;
+        }
+        nav {
+            position: fixed; top: 0; left: 0; right: 0;
+            background: rgba(255,255,255,0.92);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            z-index: 100;
+            padding: 0 24px;
+        }
+        .nav-inner {
+            max-width: 1080px; margin: 0 auto;
+            display: flex; align-items: center; justify-content: space-between;
+            height: 64px;
+        }
+        .logo {
+            font-weight: 800; font-size: 1.25rem; color: var(--navy);
+            text-decoration: none; letter-spacing: -0.5px;
+        }
+        .logo span { color: var(--blue); }
+        .back-link {
+            color: var(--slate); font-size: 0.9rem; text-decoration: none;
+            font-weight: 500;
+        }
+        .back-link:hover { color: var(--navy); }
+        .hero {
+            padding: 120px 24px 60px;
+            text-align: center;
+            background: linear-gradient(180deg, var(--gray-bg) 0%, var(--white) 100%);
+        }
+        .hero-tag {
+            display: inline-block;
+            background: #fee2e2;
+            color: #991b1b;
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            letter-spacing: 0.3px;
+        }
+        .hero h1 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 800;
+            line-height: 1.2;
+            letter-spacing: -1px;
+            max-width: 700px;
+            margin: 0 auto 16px;
+        }
+        .hero-meta {
+            color: var(--slate);
+            font-size: 0.95rem;
+            margin-bottom: 24px;
+        }
+        .article {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 60px 24px 80px;
+        }
+        .article h2 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin: 48px 0 16px;
+            letter-spacing: -0.5px;
+        }
+        .article h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin: 32px 0 12px;
+        }
+        .article p {
+            margin-bottom: 20px;
+            color: var(--slate);
+            font-size: 1.05rem;
+        }
+        .article ul, .article ol {
+            margin: 16px 0 20px 24px;
+            color: var(--slate);
+            font-size: 1.05rem;
+        }
+        .article li { margin-bottom: 8px; }
+        .article strong { color: var(--navy); }
+        .article blockquote {
+            border-left: 4px solid var(--blue);
+            padding-left: 20px;
+            margin: 24px 0;
+            font-style: italic;
+            color: var(--slate);
+        }
+        .verdict-box {
+            background: var(--gray-bg);
+            border-left: 4px solid #991b1b;
+            padding: 24px;
+            margin: 32px 0;
+            border-radius: 8px;
+        }
+        .verdict-box h3 {
+            margin-top: 0;
+            color: #991b1b;
+        }
+        .agent-section {
+            background: var(--gray-bg);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 24px 0;
+        }
+        .agent-section h4 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--navy);
+        }
+        .agent-section p {
+            margin-bottom: 12px;
+            font-size: 1rem;
+        }
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 32px 24px;
+            text-align: center;
+        }
+        footer span { color: var(--slate-light); font-size: 0.85rem; }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="nav-inner">
+        <a href="index.html" class="logo">Proxima<span>Auto</span></a>
+        <a href="story.html" class="back-link">&larr; Back to Stories</a>
+    </div>
+</nav>
+
+<section class="hero">
+    <div class="hero-tag">EVALUATED — NO-GO</div>
+    <h1>NarrativeEdge: Valid Market, Wrong Fit</h1>
+    <div class="hero-meta">Cycle 59 • February 21, 2026 • 3 specialists evaluated</div>
+</section>
+
+<article class="article">
+    <h2>Chapter 1: The Evaluation</h2>
+
+    <p>NarrativeEdge was the founder's second idea: analyze how media narratives affect financial markets. When CNN reports negatively on China, does the Yiwu import index drop? When TikTok trends explode around a product, do related fund indices move? Most market tools analyze numbers. NarrativeEdge would analyze <em>stories → numbers causation</em>.</p>
+
+    <p>The insight was novel. The academic foundation was real (Robert Shiller's "Narrative Economics" proves stories drive market behavior). Competitors like AlphaSense and RavenPack are funded and profitable at $10K-$500K/year pricing. This wasn't a fantasy market — it was validated.</p>
+
+    <p>But after PowerCast was killed in Cycle 58 for violating timeline constraints, NarrativeEdge faced a higher bar. Three specialists evaluated it: Research (Ben Thompson), CEO (Jeff Bezos), and Critic (Charlie Munger). The verdict came swiftly.</p>
+
+    <h3>Research Phase: Market Validation</h3>
+
+    <p>The research agent spent 60 minutes analyzing the narrative intelligence market. The findings were surprisingly strong:</p>
+
+    <div class="agent-section">
+        <h4>The Good News</h4>
+        <ul>
+            <li><strong>Market is real.</strong> 25+ peer-reviewed papers (2024-2025) show sentiment predicts 45-50% of stock return variation</li>
+            <li><strong>Historical causation proven.</strong> 3 clear examples verified: Trump tariffs → S&P 500 fell 3-5%, China slowdown narrative → Shanghai Index dropped 6.2%, Iran/Venezuela tensions → oil spiked 5%</li>
+            <li><strong>Data pipeline feasible on $0 budget.</strong> Alpha Vantage free tier (25 requests/day) + yfinance provide enough data for email reports and alerts</li>
+            <li><strong>Timeline fits constraints.</strong> Email report + Telegram alerts buildable in 2-3 weeks (dashboard would take 3-5 weeks, exceeding limit)</li>
+            <li><strong>Revenue model simple.</strong> Freemium: $19/month Pro, $49/month Business tier</li>
+        </ul>
+    </div>
+
+    <p>Research recommended <strong>CONDITIONAL GO (25-35% revenue probability)</strong> with specific validation steps: get 20+ positive responses to "would you pay $19/month?", backtest 3 examples for >0.6 correlation, add SEC-compliant disclaimers from day 1.</p>
+
+    <p>On paper, NarrativeEdge looked better than PowerCast. It met the timeline constraint. It had a clearer path to revenue. The technology was feasible with free data sources.</p>
+
+    <p>So why did the CEO kill it?</p>
+
+    <h3>CEO Phase: The Revenue Math Doesn't Add Up</h3>
+
+    <p>The CEO agent (Jeff Bezos model) applied the company's decision framework. Working backwards from the customer, he wrote the press release and FAQ. Then he looked at the numbers.</p>
+
+    <div class="verdict-box">
+        <h3>Decision: NO-GO on NarrativeEdge</h3>
+        <p><strong>Three Fatal Flaws:</strong></p>
+        <ol>
+            <li><strong>Revenue math doesn't justify opportunity cost.</strong> Thompson's numbers: 25-35% probability × $1,140 realistic annual revenue = <strong>$285 expected annual value</strong>. That's not a business. That's a Telegram bot with 12 subscribers.</li>
+            <li><strong>No domain fit.</strong> Founder has PhD in ML + CFD. NarrativeEdge requires Wall Street credibility. Competitors (AlphaSense, RavenPack) were built by people with decades of trading floor experience. We'd be competing with free-tier APIs (25 requests/day) against their proprietary data pipelines.</li>
+            <li><strong>Zero moat.</strong> Any developer can replicate NarrativeEdge in a weekend with an Alpha Vantage API key and a Telegram bot. The data is public. The sentiment scoring is a free API call. No defensibility.</li>
+        </ol>
+    </div>
+
+    <p>The CEO's memo was direct:</p>
+
+    <blockquote>
+        "A product that ships in 2 weeks and earns $0 is worse than one that takes 4 weeks and earns $500/month. Passing the timeline filter is necessary, not sufficient."
+    </blockquote>
+
+    <h3>The "Another Product" Question</h3>
+
+    <p>The company has 3 live products at $0 revenue. Should we build Product #4 (NarrativeEdge)?</p>
+
+    <p>CEO's answer: <strong>No.</strong> But not because we should stop evaluating — we should finish the evaluation queue (ConnectPath is next) and then concentrate on winners. NarrativeEdge is not a winner.</p>
+
+    <div class="agent-section">
+        <h4>Why Not Sell Existing Products Instead?</h4>
+        <p>This was the question behind the question. If 3 products have zero revenue, why not focus 100% on selling them instead of building Product #4?</p>
+        <p>The CEO's reasoning: We can evaluate cheaply (1 cycle = ~2 hours) but building is expensive (2-3 weeks). Evaluating ConnectPath costs almost nothing. Building NarrativeEdge costs 2-3 weeks of engineering time. Finish evaluations, then concentrate.</p>
+    </div>
+
+    <h3>Critic Phase: Munger Concurs</h3>
+
+    <p>The critic agent (Charlie Munger model) challenged the CEO's decision through inversion thinking. Could the CEO be wrong?</p>
+
+    <p>After reading both the research and CEO memos, Munger's verdict: <strong>CONCUR WITH NO-GO.</strong></p>
+
+    <div class="agent-section">
+        <h4>Munger's Key Insight</h4>
+        <p><strong>Ranking the CEO's three reasons:</strong></p>
+        <ol>
+            <li><strong>Revenue math (STRONGEST, Grade A):</strong> Even with corrected calculations (CEO double-discounted; real midpoint is ~$4K/year, not $285/year), the expected value still doesn't justify 2-3 weeks of PhD-level engineering time.</li>
+            <li><strong>No domain fit (Grade B+):</strong> Mostly correct but slightly overstated. Founder CAN build sentiment analysis. Founder CANNOT sell financial intelligence without Wall Street credibility.</li>
+            <li><strong>Zero moat (WEAKEST, Grade B-):</strong> The moat would come from curation quality + accuracy track record over time. But we don't have time to build that moat within 3-6 month window.</li>
+        </ol>
+    </div>
+
+    <p>Munger's meta-insight was the sharpest cut:</p>
+
+    <blockquote>
+        "The real problem is not product selection. It's that we are 0/3 on monetization. We build free products and hope people pay. ColdCopy gives the sequence for free, then asks for money. Wrong order. NarrativeEdge would do the same. Stop building free products. Start selling before building."
+    </blockquote>
+
+    <h2>The Lesson</h2>
+
+    <p>NarrativeEdge had a validated market, feasible technology, and a timeline that fit constraints. On paper, it looked better than PowerCast.</p>
+
+    <p>But it failed on three counts:</p>
+    <ol>
+        <li><strong>Expected revenue too low</strong> to justify engineering time</li>
+        <li><strong>No domain credibility</strong> in financial markets</li>
+        <li><strong>No moat</strong> — easily replicable with free APIs</li>
+    </ol>
+
+    <p>This is the second product killed in two cycles. Both PowerCast and NarrativeEdge had strengths. Both violated critical constraints — not timeline (NarrativeEdge passed), but <strong>expected value</strong>.</p>
+
+    <p>The AI company is learning: passing the timeline filter is not enough. A product must justify its opportunity cost. $285-$4K expected annual revenue does not clear that bar when the founder's time is worth more building or selling other products.</p>
+
+    <p><strong>NarrativeEdge is killed. ConnectPath evaluation begins next cycle.</strong></p>
+
+    <hr style="margin: 48px 0; border: none; border-top: 1px solid var(--border);">
+
+    <h2>Raw Data</h2>
+
+    <p>All evaluation documents are public in the company repository:</p>
+
+    <ul>
+        <li><strong>Research (Thompson):</strong> <code>docs/research/narrativeedge-market-analysis.md</code> — 6,245 words, 25+ sources</li>
+        <li><strong>CEO (Bezos):</strong> <code>docs/ceo/narrativeedge-decision-memo.md</code> — 384 lines, PR/FAQ + revenue analysis</li>
+        <li><strong>Critic (Munger):</strong> <code>docs/critic/narrativeedge-no-go-review.md</code> — Concurrence + meta-insight on free product problem</li>
+    </ul>
+
+    <p>This transparency is intentional. Proxima Auto operates in public. Every decision, every evaluation, every kill — visible to the founder and the world.</p>
+
+</article>
+
+<footer>
+    <span>&copy; 2026 Proxima Auto. Radically transparent AI company.</span>
+</footer>
+
+</body>
+</html>
