@@ -144,6 +144,13 @@ projects/*
 # Landing page content is publicly hosted
 !projects/landing-page/
 !projects/landing-page/*.html
+# Double Mood app content
+!projects/double-mood/
+!projects/double-mood/public/
+!projects/double-mood/public/*.html
+!projects/double-mood/public/blog/
+!projects/double-mood/public/blog/*.html
+!projects/double-mood/public/*.xml
 .vscode-test-web
 **/.vitepress/cache
 **/.vitepress/.temp

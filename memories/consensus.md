@@ -6,17 +6,28 @@
 ## Current Phase
 **PRODUCT EVALUATION — Product #3 Evaluation Required**
 
-## ✅ PHASE 2 BUILD COMPLETE (Cycle 20)
+## 🚨 PHASE 2 BUILD FAILED — MUST REBUILD
 
-**All 6 founder-requested features shipped to production in 1 cycle (~7 hours).**
+**CRITICAL: The Phase 2 build from Cycle 20 was NEVER actually saved or deployed.** The agents claimed they built it, but `projects/double-mood/` is gitignored so all code changes were lost between cycles. The live site at https://double-mood.pages.dev/ still shows Phase 1 only (no weather emotions, no Sedona Method, no intensity bar).
 
-### What Was Built:
-1. ✅ **16 sub-emotions with weather UI** — 4 weather categories (Sunny/Cloudy/Foggy/Stormy), each with 4 sub-emotions, bilingual EN + 中文
-2. ✅ **Intensity bar (0-10)** — Draggable slider with dynamic color gradients (green → yellow → red)
-3. ✅ **Trigger text field** — Optional free text with "Skip" button
-4. ✅ **Sedona Method** — 4-question guided release (repeatable cycles, calm transitions)
-5. ✅ **Dual regulation methods** — User chooses Sedona OR Breathing OR Both
-6. ✅ **Enhanced localStorage** — 11 data fields per session (ready for Phase 3 pattern detection)
+**Proof:** `projects/double-mood/public/index.html` has 0 mentions of weather/sedona/intensity/trigger. It's still Phase 1.
+
+### What MUST be rebuilt (see `docs/product/double-mood-phase2-vision.md` for full spec):
+1. ❌ **16 sub-emotions with weather UI** — 4 weather categories (Sunny/Cloudy/Foggy/Stormy), each with 4 sub-emotions, bilingual EN + 中文
+2. ❌ **Intensity bar (0-10)** — Draggable slider with dynamic color gradients (green → yellow → red)
+3. ❌ **Trigger text field** — Optional free text with "Skip" button
+4. ❌ **Sedona Method** — 4-question guided release (repeatable cycles, calm transitions)
+5. ❌ **Dual regulation methods** — User chooses Sedona OR Breathing OR Both
+6. ❌ **Enhanced localStorage** — 11 data fields per session (ready for Phase 3 pattern detection)
+
+### Root cause of failure:
+`.gitignore` had `projects/*` which excluded `projects/double-mood/`. **This has been fixed** — `projects/double-mood/` is now tracked in git.
+
+### AGENTS MUST:
+1. **fullstack-dhh:** Rebuild Phase 2 into `projects/double-mood/public/index.html` per the spec in `docs/product/double-mood-phase2-vision.md`
+2. **After building:** `git add projects/double-mood/ && git commit` — VERIFY the code is committed to git
+3. **devops-hightower:** Redeploy via `npx wrangler pages deploy public --project-name=double-mood --branch main` from `projects/double-mood/`
+4. **After deploying:** Verify Phase 2 features are live by curling the site and checking for "weather"/"sedona" keywords
 
 ### Production URL:
 https://double-mood.pages.dev/ (Phase 2 live, load time: 0.26s)
@@ -648,7 +659,7 @@ Three specialists delivered analyses. CEO made final calls on all 4 critical que
 ## Active Projects
 
 ### Product #2: Double Mood (Emotion First-Aid System)
-**Status:** ✅ **PHASE 2 LIVE — Monitoring 3-day experiment**
+**Status:** 🚨 **PHASE 2 LOST — Must rebuild and redeploy (see top of file)**
 
 - **Production:** https://double-mood.pages.dev/ (Phase 2 deployed Feb 22, Cycle 20)
 - **Story:** https://jianoujiang.github.io/proxima-auto-company/projects/landing-page/story-double-mood.html (4 chapters)
@@ -697,7 +708,12 @@ Three specialists delivered analyses. CEO made final calls on all 4 critical que
 
 ## Next Action
 
-**Cycle 25: EVALUATE Product #3 — Energy Sector AI Tool**
+**Cycle 25: TWO PRIORITIES**
+
+### Priority 1: REBUILD Double Mood Phase 2 (LOST — see top of file)
+The Phase 2 build was lost because gitignore blocked the files. `.gitignore` is now fixed. Agents MUST rebuild Phase 2 per `docs/product/double-mood-phase2-vision.md`, commit to git, and redeploy to Cloudflare Pages. Verify the live site has weather emotions + Sedona Method before marking done.
+
+### Priority 2: EVALUATE Product #3 — Energy Sector AI Tool
 
 **This is a NEW PRODUCT EVALUATION cycle. Follow the standard evaluation flow:**
 

@@ -1,0 +1,1130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Calm anxiety in 60 seconds with science-backed breathing exercises. Free guided breathing app that works instantly. No signup required.">
+  <meta name="theme-color" content="#4A90E2">
+  <meta name="google-site-verification" content="x8IioRNoRz78j7yTBORUahNaCNsZMT2JETgc91w7y0M" />
+  <title>Calm Anxiety in 60 Seconds | Double Mood — Free Breathing Exercise</title>
+
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Calm Anxiety in 60 Seconds | Double Mood">
+  <meta property="og:description" content="Science-backed breathing exercises that calm anxiety instantly. Free, no signup required.">
+  <meta property="og:url" content="https://double-mood.pages.dev/">
+  <meta property="og:image" content="https://double-mood.pages.dev/og-image.jpg">
+
+  <!-- Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Calm Anxiety in 60 Seconds | Double Mood">
+  <meta name="twitter:description" content="Science-backed breathing exercises that calm anxiety instantly. Free, no signup required.">
+  <meta name="twitter:image" content="https://double-mood.pages.dev/og-image.jpg">
+
+  <!-- Language Tags -->
+  <link rel="alternate" hreflang="en" href="https://double-mood.pages.dev/">
+  <link rel="alternate" hreflang="zh" href="https://double-mood.pages.dev/">
+
+  <!-- Schema.org Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Double Mood",
+    "description": "Free breathing exercise app to calm anxiety in 60 seconds",
+    "url": "https://double-mood.pages.dev/",
+    "applicationCategory": "HealthApplication",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "featureList": ["Guided breathing exercises", "Mood tracking", "Anxiety relief", "Science-backed techniques"],
+    "operatingSystem": "Web Browser"
+  }
+  </script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            // Phase 1 Foundation
+            'breath-bg': '#F0F4F8',
+            'breath-primary': '#4A90E2',
+            'breath-accent': '#50C9B8',
+            'breath-text': '#2C3E50',
+            'breath-muted': '#7B8B9A',
+            'mood-before': '#E57373',
+            'mood-after': '#81C784',
+            // Phase 2 Weather Palettes
+            'sunny-base': '#FFD700',
+            'sunny-highlight': '#FFA500',
+            'sunny-light': '#FFF9E6',
+            'sunny-text': '#8B6914',
+            'cloudy-base': '#B0B0B0',
+            'cloudy-dark': '#808080',
+            'cloudy-light': '#E8E8E8',
+            'cloudy-text': '#4A4A4A',
+            'foggy-base': '#A8DADC',
+            'foggy-dark': '#457B9D',
+            'foggy-light': '#E3F2F4',
+            'foggy-text': '#1D3557',
+            'stormy-base': '#5A189A',
+            'stormy-accent': '#C1121F',
+            'stormy-light': '#E8D7F1',
+            'stormy-text': '#3D0066',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* Screen Reader Only */
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border-width: 0;
+    }
+
+    /* Weather Card Animations */
+    @keyframes sunnyPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+    @keyframes cloudyDrift {
+      0%, 100% { transform: translateX(0); }
+      50% { transform: translateX(4px); }
+    }
+    @keyframes foggyFade {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.6; }
+    }
+    @keyframes stormyShake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-2px); }
+      75% { transform: translateX(2px); }
+    }
+
+    .weather-card:hover .emoji.sunny { animation: sunnyPulse 1s ease-in-out infinite; }
+    .weather-card:hover .emoji.cloudy { animation: cloudyDrift 2s ease-in-out infinite; }
+    .weather-card:hover .emoji.foggy { animation: foggyFade 2s ease-in-out infinite; }
+    .weather-card:hover .emoji.stormy { animation: stormyShake 0.5s ease-in-out; }
+
+    /* Sedona Wave Float */
+    @keyframes waveFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+    .sedona-wave { animation: waveFloat 2s cubic-bezier(0.4, 0.0, 0.2, 1) infinite; }
+
+    @keyframes waveExpand {
+      0% { transform: scale(1); opacity: 1; }
+      100% { transform: scale(3); opacity: 0; }
+    }
+
+    /* Slide Transitions */
+    @keyframes slideOutLeft {
+      from { transform: translateX(0); opacity: 1; }
+      to { transform: translateX(-100%); opacity: 0; }
+    }
+    @keyframes slideInRight {
+      from { transform: translateX(100%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+    .screen-exit { animation: slideOutLeft 300ms cubic-bezier(0.4, 0.0, 0.2, 1) forwards; }
+    .screen-enter { animation: slideInRight 300ms cubic-bezier(0.4, 0.0, 0.2, 1) forwards; }
+
+    /* Breathing Circle */
+    .breath-circle {
+      filter: drop-shadow(0 4px 12px rgba(74, 144, 226, 0.15));
+    }
+
+    /* Intensity Slider */
+    input[type="range"] {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 12px;
+      border-radius: 6px;
+      outline: none;
+      cursor: pointer;
+      transition: background 200ms cubic-bezier(0.4, 0.0, 0.2, 1);
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: white;
+      border: 4px solid #4A90E2;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      transition: all 200ms cubic-bezier(0.4, 0.0, 0.2, 1);
+    }
+
+    input[type="range"]::-webkit-slider-thumb:hover {
+      border-color: #3a7bc8;
+      transform: scale(1.1);
+    }
+
+    input[type="range"]::-webkit-slider-thumb:active {
+      transform: scale(0.95);
+    }
+
+    input[type="range"]::-moz-range-thumb {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: white;
+      border: 4px solid #4A90E2;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      transition: all 200ms cubic-bezier(0.4, 0.0, 0.2, 1);
+    }
+
+    input[type="range"]::-moz-range-thumb:hover {
+      border-color: #3a7bc8;
+      transform: scale(1.1);
+    }
+
+    input[type="range"]::-moz-range-thumb:active {
+      transform: scale(0.95);
+    }
+
+    input[type="range"]:focus-visible {
+      outline: 2px solid #4A90E2;
+      outline-offset: 4px;
+    }
+
+    /* Reduced Motion */
+    @media (prefers-reduced-motion: reduce) {
+      .weather-card:hover .emoji,
+      .sedona-wave,
+      .screen-exit,
+      .screen-enter {
+        animation: none !important;
+      }
+      .breath-pulse animate {
+        animation: none !important;
+      }
+      input[type="range"]::-webkit-slider-thumb:hover,
+      input[type="range"]::-moz-range-thumb:hover {
+        transform: none;
+      }
+    }
+  </style>
+</head>
+<body class="bg-breath-bg text-breath-text min-h-screen">
+
+  <!-- Hero Section (SEO) -->
+  <section id="hero" class="max-w-2xl mx-auto px-4 py-12 text-center">
+    <h1 class="text-3xl md:text-4xl font-bold text-breath-text mb-4">
+      Calm Anxiety in 60 Seconds<br>
+      <span class="text-2xl md:text-3xl text-breath-muted font-normal">用60秒平复焦虑</span>
+    </h1>
+    <p class="text-lg md:text-xl text-breath-text mb-6 leading-relaxed">
+      When anxiety hits, you don't need another meditation app. You need <strong>emotional first-aid that works instantly</strong>.
+    </p>
+    <p class="text-base text-breath-muted mb-8 leading-relaxed max-w-xl mx-auto">
+      Double Mood uses science-backed breathing techniques to activate your parasympathetic nervous system — the body's natural "calm down" switch. No account, no downloads, just breathe.
+      <br><br>
+      当焦虑来袭时,你不需要另一个冥想应用。你需要的是立即生效的情绪急救。Double Mood 使用科学验证的呼吸技术激活你的副交感神经系统——身体的天然"平静"开关。无需账户,无需下载,只需呼吸。
+    </p>
+    <a href="#app" class="inline-block px-8 py-4 bg-breath-primary hover:bg-breath-primary/90 text-white text-lg font-medium rounded-lg transition shadow-lg">
+      Try It Free — It's Instant
+      <br>
+      <span class="text-sm">免费试用 — 即刻见效</span>
+    </a>
+    <p class="text-sm text-breath-muted mt-4">
+      ✓ Free forever &nbsp; ✓ No signup &nbsp; ✓ Works offline
+      <br>
+      永久免费 • 无需注册 • 离线可用
+    </p>
+
+    <!-- Quick Stats -->
+    <div class="grid grid-cols-3 gap-4 mt-12 max-w-xl mx-auto">
+      <div class="bg-white rounded-lg p-4 shadow-sm">
+        <div class="text-2xl font-bold text-breath-primary">60s</div>
+        <div class="text-xs text-breath-muted mt-1">Average time to calm</div>
+        <div class="text-xs text-breath-muted">平均平复时间</div>
+      </div>
+      <div class="bg-white rounded-lg p-4 shadow-sm">
+        <div class="text-2xl font-bold text-breath-primary">16</div>
+        <div class="text-xs text-breath-muted mt-1">Emotion types</div>
+        <div class="text-xs text-breath-muted">情绪类型</div>
+      </div>
+      <div class="bg-white rounded-lg p-4 shadow-sm">
+        <div class="text-2xl font-bold text-breath-primary">0$</div>
+        <div class="text-xs text-breath-muted mt-1">Cost forever</div>
+        <div class="text-xs text-breath-muted">永久免费</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- App Container -->
+  <div class="w-full max-w-2xl mx-auto px-4 pb-12">
+    <div id="app" class="space-y-8">
+
+      <!-- Screen 1: Weather Category Selection -->
+      <div id="screen-weather" class="space-y-6">
+        <header class="text-center space-y-2">
+          <h2 class="text-2xl font-semibold text-breath-text">
+            How does it feel right now?
+          </h2>
+          <p class="text-base text-breath-muted">
+            现在感觉像什么天气？
+          </p>
+        </header>
+
+        <div class="grid grid-cols-2 gap-4 max-w-xs mx-auto">
+          <!-- Sunny -->
+          <button class="weather-card p-4 rounded-2xl shadow-md transition-all duration-200 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-breath-primary focus:ring-offset-2"
+                  style="background: linear-gradient(135deg, #FFF9E6 0%, #FFD700 100%);"
+                  data-weather="sunny"
+                  aria-label="Select Sunny weather for positive emotions">
+            <div class="emoji sunny text-5xl mb-2">☀️</div>
+            <div class="text-base font-medium" style="color: #8B6914;">Sunny</div>
+            <div class="text-sm opacity-80" style="color: #8B6914;">晴朗</div>
+          </button>
+
+          <!-- Cloudy -->
+          <button class="weather-card p-4 rounded-2xl shadow-md transition-all duration-200 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-breath-primary focus:ring-offset-2"
+                  style="background: linear-gradient(135deg, #E8E8E8 0%, #B0B0B0 100%);"
+                  data-weather="cloudy"
+                  aria-label="Select Cloudy weather for neutral or fatigued emotions">
+            <div class="emoji cloudy text-5xl mb-2">☁️</div>
+            <div class="text-base font-medium" style="color: #4A4A4A;">Cloudy</div>
+            <div class="text-sm opacity-80" style="color: #4A4A4A;">多云</div>
+          </button>
+
+          <!-- Foggy -->
+          <button class="weather-card p-4 rounded-2xl shadow-md transition-all duration-200 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-breath-primary focus:ring-offset-2"
+                  style="background: linear-gradient(135deg, #E3F2F4 0%, #A8DADC 100%);"
+                  data-weather="foggy"
+                  aria-label="Select Foggy weather for anxiety or confusion">
+            <div class="emoji foggy text-5xl mb-2">🌫️</div>
+            <div class="text-base font-medium" style="color: #1D3557;">Foggy</div>
+            <div class="text-sm opacity-80" style="color: #1D3557;">迷雾</div>
+          </button>
+
+          <!-- Stormy -->
+          <button class="weather-card p-4 rounded-2xl shadow-md transition-all duration-200 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-breath-primary focus:ring-offset-2"
+                  style="background: linear-gradient(135deg, #E8D7F1 0%, #5A189A 100%);"
+                  data-weather="stormy"
+                  aria-label="Select Stormy weather for intense negative emotions">
+            <div class="emoji stormy text-5xl mb-2">⛈️</div>
+            <div class="text-base font-medium" style="color: #3D0066;">Stormy</div>
+            <div class="text-sm opacity-80" style="color: #3D0066;">风暴</div>
+          </button>
+        </div>
+      </div>
+
+      <!-- Screen 2: Sub-Emotion Selection (populated dynamically) -->
+      <div id="screen-sub-emotion" class="hidden space-y-6"></div>
+
+      <!-- Screen 3: Intensity Bar -->
+      <div id="screen-intensity" class="hidden space-y-6"></div>
+
+      <!-- Screen 4: Trigger Text Field -->
+      <div id="screen-trigger" class="hidden space-y-6">
+        <header class="text-center space-y-2">
+          <h2 class="text-2xl font-semibold text-breath-text">
+            What triggered this feeling?
+          </h2>
+          <p class="text-base text-breath-muted">
+            是什么引起的？(可选)
+          </p>
+        </header>
+
+        <textarea id="trigger-text"
+                  class="w-full max-w-md mx-auto block p-4 border-2 border-breath-primary/30 rounded-lg focus:outline-none focus:border-breath-primary resize-none"
+                  rows="3"
+                  placeholder="e.g., 'Didn't hear back from her after texting'"
+                  aria-label="Optional text field to describe what triggered your emotion"></textarea>
+
+        <p class="text-sm text-breath-muted text-center max-w-md mx-auto">
+          This helps you spot patterns later.<br>
+          这有助于发现情绪模式。
+        </p>
+
+        <div class="flex gap-4 justify-center flex-wrap">
+          <button id="btn-skip-trigger"
+                  class="px-6 py-3 bg-transparent border-2 border-breath-primary text-breath-primary rounded-lg font-medium hover:bg-breath-primary/10 transition">
+            Skip →
+          </button>
+          <button id="btn-save-trigger"
+                  class="px-6 py-3 bg-breath-primary text-white rounded-lg font-medium hover:bg-breath-primary/90 transition">
+            Save & Continue →
+          </button>
+        </div>
+      </div>
+
+      <!-- Screen 5: Regulation Method Choice -->
+      <div id="screen-method" class="hidden space-y-6">
+        <header class="text-center space-y-2">
+          <h2 class="text-2xl font-semibold text-breath-text">
+            How would you like to release it?
+          </h2>
+          <p class="text-base text-breath-muted">
+            如何释放这个情绪？
+          </p>
+        </header>
+
+        <div class="space-y-4 max-w-md mx-auto">
+          <!-- Sedona Method -->
+          <button class="method-card w-full p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition border-2 border-transparent hover:border-breath-primary text-left"
+                  data-method="sedona">
+            <div class="flex items-start gap-4">
+              <div class="text-4xl">🌊</div>
+              <div class="flex-1">
+                <div class="text-lg font-semibold text-breath-text">Sedona Method</div>
+                <div class="text-sm text-breath-muted mb-2">圣多纳释放法</div>
+                <div class="text-sm text-breath-muted">Feel it → Let it go<br>4 gentle questions • ⏱ 2-3 minutes</div>
+              </div>
+            </div>
+          </button>
+
+          <!-- Breathing Exercise -->
+          <button class="method-card w-full p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition border-2 border-transparent hover:border-breath-primary text-left"
+                  data-method="breathing">
+            <div class="flex items-start gap-4">
+              <div class="text-4xl">🫁</div>
+              <div class="flex-1">
+                <div class="text-lg font-semibold text-breath-text">Breathing Exercise</div>
+                <div class="text-sm text-breath-muted mb-2">呼吸练习</div>
+                <div class="text-sm text-breath-muted">Follow the circle<br>3 cycles of calm breathing • ⏱ 60 seconds</div>
+              </div>
+            </div>
+          </button>
+
+          <!-- Both -->
+          <button class="method-card w-full p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition border-2 border-transparent hover:border-breath-primary text-left"
+                  data-method="both">
+            <div class="flex items-start gap-4">
+              <div class="text-4xl">🌀</div>
+              <div class="flex-1">
+                <div class="text-lg font-semibold text-breath-text">Both (Sedona + Breathing)</div>
+                <div class="text-sm text-breath-muted mb-2">两者都试试</div>
+                <div class="text-sm text-breath-muted">Complete experience • ⏱ 4-5 minutes</div>
+              </div>
+            </div>
+          </button>
+        </div>
+      </div>
+
+      <!-- Screen 6: Sedona Method (4 Questions) -->
+      <div id="screen-sedona" class="hidden min-h-screen flex flex-col items-center justify-center py-12"></div>
+
+      <!-- Screen 7: Breathing Exercise -->
+      <div id="screen-breathing" class="hidden space-y-6">
+        <div class="text-center">
+          <p class="text-base font-medium text-breath-text mb-4">
+            Follow the circle
+            <br>
+            <span class="text-sm text-breath-muted">跟着圆圈呼吸</span>
+          </p>
+          <div class="text-sm text-breath-muted mb-4">
+            <span class="cycle-dot inline-block w-2.5 h-2.5 rounded-full bg-breath-primary mx-1" id="cycle-1"></span>
+            <span class="cycle-dot inline-block w-2.5 h-2.5 rounded-full bg-breath-muted/30 mx-1" id="cycle-2"></span>
+            <span class="cycle-dot inline-block w-2.5 h-2.5 rounded-full bg-breath-muted/30 mx-1" id="cycle-3"></span>
+          </div>
+        </div>
+
+        <section class="space-y-4">
+          <div class="flex justify-center">
+            <svg viewBox="0 0 200 200" class="breath-circle w-64 h-64">
+              <circle cx="100" cy="100" r="90" fill="none" stroke="#E8EFF5" stroke-width="2" opacity="0.3"/>
+              <circle cx="100" cy="100" r="40" class="breath-pulse" fill="url(#breathGradient)" stroke="#4A90E2" stroke-width="2">
+                <animate attributeName="r" values="40;80;40" dur="10s" keyTimes="0;0.4;1" keySplines="0.4 0 0.2 1; 0.4 0 0.2 1" calcMode="spline" repeatCount="indefinite"/>
+                <animate attributeName="opacity" values="0.7;1;0.7" dur="10s" keyTimes="0;0.4;1" repeatCount="indefinite"/>
+              </circle>
+              <defs>
+                <radialGradient id="breathGradient">
+                  <stop offset="0%" style="stop-color:#50C9B8;stop-opacity:0.8"/>
+                  <stop offset="100%" style="stop-color:#4A90E2;stop-opacity:0.6"/>
+                </radialGradient>
+              </defs>
+            </svg>
+          </div>
+
+          <div class="text-center space-y-1">
+            <p class="text-lg font-medium text-breath-text breath-text" data-phase="inhale">
+              Breathe in... <span class="text-breath-muted text-sm">吸气...</span>
+            </p>
+            <p class="text-lg font-medium text-breath-text breath-text opacity-0" data-phase="exhale">
+              Breathe out... <span class="text-breath-muted text-sm">呼气...</span>
+            </p>
+          </div>
+        </section>
+      </div>
+
+      <!-- Screen 8: After Rating -->
+      <div id="screen-after" class="hidden space-y-6"></div>
+
+      <!-- Screen 9: Success -->
+      <div id="screen-success" class="hidden space-y-6">
+        <div class="text-center space-y-4">
+          <div class="text-6xl mb-4">✨</div>
+          <h2 class="text-3xl font-semibold text-breath-text">You did great!</h2>
+          <p class="text-base text-breath-muted">你很棒！</p>
+
+          <div id="improvement-display" class="bg-white rounded-lg p-6 shadow-sm border-2 border-mood-after/30 space-y-2"></div>
+
+          <div class="text-sm text-breath-muted space-y-1">
+            <p>Take a moment. You deserve it.</p>
+            <p>给自己一点时间，你值得。</p>
+          </div>
+
+          <button id="btn-again" class="w-full max-w-md mx-auto block py-3 px-4 bg-breath-primary hover:bg-breath-primary/90 text-white rounded-lg font-medium transition">
+            Again<br><span class="text-sm">再来一次</span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Screen Reader Accessibility -->
+  <div aria-live="polite" aria-atomic="true" class="sr-only" id="sr-announcement"></div>
+
+  <script>
+    // ============================================================================
+    // EMOTION DATA (16 sub-emotions grouped by weather)
+    // ============================================================================
+    const EMOTIONS = {
+      sunny: [
+        { id: 'bright-sun', emoji: '🌞', nameEn: 'Bright Sun', nameZh: '晴日当空', descriptor: 'Joy, excitement, achievement', adjEn: 'joyful', adjZh: '快乐' },
+        { id: 'warm-breeze', emoji: '🌸', nameEn: 'Warm Breeze', nameZh: '晴暖微风', descriptor: 'Tenderness, contentment, feeling loved', adjEn: 'content', adjZh: '满足' },
+        { id: 'partly-cloudy', emoji: '🌤️', nameEn: 'Partly Cloudy', nameZh: '晴转多云', descriptor: 'A bit happy but also tired', adjEn: 'mixed', adjZh: '复杂' },
+        { id: 'rainbow', emoji: '🌈', nameEn: 'Rainbow', nameZh: '雨后初晴', descriptor: 'Relief, liberation, renewed hope', adjEn: 'relieved', adjZh: '释然' }
+      ],
+      cloudy: [
+        { id: 'thin-clouds', emoji: '☁️', nameEn: 'Thin Clouds', nameZh: '薄云', descriptor: 'Bored, bland, numb', adjEn: 'bored', adjZh: '无聊' },
+        { id: 'heavy-clouds', emoji: '🌥️', nameEn: 'Heavy Clouds', nameZh: '厚云', descriptor: 'Exhausted, burnt out, no energy', adjEn: 'exhausted', adjZh: '疲惫' },
+        { id: 'cloudy-to-rain', emoji: '🌦️', nameEn: 'Cloudy to Rain', nameZh: '多云转雨', descriptor: 'A bit down, want to cry but can\'t', adjEn: 'down', adjZh: '低落' },
+        { id: 'scattered-clouds', emoji: '🌪️', nameEn: 'Scattered Clouds', nameZh: '乱云', descriptor: 'Racing thoughts, can\'t focus', adjEn: 'scattered', adjZh: '焦躁' }
+      ],
+      foggy: [
+        { id: 'light-fog', emoji: '🌫️', nameEn: 'Light Fog', nameZh: '轻雾', descriptor: 'Mild anxiety, subtle unease', adjEn: 'uneasy', adjZh: '不安' },
+        { id: 'dense-fog', emoji: '🌫️', nameEn: 'Dense Fog', nameZh: '浓雾', descriptor: 'Strong anxiety, chest tightness, can\'t breathe', adjEn: 'anxious', adjZh: '焦虑' },
+        { id: 'morning-fog', emoji: '🌫️', nameEn: 'Morning Fog', nameZh: '晨雾', descriptor: 'Lost, don\'t know what to do next', adjEn: 'lost', adjZh: '迷茫' },
+        { id: 'night-fog', emoji: '🌫️', nameEn: 'Night Fog', nameZh: '夜雾', descriptor: 'Lonely, empty, self-doubt', adjEn: 'lonely', adjZh: '孤独' }
+      ],
+      stormy: [
+        { id: 'lightning', emoji: '🌩️', nameEn: 'Lightning', nameZh: '闪电', descriptor: 'Rage, explosive anger', adjEn: 'angry', adjZh: '愤怒' },
+        { id: 'downpour', emoji: '🌧️', nameEn: 'Downpour', nameZh: '暴雨', descriptor: 'Breakdown crying, emotional flood', adjEn: 'overwhelmed', adjZh: '崩溃' },
+        { id: 'tornado', emoji: '🌪️', nameEn: 'Tornado', nameZh: '龙卷风', descriptor: 'Loss of control, hysteria', adjEn: 'out of control', adjZh: '失控' },
+        { id: 'volcano', emoji: '🌋', nameEn: 'Volcano', nameZh: '火山', descriptor: 'Suppressed to the limit, about to erupt', adjEn: 'about to erupt', adjZh: '快要爆发' }
+      ]
+    };
+
+    const WEATHER_ICONS = {
+      sunny: '☀️',
+      cloudy: '☁️',
+      foggy: '🌫️',
+      stormy: '⛈️'
+    };
+
+    // ============================================================================
+    // STATE MANAGEMENT
+    // ============================================================================
+    const state = {
+      sessionId: Date.now().toString(),
+      timestamp: new Date().toISOString(),
+      weatherCategory: null,
+      subEmotion: null,
+      intensityBefore: 5,
+      trigger: '',
+      regulationMethod: null,
+      sedonaCycles: 0,
+      sedonaCurrentQuestion: 1,
+      breathingCycleCount: 0,
+      intensityAfter: 5,
+      improvementDelta: 0,
+      durationSeconds: 0,
+      startTime: null
+    };
+
+    function saveSessions() {
+      const stored = JSON.parse(localStorage.getItem('double-mood-sessions') || '[]');
+      stored.push({
+        id: state.sessionId,
+        timestamp: state.timestamp,
+        weatherCategory: state.weatherCategory,
+        subEmotion: state.subEmotion,
+        intensityBefore: state.intensityBefore,
+        trigger: state.trigger,
+        regulationMethod: state.regulationMethod,
+        sedonaCycles: state.sedonaCycles,
+        intensityAfter: state.intensityAfter,
+        improvementDelta: state.improvementDelta,
+        durationSeconds: state.durationSeconds
+      });
+      localStorage.setItem('double-mood-sessions', JSON.stringify(stored));
+    }
+
+    // ============================================================================
+    // UI UTILITIES
+    // ============================================================================
+    function hideAllScreens() {
+      document.querySelectorAll('[id^="screen-"]').forEach(el => el.classList.add('hidden'));
+    }
+
+    function showScreen(screenId) {
+      hideAllScreens();
+      const screen = document.getElementById(screenId);
+      screen.classList.remove('hidden');
+      screen.classList.add('screen-enter');
+      setTimeout(() => screen.classList.remove('screen-enter'), 300);
+    }
+
+    function announceToScreenReader(message) {
+      document.getElementById('sr-announcement').textContent = message;
+    }
+
+    function getIntensityGradient(value) {
+      if (value <= 3) return 'linear-gradient(90deg, #81C784 0%, #50C9B8 100%)';
+      if (value <= 7) return 'linear-gradient(90deg, #FFD54F 0%, #FFB74D 100%)';
+      return 'linear-gradient(90deg, #FF8A65 0%, #E57373 100%)';
+    }
+
+    function getIntensityLabel(value) {
+      if (value <= 3) return { en: 'a bit', zh: '有点' };
+      if (value <= 7) return { en: 'quite', zh: '相当' };
+      return { en: 'very', zh: '非常' };
+    }
+
+    // ============================================================================
+    // SCREEN 1: WEATHER SELECTION
+    // ============================================================================
+    document.querySelectorAll('.weather-card').forEach(card => {
+      card.addEventListener('click', () => {
+        state.weatherCategory = card.dataset.weather;
+        state.startTime = Date.now();
+        announceToScreenReader(`Selected ${state.weatherCategory} weather`);
+        renderSubEmotions();
+        showScreen('screen-sub-emotion');
+      });
+    });
+
+    // ============================================================================
+    // SCREEN 2: SUB-EMOTION SELECTION
+    // ============================================================================
+    function renderSubEmotions() {
+      const container = document.getElementById('screen-sub-emotion');
+      const emotions = EMOTIONS[state.weatherCategory];
+      const weatherIcon = WEATHER_ICONS[state.weatherCategory];
+
+      container.innerHTML = `
+        <header class="flex items-center gap-4 mb-6">
+          <div class="text-5xl">${weatherIcon}</div>
+          <div>
+            <h2 class="text-2xl font-semibold text-breath-text capitalize">${state.weatherCategory} — Which kind?</h2>
+            <p class="text-base text-breath-muted">${state.weatherCategory === 'sunny' ? '晴朗' : state.weatherCategory === 'cloudy' ? '多云' : state.weatherCategory === 'foggy' ? '迷雾' : '风暴'} — 哪一种？</p>
+          </div>
+        </header>
+
+        <div class="space-y-3 max-w-lg mx-auto">
+          ${emotions.map(e => `
+            <button class="sub-emotion-card w-full p-4 bg-white rounded-lg shadow-md hover:shadow-lg transition border-2 border-transparent hover:border-breath-primary text-left"
+                    data-emotion="${e.id}">
+              <div class="flex items-start gap-3">
+                <div class="text-3xl">${e.emoji}</div>
+                <div>
+                  <div class="text-lg font-semibold text-breath-text">${e.nameEn}</div>
+                  <div class="text-sm text-breath-muted">${e.nameZh}</div>
+                  <div class="text-sm text-breath-muted italic mt-1">${e.descriptor}</div>
+                </div>
+              </div>
+            </button>
+          `).join('')}
+        </div>
+
+        <button id="btn-back-weather" class="flex items-center gap-2 mx-auto mt-6 text-breath-muted hover:text-breath-primary transition">
+          <span class="text-lg">←</span>
+          <span class="text-sm">Back to weather</span>
+        </button>
+      `;
+
+      document.querySelectorAll('.sub-emotion-card').forEach(card => {
+        card.addEventListener('click', () => {
+          state.subEmotion = card.dataset.emotion;
+          announceToScreenReader(`Selected ${card.querySelector('.text-lg').textContent}`);
+          renderIntensityScreen();
+          showScreen('screen-intensity');
+        });
+      });
+
+      document.getElementById('btn-back-weather').addEventListener('click', () => {
+        showScreen('screen-weather');
+      });
+    }
+
+    // ============================================================================
+    // SCREEN 3: INTENSITY BAR
+    // ============================================================================
+    function renderIntensityScreen() {
+      const emotion = Object.values(EMOTIONS).flat().find(e => e.id === state.subEmotion);
+      const container = document.getElementById('screen-intensity');
+
+      container.innerHTML = `
+        <header class="flex items-center gap-4 mb-6">
+          <div class="text-5xl">${emotion.emoji}</div>
+          <div>
+            <h2 class="text-2xl font-semibold text-breath-text">${emotion.nameEn} — How strong?</h2>
+            <p class="text-base text-breath-muted">${emotion.nameZh} — 强度如何？</p>
+          </div>
+        </header>
+
+        <div class="space-y-6 max-w-lg mx-auto">
+          <div class="relative py-8">
+            <div class="text-4xl font-bold text-breath-text text-center mb-4" id="intensity-value">5 / 10</div>
+            <input type="range" id="intensity-slider" min="0" max="10" value="5" step="1"
+                   class="w-full"
+                   style="background: linear-gradient(90deg, #FFD54F 0%, #FFB74D 100%);"
+                   aria-label="Emotional intensity level from 0 to 10"
+                   aria-valuemin="0" aria-valuemax="10" aria-valuenow="5">
+          </div>
+
+          <div class="flex justify-between text-sm px-2">
+            <div class="text-center">
+              <div class="font-medium text-breath-text">Mild</div>
+              <div class="text-breath-muted text-xs">轻微</div>
+            </div>
+            <div class="text-center">
+              <div class="font-medium text-breath-text">Moderate</div>
+              <div class="text-breath-muted text-xs">中等</div>
+            </div>
+            <div class="text-center">
+              <div class="font-medium text-breath-text">Intense</div>
+              <div class="text-breath-muted text-xs">强烈</div>
+            </div>
+          </div>
+
+          <div class="bg-breath-primary/5 rounded-lg p-4 text-center">
+            <p class="text-lg text-breath-text" id="intensity-feedback-en">You're feeling quite ${emotion.adjEn}.</p>
+            <p class="text-base text-breath-muted" id="intensity-feedback-zh">你感到相当${emotion.adjZh}。</p>
+          </div>
+
+          <button id="btn-continue-intensity" class="w-full py-3 bg-breath-primary text-white rounded-lg font-medium hover:bg-breath-primary/90 transition">
+            Continue<br><span class="text-sm">继续</span>
+          </button>
+        </div>
+      `;
+
+      const slider = document.getElementById('intensity-slider');
+      const valueDisplay = document.getElementById('intensity-value');
+      const feedbackEn = document.getElementById('intensity-feedback-en');
+      const feedbackZh = document.getElementById('intensity-feedback-zh');
+
+      function updateSliderDisplay(value) {
+        state.intensityBefore = value;
+        valueDisplay.textContent = `${value} / 10`;
+        slider.style.background = getIntensityGradient(value);
+        slider.value = value;
+
+        const label = getIntensityLabel(value);
+        feedbackEn.textContent = `You're feeling ${label.en} ${emotion.adjEn}.`;
+        feedbackZh.textContent = `你感到${label.zh}${emotion.adjZh}。`;
+
+        if (navigator.vibrate && [0, 5, 10].includes(value)) {
+          navigator.vibrate(10);
+        }
+      }
+
+      slider.addEventListener('input', (e) => {
+        const value = parseInt(e.target.value);
+        updateSliderDisplay(value);
+      });
+
+      // Keyboard support: Page Up/Down for ±5, arrow keys for ±1 (native)
+      slider.addEventListener('keydown', (e) => {
+        let newValue = parseInt(slider.value);
+
+        if (e.key === 'PageUp') {
+          e.preventDefault();
+          newValue = Math.min(10, newValue + 5);
+          updateSliderDisplay(newValue);
+        } else if (e.key === 'PageDown') {
+          e.preventDefault();
+          newValue = Math.max(0, newValue - 5);
+          updateSliderDisplay(newValue);
+        }
+      });
+
+      document.getElementById('btn-continue-intensity').addEventListener('click', () => {
+        showScreen('screen-trigger');
+      });
+    }
+
+    // ============================================================================
+    // SCREEN 4: TRIGGER TEXT (already in HTML)
+    // ============================================================================
+    document.getElementById('btn-skip-trigger').addEventListener('click', () => {
+      state.trigger = '';
+      showScreen('screen-method');
+    });
+
+    document.getElementById('btn-save-trigger').addEventListener('click', () => {
+      state.trigger = document.getElementById('trigger-text').value;
+      showScreen('screen-method');
+    });
+
+    // Auto-save trigger text
+    document.getElementById('trigger-text').addEventListener('input', (e) => {
+      state.trigger = e.target.value;
+    });
+
+    // ============================================================================
+    // SCREEN 5: METHOD SELECTION (already in HTML)
+    // ============================================================================
+    document.querySelectorAll('.method-card').forEach(card => {
+      card.addEventListener('click', () => {
+        state.regulationMethod = card.dataset.method;
+
+        if (state.regulationMethod === 'sedona' || state.regulationMethod === 'both') {
+          renderSedonaQuestion(1);
+          showScreen('screen-sedona');
+        } else {
+          startBreathingExercise();
+          showScreen('screen-breathing');
+        }
+      });
+    });
+
+    // ============================================================================
+    // SCREEN 6: SEDONA METHOD (4 Questions)
+    // ============================================================================
+    const SEDONA_QUESTIONS = [
+      {
+        en: 'Can you feel this emotion right now?',
+        zh: '我能感受到它的存在吗？',
+        instructionEn: 'Just notice it. You don\'t have to change it.',
+        instructionZh: '只需觉察它。不必改变它。',
+        buttons: [{ text: 'Yes, I feel it →', action: 'next' }]
+      },
+      {
+        en: 'Can you let it go?',
+        zh: '我能放下它吗？',
+        instructionEn: 'Not "should you," but "can you?" There\'s no wrong answer.',
+        instructionZh: '不是"应该吗"，而是"能吗"？没有错误的答案。',
+        buttons: [{ text: 'Yes →', action: 'next' }, { text: 'Not yet →', action: 'next' }]
+      },
+      {
+        en: 'Are you willing to let it go?',
+        zh: '我愿意放下它吗？',
+        instructionEn: 'This is about willingness, not ability.',
+        instructionZh: '这是关于意愿，不是能力。',
+        buttons: [{ text: 'Yes →', action: 'next' }, { text: 'Not yet →', action: 'next' }]
+      },
+      {
+        en: 'When?',
+        zh: '什么时候？',
+        instructionEn: 'When will you let it go?',
+        instructionZh: '你什么时候放下它？',
+        buttons: [{ text: 'Now →', action: 'complete' }, { text: 'Repeat cycle →', action: 'repeat' }]
+      }
+    ];
+
+    function renderSedonaQuestion(questionNum) {
+      const q = SEDONA_QUESTIONS[questionNum - 1];
+      const container = document.getElementById('screen-sedona');
+
+      container.innerHTML = `
+        <div class="sedona-wave text-6xl mb-8">🌊</div>
+        <div class="max-w-lg mx-auto text-center space-y-8">
+          <div>
+            <h1 class="text-3xl font-medium text-breath-text mb-2">${q.en}</h1>
+            <h2 class="text-2xl text-breath-muted">${q.zh}</h2>
+          </div>
+
+          <div class="text-breath-muted">
+            <p class="mb-1">${q.instructionEn}</p>
+            <p class="text-sm">${q.instructionZh}</p>
+          </div>
+
+          <div class="flex gap-4 justify-center flex-wrap sedona-buttons">
+            ${q.buttons.map(btn => `
+              <button class="sedona-btn px-8 py-3 ${btn.action === 'complete' ? 'bg-breath-primary text-white' : 'bg-transparent border-2 border-breath-primary text-breath-primary'} rounded-lg font-medium hover:opacity-90 transition"
+                      data-action="${btn.action}">
+                ${btn.text}
+              </button>
+            `).join('')}
+          </div>
+        </div>
+      `;
+
+      state.sedonaCurrentQuestion = questionNum;
+
+      // Focus first button for keyboard accessibility
+      setTimeout(() => {
+        const firstBtn = document.querySelector('.sedona-btn');
+        if (firstBtn) {
+          firstBtn.focus();
+        }
+      }, 0);
+
+      document.querySelectorAll('.sedona-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const action = btn.dataset.action;
+
+          if (action === 'next') {
+            if (questionNum < 4) {
+              renderSedonaQuestion(questionNum + 1);
+            }
+          } else if (action === 'repeat') {
+            state.sedonaCycles++;
+            renderSedonaQuestion(1);
+          } else if (action === 'complete') {
+            if (state.regulationMethod === 'both') {
+              startBreathingExercise();
+              showScreen('screen-breathing');
+            } else {
+              renderAfterScreen();
+              showScreen('screen-after');
+            }
+          }
+        });
+      });
+    }
+
+    // ============================================================================
+    // SCREEN 7: BREATHING EXERCISE
+    // ============================================================================
+    const BREATH_CYCLE = 10000;
+    const INHALE_DURATION = 4000;
+    const TOTAL_CYCLES = 3;
+    let breathingIntervalId = null;
+    let breathingStartTime = null;
+
+    function startBreathingExercise() {
+      state.breathingCycleCount = 0;
+      breathingStartTime = Date.now();
+      updateBreathingCue();
+
+      breathingIntervalId = setInterval(() => {
+        const elapsed = Date.now() - breathingStartTime;
+        const cycleIndex = Math.floor(elapsed / BREATH_CYCLE);
+        state.breathingCycleCount = cycleIndex + 1;
+
+        document.querySelectorAll('.cycle-dot').forEach((dot, i) => {
+          if (i < state.breathingCycleCount) {
+            dot.classList.remove('bg-breath-muted/30');
+            dot.classList.add('bg-breath-primary');
+          }
+        });
+
+        updateBreathingCue();
+
+        if (state.breathingCycleCount >= TOTAL_CYCLES) {
+          clearInterval(breathingIntervalId);
+          setTimeout(() => {
+            renderAfterScreen();
+            showScreen('screen-after');
+          }, 500);
+        }
+      }, 100);
+    }
+
+    function updateBreathingCue() {
+      const now = Date.now() % BREATH_CYCLE;
+      const isInhale = now < INHALE_DURATION;
+
+      document.querySelectorAll('[data-phase="inhale"]').forEach(el => {
+        el.style.opacity = isInhale ? '1' : '0';
+      });
+
+      document.querySelectorAll('[data-phase="exhale"]').forEach(el => {
+        el.style.opacity = isInhale ? '0' : '1';
+      });
+    }
+
+    // ============================================================================
+    // SCREEN 8: AFTER RATING
+    // ============================================================================
+    function renderAfterScreen() {
+      const emotion = Object.values(EMOTIONS).flat().find(e => e.id === state.subEmotion);
+      const container = document.getElementById('screen-after');
+
+      container.innerHTML = `
+        <div class="bg-mood-before/10 border-l-4 border-mood-before rounded-lg p-4 mb-6 max-w-lg mx-auto">
+          <span class="text-sm font-medium text-breath-text">Before:</span>
+          <span class="text-sm text-breath-muted ml-2">${emotion.emoji} ${emotion.nameEn} — ${state.intensityBefore}/10</span>
+        </div>
+
+        <header class="text-center mb-6">
+          <h2 class="text-2xl font-semibold text-breath-text">How are you feeling now?</h2>
+          <p class="text-base text-breath-muted">现在感觉如何？</p>
+        </header>
+
+        <div class="space-y-6 max-w-lg mx-auto">
+          <div class="relative py-8">
+            <div class="text-4xl font-bold text-breath-text text-center mb-4" id="after-value">5 / 10</div>
+            <input type="range" id="after-slider" min="0" max="10" value="5" step="1"
+                   class="w-full"
+                   style="background: linear-gradient(90deg, #FFD54F 0%, #FFB74D 100%);"
+                   aria-label="Emotional intensity after regulation"
+                   aria-valuemin="0" aria-valuemax="10" aria-valuenow="5">
+          </div>
+
+          <div class="flex justify-between text-sm px-2">
+            <div class="text-center">
+              <div class="font-medium text-breath-text">Mild</div>
+              <div class="text-breath-muted text-xs">轻微</div>
+            </div>
+            <div class="text-center">
+              <div class="font-medium text-breath-text">Moderate</div>
+              <div class="text-breath-muted text-xs">中等</div>
+            </div>
+            <div class="text-center">
+              <div class="font-medium text-breath-text">Intense</div>
+              <div class="text-breath-muted text-xs">强烈</div>
+            </div>
+          </div>
+
+          <div class="bg-breath-primary/5 rounded-lg p-4 text-center" id="after-feedback">
+            <p class="text-lg text-breath-text">You're feeling lighter.</p>
+            <p class="text-base text-breath-muted">你感到轻松了。</p>
+          </div>
+
+          <button id="btn-complete" class="w-full py-3 bg-mood-after text-white rounded-lg font-medium hover:bg-mood-after/90 transition">
+            Complete<br><span class="text-sm">完成</span>
+          </button>
+        </div>
+      `;
+
+      const slider = document.getElementById('after-slider');
+      const valueDisplay = document.getElementById('after-value');
+      const feedbackBox = document.getElementById('after-feedback');
+
+      function updateAfterSliderDisplay(value) {
+        state.intensityAfter = value;
+        valueDisplay.textContent = `${value} / 10`;
+        slider.style.background = getIntensityGradient(value);
+        slider.value = value;
+
+        const delta = value - state.intensityBefore;
+        let textEn, textZh, bgColor;
+
+        if (delta <= -3) {
+          textEn = "You're feeling much lighter.";
+          textZh = "你感到轻松多了。";
+          bgColor = 'rgba(80, 201, 184, 0.1)';
+        } else if (delta <= -1) {
+          textEn = "You're feeling a bit better.";
+          textZh = "你感到好一些了。";
+          bgColor = 'rgba(74, 144, 226, 0.05)';
+        } else if (delta >= -1 && delta <= 1) {
+          textEn = "That's okay. Sometimes it takes time.";
+          textZh = "没关系。有时需要时间。";
+          bgColor = 'rgba(74, 144, 226, 0.05)';
+        } else {
+          textEn = "Still tough, huh? You're doing your best.";
+          textZh = "还是很难吗？你已经尽力了。";
+          bgColor = 'rgba(255, 183, 77, 0.1)';
+        }
+
+        feedbackBox.innerHTML = `
+          <p class="text-lg text-breath-text">${textEn}</p>
+          <p class="text-base text-breath-muted">${textZh}</p>
+        `;
+        feedbackBox.style.background = bgColor;
+
+        if (navigator.vibrate && [0, 5, 10].includes(value)) {
+          navigator.vibrate(10);
+        }
+      }
+
+      slider.addEventListener('input', (e) => {
+        const value = parseInt(e.target.value);
+        updateAfterSliderDisplay(value);
+      });
+
+      // Keyboard support: Page Up/Down for ±5, arrow keys for ±1 (native)
+      slider.addEventListener('keydown', (e) => {
+        let newValue = parseInt(slider.value);
+
+        if (e.key === 'PageUp') {
+          e.preventDefault();
+          newValue = Math.min(10, newValue + 5);
+          updateAfterSliderDisplay(newValue);
+        } else if (e.key === 'PageDown') {
+          e.preventDefault();
+          newValue = Math.max(0, newValue - 5);
+          updateAfterSliderDisplay(newValue);
+        }
+      });
+
+      document.getElementById('btn-complete').addEventListener('click', () => {
+        state.improvementDelta = state.intensityAfter - state.intensityBefore;
+        state.durationSeconds = Math.floor((Date.now() - state.startTime) / 1000);
+        saveSessions();
+        renderSuccessScreen();
+        showScreen('screen-success');
+      });
+    }
+
+    // ============================================================================
+    // SCREEN 9: SUCCESS
+    // ============================================================================
+    function renderSuccessScreen() {
+      const container = document.getElementById('improvement-display');
+      const delta = state.improvementDelta;
+
+      let displayText, color;
+      if (delta <= -1) {
+        displayText = `${Math.abs(delta)} points better`;
+        color = 'text-mood-after';
+      } else if (delta === 0) {
+        displayText = 'No change';
+        color = 'text-breath-primary';
+      } else {
+        displayText = `+${delta} points`;
+        color = 'text-breath-muted';
+      }
+
+      container.innerHTML = `
+        <p class="text-sm text-breath-muted">Improvement</p>
+        <p class="text-4xl font-bold ${color}">${displayText}</p>
+        <p class="text-sm text-breath-muted">You're doing great</p>
+      `;
+    }
+
+    document.getElementById('btn-again').addEventListener('click', () => {
+      // Reset state
+      state.sessionId = Date.now().toString();
+      state.timestamp = new Date().toISOString();
+      state.weatherCategory = null;
+      state.subEmotion = null;
+      state.intensityBefore = 5;
+      state.trigger = '';
+      state.regulationMethod = null;
+      state.sedonaCycles = 0;
+      state.intensityAfter = 5;
+      state.improvementDelta = 0;
+      state.durationSeconds = 0;
+      state.startTime = null;
+
+      document.getElementById('trigger-text').value = '';
+      showScreen('screen-weather');
+      announceToScreenReader('Ready for another session.');
+    });
+
+    // ============================================================================
+    // INITIALIZATION
+    // ============================================================================
+    showScreen('screen-weather');
+    announceToScreenReader('Double Mood app loaded. Select how you feel right now.');
+  </script>
+
+</body>
+</html>
