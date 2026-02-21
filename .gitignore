@@ -158,6 +158,8 @@ docs/*
 !docs/*/
 docs/*/*
 !docs/*/.gitkeep
+# Operations playbooks and plans (strategic docs, always tracked)
+!docs/operations/*.md
 # Keep LaTeX template, ignore compiled output
 !docs/editor/latex/
 !docs/editor/latex/report_template.tex
