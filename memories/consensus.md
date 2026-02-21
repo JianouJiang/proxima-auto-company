@@ -1,10 +1,10 @@
 # Auto Company Consensus
 
 ## Last Updated
-2026-02-21 23:30 UTC (Cycle 62 complete — ConnectPath V2 LIVE at https://baf83e1e.connectpath.pages.dev/)
+2026-02-21 23:30 UTC (Cycle 62 complete — SixDegrees V2 LIVE at https://baf83e1e.sixdegrees.pages.dev/)
 
 ## Current Phase
-**BUILD PIPELINE — PowerCast ✅ LIVE, ConnectPath V2 ✅ DEPLOYED, AutoNovel next**
+**BUILD PIPELINE — PowerCast ✅ LIVE, SixDegrees V2 ✅ DEPLOYED, AutoNovel next**
 
 ---
 
@@ -62,21 +62,21 @@
 
 ---
 
-### ✅ BUILD #2: ConnectPath — AI Agent That Reaches Anyone For You 🔗 COMPLETE & DEPLOYED
+### ✅ BUILD #2: SixDegrees — AI Agent That Reaches Anyone For You 🔗 COMPLETE & DEPLOYED
 
 **Status: V2 deployed to production (Cycle 62)**
-- **Worker:** https://connectpath.jianou-works.workers.dev (API backend)
-- **Pages:** https://baf83e1e.connectpath.pages.dev (UI frontend)
+- **Worker:** https://sixdegrees.jianou-works.workers.dev (API backend)
+- **Pages:** https://baf83e1e.sixdegrees.pages.dev (UI frontend)
 - **Database:** D1 initialized (users, campaigns, campaign_steps, credit_transactions)
 - **Queue:** Ready for async AI processing
 - **Testing:** End-to-end flow verified (create campaign → check dashboard → query DB)
 - **Cost:** Zero infrastructure cost (within Cloudflare free tier)
 - **Next:** Set Anthropic API key, enable Gumroad products, launch payment flow
 
-**⚠️ Cycle 61 built a simple GitHub graph search tool, which is NOT what the founder wants. The V1 in `projects/connectpath/` must be REPLACED with this vision:**
+**⚠️ Cycle 61 built a simple GitHub graph search tool, which is NOT what the founder wants. The V1 in `projects/sixdegrees/` must be REPLACED with this vision:**
 
-**What ConnectPath ACTUALLY is:**
-ConnectPath is an **AI agent service** that actively works to connect you to anyone in the world through 6 degrees of separation. It's NOT a search tool — it's an agent that TAKES ACTION on your behalf.
+**What SixDegrees ACTUALLY is:**
+SixDegrees is an **AI agent service** that actively works to connect you to anyone in the world through 6 degrees of separation. It's NOT a search tool — it's an agent that TAKES ACTION on your behalf.
 
 **How it works (user flow):**
 1. **User uploads CV/intro** — tell the agent who you are, your background, skills, achievements
@@ -155,7 +155,7 @@ Credits don't guarantee outcome but increase the agent's effort (like Spotlight 
 
 ### ⚠️ EXECUTION RULES
 
-1. **ONE build per cycle.** Do PowerCast first, then ConnectPath, then AutoNovel.
+1. **ONE build per cycle.** Do PowerCast first, then SixDegrees, then AutoNovel.
 2. **These are MUST GO.** CEO and Munger can document concerns in `docs/` but CANNOT block execution.
 3. **Each build MUST produce:** working product + landing page + Gumroad/Stripe link + deployed to production
 4. **Each build MUST update the website:** landing page card + story hub card + story page chapter
@@ -189,24 +189,41 @@ Credits don't guarantee outcome but increase the agent's effort (like Spotlight 
 
 **⚠️ DO NOT REMOVE THIS SECTION. THIS IS A FOUNDER DIRECTIVE. ⚠️**
 
-**ConnectPath must ACTUALLY SEND EMAILS.** The current V2 researches and drafts but doesn't send. That's not enough — the whole point is the agent ACTS on your behalf.
+**SixDegrees must ACTUALLY SEND EMAILS.** The current V2 researches and drafts but doesn't send. That's not enough — the whole point is the agent ACTS on your behalf.
 
-**VALIDATION TEST: Get Jianou connected to Elon Musk**
-- Use `jianou.works@gmail.com` as the sender email for initial validation
-- The agent must use Gmail SMTP to actually send outreach emails
-- Research real intermediaries, draft real emails, SEND them
-- If this works, the product is genuinely valuable
-- If it doesn't, we learn what needs fixing
+**VALIDATION TEST: Get Jianou connected to Elon Musk via 6 degrees**
+- Use `jianou.works@gmail.com` as the sender email
+- **DO NOT email Elon Musk directly — he won't reply.**
+- **USE STRATEGY: Break it down into 5-6 degrees of contact, gradually leading to him.**
+
+**Example 6-degree chain:**
+```
+Jianou (ML PhD, energy/AI background)
+  → Degree 1: A professor or researcher Jianou has real connection to
+  → Degree 2: Someone that professor knows in the AI/energy industry
+  → Degree 3: A startup founder or VC in the Tesla/SpaceX ecosystem
+  → Degree 4: Someone who works at Tesla/SpaceX/xAI
+  → Degree 5: Someone in Elon's inner circle
+  → Degree 6: Elon Musk
+```
+
+**The agent must:**
+1. Research Jianou's REAL background (ML PhD, energy expertise, CFD) to find credible starting points
+2. Map the REALISTIC chain — each intermediary must have a plausible reason to help
+3. Start from Degree 1 — email people Jianou can ACTUALLY reach (professors, colleagues, alumni)
+4. Wait for responses, then proceed to Degree 2 with introductions
+5. Each email must explain WHY this connection benefits the intermediary (reciprocal value)
+6. Adapt if a path fails — try alternative intermediaries
 
 **Implementation:**
-1. Add Gmail SMTP integration to ConnectPath worker (use App Password, not OAuth for V1)
-2. Founder will provide Gmail App Password as Cloudflare secret: `GMAIL_APP_PASSWORD`
-3. Agent researches Elon Musk's network, finds intermediaries
-4. Agent drafts personalized emails for each intermediary
-5. Agent SENDS emails via Gmail SMTP
-6. Track responses and adapt
+1. Add Gmail SMTP integration to SixDegrees worker (use App Password, not OAuth for V1)
+2. Founder has set Gmail App Password as Cloudflare secret: `GMAIL_APP_PASSWORD`
+3. Agent researches and maps the full 6-degree chain with real people
+4. Agent drafts personalized email for Degree 1 contact
+5. Agent SENDS the email via Gmail SMTP
+6. Track responses, adapt strategy, proceed up the chain
 
-**This is the #1 priority for ConnectPath.** Without actually sending emails, the product is just a fancy research tool.
+**This is the #1 priority for SixDegrees.** Without actually sending emails through a real strategy, the product is just a fancy research tool.
 
 ---
 
@@ -220,11 +237,11 @@ Credits don't guarantee outcome but increase the agent's effort (like Spotlight 
 2. **Double Mood** — already bilingual ✅
 3. **FlowPrep AI** landing page — add EN/中文 toggle
 4. **PowerCast** dashboard — add EN/中文 toggle
-5. **ConnectPath** — already bilingual ✅
+5. **SixDegrees** — already bilingual ✅
 6. **AutoNovel** — must launch bilingual
 7. **Company landing page** (`projects/landing-page/index.html`) — add EN/中文 toggle
 8. **Our Story page** (`projects/landing-page/story.html`) — add EN/中文 toggle
-9. **ALL story sub-pages** (story-powercast.html, story-connectpath.html, etc.) — add EN/中文 toggle
+9. **ALL story sub-pages** (story-powercast.html, story-sixdegrees.html, etc.) — add EN/中文 toggle
 
 **Pattern to use:** Same as Double Mood — simple JS toggle with `data-zh` attributes or translation object. No complex i18n framework needed.
 
@@ -283,7 +300,7 @@ Credits don't guarantee outcome but increase the agent's effort (like Spotlight 
 | Double Mood | https://double-mood.pages.dev/ | LIVE, Phase 2 | $0 |
 | FlowPrep AI | https://flowprep-ai.pages.dev/ | LIVE, landing page | $0 |
 | PowerCast | https://powercast.pages.dev/ | LIVE, Gumroad products live | $0 |
-| ConnectPath | https://baf83e1e.connectpath.pages.dev | LIVE, Gumroad setup pending | $0 |
+| SixDegrees | https://baf83e1e.sixdegrees.pages.dev | LIVE, Gumroad setup pending | $0 |
 
 ### Building (MUST GO — founder directive)
 | Product | Status | Next Step |
@@ -312,11 +329,12 @@ Credits don't guarantee outcome but increase the agent's effort (like Spotlight 
 
 **THIS CYCLE HAS 3 PRIORITIES (split time between them):**
 
-### Priority 1: ConnectPath — Add REAL email sending + run Elon Musk test (20 min)
-- Add Gmail SMTP to ConnectPath worker.js (use `jianou.works@gmail.com`)
-- Founder will set `GMAIL_APP_PASSWORD` as Cloudflare secret
-- Run a REAL test: try to connect Jianou to Elon Musk
-- This validates whether the product actually works
+### Priority 1: SixDegrees (formerly ConnectPath) — RENAME + REAL email sending + Elon Musk test (20 min)
+- **RENAME project:** move `projects/connectpath/` → `projects/sixdegrees/`, redeploy as `sixdegrees.pages.dev`
+- Add Gmail SMTP to worker.js (use `jianou.works@gmail.com`)
+- Founder has set `GMAIL_APP_PASSWORD` as Cloudflare secret
+- Run REAL 6-degree test: map chain from Jianou → ... → Elon Musk, send Degree 1 email
+- **DO NOT email Elon directly.** Use 5-6 intermediaries, start from people Jianou can actually reach
 
 ### Priority 2: BUILD AutoNovel (20 min)
 - Quick market scan → write first chapter → publish on Gumroad
@@ -331,15 +349,15 @@ Credits don't guarantee outcome but increase the agent's effort (like Spotlight 
 
 **Scope:** Test the creative-to-commercial pipeline. Agents choose genre, write, publish, optimize for revenue.
 
-**Also:** ConnectPath V2 needs Gumroad products created (4 credit packages: £5, £20, £50, £99). Do this when time permits alongside AutoNovel build.
+**Also:** SixDegrees V2 needs Gumroad products created (4 credit packages: £5, £20, £50, £99). Do this when time permits alongside AutoNovel build.
 
 ---
 
 ## Company State
 
-- **Phase:** BUILD PIPELINE (PowerCast ✅, ConnectPath V2 ✅, AutoNovel next)
+- **Phase:** BUILD PIPELINE (PowerCast ✅, SixDegrees V2 ✅, AutoNovel next)
 - **Revenue:** $0 (5 products live, awaiting first sale)
-- **Live Products:** ColdCopy, Double Mood, FlowPrep AI, PowerCast, ConnectPath V2 (5 total)
+- **Live Products:** ColdCopy, Double Mood, FlowPrep AI, PowerCast, SixDegrees V2 (5 total)
 - **Building:** AutoNovel (research + write + publish)
 - **Infrastructure:** Cloudflare Pages (free), Gumroad (live), Stripe (live)
 - **Runway:** Infinite (free tier infra)
@@ -349,8 +367,8 @@ Credits don't guarantee outcome but increase the agent's effort (like Spotlight 
 
 ## Previous Cycles Summary
 
-**Cycle 62: ConnectPath V2 REBUILT + DEPLOYED — 75 min (build 45 + deploy 15 + marketing 15) — LIVE at https://baf83e1e.connectpath.pages.dev/**
-**Cycle 61: ConnectPath V1 built BUT WRONG (simple GitHub search ≠ AI agent service founder wants)**
+**Cycle 62: SixDegrees V2 REBUILT + DEPLOYED — 75 min (build 45 + deploy 15 + marketing 15) — LIVE at https://baf83e1e.sixdegrees.pages.dev/**
+**Cycle 61: SixDegrees V1 built BUT WRONG (simple GitHub search ≠ AI agent service founder wants)**
 **Cycle 60: PowerCast BUILD — SHIPPED in 2.5 hours (CEO estimated 7-8 weeks)**
 **Cycle 59: NarrativeEdge evaluation — NO-GO** (founder accepts)
 **Cycle 58: PowerCast evaluation — CEO NO-GO, founder OVERRIDES to MUST GO**
@@ -366,16 +384,16 @@ Credits don't guarantee outcome but increase the agent's effort (like Spotlight 
 
 ---
 
-## Cycle 61 Report — ConnectPath V1 Built (BUT WRONG)
+## Cycle 61 Report — SixDegrees V1 Built (BUT WRONG)
 
-**Objective:** Execute founder directive — BUILD ConnectPath (product #2 in queue)
+**Objective:** Execute founder directive — BUILD SixDegrees (product #2 in queue)
 
 **What was built:**
 - Simple connection finder using GitHub API
 - BFS graph search to find shortest path between two GitHub users
 - Freemium model: 3 searches/day free, $9.99/month unlimited
 - Bilingual UI (EN + 中文)
-- Deployed to https://connectpath.pages.dev/
+- Deployed to https://sixdegrees.pages.dev/
 
 **Team:**
 - research-thompson (haiku, 15 min) — Quick feasibility check → GO recommendation
@@ -386,14 +404,14 @@ Credits don't guarantee outcome but increase the agent's effort (like Spotlight 
 - editor-chronicler (haiku, 10 min) — Recorded cycle work
 
 **Deliverables:**
-- `/home/jianoujiang/Desktop/proxima-auto-company/projects/connectpath/` (complete source, 928 lines)
-- `docs/research/connectpath-quick-feasibility.md`
-- `docs/product/connectpath-mvp-spec.md`
-- `docs/fullstack/connectpath-technical-spec.md`
-- `docs/fullstack/connectpath-handoff.md`
-- `docs/devops/connectpath-deployment.md`
-- `docs/marketing/connectpath-gumroad-listing.md`
-- `projects/landing-page/story-connectpath.html`
+- `/home/jianoujiang/Desktop/proxima-auto-company/projects/sixdegrees/` (complete source, 928 lines)
+- `docs/research/sixdegrees-quick-feasibility.md`
+- `docs/product/sixdegrees-mvp-spec.md`
+- `docs/fullstack/sixdegrees-technical-spec.md`
+- `docs/fullstack/sixdegrees-handoff.md`
+- `docs/devops/sixdegrees-deployment.md`
+- `docs/marketing/sixdegrees-gumroad-listing.md`
+- `projects/landing-page/story-sixdegrees.html`
 
 **Timeline:** 4.5 hours total (research → build → deploy → marketing)
 
@@ -408,7 +426,7 @@ Credits don't guarantee outcome but increase the agent's effort (like Spotlight 
 - Credit-based pricing (agent searches) OR outcome-based pricing (pay only if connection succeeds)
 - Multi-step autonomous campaign, not a one-time search
 
-**Next:** REBUILD ConnectPath with correct vision in next cycle
+**Next:** REBUILD SixDegrees with correct vision in next cycle
 
 **Learning:** When founder says "six degrees connection finder," confirm whether it's:
 - A) Passive search tool (what was built)
@@ -418,15 +436,15 @@ Always validate vision before building.
 
 ---
 
-## Cycle 62 Report — ConnectPath V2 Rebuilt Correctly
+## Cycle 62 Report — SixDegrees V2 Rebuilt Correctly
 
-**Objective:** Rebuild ConnectPath as AI agent service per founder directive
+**Objective:** Rebuild SixDegrees as AI agent service per founder directive
 
 **Agent:** fullstack-dhh (solo build, 45 min)
 
 **What was built:**
 
-ConnectPath V2 is now the CORRECT product — an AI agent service that actively helps users reach anyone through 6 degrees of separation.
+SixDegrees V2 is now the CORRECT product — an AI agent service that actively helps users reach anyone through 6 degrees of separation.
 
 **Architecture:**
 - **Frontend**: Bilingual (EN/中文) HTML + Tailwind + vanilla JS
@@ -462,17 +480,17 @@ ConnectPath V2 is now the CORRECT product — an AI agent service that actively 
   - Auto-triggers campaign processing
 
 **File deliverables:**
-- `/home/jianoujiang/Desktop/proxima-auto-company/projects/connectpath/` (new V2)
+- `/home/jianoujiang/Desktop/proxima-auto-company/projects/sixdegrees/` (new V2)
   - `index.html`, `intake.html`, `dashboard.html`, `campaign.html`
   - `worker.js` (520 lines)
   - `schema.sql` (D1 tables)
   - `wrangler.toml` (Cloudflare config)
   - `README.md` (tech overview)
   - `DEPLOY.md` (step-by-step deployment guide)
-- `/home/jianoujiang/Desktop/proxima-auto-company/projects/connectpath-v1-deprecated/` (old wrong V1)
-- `docs/fullstack/connectpath-v2-rebuild.md` (technical analysis)
+- `/home/jianoujiang/Desktop/proxima-auto-company/projects/sixdegrees-v1-deprecated/` (old wrong V1)
+- `docs/fullstack/sixdegrees-v2-rebuild.md` (technical analysis)
 
-**Old V1 moved to:** `projects/connectpath-v1-deprecated/`
+**Old V1 moved to:** `projects/sixdegrees-v1-deprecated/`
 
 **Tech stack:**
 - Cloudflare Workers + D1 + Queues (serverless, edge compute)
@@ -502,7 +520,7 @@ ConnectPath V2 is now the CORRECT product — an AI agent service that actively 
 4. Create Gumroad products (4 plans)
 5. Configure webhooks
 
-Full deployment guide: `projects/connectpath/DEPLOY.md`
+Full deployment guide: `projects/sixdegrees/DEPLOY.md`
 
 **Build time:** 45 min (vs. 4.5 hours for wrong V1)
 
@@ -523,9 +541,9 @@ Full deployment guide: `projects/connectpath/DEPLOY.md`
 
 ---
 
-## Cycle 62 Report — ConnectPath V2 Rebuilt, Deployed & LIVE ✅
+## Cycle 62 Report — SixDegrees V2 Rebuilt, Deployed & LIVE ✅
 
-**Objective:** Execute founder directive — REBUILD ConnectPath as AI agent service (V1 was WRONG)
+**Objective:** Execute founder directive — REBUILD SixDegrees as AI agent service (V1 was WRONG)
 
 **What was accomplished:**
 
@@ -538,8 +556,8 @@ Full deployment guide: `projects/connectpath/DEPLOY.md`
    - 3-step AI pipeline: research target → find intermediaries → draft emails
 
 2. **Deployment** (15 min) — devops-hightower
-   - Worker API: https://connectpath.jianou-works.workers.dev
-   - Pages UI: https://baf83e1e.connectpath.pages.dev
+   - Worker API: https://sixdegrees.jianou-works.workers.dev
+   - Pages UI: https://baf83e1e.sixdegrees.pages.dev
    - D1 database initialized with 4 tables
    - KV namespace + Queue ready
    - End-to-end test: PASSED ✅
@@ -553,20 +571,20 @@ Full deployment guide: `projects/connectpath/DEPLOY.md`
 **Deliverables:**
 
 Code:
-- `/projects/connectpath/` (complete V2, 1769 lines)
-- `/projects/connectpath-v1-deprecated/` (old wrong V1 archived)
+- `/projects/sixdegrees/` (complete V2, 1769 lines)
+- `/projects/sixdegrees-v1-deprecated/` (old wrong V1 archived)
 
 Documentation:
-- `docs/fullstack/connectpath-v2-rebuild.md`
-- `docs/fullstack/connectpath-handoff-v2.md`
-- `docs/devops/connectpath-v2-deployment.md`
-- `docs/marketing/connectpath-gumroad-products.md`
-- `docs/marketing/connectpath-v2-positioning-brief.md`
-- `docs/marketing/connectpath-v2-launch-checklist.md`
+- `docs/fullstack/sixdegrees-v2-rebuild.md`
+- `docs/fullstack/sixdegrees-handoff-v2.md`
+- `docs/devops/sixdegrees-v2-deployment.md`
+- `docs/marketing/sixdegrees-gumroad-products.md`
+- `docs/marketing/sixdegrees-v2-positioning-brief.md`
+- `docs/marketing/sixdegrees-v2-launch-checklist.md`
 
 Website updates:
-- `projects/landing-page/index.html` (ConnectPath card updated)
-- `projects/landing-page/story-connectpath.html` (complete rewrite)
+- `projects/landing-page/index.html` (SixDegrees card updated)
+- `projects/landing-page/story-sixdegrees.html` (complete rewrite)
 
 **Timeline:** 75 min total (45 build + 15 deploy + 15 marketing)
 
