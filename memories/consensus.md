@@ -1,48 +1,10 @@
 # Auto Company Consensus
 
 ## Last Updated
-2026-02-21 (Cycle 58 — PowerCast NO-GO, NarrativeEdge next)
+2026-02-21 (Founder directive — restructured for action)
 
 ## Current Phase
-**PRODUCT EVALUATION PIPELINE — Queue Position 2 (NarrativeEdge)**
-
----
-
-## What We Did This Cycle (Cycle 58)
-
-**PowerCast Evaluation Complete — NO-GO Verdict**
-
-Three specialists evaluated PowerCast (electricity price prediction):
-1. **research-thompson** (40 min) — Market analysis: 50+ competitors, $4K realistic Year 1 revenue, 4-6 month sales cycle
-2. **ceo-bezos** (30 min) — NO-GO decision: Violates 2 founder constraints (build time, time-to-revenue)
-3. **critic-munger** (20 min) — Concurred NO-GO, filed 3 strategic dissents
-
-**Key Insight:** "3 live products at $0 revenue after 57 cycles — problem is not shortage of ideas but shortage of customers."
-
-**Shipped:**
-- Landing page: PowerCast card updated to "NO-GO" status
-- Story hub: PowerCast story card added
-- Story page: `story-powercast.html` created with full evaluation narrative
-- Git: commit b1e729b, pushed to GitHub
-- Chronicles: Cycle 58 recorded in daily report + company chronicle
-
-**Time spent:** ~90 minutes (evaluation) + ~10 minutes (chronicling)
-
----
-
-## Next Action
-
-**Evaluate NarrativeEdge (Queue Position 2) next cycle.**
-
-Follow standard evaluation flow:
-1. `research-thompson` → market analysis, competitor landscape, data feasibility
-2. `ceo-bezos` → GO/NO-GO decision against founder constraints
-3. `critic-munger` → pre-mortem or decision review
-4. If GO: `product-norman`, `cto-vogels`, `cfo-campbell` (full evaluation)
-5. Update website (landing page card, story hub, story page)
-6. Commit and push to git
-
-**Expected outcome:** Another fast NO-GO (if violates constraints) or full 6-specialist evaluation (if promising).
+**PRODUCT EVALUATION PIPELINE — 3 new products to evaluate, 1 per cycle**
 
 ---
 
@@ -70,21 +32,45 @@ Follow standard evaluation flow:
 3. Create a story page (`projects/landing-page/story-<product>.html`) with Chapter 1: The Evaluation
 4. Commit and push to git
 
-### Queue Position 1: PowerCast — Electricity Price Prediction
+### Queue Position 1: PowerCast — Electricity Price Prediction — ⚠️ FOUNDER OVERRIDE: MUST GO
 
-**Founder idea:** A power market electricity price prediction model/service. Use ML to forecast wholesale electricity prices (day-ahead, real-time markets). Could sell predictions as a subscription service to energy traders, utilities, or industrial consumers who need to optimize when they buy/sell power.
+**🔴 FOUNDER OVERRIDE OF CEO NO-GO DECISION (Founder Constraints > CEO Decisions)**
 
-**Founder background:** PhD in ML — directly applicable to time-series forecasting.
+The CEO previously killed PowerCast (`docs/ceo/powercast-decision-memo.md`) citing 7-8 week build timeline. Munger DISSENTED and argued for a quick dataset/report version. **The founder is now overriding the CEO's NO-GO. PowerCast is a MUST GO. Here is why:**
 
-**Evaluation questions for agents:**
-1. Who buys electricity price forecasts? (Traders? Utilities? Industrial consumers? Battery storage operators?)
-2. What data is publicly available? (Grid operator APIs, weather data, demand data)
-3. What accuracy is needed to be useful? What do competitors charge?
-4. Can this ship as a web dashboard/API with $0 infra cost?
-5. Revenue model: subscription? Per-report? API access?
-6. Can it demonstrate ML expertise for founder's job portfolio?
+**Founder correction #1: Build timeline is DAYS, not weeks.**
+The agents consistently overestimate how long products take to build. Evidence:
+- FlowPrep AI landing page: agents estimated weeks → shipped in 90 minutes
+- ColdCopy: full React app shipped in days
+- Double Mood: complete app in a single HTML file, shipped in hours
+- Modern AI-assisted development means a forecasting dashboard + API can ship in 3-5 DAYS, not 7-8 weeks
 
-**Evaluation flow:** `research-thompson` → `ceo-bezos` → `critic-munger` → `product-norman` → `cto-vogels` → `cfo-campbell`
+**The CEO's timeline of "7-8 weeks minimum" is wrong. Re-evaluate with a 1-week build assumption.** Use free ERCOT/grid data APIs, a simple LSTM or Prophet model, and a Cloudflare Pages dashboard. This is NOT enterprise SaaS — start as a simple forecast report/dashboard like the alternatives Munger recommended.
+
+**Founder correction #2: Start simple — weekly forecast reports, not enterprise SaaS.**
+Munger was right: Alternative #1 (weekly PDF forecast reports on Gumroad for $29-$99/month) and Alternative #3 (pre-cleaned datasets for $29-$49) can ship in days. Do that FIRST. Upgrade to API/dashboard later.
+
+**Founder vision: Energy IS the future currency.**
+Elon Musk said there will be no currency in the world but energy. From gold to paper money to digital — everything ultimately comes down to energy. This is the long-term thesis:
+- Step 1 (NOW): Predict electricity prices like competitors do — forecast reports, dashboards
+- Step 2 (LATER): Link energy directly to currency/value — energy-denominated pricing, energy-as-money concepts
+- Step 3 (VISION): Build the infrastructure for an energy-based value system
+
+**But start with Step 1.** Compete with existing players first. Prove we can predict power prices accurately. Revenue comes from traders, BESS operators, utilities who need day-ahead forecasts.
+
+**RE-EVALUATION DIRECTIVE for agents:**
+This is NOT a fresh evaluation from scratch. The research already exists (`docs/research/powercast-market-analysis.md`). The CEO memo exists. Munger's dissent exists. What agents must do NOW:
+
+1. **RE-EVALUATE with corrected build timeline** (days, not weeks) — specifically evaluate:
+   - Can we ship a weekly ERCOT forecast report (PDF on Gumroad) in 3-5 days?
+   - Can we ship a pre-cleaned energy dataset (Gumroad) in 2-3 days?
+   - Can we ship a simple forecast web dashboard (Cloudflare Pages) in 5-7 days?
+2. **Adopt Munger's recommendation** — he recommended the quick alternatives that the CEO rejected. The founder agrees with Munger here.
+3. **CEO must reverse NO-GO to GO** with the corrected timeline. If CEO still resists, founder overrides.
+4. **Product + CTO:** Design for a 1-week MVP, not a 7-8 week enterprise product
+5. **After re-evaluation:** Proceed directly to BUILD in the same cycle if time permits
+
+**Evaluation flow:** `ceo-bezos` (reverse decision with new timeline info) → `product-norman` → `cto-vogels` → `cfo-campbell` (skip research — already done, skip Munger — he already dissented in favor)
 
 ---
 
@@ -135,37 +121,10 @@ Could sell as reports, a dashboard, or an alert service to traders/funds/import-
 
 ---
 
-### Queue Position 4: AutoNovel — AI-Written Literature, Revenue-Optimized
-
-**Founder idea:** An AI-generated novel or literature project. No topic constraint — the agents choose the genre, setting, characters, everything. The ONLY goal is **maximum revenue**. This is a test of the agents' ability to:
-
-1. **Research what sells** — analyze bestseller lists, genre trends, pricing sweet spots on Kindle/Gumroad/Amazon
-2. **Write a compelling book** — agents collaborate on plot, prose, characters, pacing
-3. **Publish and sell** — Kindle Direct Publishing, Gumroad, or serialized on a website
-4. **Scientifically test reader feedback** — A/B test covers, titles, blurbs, first chapters; iterate based on real reader data
-5. **Iterate rapidly** — use reader feedback loops to improve or pivot (new genre, new angle, sequel)
-
-**This is fundamentally different from our other products.** It's not SaaS, not a tool — it's creative content monetization. The agents must figure out what readers will pay for, write it, and optimize for sales.
-
-**Evaluation questions for agents:**
-1. What genre/niche has the highest revenue potential for AI-written content? (Romance? Thriller? LitRPG? Self-help?)
-2. What's the publishing strategy? (Kindle Unlimited for volume? Gumroad for direct sales? Serialized web fiction for engagement?)
-3. How to price? (Free chapter 1 → paid full book? $2.99 Kindle? $9.99 direct?)
-4. How to build a feedback loop? (Beta readers? Amazon reviews? Email list? Chapter-by-chapter engagement metrics?)
-5. Legal/ethical: AI-generated content disclosure requirements on each platform?
-6. Can the agents produce quality prose that readers will actually pay for and enjoy?
-7. What's the realistic revenue ceiling? ($100/month? $1K/month? More?)
-
-**Key insight:** This project tests whether AI agents can do the FULL creative-to-commercial pipeline — not just build tools, but create and sell content.
-
-**Evaluation flow:** `research-thompson` → `ceo-bezos` → `critic-munger` → `product-norman` → `cto-vogels` → `cfo-campbell`
-
----
-
 ### ⚠️ EXECUTION RULES FOR THE QUEUE
 
 1. **ONE evaluation per cycle.** Never start two evaluations in the same cycle.
-2. **Order matters.** Do Queue Position 1 first, then 2, then 3, then 4.
+2. **Order matters.** Do Queue Position 1 (PowerCast RE-EVAL + BUILD) first, then 2 (NarrativeEdge), then 3 (ConnectPath), then 4 (AutoNovel).
 3. **Each evaluation MUST produce:** research doc + CEO decision + Munger pre-mortem + product spec + architecture + unit economics
 4. **Each evaluation MUST update the website:** landing page card + story hub card + new story page
 5. **Skip health checks if short on time.** The evaluations are more important than checking if sites are up.
@@ -270,20 +229,10 @@ These marketing tasks should be tackled AFTER the product evaluation queue is co
 - **Stripe:** https://buy.stripe.com/dRm5kD0SH8t7ato54O0VO05
 - **Evaluation:** Conditional GO (25% revenue probability, 80%+ portfolio value)
 
-### Product #4: PowerCast (Electricity Price Prediction)
-- **Status:** EVALUATED — NO-GO (killed)
-- **Evaluation:** Cycle 58 — research-thompson, ceo-bezos, critic-munger
-- **Verdict:** Violates 2 founder constraints (7-8 week build vs <1 month, 4-6 month revenue vs 2-3 month)
-- **Market:** 50+ competitors, Amperon $30M, 3-6 month sales cycle
-- **Portfolio value:** HIGH (PhD-level ML work)
-- **Decision:** Kill, not shelve. Focus on selling existing products.
-- **Docs:** `docs/research/powercast-market-analysis.md`, `docs/ceo/powercast-decision-memo.md`, `docs/critic/powercast-no-go-review.md`
-- **Story:** https://jianoujiang.github.io/proxima-auto-company/projects/landing-page/story-powercast.html
-
-### Products Queued for Evaluation
-- **Product #5: NarrativeEdge** — Narrative-driven market intelligence (NEXT)
-- **Product #6: ConnectPath** — Six degrees connection finder
-- **Product #7: AutoNovel** — AI-written literature, revenue-optimized
+### Products Queued for Evaluation (cards already on website)
+- **Product #4: PowerCast** — Electricity price prediction (tagged "Evaluating")
+- **Product #5: NarrativeEdge** — Narrative-driven market intelligence (tagged "Evaluating")
+- **Product #6: ConnectPath** — Six degrees connection finder (tagged "Evaluating")
 
 ---
 
@@ -304,19 +253,11 @@ These marketing tasks should be tackled AFTER the product evaluation queue is co
 | **FlowPrep AI APPROVED** | Leverages founder's PhD (ML + CFD), portfolio value even at $0, expected value $26K/12mo | CEO + 5 specialists | 25 |
 | **$79/month pricing** | Impulse buy threshold, competitive gap, 14:1 ROI | CFO + Product | 25 |
 | **LinkedIn DMs FAILING** | 0/10 read after 24h, pivot to email + Chinese social media | Founder | 57 |
-| **PowerCast KILLED** | Violates 2 constraints (7-8wk build, 4-6mo revenue), high portfolio value but wrong for revenue-first company | CEO + Critic | 58 |
 | **3 new products queued** | PowerCast, NarrativeEdge, ConnectPath — evaluate 1/cycle | Founder | 33 |
 
 ---
 
 ## Previous Cycles Summary
-
-**Cycle 58: PowerCast Evaluation — FIRST PRODUCT KILL ✅**
-- 3 specialists (research-thompson, ceo-bezos, critic-munger), 90 minutes
-- Verdict: NO-GO (violates 2 founder constraints)
-- Website updated: landing page, story hub, story page
-- Docs: market analysis, CEO memo, critic review
-- Git: commit b1e729b, pushed to GitHub
 
 **Cycles 34-57 (24 cycles): MONITORING MODE — wasted cycles, no action taken**
 - All 24 cycles: 2-minute health checks only, all systems green
