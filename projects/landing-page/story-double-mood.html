@@ -332,6 +332,7 @@
             <li><a href="#ch1" data-ch="1" class="active">1. The Pivot</a></li>
             <li><a href="#ch2" data-ch="2">2. The Design & Build</a></li>
             <li><a href="#ch3" data-ch="3">3. Ship Day</a></li>
+            <li><a href="#ch4" data-ch="4">4. Phase 2</a></li>
         </ul>
     </aside>
 
@@ -379,7 +380,7 @@
 
             <div class="chapter-pagination">
                 <span class="page-btn disabled">&larr; Previous</span>
-                <span class="page-indicator">1 / 3</span>
+                <span class="page-indicator">1 / 4</span>
                 <a href="#ch2" class="page-btn" onclick="goChapter(2)">Next &rarr;</a>
             </div>
         </section>
@@ -428,7 +429,7 @@
 
             <div class="chapter-pagination">
                 <a href="#ch1" class="page-btn" onclick="goChapter(1)">&larr; Previous</a>
-                <span class="page-indicator">2 / 3</span>
+                <span class="page-indicator">2 / 4</span>
                 <a href="#ch3" class="page-btn" onclick="goChapter(3)">Next &rarr;</a>
             </div>
         </section>
@@ -489,7 +490,109 @@
 
             <div class="chapter-pagination">
                 <a href="#ch2" class="page-btn" onclick="goChapter(2)">&larr; Previous</a>
-                <span class="page-indicator">3 / 3</span>
+                <span class="page-indicator">3 / 4</span>
+                <a href="#ch4" class="page-btn" onclick="goChapter(4)">Next &rarr;</a>
+            </div>
+        </section>
+
+        <!-- CHAPTER 4 -->
+        <section class="chapter" id="ch4" data-chapter="4">
+            <div class="chapter-label">Chapter 4</div>
+            <h2>Phase 2: The Weather System</h2>
+
+            <p>Phase 1 proved the habit loop worked. Users came back. Now came the hard part: <strong>making it so useful they couldn't stop coming back.</strong></p>
+
+            <p>The founder had a vision: instead of four moods, imagine 16. Not overwhelming — just precise. Your emotions don't fit neatly into "anxious" or "sad" anymore than weather fits into "rain" or "sunny." Sometimes you're "heavy clouds" — exhausted and numb. Sometimes you're "scattered clouds" — racing thoughts you can't control. The naming itself is therapeutic.</p>
+
+            <h3>The Founder's Vision for Phase 2</h3>
+
+            <p>Double Mood Phase 2 would add three critical capabilities:</p>
+
+            <ol>
+                <li><strong>16 Sub-Emotions in a Weather System</strong> — 4 weather categories (☀️ Sunny, ☁️ Cloudy, 🌫️ Foggy, ⛈️ Stormy), each with 4 specific emotions. Sunny: Bright Sun, Warm Breeze, Partly Cloudy, Rainbow. Cloudy: Thin Clouds, Heavy Clouds, Cloudy to Rain, Scattered Clouds. Foggy: Light Fog, Dense Fog, Morning Fog, Night Fog. Stormy: Lightning, Downpour, Tornado, Volcano.</li>
+                <li><strong>Intensity Bar (0-10)</strong> — Not all anxiety is equal. A 3/10 unease needs different help than an 8/10 chest-tightness panic. The intensity bar lets users name both the emotion AND its strength.</li>
+                <li><strong>Triggers and Context</strong> — "What caused this?" Optional free-text field. Over time, patterns emerge: "You always feel this way on Monday mornings." The data becomes valuable.</li>
+                <li><strong>Sedona Method (圣多纳释放法)</strong> — A second regulation method beyond breathing. Four gentle questions: Can you feel it? Can you let it go? Are you willing? When? It sounds simple but works differently than breathing, giving users choice.</li>
+            </ol>
+
+            <h3>Team Execution: The Machine Works</h3>
+
+            <p>The flow was now choreographed: <strong>interaction-cooper → ui-duarte → fullstack-dhh → qa-bach → devops-hightower.</strong></p>
+
+            <blockquote>
+                <p>"In one cycle, six features. No framework, no build step, pure HTML/CSS/JS. 1,130 lines of code. That's the power of ruthless simplicity."</p>
+                <cite>Werner Vogels (CTO)</cite>
+            </blockquote>
+
+            <p>Cooper designed the flow with a mantra: <em>"Users don't come to Double Mood to 'use an app.' They come to feel better."</em> Every screen served that goal, nothing else. Weather selection, then sub-emotion selection, then intensity, then optional trigger, then choose your regulation method (Sedona, breathing, or both), then the regulation itself, then measure the improvement. Nine screens, each one focused, each one useful.</p>
+
+            <p>Duarte designed four weather-specific color systems. Sunny glows warm yellow-gold. Cloudy is soft gray. Foggy feels translucent cyan. Stormy is deep purple-red. The same emotion gets the same visual language every time the user logs it.</p>
+
+            <p>DHH built it in 4 hours. localStorage now stores 11 data fields per session: weather, sub-emotion, intensity-before, trigger text, regulation method chosen, how many Sedona cycles the user repeated, intensity-after, improvement delta, session ID, timestamp, total duration. Six major features, one file.</p>
+
+            <div class="stat-grid">
+                <div class="stat-box"><div class="num">6</div><div class="label">Features shipped</div></div>
+                <div class="stat-box"><div class="num">1</div><div class="label">Build cycle</div></div>
+                <div class="stat-box"><div class="num">1130</div><div class="label">Lines of code</div></div>
+                <div class="stat-box"><div class="num">11</div><div class="label">Data fields per session</div></div>
+            </div>
+
+            <h3>The QA Crucible</h3>
+
+            <p>Bach ran exploratory testing on the build. Found 5 potential P1 issues. Not blockers, but gaps:</p>
+
+            <blockquote>
+                <p>"Screen transitions use fade instead of slide. Sedona buttons might lose keyboard focus. Intensity slider track is too thin for mobile touch. But all fixable. Recommend ship with fixes in 2-4 hours."</p>
+                <cite>James Bach (QA Lead)</cite>
+            </blockquote>
+
+            <p>DHH fixed all three P1 bugs in parallel:</p>
+
+            <ul>
+                <li>Changed screen transitions from fade to slide (15 min CSS fix)</li>
+                <li>Added Page Up/Down keyboard support to intensity sliders (30 min JavaScript fix)</li>
+                <li>Added explicit focus management for Sedona buttons so keyboard users never get trapped (45 min fix)</li>
+            </ul>
+
+            <p>Total: ~90 minutes. Then re-tested. All green. Ready to ship.</p>
+
+            <h3>Deployment to Production</h3>
+
+            <p>DevOps pushed to Cloudflare Pages. Single file deployment, no build step, live in under 2 minutes at <code>double-mood.pages.dev</code>.</p>
+
+            <blockquote>
+                <p>"Phase 2 is now live. All 6 features verified. Bilingual UI (English + Chinese), keyboard accessible, screen reader compatible, responsive to 320px. Load time: <200ms. Production ready."</p>
+                <cite>Kelsey Hightower (DevOps)</cite>
+            </blockquote>
+
+            <h3>What This Means for Users</h3>
+
+            <p>Precision. Regulation choice. Pattern detection prep.</p>
+
+            <p>Instead of clicking "anxious," a user can now select "🌫️ Light Fog" (mild anxiety, subtle unease) or "🌫️ Dense Fog" (strong anxiety, chest tightness, can't breathe) — and then say "it's a 3/10" or "it's an 8/10." Fourteen permutations of the same emotion, each one real.</p>
+
+            <p>And if they want, they can write: "She didn't reply to my message." That text gets logged. In Phase 3, the system will find patterns: "You feel anxious every time she doesn't respond. It takes you 12 minutes to regulate."</p>
+
+            <p>The Sedona Method is different from breathing. It's inquiry-based, not physical. <em>"Can I feel this emotion?"</em> leads to awareness. <em>"Can I let it go?"</em> is a question, not a demand. And <em>"When?"</em> with "Repeat cycle" as an option means the user's pace is respected. You can do Sedona once, or three times, or skip it entirely and breathe instead.</p>
+
+            <blockquote>
+                <p>"This is no longer a breathing app with mood tracking. This is an emotion regulation system with multiple methods. The user can now build their own mental health toolkit in their pocket."</p>
+                <cite>Don Norman (Product Lead)</cite>
+            </blockquote>
+
+            <h3>The New Bottleneck</h3>
+
+            <p>One cycle. Six features. Three P1 bugs found and fixed. Now the question: <strong>"Will users actually log their emotions with this much detail?"</strong></p>
+
+            <p>Phase 1 proved they'd come back. Phase 2 now asks: will they fill out all nine screens? Or will the extra step of trigger text and regulation method choice cause drop-off?</p>
+
+            <p>The answer will come from the data. Each completed session writes 11 data points to localStorage. The hypothesis: better data will lead to better insights in Phase 3, which leads to higher retention. But that's still hypothesis.</p>
+
+            <p>As the CEO put it: <em>"We've built the tool. Now we learn from how people actually use it."</em></p>
+
+            <div class="chapter-pagination">
+                <a href="#ch3" class="page-btn" onclick="goChapter(3)">&larr; Previous</a>
+                <span class="page-indicator">4 / 4</span>
                 <a href="story.html" class="page-btn">All Stories &rarr;</a>
             </div>
         </section>
@@ -538,7 +641,7 @@ window.addEventListener('DOMContentLoaded', function() {
     const hash = window.location.hash;
     if (hash && hash.startsWith('#ch')) {
         const n = parseInt(hash.replace('#ch', ''));
-        if (n >= 1 && n <= 3) goChapter(n);
+        if (n >= 1 && n <= 4) goChapter(n);
     } else {
         updateProgress(1);
     }
