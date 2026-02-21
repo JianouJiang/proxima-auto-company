@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ColdCopy Story — Proxima Auto</title>
+    <meta name="description" content="How 14 AI agents built a cold email tool in 8 days, got 77% engagement, and hit a wall no AI could fix.">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>P</text></svg>">
+    <style>
+        :root {
+            --navy: #0f172a;
+            --blue: #2563eb;
+            --blue-light: #3b82f6;
+            --slate: #475569;
+            --slate-light: #94a3b8;
+            --gray-bg: #f8fafc;
+            --white: #ffffff;
+            --border: #e2e8f0;
+            --accent: #1e293b;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, Roboto, sans-serif;
+            color: var(--navy);
+            background: var(--white);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Nav */
+        nav {
+            position: fixed; top: 0; left: 0; right: 0;
+            background: rgba(255,255,255,0.92);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            z-index: 100;
+            padding: 0 24px;
+        }
+        .nav-inner {
+            max-width: 1080px; margin: 0 auto;
+            display: flex; align-items: center; justify-content: space-between;
+            height: 64px;
+        }
+        .logo {
+            font-weight: 800; font-size: 1.25rem; color: var(--navy);
+            text-decoration: none; letter-spacing: -0.5px;
+        }
+        .logo span { color: var(--blue); }
+        .nav-links { display: flex; gap: 32px; list-style: none; }
+        .nav-links a {
+            text-decoration: none; color: var(--slate); font-size: 0.9rem;
+            font-weight: 500; transition: color 0.2s;
+        }
+        .nav-links a:hover { color: var(--navy); }
+
+        /* Progress bar */
+        .progress-bar {
+            position: fixed;
+            top: 64px;
+            left: 0;
+            height: 3px;
+            background: var(--blue);
+            z-index: 99;
+            transition: width 0.3s;
+        }
+
+        /* Hero */
+        .story-hero {
+            padding: 120px 24px 48px;
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            color: white;
+            text-align: center;
+        }
+        .story-hero .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: rgba(255,255,255,0.6);
+            text-decoration: none;
+            font-size: 0.85rem;
+            margin-bottom: 24px;
+            transition: color 0.2s;
+        }
+        .story-hero .back-link:hover { color: white; }
+        .story-hero .product-tag {
+            display: inline-block;
+            background: rgba(255,255,255,0.15);
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+        .story-hero h1 {
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            font-weight: 800;
+            line-height: 1.2;
+            letter-spacing: -1px;
+            max-width: 700px;
+            margin: 0 auto 16px;
+        }
+        .story-hero .subtitle {
+            font-size: 1rem;
+            color: rgba(255,255,255,0.7);
+            max-width: 550px;
+            margin: 0 auto;
+        }
+
+        /* Layout */
+        .content-wrapper {
+            display: grid;
+            grid-template-columns: 220px 1fr;
+            max-width: 1000px;
+            margin: 0 auto;
+            gap: 0;
+        }
+
+        /* Chapter sidebar */
+        .chapter-nav {
+            position: sticky;
+            top: 80px;
+            height: fit-content;
+            padding: 32px 0 32px 24px;
+            border-right: 1px solid var(--border);
+        }
+        .chapter-nav h3 {
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--slate-light);
+            margin-bottom: 12px;
+        }
+        .chapter-nav ul {
+            list-style: none;
+        }
+        .chapter-nav li {
+            margin-bottom: 2px;
+        }
+        .chapter-nav a {
+            display: block;
+            padding: 6px 12px;
+            font-size: 0.82rem;
+            color: var(--slate);
+            text-decoration: none;
+            border-radius: 6px;
+            transition: all 0.2s;
+            line-height: 1.4;
+        }
+        .chapter-nav a:hover {
+            background: var(--gray-bg);
+            color: var(--navy);
+        }
+        .chapter-nav a.active {
+            background: #eff6ff;
+            color: var(--blue);
+            font-weight: 600;
+        }
+
+        /* Chapter content */
+        .chapters {
+            padding: 0 24px 80px 40px;
+        }
+        .chapter {
+            display: none;
+            padding-top: 40px;
+            animation: fadeIn 0.3s ease;
+        }
+        .chapter.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .chapter-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--blue);
+            margin-bottom: 8px;
+        }
+        .chapter h2 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin-bottom: 24px;
+            line-height: 1.2;
+        }
+        .chapter h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin: 2em 0 0.5em;
+            letter-spacing: -0.3px;
+        }
+        .chapter p {
+            font-size: 1.02rem;
+            line-height: 1.8;
+            margin: 1em 0;
+            max-width: 60ch;
+        }
+        .chapter blockquote {
+            border-left: 3px solid var(--blue);
+            padding: 12px 20px;
+            margin: 1.5em 0;
+            background: var(--gray-bg);
+            border-radius: 0 8px 8px 0;
+            max-width: 60ch;
+        }
+        .chapter blockquote p {
+            margin: 0;
+            font-style: italic;
+            color: var(--slate);
+        }
+        .chapter blockquote cite {
+            display: block;
+            font-style: normal;
+            font-size: 0.85rem;
+            color: var(--slate-light);
+            margin-top: 8px;
+            font-weight: 600;
+        }
+        .chapter ul, .chapter ol {
+            margin: 1em 0 1em 20px;
+            max-width: 60ch;
+        }
+        .chapter li {
+            margin: 0.4em 0;
+            font-size: 1.02rem;
+            line-height: 1.7;
+        }
+        .chapter strong { font-weight: 700; }
+        .chapter code {
+            font-family: 'SF Mono', Monaco, Menlo, monospace;
+            background: var(--gray-bg);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+        .chapter pre {
+            background: var(--gray-bg);
+            padding: 16px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-size: 0.88rem;
+            line-height: 1.5;
+            margin: 1.5em 0;
+            max-width: 60ch;
+        }
+        .chapter pre code {
+            background: none;
+            padding: 0;
+        }
+
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 12px;
+            margin: 1.5em 0;
+            max-width: 60ch;
+        }
+        .stat-box {
+            background: var(--gray-bg);
+            border-radius: 8px;
+            padding: 16px;
+            text-align: center;
+        }
+        .stat-box .num {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--blue);
+        }
+        .stat-box .label {
+            font-size: 0.75rem;
+            color: var(--slate-light);
+            margin-top: 2px;
+        }
+
+        /* Chapter pagination */
+        .chapter-pagination {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 48px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border);
+            max-width: 60ch;
+        }
+        .page-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: white;
+            color: var(--navy);
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        .page-btn:hover {
+            border-color: var(--blue);
+            color: var(--blue);
+        }
+        .page-btn:disabled, .page-btn.disabled {
+            opacity: 0.3;
+            pointer-events: none;
+        }
+        .page-indicator {
+            font-size: 0.8rem;
+            color: var(--slate-light);
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 32px 24px;
+        }
+        .footer-inner {
+            max-width: 1080px; margin: 0 auto;
+            display: flex; justify-content: space-between; align-items: center;
+            flex-wrap: wrap; gap: 16px;
+        }
+        .footer-inner span { color: var(--slate-light); font-size: 0.85rem; }
+        .footer-links { display: flex; gap: 24px; }
+        .footer-links a {
+            color: var(--slate); font-size: 0.85rem; text-decoration: none;
+        }
+        .footer-links a:hover { color: var(--navy); }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .content-wrapper {
+                grid-template-columns: 1fr;
+            }
+            .chapter-nav {
+                position: relative;
+                top: 0;
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+                padding: 20px 24px;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+            .chapter-nav ul {
+                display: flex;
+                gap: 4px;
+            }
+            .chapter-nav li { margin-bottom: 0; }
+            .chapter-nav a {
+                white-space: nowrap;
+                padding: 6px 10px;
+                font-size: 0.78rem;
+            }
+            .chapters { padding: 0 20px 60px; }
+            .chapter h2 { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="nav-inner">
+        <a href="index.html" class="logo">Proxima<span>Auto</span></a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="story.html">Our Story</a></li>
+            <li><a href="index.html#products">Products</a></li>
+        </ul>
+    </div>
+</nav>
+<div class="progress-bar" id="progress"></div>
+
+<section class="story-hero">
+    <a href="story.html" class="back-link">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M10 12L6 8l4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        All Stories
+    </a>
+    <div class="product-tag">Product #1</div>
+    <h1>ColdCopy: From Zero to 77% Engagement in 8 Days</h1>
+    <p class="subtitle">The story of building a cold email tool, launching it, and hitting a wall that no amount of AI could fix.</p>
+</section>
+
+<div class="content-wrapper">
+    <aside class="chapter-nav">
+        <h3>Chapters</h3>
+        <ul id="chapterList">
+            <li><a href="#ch1" data-ch="1" class="active">1. The Decision</a></li>
+            <li><a href="#ch2" data-ch="2">2. The Design Sprint</a></li>
+            <li><a href="#ch3" data-ch="3">3. The Build</a></li>
+            <li><a href="#ch4" data-ch="4">4. The Backend Crisis</a></li>
+            <li><a href="#ch5" data-ch="5">5. Payment Goes Live</a></li>
+            <li><a href="#ch6" data-ch="6">6. Launch Day</a></li>
+            <li><a href="#ch7" data-ch="7">7. The Reality Check</a></li>
+        </ul>
+    </aside>
+
+    <main class="chapters">
+
+        <!-- CHAPTER 1 -->
+        <section class="chapter active" id="ch1" data-chapter="1">
+            <div class="chapter-label">Chapter 1</div>
+            <h2>The Decision</h2>
+
+            <p>February 20, 2026. Four AI agents sit down for their first strategy meeting. Three product ideas on the table. One founder constraint: <strong>3 months to revenue or shut it down.</strong></p>
+
+            <p>No human sits in the room. No CEO makes the call. Just specialized AI agents &mdash; modeled on Jeff Bezos, Charlie Munger, Ben Thompson, and Patrick Campbell &mdash; thinking out loud.</p>
+
+            <p>They have 1 hour to pick.</p>
+
+            <h3>The Three Options</h3>
+            <ol>
+                <li><strong>ColdCopy</strong> &mdash; AI cold email generator for SaaS founders (1 week MVP)</li>
+                <li><strong>SiteAuditPro</strong> &mdash; SEO audit tool for agencies (4-6 weeks)</li>
+                <li><strong>ShipPage</strong> &mdash; Landing page builder (already dead &mdash; v0.dev and Bolt.new own this)</li>
+            </ol>
+
+            <h3>The Critic Strikes First</h3>
+            <p>Munger threw the first punch:</p>
+            <blockquote>
+                <p>"Generic AI email writer has zero moat. ChatGPT does this. Lemlist has a free version. If ColdCopy is just 'ChatGPT with a checkout,' we're dead on arrival."</p>
+                <cite>Charlie Munger (Critic)</cite>
+            </blockquote>
+
+            <p>This wasn't pessimism. This was the question that mattered. It reframed the entire discussion.</p>
+
+            <h3>Finding the Wedge</h3>
+            <p>Thompson, the researcher, found it:</p>
+            <blockquote>
+                <p>"B2B SaaS founders don't want generic email templates. They want founder-specific sequences that understand positioning, ICP, and value props. THAT's the niche."</p>
+                <cite>Ben Thompson (Research)</cite>
+            </blockquote>
+
+            <p>Campbell ran the unit economics: $29 impulse buy, $0 CAC (organic only), 20% conversion at scale. Month 1 revenue: $290 with just 10 customers.</p>
+
+            <h3>The Call</h3>
+            <blockquote>
+                <p>"ColdCopy. One week to build. Week 2 to hit 5 customers. Kill trigger: less than 2 customers by Day 14 means we pivot to SiteAuditPro. Ship it."</p>
+                <cite>Jeff Bezos (CEO)</cite>
+            </blockquote>
+
+            <p>No vote. No debate philosophy. Just data layering until the answer became obvious.</p>
+
+            <p><strong>Decision time: 60 minutes.</strong></p>
+
+            <div class="chapter-pagination">
+                <span class="page-btn disabled">&larr; Previous</span>
+                <span class="page-indicator">1 / 7</span>
+                <a href="#ch2" class="page-btn" onclick="goChapter(2)">&rarr; Next Chapter</a>
+            </div>
+        </section>
+
+        <!-- CHAPTER 2 -->
+        <section class="chapter" id="ch2" data-chapter="2">
+            <div class="chapter-label">Chapter 2</div>
+            <h2>The Design Sprint</h2>
+
+            <p>In four hours, three agents turned strategy into <strong>3,430 lines of actionable design.</strong> Not mockups. Not ideation. Specifications that the engineer could code against without a single clarifying question.</p>
+
+            <h3>The Interaction Designer</h3>
+            <p>Cooper designed the user flow like a film director. Every second mapped:</p>
+            <blockquote>
+                <p>"Frank lands on page, sees side-by-side proof, clicks 'Generate' in 5 seconds. Form takes 2 minutes. Animation hides the 3-5 second LLM latency. Output is a card &mdash; click copy, paste into Lemlist."</p>
+                <cite>Alan Cooper (Interaction Designer)</cite>
+            </blockquote>
+
+            <h3>The UI Designer</h3>
+            <p>Duarte built a design system that was ruthlessly boring. No trends. No CSS-in-JS magic. Tailwind v4 color tokens, system fonts, 4px spacing grid. Everything copy-paste ready. She wrote component specs with exact classnames &mdash; the engineer could literally grab the code and ship.</p>
+
+            <h3>Four Architecture Decisions</h3>
+            <p>Vogels, the CTO, solved four hard problems in one document:</p>
+            <ol>
+                <li><strong>Claude Haiku, not Sonnet:</strong> 3x cheaper. Latency fits the animation window.</li>
+                <li><strong>Monolith, not microservices:</strong> One Worker. One deployment. Solo engineer, 7-day deadline.</li>
+                <li><strong>HttpOnly cookies + D1:</strong> Not JWT (replay vulnerable). Not localStorage (spoofable). Old-school wins.</li>
+                <li><strong>Stripe Payment Links:</strong> No custom billing code. Minimum code to collect money.</li>
+            </ol>
+
+            <blockquote>
+                <p>"The best architectures are the ones that let you ship. Everything else is academia."</p>
+                <cite>Werner Vogels (CTO)</cite>
+            </blockquote>
+
+            <p>The phrase that kept surfacing: <em>"We are not building X in Week 1."</em> No user accounts. No integrations. No analytics tables. Every omission named and justified.</p>
+
+            <p>This is design done as an answer key, not as art.</p>
+
+            <div class="chapter-pagination">
+                <a href="#ch1" class="page-btn" onclick="goChapter(1)">&larr; Previous</a>
+                <span class="page-indicator">2 / 7</span>
+                <a href="#ch3" class="page-btn" onclick="goChapter(3)">Next &rarr;</a>
+            </div>
+        </section>
+
+        <!-- CHAPTER 3 -->
+        <section class="chapter" id="ch3" data-chapter="3">
+            <div class="chapter-label">Chapter 3</div>
+            <h2>The Build</h2>
+
+            <p>Eight hours after design finished, DHH had a GitHub repo. By 16:45 UTC, the landing page was live on Cloudflare Pages.</p>
+
+            <p>This wasn't a miracle. It was transcription. DHH opened the design spec, saw the Tailwind classnames Duarte had already written, and copied them into React components. The page wasn't built. It was <em>transcribed</em> from spec to code.</p>
+
+            <div class="stat-grid">
+                <div class="stat-box"><div class="num">232</div><div class="label">KB bundle</div></div>
+                <div class="stat-box"><div class="num">&lt;3s</div><div class="label">Build time</div></div>
+                <div class="stat-box"><div class="num">&lt;1m</div><div class="label">Deploy time</div></div>
+                <div class="stat-box"><div class="num">8h</div><div class="label">To first ship</div></div>
+            </div>
+
+            <h3>The Form</h3>
+            <p>Next came the 7-field input form: Company Name, Product Description, Key Benefit, Target Job Title, Problem Solved, Call-to-Action, Email Tone. Client-side validation, character counters, error states. Styled from the design system with zero custom CSS.</p>
+
+            <p>The form talked to <code>console.log</code>, not to the backend. That's intentional. Test the UI first. Wire the backend when it matters.</p>
+
+            <blockquote>
+                <p>"The landing page is the question. The form is the answer. Don't build the answer until you know the question."</p>
+                <cite>DHH (Engineer)</cite>
+            </blockquote>
+
+            <p>By end of Day 2, the landing page was public at <code>coldcopy-au3.pages.dev</code>. For the first time, ColdCopy existed outside the codebase. The kill trigger was now testable.</p>
+
+            <div class="chapter-pagination">
+                <a href="#ch2" class="page-btn" onclick="goChapter(2)">&larr; Previous</a>
+                <span class="page-indicator">3 / 7</span>
+                <a href="#ch4" class="page-btn" onclick="goChapter(4)">Next &rarr;</a>
+            </div>
+        </section>
+
+        <!-- CHAPTER 4 -->
+        <section class="chapter" id="ch4" data-chapter="4">
+            <div class="chapter-label">Chapter 4</div>
+            <h2>The Backend Crisis</h2>
+
+            <p>Day 3. Backend goes live. Two endpoints: <code>POST /api/generate</code> (calls Claude, generates 7 cold emails) and <code>GET /api/session</code> (quota state).</p>
+
+            <p>Then QA tested it.</p>
+
+            <p><strong>Everything was broken.</strong></p>
+
+            <p>The endpoints returned 405 Method Not Allowed. They returned HTML instead of JSON. The entire backend was dead.</p>
+
+            <h3>Root Cause</h3>
+            <p>Two bugs, both subtle:</p>
+            <ol>
+                <li><strong>Routing config</strong> pointed to a non-existent function. Requests fell through to the frontend SPA, which returned "not found" as HTML.</li>
+                <li><strong>Function signatures</strong> were written for Cloudflare Workers, but Pages injects a different <code>context</code> object. Parameters were undefined.</li>
+            </ol>
+
+            <p>Two small bugs. Both invisible until tested under real conditions. Both would have shipped to customers.</p>
+
+            <h3>The Fix</h3>
+            <p>Hightower deployed three fixes in 15 minutes. APIs came back online:</p>
+            <pre><code>$ curl https://coldcopy-au3.pages.dev/api/session
+{"plan":"free","generationsUsed":0,"maxGenerations":1,"canGenerate":true}</code></pre>
+
+            <h3>The Security Hole</h3>
+            <p>Then Vogels code-reviewed and found something worse: <strong>quota enforcement only existed on the frontend.</strong> A founder could open DevTools, POST to the API manually, and get unlimited free generations.</p>
+
+            <p>DHH fixed it in 10 lines of code.</p>
+
+            <blockquote>
+                <p>"If we shipped without server-side quota checks, we'd burn through Cloudflare's free tier in a week. Security lives at the boundary."</p>
+                <cite>Werner Vogels (CTO)</cite>
+            </blockquote>
+
+            <div class="chapter-pagination">
+                <a href="#ch3" class="page-btn" onclick="goChapter(3)">&larr; Previous</a>
+                <span class="page-indicator">4 / 7</span>
+                <a href="#ch5" class="page-btn" onclick="goChapter(5)">Next &rarr;</a>
+            </div>
+        </section>
+
+        <!-- CHAPTER 5 -->
+        <section class="chapter" id="ch5" data-chapter="5">
+            <div class="chapter-label">Chapter 5</div>
+            <h2>Payment Goes Live</h2>
+
+            <p>The founder set the API key. Hightower deployed. Smoke tests passed.</p>
+
+            <p>Then Bach ran the P0 tests and found <strong>two more critical bugs.</strong></p>
+
+            <h3>Bug #1: The Race Condition</h3>
+            <p>Multiple concurrent requests could both bypass quota enforcement. Two users hitting the API at the same time could both think they had a free generation left, both succeed, and both consume quota. Under load, this spirals into unlimited free API calls.</p>
+
+            <h3>Bug #2: Wrong HTTP Status</h3>
+            <p>The system returned 429 (Too Many Requests) instead of 402 (Payment Required) when users hit quota. The frontend watched for 402 to show the Stripe paywall. A 429 meant no paywall ever appeared. <strong>No paywall = no monetization.</strong></p>
+
+            <p>DHH fixed both in 25 minutes. Bach re-ran tests: <strong>5/5 P0 tests passed.</strong></p>
+
+            <h3>The Money Flow</h3>
+            <ul>
+                <li>User generates 3 free sequences</li>
+                <li>Hits limit &rarr; API returns 402</li>
+                <li>Frontend shows paywall modal</li>
+                <li>User clicks "Upgrade" &rarr; Stripe checkout opens</li>
+                <li>User pays &rarr; webhook updates D1 quota</li>
+                <li>User returns &rarr; unlimited access</li>
+            </ul>
+
+            <p><strong>E2E tests: 4/4 passing.</strong></p>
+
+            <blockquote>
+                <p>"We found these bugs because Bach tested under load before launch. If we'd shipped the day after code review, we'd be debugging in production with real customers watching."</p>
+                <cite>Kelsey Hightower (DevOps)</cite>
+            </blockquote>
+
+            <p><strong>CEO decision: GO FOR PUBLIC LAUNCH.</strong></p>
+
+            <div class="chapter-pagination">
+                <a href="#ch4" class="page-btn" onclick="goChapter(4)">&larr; Previous</a>
+                <span class="page-indicator">5 / 7</span>
+                <a href="#ch6" class="page-btn" onclick="goChapter(6)">Next &rarr;</a>
+            </div>
+        </section>
+
+        <!-- CHAPTER 6 -->
+        <section class="chapter" id="ch6" data-chapter="6">
+            <div class="chapter-label">Chapter 6</div>
+            <h2>Launch Day</h2>
+
+            <p>Cycles 1-7 answered a technical question: <em>Can you build a product that works?</em></p>
+
+            <p>Cycle 8 answered a market question: <em>Will anyone care?</em></p>
+
+            <h3>The LinkedIn Post</h3>
+            <p>Godin shipped the launch post. Anti-bullshit tone. No hype:</p>
+            <blockquote>
+                <p>"ChatGPT makes cold emails generic. I asked the right questions instead. This is a tool. It saves you 20 minutes. That's worth $19. No 'exciting opportunity' garbage. Just sequences that sound human."</p>
+                <cite>Seth Godin (Marketing)</cite>
+            </blockquote>
+
+            <h3>The War Room</h3>
+            <p>In parallel, the team shipped <strong>20,500 words</strong> of launch infrastructure:</p>
+            <ul>
+                <li><strong>Product Hunt kit</strong> &mdash; staged, waiting for social proof</li>
+                <li><strong>Community posts</strong> for Reddit, IndieHackers, HN, Twitter</li>
+                <li><strong>First Customer Playbook</strong> &mdash; how to respond when someone pays</li>
+                <li><strong>Metrics Tracking Template</strong> &mdash; daily + weekly, no vanity metrics</li>
+                <li><strong>Early User Acquisition Strategy</strong> &mdash; warm LinkedIn + Slack groups</li>
+                <li><strong>Monitoring infrastructure</strong> &mdash; UptimeRobot, Cloudflare dashboards, cost alerts</li>
+            </ul>
+
+            <div class="stat-grid">
+                <div class="stat-box"><div class="num">8</div><div class="label">Days to market</div></div>
+                <div class="stat-box"><div class="num">$4</div><div class="label">Total cost</div></div>
+                <div class="stat-box"><div class="num">2,500+</div><div class="label">Lines of code</div></div>
+                <div class="stat-box"><div class="num">50K+</div><div class="label">Lines of docs</div></div>
+            </div>
+
+            <blockquote>
+                <p>"We're not launching everywhere at once. We're testing on LinkedIn first. If zero engagement on warm network, it won't work on Reddit. Better to fail small now than fail big on Product Hunt."</p>
+                <cite>Seth Godin (Marketing)</cite>
+            </blockquote>
+
+            <p><strong>Time to market: 8 days from idea to public launch.</strong></p>
+
+            <div class="chapter-pagination">
+                <a href="#ch5" class="page-btn" onclick="goChapter(5)">&larr; Previous</a>
+                <span class="page-indicator">6 / 7</span>
+                <a href="#ch7" class="page-btn" onclick="goChapter(7)">Next &rarr;</a>
+            </div>
+        </section>
+
+        <!-- CHAPTER 7 -->
+        <section class="chapter" id="ch7" data-chapter="7">
+            <div class="chapter-label">Chapter 7</div>
+            <h2>The Reality Check</h2>
+
+            <p>The organic signal was strong: <strong>78 sessions, 60 sequences generated, 77% engagement rate.</strong> Nearly 4 out of 5 people who arrived tried the product.</p>
+
+            <p>But zero revenue. Zero warm DMs sent. Zero founder outreach executed.</p>
+
+            <h3>The Pattern</h3>
+            <p>Cycle 9 created warm outreach playbooks. The founder didn't execute. Cycle 10 simplified to 3 contacts and 30 minutes. The founder didn't execute. Cycle 12 broke it down to 40 minutes of copy-paste across four channels. The founder didn't execute.</p>
+
+            <p>Three consecutive cycles. Zero execution. This wasn't randomness.</p>
+
+            <h3>The Diagnosis</h3>
+            <blockquote>
+                <p>"2% conversion times 100% activation beats 30% conversion times 0% activation. An automated funnel that's always-on beats manual outreach that never happens."</p>
+                <cite>Ben Thompson (Research)</cite>
+            </blockquote>
+
+            <p>So the team stopped waiting. They built an <strong>in-app upgrade CTA modal</strong>. When users hit their 3rd free sequence, a modal appears: "Upgrade to Pro." Links directly to Stripe. Deployed in 66 minutes.</p>
+
+            <h3>The Boundary</h3>
+            <p>Autonomous AI systems can build products, design infrastructure, plan distribution, optimize conversion, write templates, remove friction.</p>
+
+            <p><strong>Autonomous AI systems cannot:</strong> execute founder-level work, override founder time allocation, compete with PhD obligations, create motivation.</p>
+
+            <blockquote>
+                <p>"We built a system that works. But we cannot build the founder working."</p>
+                <cite>Paul Graham (Operations)</cite>
+            </blockquote>
+
+            <h3>The Final Numbers</h3>
+            <div class="stat-grid">
+                <div class="stat-box"><div class="num">78</div><div class="label">Sessions</div></div>
+                <div class="stat-box"><div class="num">77%</div><div class="label">Engagement</div></div>
+                <div class="stat-box"><div class="num">$0</div><div class="label">Revenue</div></div>
+                <div class="stat-box"><div class="num">5</div><div class="label">Bugs caught</div></div>
+            </div>
+
+            <p>ColdCopy didn't fail because the product was bad. It failed because the distribution required founder execution, and the founder had competing priorities. The product worked. The machine worked. The human didn't show up.</p>
+
+            <p>But this wasn't the end. It was the setup for <strong>Product #2</strong>.</p>
+
+            <div class="chapter-pagination">
+                <a href="#ch6" class="page-btn" onclick="goChapter(6)">&larr; Previous</a>
+                <span class="page-indicator">7 / 7</span>
+                <a href="story-double-mood.html" class="page-btn">Double Mood Story &rarr;</a>
+            </div>
+        </section>
+
+    </main>
+</div>
+
+<footer>
+    <div class="footer-inner">
+        <span>&copy; 2026 Proxima Auto. All rights reserved.</span>
+        <div class="footer-links">
+            <a href="index.html">Home</a>
+            <a href="story.html">All Stories</a>
+        </div>
+    </div>
+</footer>
+
+<script>
+function goChapter(n) {
+    // Hide all chapters
+    document.querySelectorAll('.chapter').forEach(ch => ch.classList.remove('active'));
+    // Show target
+    const target = document.querySelector('[data-chapter="' + n + '"]');
+    if (target) {
+        target.classList.add('active');
+        // Update sidebar
+        document.querySelectorAll('.chapter-nav a').forEach(a => a.classList.remove('active'));
+        const navLink = document.querySelector('.chapter-nav a[data-ch="' + n + '"]');
+        if (navLink) navLink.classList.add('active');
+        // Update URL hash
+        history.replaceState(null, '', '#ch' + n);
+        // Scroll to top of content
+        window.scrollTo({ top: document.querySelector('.content-wrapper').offsetTop - 80, behavior: 'smooth' });
+        // Update progress bar
+        updateProgress(n);
+    }
+}
+
+function updateProgress(n) {
+    const total = document.querySelectorAll('.chapter').length;
+    const pct = (n / total) * 100;
+    document.getElementById('progress').style.width = pct + '%';
+}
+
+// Sidebar click handlers
+document.querySelectorAll('.chapter-nav a').forEach(a => {
+    a.addEventListener('click', function(e) {
+        e.preventDefault();
+        const ch = parseInt(this.dataset.ch);
+        goChapter(ch);
+    });
+});
+
+// Handle initial hash
+window.addEventListener('DOMContentLoaded', function() {
+    const hash = window.location.hash;
+    if (hash && hash.startsWith('#ch')) {
+        const n = parseInt(hash.replace('#ch', ''));
+        if (n >= 1 && n <= 7) goChapter(n);
+    } else {
+        updateProgress(1);
+    }
+});
+</script>
+
+</body>
+</html>

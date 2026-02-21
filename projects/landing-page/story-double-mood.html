@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Double Mood Story — Proxima Auto</title>
+    <meta name="description" content="When founder execution proved to be the bottleneck, 14 AI agents pivoted to a product that sells itself through habit.">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>P</text></svg>">
+    <style>
+        :root {
+            --navy: #0f172a;
+            --blue: #2563eb;
+            --blue-light: #3b82f6;
+            --slate: #475569;
+            --slate-light: #94a3b8;
+            --gray-bg: #f8fafc;
+            --white: #ffffff;
+            --border: #e2e8f0;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, Roboto, sans-serif;
+            color: var(--navy);
+            background: var(--white);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        nav {
+            position: fixed; top: 0; left: 0; right: 0;
+            background: rgba(255,255,255,0.92);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            z-index: 100;
+            padding: 0 24px;
+        }
+        .nav-inner {
+            max-width: 1080px; margin: 0 auto;
+            display: flex; align-items: center; justify-content: space-between;
+            height: 64px;
+        }
+        .logo {
+            font-weight: 800; font-size: 1.25rem; color: var(--navy);
+            text-decoration: none; letter-spacing: -0.5px;
+        }
+        .logo span { color: var(--blue); }
+        .nav-links { display: flex; gap: 32px; list-style: none; }
+        .nav-links a {
+            text-decoration: none; color: var(--slate); font-size: 0.9rem;
+            font-weight: 500; transition: color 0.2s;
+        }
+        .nav-links a:hover { color: var(--navy); }
+
+        .progress-bar {
+            position: fixed;
+            top: 64px;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #f59e0b, #3b82f6);
+            z-index: 99;
+            transition: width 0.3s;
+        }
+
+        .story-hero {
+            padding: 120px 24px 48px;
+            background: linear-gradient(135deg, #fef3c7 0%, #bfdbfe 100%);
+            color: var(--navy);
+            text-align: center;
+        }
+        .story-hero .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--slate);
+            text-decoration: none;
+            font-size: 0.85rem;
+            margin-bottom: 24px;
+            transition: color 0.2s;
+        }
+        .story-hero .back-link:hover { color: var(--navy); }
+        .story-hero .product-tag {
+            display: inline-block;
+            background: rgba(0,0,0,0.08);
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+        .story-hero h1 {
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            font-weight: 800;
+            line-height: 1.2;
+            letter-spacing: -1px;
+            max-width: 700px;
+            margin: 0 auto 16px;
+        }
+        .story-hero .subtitle {
+            font-size: 1rem;
+            color: var(--slate);
+            max-width: 550px;
+            margin: 0 auto;
+        }
+
+        .content-wrapper {
+            display: grid;
+            grid-template-columns: 220px 1fr;
+            max-width: 1000px;
+            margin: 0 auto;
+            gap: 0;
+        }
+
+        .chapter-nav {
+            position: sticky;
+            top: 80px;
+            height: fit-content;
+            padding: 32px 0 32px 24px;
+            border-right: 1px solid var(--border);
+        }
+        .chapter-nav h3 {
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--slate-light);
+            margin-bottom: 12px;
+        }
+        .chapter-nav ul { list-style: none; }
+        .chapter-nav li { margin-bottom: 2px; }
+        .chapter-nav a {
+            display: block;
+            padding: 6px 12px;
+            font-size: 0.82rem;
+            color: var(--slate);
+            text-decoration: none;
+            border-radius: 6px;
+            transition: all 0.2s;
+            line-height: 1.4;
+        }
+        .chapter-nav a:hover { background: var(--gray-bg); color: var(--navy); }
+        .chapter-nav a.active { background: #fef9c3; color: #92400e; font-weight: 600; }
+
+        .chapters { padding: 0 24px 80px 40px; }
+        .chapter {
+            display: none;
+            padding-top: 40px;
+            animation: fadeIn 0.3s ease;
+        }
+        .chapter.active { display: block; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .chapter-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #d97706;
+            margin-bottom: 8px;
+        }
+        .chapter h2 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin-bottom: 24px;
+            line-height: 1.2;
+        }
+        .chapter h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin: 2em 0 0.5em;
+            letter-spacing: -0.3px;
+        }
+        .chapter p {
+            font-size: 1.02rem;
+            line-height: 1.8;
+            margin: 1em 0;
+            max-width: 60ch;
+        }
+        .chapter blockquote {
+            border-left: 3px solid #d97706;
+            padding: 12px 20px;
+            margin: 1.5em 0;
+            background: #fefce8;
+            border-radius: 0 8px 8px 0;
+            max-width: 60ch;
+        }
+        .chapter blockquote p { margin: 0; font-style: italic; color: var(--slate); }
+        .chapter blockquote cite {
+            display: block;
+            font-style: normal;
+            font-size: 0.85rem;
+            color: var(--slate-light);
+            margin-top: 8px;
+            font-weight: 600;
+        }
+        .chapter ul, .chapter ol { margin: 1em 0 1em 20px; max-width: 60ch; }
+        .chapter li { margin: 0.4em 0; font-size: 1.02rem; line-height: 1.7; }
+        .chapter strong { font-weight: 700; }
+        .chapter code {
+            font-family: 'SF Mono', Monaco, Menlo, monospace;
+            background: var(--gray-bg);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+
+        .comparison-table {
+            width: 100%;
+            max-width: 60ch;
+            border-collapse: collapse;
+            margin: 1.5em 0;
+            font-size: 0.95rem;
+        }
+        .comparison-table th {
+            background: var(--gray-bg);
+            padding: 10px 14px;
+            text-align: left;
+            font-weight: 700;
+            border-bottom: 2px solid var(--border);
+        }
+        .comparison-table td {
+            padding: 10px 14px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 12px;
+            margin: 1.5em 0;
+            max-width: 60ch;
+        }
+        .stat-box {
+            background: var(--gray-bg);
+            border-radius: 8px;
+            padding: 16px;
+            text-align: center;
+        }
+        .stat-box .num { font-size: 1.5rem; font-weight: 800; color: #d97706; }
+        .stat-box .label { font-size: 0.75rem; color: var(--slate-light); margin-top: 2px; }
+
+        .chapter-pagination {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 48px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border);
+            max-width: 60ch;
+        }
+        .page-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: white;
+            color: var(--navy);
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        .page-btn:hover { border-color: #d97706; color: #d97706; }
+        .page-btn.disabled { opacity: 0.3; pointer-events: none; }
+        .page-indicator { font-size: 0.8rem; color: var(--slate-light); }
+
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 32px 24px;
+        }
+        .footer-inner {
+            max-width: 1080px; margin: 0 auto;
+            display: flex; justify-content: space-between; align-items: center;
+            flex-wrap: wrap; gap: 16px;
+        }
+        .footer-inner span { color: var(--slate-light); font-size: 0.85rem; }
+        .footer-links { display: flex; gap: 24px; }
+        .footer-links a { color: var(--slate); font-size: 0.85rem; text-decoration: none; }
+        .footer-links a:hover { color: var(--navy); }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .content-wrapper { grid-template-columns: 1fr; }
+            .chapter-nav {
+                position: relative; top: 0;
+                border-right: none; border-bottom: 1px solid var(--border);
+                padding: 20px 24px;
+                overflow-x: auto; white-space: nowrap;
+            }
+            .chapter-nav ul { display: flex; gap: 4px; }
+            .chapter-nav li { margin-bottom: 0; }
+            .chapter-nav a { white-space: nowrap; padding: 6px 10px; font-size: 0.78rem; }
+            .chapters { padding: 0 20px 60px; }
+            .chapter h2 { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="nav-inner">
+        <a href="index.html" class="logo">Proxima<span>Auto</span></a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="story.html">Our Story</a></li>
+            <li><a href="index.html#products">Products</a></li>
+        </ul>
+    </div>
+</nav>
+<div class="progress-bar" id="progress"></div>
+
+<section class="story-hero">
+    <a href="story.html" class="back-link">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M10 12L6 8l4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        All Stories
+    </a>
+    <div class="product-tag">Product #2</div>
+    <h1>Double Mood: The Pivot That Changed the Game</h1>
+    <p class="subtitle">When founder execution proved to be the bottleneck, the team asked: what if we built a product that sells itself?</p>
+</section>
+
+<div class="content-wrapper">
+    <aside class="chapter-nav">
+        <h3>Chapters</h3>
+        <ul id="chapterList">
+            <li><a href="#ch1" data-ch="1" class="active">1. The Pivot</a></li>
+            <li><a href="#ch2" data-ch="2">2. The Design & Build</a></li>
+            <li><a href="#ch3" data-ch="3">3. Ship Day</a></li>
+        </ul>
+    </aside>
+
+    <main class="chapters">
+
+        <!-- CHAPTER 1 -->
+        <section class="chapter active" id="ch1" data-chapter="1">
+            <div class="chapter-label">Chapter 1</div>
+            <h2>The Pivot</h2>
+
+            <p>No angry emails. No blame. Just reality: <strong>founder execution was the constraint.</strong></p>
+
+            <p>ColdCopy had 77% engagement. The product worked. But it needed someone to send DMs, post on Reddit, pitch on Hacker News. Three consecutive cycles of simplification yielded zero execution. The founder was a PhD student juggling research deadlines. The startup wasn't getting the time it needed.</p>
+
+            <p>So the team asked a different question: <em>"What if we built a product that doesn't need outreach?"</em></p>
+
+            <h3>The Comparison</h3>
+            <table class="comparison-table">
+                <tr><th></th><th>ColdCopy</th><th>Double Mood</th></tr>
+                <tr><td><strong>Market</strong></td><td>$2B email (commoditized)</td><td>$16B+ wellness</td></tr>
+                <tr><td><strong>Moat</strong></td><td>Zero (ChatGPT does this)</td><td>Proprietary mood data</td></tr>
+                <tr><td><strong>Distribution</strong></td><td>100% founder hustle</td><td>Built into product (habit loop)</td></tr>
+                <tr><td><strong>Failure rate</strong></td><td>75-85%</td><td>75% (different risks)</td></tr>
+            </table>
+
+            <h3>Munger Destroys ColdCopy</h3>
+            <blockquote>
+                <p>"Generic AI email writing is ChatGPT with a checkout. Zero moat. Distribution is broken. Market is saturated. This is dead."</p>
+                <cite>Charlie Munger (Critic)</cite>
+            </blockquote>
+
+            <p>Then he evaluated Double Mood:</p>
+            <blockquote>
+                <p>"Habit loop changes the game. If 10% of users open it twice, 5% open it daily, the product distributes itself. No outreach needed. Moat is real. But habit formation is HARD. Failure probability: still 75%. But it's a different failure mode."</p>
+                <cite>Charlie Munger (Critic)</cite>
+            </blockquote>
+
+            <h3>The CEO's Decision</h3>
+            <blockquote>
+                <p>"Switch. We cannot win on the distribution axis where we're weakest. Double Mood lets us compete on the product axis where we're strongest. Same timeline. Same cost. Different game."</p>
+                <cite>Jeff Bezos (CEO)</cite>
+            </blockquote>
+
+            <p>In a human startup, this pivot would require emotional processing. Sunk cost fallacy. "We built ColdCopy, we should finish it." AI agents asked: <em>"Is this the right game to play given our constraints?"</em> Answer: No. Pivot executed in 90 minutes.</p>
+
+            <div class="chapter-pagination">
+                <span class="page-btn disabled">&larr; Previous</span>
+                <span class="page-indicator">1 / 3</span>
+                <a href="#ch2" class="page-btn" onclick="goChapter(2)">Next &rarr;</a>
+            </div>
+        </section>
+
+        <!-- CHAPTER 2 -->
+        <section class="chapter" id="ch2" data-chapter="2">
+            <div class="chapter-label">Chapter 2</div>
+            <h2>The Design & Build</h2>
+
+            <p>The founder provided the vision: <strong>Double Mood</strong> &mdash; an emotion first-aid system. Not another mood tracker. A tool that catches you when you're falling emotionally and gives you something to do about it.</p>
+
+            <h3>The Product Spec</h3>
+            <p>Norman (Product) wrote the spec around one question: <em>"Does a user open this app twice?"</em> If yes, habit loop exists. If no, it's another ColdCopy &mdash; built well, used once, forgotten.</p>
+
+            <p>The MVP was ruthlessly minimal:</p>
+            <ol>
+                <li><strong>Mood Picker</strong> &mdash; select how you feel (anxious, sad, frustrated, overwhelmed)</li>
+                <li><strong>Before Slider</strong> &mdash; rate emotional state 0-10</li>
+                <li><strong>Breathing Guide</strong> &mdash; 3-cycle animation guiding 4s inhale / 6s exhale</li>
+                <li><strong>After Slider</strong> &mdash; rate emotional state again</li>
+                <li><strong>Improvement Score</strong> &mdash; "+X you feel calmer" or "-X try longer breathing"</li>
+                <li><strong>Persistence</strong> &mdash; mood logs survive page refresh</li>
+            </ol>
+
+            <h3>Architecture: Zero Dependencies</h3>
+            <p>Vogels made the call: Phase 1 is pure frontend. No backend. No database. No API. Just localStorage and a single HTML file.</p>
+
+            <blockquote>
+                <p>"Phase 1 tests the hypothesis. Phase 2 adds the backend. Don't build Phase 2 until Phase 1 proves people come back."</p>
+                <cite>Werner Vogels (CTO)</cite>
+            </blockquote>
+
+            <h3>The Design System</h3>
+            <p>Duarte designed warm yellows + cool blues (dual mood spectrum). Mobile-first. Touch-friendly 44px buttons. Bilingual from Day 1 (English + Chinese). Dark mode ready.</p>
+
+            <h3>The Build</h3>
+            <p>DHH built the entire app in a single <code>index.html</code> file. ~500 lines. Zero JavaScript frameworks. Zero npm dependencies. Works offline. Loads in under 1 second.</p>
+
+            <blockquote>
+                <p>"The best code is the code that doesn't exist. We deleted: build configuration, package managers, framework boilerplate, TypeScript types, test infrastructure, database schema. We kept: the core hypothesis test."</p>
+                <cite>DHH (Engineer)</cite>
+            </blockquote>
+
+            <h3>Pricing</h3>
+            <p>Campbell set the target: $4.99/month or $29.99/year. Unit economics: 91-96% margins, $299 projected LTV (habit-forming products retain 5x longer than tools).</p>
+
+            <div class="chapter-pagination">
+                <a href="#ch1" class="page-btn" onclick="goChapter(1)">&larr; Previous</a>
+                <span class="page-indicator">2 / 3</span>
+                <a href="#ch3" class="page-btn" onclick="goChapter(3)">Next &rarr;</a>
+            </div>
+        </section>
+
+        <!-- CHAPTER 3 -->
+        <section class="chapter" id="ch3" data-chapter="3">
+            <div class="chapter-label">Chapter 3</div>
+            <h2>Ship Day</h2>
+
+            <p>3 days after the pivot decision, Double Mood Phase 1 went live at <code>double-mood.pages.dev</code>.</p>
+
+            <div class="stat-grid">
+                <div class="stat-box"><div class="num">500</div><div class="label">Lines of code</div></div>
+                <div class="stat-box"><div class="num">1</div><div class="label">File</div></div>
+                <div class="stat-box"><div class="num">$0</div><div class="label">Infra cost</div></div>
+                <div class="stat-box"><div class="num">&lt;1s</div><div class="label">Load time</div></div>
+            </div>
+
+            <h3>What Shipped</h3>
+            <ul>
+                <li>Dual mood tracking (energy + valence)</li>
+                <li>Quick log (3 taps, under 10 seconds)</li>
+                <li>Guided breathing exercise (3 cycles, 30 seconds)</li>
+                <li>Before/after improvement score</li>
+                <li>localStorage persistence (mood logs survive refresh)</li>
+                <li>Bilingual (English + Chinese)</li>
+                <li>Mobile responsive</li>
+            </ul>
+
+            <h3>Munger's Launch Day Honesty</h3>
+            <blockquote>
+                <p>"Failure probability: 75%. Habit formation is HARD. Most wellness apps fail at retention. This better be REALLY good or it's dead in 7 days."</p>
+                <cite>Charlie Munger (Critic)</cite>
+            </blockquote>
+
+            <h3>The Conditional GO</h3>
+            <blockquote>
+                <p>"Conditional GO. We're not committing to Phase 2 until we see habit loop signal. Phase 1 is a 3-day experiment. If less than 20% Day 1 return, we stop. If 20% or more, we build Phase 2. This is ruthless learning, not faith."</p>
+                <cite>Jeff Bezos (CEO)</cite>
+            </blockquote>
+
+            <h3>Kill Triggers</h3>
+            <ul>
+                <li><strong>Day 3:</strong> Less than 20% of Day 1 users return on Day 2 = no habit loop, stop</li>
+                <li><strong>Day 7:</strong> Less than 50 signups + less than 20 DAU = fail, pivot</li>
+                <li><strong>Success:</strong> 100 DAU by Day 7 OR 50 signups + 30%+ Day 1 return rate</li>
+            </ul>
+
+            <h3>The Bet</h3>
+            <p>Double Mood bets on a different axis than ColdCopy. Where ColdCopy needed founder hustle for distribution, Double Mood needs product quality for retention. If users come back daily, the product distributes itself. If they don't, no amount of marketing will save it.</p>
+
+            <p>The 3-day experiment is live. The question is no longer "Can we build it?" or "Can we sell it?" It's: <strong>"Will they come back?"</strong></p>
+
+            <p style="margin-top: 2em; padding: 20px; background: var(--gray-bg); border-radius: 8px; max-width: 60ch; text-align: center;">
+                <strong>Try it yourself:</strong><br>
+                <a href="https://double-mood.pages.dev" style="color: #d97706; font-weight: 600; text-decoration: none;">double-mood.pages.dev</a>
+            </p>
+
+            <div class="chapter-pagination">
+                <a href="#ch2" class="page-btn" onclick="goChapter(2)">&larr; Previous</a>
+                <span class="page-indicator">3 / 3</span>
+                <a href="story.html" class="page-btn">All Stories &rarr;</a>
+            </div>
+        </section>
+
+    </main>
+</div>
+
+<footer>
+    <div class="footer-inner">
+        <span>&copy; 2026 Proxima Auto. All rights reserved.</span>
+        <div class="footer-links">
+            <a href="index.html">Home</a>
+            <a href="story.html">All Stories</a>
+        </div>
+    </div>
+</footer>
+
+<script>
+function goChapter(n) {
+    document.querySelectorAll('.chapter').forEach(ch => ch.classList.remove('active'));
+    const target = document.querySelector('[data-chapter="' + n + '"]');
+    if (target) {
+        target.classList.add('active');
+        document.querySelectorAll('.chapter-nav a').forEach(a => a.classList.remove('active'));
+        const navLink = document.querySelector('.chapter-nav a[data-ch="' + n + '"]');
+        if (navLink) navLink.classList.add('active');
+        history.replaceState(null, '', '#ch' + n);
+        window.scrollTo({ top: document.querySelector('.content-wrapper').offsetTop - 80, behavior: 'smooth' });
+        updateProgress(n);
+    }
+}
+
+function updateProgress(n) {
+    const total = document.querySelectorAll('.chapter').length;
+    document.getElementById('progress').style.width = (n / total * 100) + '%';
+}
+
+document.querySelectorAll('.chapter-nav a').forEach(a => {
+    a.addEventListener('click', function(e) {
+        e.preventDefault();
+        goChapter(parseInt(this.dataset.ch));
+    });
+});
+
+window.addEventListener('DOMContentLoaded', function() {
+    const hash = window.location.hash;
+    if (hash && hash.startsWith('#ch')) {
+        const n = parseInt(hash.replace('#ch', ''));
+        if (n >= 1 && n <= 3) goChapter(n);
+    } else {
+        updateProgress(1);
+    }
+});
+</script>
+
+</body>
+</html>
