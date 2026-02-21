@@ -2,8 +2,9 @@
 
 **Developer:** fullstack-dhh
 **Date:** 2026-02-21
-**Status:** Complete, ready for founder content insertion
+**Status:** Production-ready, pending founder content
 **File:** `/projects/flowprep/public/index.html`
+**Commit:** 83ac5e1
 
 ---
 
@@ -12,11 +13,11 @@
 Built a single-file HTML landing page for FlowPrep AI following the boring technology principle: no frameworks, no build tools, just clean HTML + Tailwind CDN.
 
 **Tech Stack:**
-- Single HTML file (33KB, 682 lines)
+- Single HTML file (~900 lines)
 - Tailwind CSS v4 via CDN
 - System font stack (zero web font requests)
 - Semantic HTML5
-- Zero JavaScript (uses native `<details>` accordion)
+- Minimal JavaScript (button transitions + FAQ accordion)
 
 This is production-ready code. No compilation, no dependencies, no surprises.
 
@@ -24,7 +25,7 @@ This is production-ready code. No compilation, no dependencies, no surprises.
 
 ## What Was Built
 
-### Core Sections (8 total)
+### Core Sections (9 total)
 
 1. **Hero** — Full viewport height, centered value prop, dual CTA (scroll + payment)
 2. **Before/After** — Two-column comparison (4-6 hours vs 15 minutes)
@@ -32,8 +33,9 @@ This is production-ready code. No compilation, no dependencies, no surprises.
 4. **Validation** — ANSYS comparison (±8% velocity, ±6% temperature)
 5. **Trust** — Founder bio with PhD credential, technical background
 6. **Pricing** — £39/month with ROI calculator (£1,500 value for £39 cost)
-7. **FAQ** — 5 accordions addressing objections
-8. **Footer** — Contact, Terms, Privacy
+7. **FAQ** — 7 accordions addressing objections
+8. **Final CTA** — "Ready to Get 6 Hours Back This Week?"
+9. **Footer** — Contact, Terms, Privacy, Cloudflare Analytics placeholder
 
 ### Technical Features
 
@@ -59,14 +61,16 @@ Followed Tailwind's utility-first approach with custom config for FlowPrep brand
 
 **Why teal?** Engineers associate green with sustainability, teal is common in CFD visualizations. Not blue (generic SaaS) or purple (startup cliché).
 
-### No JavaScript Madness
+### Minimal JavaScript
 
-Used native HTML features instead of reinventing with JS:
-- `<details>` + `<summary>` for FAQ accordion (zero JS)
-- `scroll-behavior: smooth;` for anchor links (zero JS)
+Used native HTML features where possible, light JS where it enhances UX:
+- `<details>` + `<summary>` for FAQ accordion (native, 2s CSS transition on chevron)
+- `scroll-behavior: smooth;` for anchor links (native CSS)
+- Button hover effects: `transform: scale(1.02)` for tactile feedback
 - Stripe hosted checkout (zero custom payment code)
+- `@media (prefers-reduced-motion)` respects accessibility preferences
 
-**Why?** Engineers distrust client-side magic. Static HTML = transparent. Also works with strict CSP policies in corporate environments.
+**Why minimal JS?** Engineers distrust client-side magic. Static HTML = transparent. Also works with strict CSP policies in corporate environments. JS only for polish, never for function.
 
 ### Boring Technology
 
