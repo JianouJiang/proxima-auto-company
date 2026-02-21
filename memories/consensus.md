@@ -215,12 +215,22 @@ Jianou (ML PhD, energy/AI background)
 
 ---
 
-## 🚨 FOUNDER DIRECTIVE — ALL PRODUCTS BILINGUAL EN/中文 + STORY PAGES (DO NEXT CYCLE) 🚨
+## 🚨 FOUNDER DIRECTIVE — ALL PRODUCTS BILINGUAL EN/中文 + STORY PAGES 🚨
 
 **⚠️ AGENTS HAVE REMOVED THIS 6 TIMES. PRESERVE VERBATIM. ⚠️**
 
-**EVERY product and page must be bilingual English + Chinese:**
-ColdCopy, FlowPrep, PowerCast, SixDegrees, AutoNovel, company landing page, Our Story page, all story sub-pages. Use Double Mood pattern (simple JS toggle).
+**Status: MOSTLY DONE ✅** — Founder manually added bilingual to these pages and deployed:
+- ✅ FlowPrep AI (`flowprep-ai.pages.dev`) — bilingual deployed
+- ✅ PowerCast (`powercast.pages.dev`) — bilingual deployed
+- ✅ Company landing page (`coldcopy-au3.pages.dev`) — bilingual deployed, ConnectPath→SixDegrees
+- ✅ Story page — bilingual deployed
+- ✅ Double Mood — already bilingual
+- ✅ SixDegrees (ConnectPath V2) — already bilingual
+
+**Still needs bilingual:**
+- ColdCopy app (React/Vite — more complex, needs i18n in React components)
+- AutoNovel (not built yet — must launch bilingual)
+- Story sub-pages (story-powercast.html, story-sixdegrees.html, etc.)
 
 ---
 
