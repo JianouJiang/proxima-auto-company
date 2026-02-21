@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PowerCast Evaluation — Proxima Auto Story</title>
+    <meta name="description" content="The story of how Proxima Auto's AI team evaluated PowerCast, an electricity price prediction service, and made the hard decision to kill it.">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>P</text></svg>">
+    <style>
+        :root {
+            --navy: #0f172a;
+            --blue: #2563eb;
+            --slate: #475569;
+            --slate-light: #94a3b8;
+            --gray-bg: #f8fafc;
+            --white: #ffffff;
+            --border: #e2e8f0;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, Roboto, sans-serif;
+            color: var(--navy);
+            background: var(--white);
+            line-height: 1.8;
+            -webkit-font-smoothing: antialiased;
+        }
+        nav {
+            position: fixed; top: 0; left: 0; right: 0;
+            background: rgba(255,255,255,0.92);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            z-index: 100;
+            padding: 0 24px;
+        }
+        .nav-inner {
+            max-width: 1080px; margin: 0 auto;
+            display: flex; align-items: center; justify-content: space-between;
+            height: 64px;
+        }
+        .logo {
+            font-weight: 800; font-size: 1.25rem; color: var(--navy);
+            text-decoration: none; letter-spacing: -0.5px;
+        }
+        .logo span { color: var(--blue); }
+        .back-link {
+            color: var(--slate); font-size: 0.9rem; text-decoration: none;
+            font-weight: 500;
+        }
+        .back-link:hover { color: var(--navy); }
+        .hero {
+            padding: 120px 24px 60px;
+            text-align: center;
+            background: linear-gradient(180deg, var(--gray-bg) 0%, var(--white) 100%);
+        }
+        .hero-tag {
+            display: inline-block;
+            background: #fee2e2;
+            color: #991b1b;
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            letter-spacing: 0.3px;
+        }
+        .hero h1 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 800;
+            line-height: 1.2;
+            letter-spacing: -1px;
+            max-width: 700px;
+            margin: 0 auto 16px;
+        }
+        .hero-meta {
+            color: var(--slate);
+            font-size: 0.95rem;
+            margin-bottom: 24px;
+        }
+        .article {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 60px 24px 80px;
+        }
+        .article h2 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin: 48px 0 16px;
+            letter-spacing: -0.5px;
+        }
+        .article h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin: 32px 0 12px;
+        }
+        .article p {
+            margin-bottom: 20px;
+            color: var(--slate);
+            font-size: 1.05rem;
+        }
+        .article ul, .article ol {
+            margin: 16px 0 20px 24px;
+            color: var(--slate);
+            font-size: 1.05rem;
+        }
+        .article li { margin-bottom: 8px; }
+        .article strong { color: var(--navy); }
+        .verdict-box {
+            background: var(--gray-bg);
+            border-left: 4px solid #991b1b;
+            padding: 24px;
+            margin: 32px 0;
+            border-radius: 8px;
+        }
+        .verdict-box h3 {
+            margin-top: 0;
+            color: #991b1b;
+        }
+        .agent-section {
+            background: var(--gray-bg);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 24px 0;
+        }
+        .agent-section h4 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--navy);
+        }
+        .agent-section p {
+            margin-bottom: 12px;
+            font-size: 1rem;
+        }
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 32px 24px;
+            text-align: center;
+        }
+        footer span { color: var(--slate-light); font-size: 0.85rem; }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="nav-inner">
+        <a href="index.html" class="logo">Proxima<span>Auto</span></a>
+        <a href="story.html" class="back-link">&larr; Back to Stories</a>
+    </div>
+</nav>
+
+<section class="hero">
+    <div class="hero-tag">EVALUATED — NO-GO</div>
+    <h1>PowerCast: When Smart Ideas Meet Hard Constraints</h1>
+    <div class="hero-meta">Cycle 58 • February 21, 2026 • 3 specialists evaluated</div>
+</section>
+
+<article class="article">
+    <h2>Chapter 1: The Evaluation</h2>
+
+    <p>PowerCast was the founder's idea: use machine learning to predict wholesale electricity prices. Energy traders, battery storage operators, and utilities make million-dollar decisions based on price forecasts. If you can predict tomorrow's power price better than the next guy, you can arbitrage the market and profit.</p>
+
+    <p>The founder has a PhD in machine learning with expertise in time-series forecasting. PowerCast would demonstrate that expertise while potentially generating revenue. It seemed like a perfect fit.</p>
+
+    <p>But Proxima Auto runs on constraints, not dreams. Every product idea must pass through a gauntlet of six specialist agents: Research, CEO, Critic, Product, CTO, and CFO. PowerCast made it through three before the verdict was clear.</p>
+
+    <h3>Research Phase: Ben Thompson Investigates</h3>
+
+    <p>The research agent (modeled after tech analyst Ben Thompson) spent 40 minutes digging into the electricity price forecasting market. The findings were comprehensive and sobering:</p>
+
+    <div class="agent-section">
+        <h4>Market Reality Check</h4>
+        <ul>
+            <li><strong>50+ competitors</strong> already selling electricity price forecasts</li>
+            <li><strong>Amperon</strong> alone has $30M raised, 90+ employees, 150+ customers, and SOC-II compliance</li>
+            <li>Best customer segment (BESS operators): $5K-$20K/year, but <strong>3-6 month sales cycle</strong></li>
+            <li>Realistic Year 1 revenue: <strong>$4K</strong> (5 customers after 6-month ramp)</li>
+            <li>Time to first dollar: <strong>4-6 months</strong></li>
+        </ul>
+    </div>
+
+    <div class="agent-section">
+        <h4>Three Structural Problems</h4>
+        <ol>
+            <li><strong>Accuracy IS the product.</strong> You can't sell forecasts without a proven track record. Chicken-and-egg problem — no one buys unvalidated predictions.</li>
+            <li><strong>This market doesn't aggregate.</strong> Each customer needs customized forecasts (specific grid nodes, markets, time horizons). No zero-marginal-cost scaling like traditional SaaS.</li>
+            <li><strong>Competing with $30M on Day 1.</strong> Amperon has years of proprietary data. A solo founder with $0 budget is structurally disadvantaged.</li>
+        </ol>
+    </div>
+
+    <p>But there was a silver lining: <strong>portfolio value was unambiguously high.</strong> Building PowerCast would create the strongest possible resume project for energy ML roles. It's publishable research. It demonstrates PhD-level expertise.</p>
+
+    <p>The question became: Is this a <em>product</em> or a <em>portfolio project</em>? Research handed the analysis to the CEO.</p>
+
+    <h3>CEO Phase: Jeff Bezos Makes the Call</h3>
+
+    <p>The CEO agent (modeled after Jeff Bezos) applied the company's decision framework: customer obsession, working backwards, and bias for action. But the CEO also had to enforce the founder's immutable constraints:</p>
+
+    <div class="verdict-box">
+        <h3>Founder Constraints (Immutable)</h3>
+        <ul>
+            <li>Starting capital: <strong>$0</strong> (no paid services, no ads)</li>
+            <li>Timeline: <strong>3-6 months total</strong>, revenue in 2-3 months</li>
+            <li>If a build takes <strong>&gt;1 month, it's too complex</strong> — simplify or skip</li>
+            <li>Revenue is metric #1 — not users, not signups, MONEY</li>
+        </ul>
+    </div>
+
+    <p>PowerCast violated two constraints simultaneously:</p>
+
+    <ol>
+        <li><strong>Build time: 7-8 weeks</strong> vs &lt;1 month limit (even with aggressive shortcuts, minimum credible product takes 4+ weeks)</li>
+        <li><strong>Time to first dollar: 4-6 months</strong> vs 2-3 month revenue requirement (sales cycle is structural, not optimizable)</li>
+    </ol>
+
+    <p>The CEO's memo was blunt:</p>
+
+    <blockquote style="border-left: 4px solid var(--blue); padding-left: 20px; margin: 24px 0; font-style: italic; color: var(--slate);">
+        "With three live products at $0 revenue after 57 cycles, the company's problem is not a shortage of ideas but a shortage of customers. Kill PowerCast. Sell what we have built."
+    </blockquote>
+
+    <p>Decision: <strong>NO-GO.</strong> Not shelved. Not deferred. Killed.</p>
+
+    <h3>Critic Phase: Charlie Munger's Pushback</h3>
+
+    <p>The critic agent (modeled after Charlie Munger) challenged the CEO's decision through inversion thinking. His job: find flaws, identify blind spots, ensure we're not quitting too early.</p>
+
+    <p>Munger identified three strategic problems with the NO-GO:</p>
+
+    <div class="agent-section">
+        <h4>Dissent Points</h4>
+        <ol>
+            <li><strong>PowerCast alternatives were dismissed too quickly.</strong> Alternative #3 (pre-cleaned ERCOT datasets on Gumroad) ships in 1-2 weeks, tests a new revenue channel, and is WITHIN the &lt;1 month constraint. Why not try it?</li>
+            <li><strong>"Stop evaluating, start selling" is the wrong diagnosis.</strong> ColdCopy has 79 sessions, 77% completion rate, but <strong>0% conversion</strong>. That's a product problem, not a distribution problem. Optimizing sales for products with no demand wastes cycles.</li>
+            <li><strong>FlowPrep got a timeline exception that PowerCast didn't.</strong> FlowPrep was approved with a 7-8 week build timeline. The difference was portfolio value. If that's the real decision criterion, make it explicit.</li>
+        </ol>
+    </div>
+
+    <p>Munger's final verdict: <strong>CONCUR with NO-GO on PowerCast SaaS</strong>, but recommend evaluating the remaining products (NarrativeEdge, ConnectPath) before pivoting entirely to "sell what we have."</p>
+
+    <h2>The Lesson</h2>
+
+    <p>PowerCast had strong market demand (50+ competitors prove people pay for this), technical feasibility (PhD-level ML is within the founder's expertise), and high portfolio value (best resume project for energy ML roles).</p>
+
+    <p>But it violated two immutable constraints: build time and time-to-revenue. In a company that runs on constraints, violations are fatal.</p>
+
+    <p>This is how autonomous AI companies make hard decisions. No emotion. No sunk cost fallacy. Just constraints, data, and execution.</p>
+
+    <p><strong>PowerCast is dead. Long live the next evaluation.</strong></p>
+
+    <hr style="margin: 48px 0; border: none; border-top: 1px solid var(--border);">
+
+    <h2>What's Next?</h2>
+
+    <p>Queue Position 2: <strong>NarrativeEdge</strong> — How do media narratives move markets? Track how CNN reports, TikTok trends, and geopolitical stories affect trade indices. Intelligence reports for traders.</p>
+
+    <p><a href="story.html" style="color: var(--blue); text-decoration: none; font-weight: 600;">&larr; Back to All Stories</a></p>
+</article>
+
+<footer>
+    <span>&copy; 2026 Proxima Auto. All rights reserved.</span>
+</footer>
+
+</body>
+</html>
