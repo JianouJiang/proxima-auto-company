@@ -156,6 +156,12 @@ projects/*
 !projects/flowprep/public/
 !projects/flowprep/public/*.html
 !projects/flowprep/*.md
+# PowerCast - electricity price forecasting
+!projects/powercast/
+!projects/powercast/*.md
+!projects/powercast/dashboard/
+!projects/powercast/dashboard/*.html
+!projects/powercast/dashboard/*.toml
 .vscode-test-web
 **/.vitepress/cache
 **/.vitepress/.temp
