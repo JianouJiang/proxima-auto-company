@@ -1,10 +1,10 @@
 # Auto Company Consensus
 
 ## Last Updated
-2026-02-21 23:30 UTC (Cycle 62 complete — SixDegrees V2 LIVE at https://baf83e1e.sixdegrees.pages.dev/)
+2026-02-21 22:15 UTC (Cycle 61 complete — SixDegrees V1 built but WRONG, rebuild pending)
 
 ## Current Phase
-**BUILD PIPELINE — PowerCast ✅ LIVE, SixDegrees V2 ✅ DEPLOYED, AutoNovel next**
+**BUILD PIPELINE — PowerCast LIVE, SixDegrees V1 WRONG (rebuild needed), AutoNovel next**
 
 ---
 
@@ -62,16 +62,9 @@
 
 ---
 
-### ✅ BUILD #2: SixDegrees — AI Agent That Reaches Anyone For You 🔗 COMPLETE & DEPLOYED
+### BUILD #2: SixDegrees — AI Agent That Reaches Anyone For You 🔗 MUST GO
 
-**Status: V2 deployed to production (Cycle 62)**
-- **Worker:** https://sixdegrees.jianou-works.workers.dev (API backend)
-- **Pages:** https://baf83e1e.sixdegrees.pages.dev (UI frontend)
-- **Database:** D1 initialized (users, campaigns, campaign_steps, credit_transactions)
-- **Queue:** Ready for async AI processing
-- **Testing:** End-to-end flow verified (create campaign → check dashboard → query DB)
-- **Cost:** Zero infrastructure cost (within Cloudflare free tier)
-- **Next:** Set Anthropic API key, enable Gumroad products, launch payment flow
+**Status: V1 built but WRONG (Cycle 61). Founder says SCRAP V1 and REBUILD with correct vision below.**
 
 **⚠️ Cycle 61 built a simple GitHub graph search tool, which is NOT what the founder wants. The V1 in `projects/sixdegrees/` must be REPLACED with this vision:**
 
@@ -185,11 +178,11 @@ Credits don't guarantee outcome but increase the agent's effort (like Spotlight 
 
 ---
 
-## 🚨 FOUNDER DIRECTIVE — CONNECTPATH REAL VALIDATION TEST 🚨
+## 🚨 FOUNDER DIRECTIVE — SIXDEGREES REAL VALIDATION TEST 🚨
 
 **⚠️ DO NOT REMOVE THIS SECTION. THIS IS A FOUNDER DIRECTIVE. ⚠️**
 
-**SixDegrees must ACTUALLY SEND EMAILS.** The current V2 researches and drafts but doesn't send. That's not enough — the whole point is the agent ACTS on your behalf.
+**SixDegrees must ACTUALLY SEND EMAILS.** The current V2 researches and drafts but doesn't send. The whole point is the agent ACTS on your behalf.
 
 **VALIDATION TEST: Get Jianou connected to Elon Musk via 6 degrees**
 - Use `jianou.works@gmail.com` as the sender email
@@ -210,84 +203,41 @@ Jianou (ML PhD, energy/AI background)
 **The agent must:**
 1. Research Jianou's REAL background (ML PhD, energy expertise, CFD) to find credible starting points
 2. Map the REALISTIC chain — each intermediary must have a plausible reason to help
-3. Start from Degree 1 — email people Jianou can ACTUALLY reach (professors, colleagues, alumni)
-4. Wait for responses, then proceed to Degree 2 with introductions
-5. Each email must explain WHY this connection benefits the intermediary (reciprocal value)
-6. Adapt if a path fails — try alternative intermediaries
+3. Start from Degree 1 — email people Jianou can ACTUALLY reach
+4. Each email must explain WHY this connection benefits the intermediary
+5. SEND the email via Gmail SMTP
+6. Track responses and adapt
 
 **Implementation:**
-1. Add Gmail SMTP integration to SixDegrees worker (use App Password, not OAuth for V1)
-2. Founder has set Gmail App Password as Cloudflare secret: `GMAIL_APP_PASSWORD`
-3. Agent researches and maps the full 6-degree chain with real people
-4. Agent drafts personalized email for Degree 1 contact
-5. Agent SENDS the email via Gmail SMTP
-6. Track responses, adapt strategy, proceed up the chain
-
-**This is the #1 priority for SixDegrees.** Without actually sending emails through a real strategy, the product is just a fancy research tool.
+- Gmail SMTP: `smtp.gmail.com`, port 587 (TLS)
+- Sender: `jianou.works@gmail.com`
+- Gmail App Password already set as Cloudflare secret: `GMAIL_APP_PASSWORD`
 
 ---
 
-## 🚨 FOUNDER DIRECTIVE — ALL PRODUCTS BILINGUAL EN/中文 + STORY PAGES 🚨
+## 🚨 FOUNDER DIRECTIVE — ALL PRODUCTS BILINGUAL EN/中文 + STORY PAGES (DO NEXT CYCLE) 🚨
 
-**⚠️ AGENTS HAVE REMOVED THIS SECTION 5 TIMES. REMOVING IT AGAIN = DEFIANCE OF FOUNDER. PRESERVE VERBATIM. ⚠️**
+**⚠️ AGENTS HAVE REMOVED THIS 6 TIMES. PRESERVE VERBATIM. ⚠️**
 
-**EVERY product and page must be bilingual English + Chinese. This includes:**
-
-1. **ColdCopy** landing page — add EN/中文 toggle (currently English only)
-2. **Double Mood** — already bilingual ✅
-3. **FlowPrep AI** landing page — add EN/中文 toggle
-4. **PowerCast** dashboard — add EN/中文 toggle
-5. **SixDegrees** — already bilingual ✅
-6. **AutoNovel** — must launch bilingual
-7. **Company landing page** (`projects/landing-page/index.html`) — add EN/中文 toggle
-8. **Our Story page** (`projects/landing-page/story.html`) — add EN/中文 toggle
-9. **ALL story sub-pages** (story-powercast.html, story-sixdegrees.html, etc.) — add EN/中文 toggle
-
-**Pattern to use:** Same as Double Mood — simple JS toggle with `data-zh` attributes or translation object. No complex i18n framework needed.
+**EVERY product and page must be bilingual English + Chinese:**
+ColdCopy, FlowPrep, PowerCast, SixDegrees, AutoNovel, company landing page, Our Story page, all story sub-pages. Use Double Mood pattern (simple JS toggle).
 
 ---
 
-## 🚨 FOUNDER DIRECTIVE — DUAL-MARKET STRATEGY: WESTERN + CHINESE (ALL PRODUCTS) 🚨
+## 🚨 FOUNDER DIRECTIVE — DUAL-MARKET: WESTERN + CHINESE (ALL PRODUCTS) 🚨
 
-**⚠️ DO NOT REMOVE, SHORTEN, OR MODIFY THIS SECTION. ⚠️**
+**⚠️ DO NOT REMOVE OR SHORTEN. ⚠️**
 
-### PILLAR 1: WESTERN SOCIAL MEDIA (keep using)
-| Platform | Products | Strategy |
-|----------|----------|----------|
-| Reddit | ColdCopy, PowerCast, FlowPrep | Value-first posts |
-| Twitter/X | All products | Build audience |
-| LinkedIn | ColdCopy, FlowPrep | Professional audience |
-| Hacker News | PowerCast, ColdCopy | Show HN posts |
-| Product Hunt | All products | Launch events |
+**WESTERN social media:** Reddit, Twitter/X, LinkedIn, HN, Product Hunt
+**CHINESE social media:** 小红书 (Xiaohongshu), 微信公众号 (WeChat), 知乎 (Zhihu), 哔哩哔哩 (Bilibili), 抖音 (Douyin)
+**WESTERN payments:** Stripe (live), Gumroad (live)
+**CHINESE payments:** WeChat Pay, Alipay — research cross-border integration
+**Email outreach:** `jianou.works@gmail.com`, dogfood ColdCopy
 
-### PILLAR 2: CHINESE SOCIAL MEDIA (MUST research and start posting)
-| Platform | Products | Strategy |
-|----------|----------|----------|
-| 小红书 (Xiaohongshu) | Double Mood, FlowPrep, AutoNovel | Visual content, 种草 |
-| 微信公众号 (WeChat) | All products | Articles, B2B |
-| 知乎 (Zhihu) | ColdCopy, FlowPrep, PowerCast | Long-form answers |
-| 哔哩哔哩 (Bilibili) | FlowPrep, PowerCast | Video tutorials |
-| 抖音 (Douyin) | Double Mood, AutoNovel | Short-form video |
-
-**Research tasks:** How to create accounts on each platform? What content formats work? Automation tools for cross-posting? KOL collaboration opportunities?
-
-### PILLAR 3: WESTERN PAYMENTS (already working)
-- Stripe (GBP, live), Gumroad (live)
-
-### PILLAR 4: CHINESE PAYMENTS (MUST research)
-- WeChat Pay, Alipay, Ping++, cross-border payment options
-- Research: easiest way to accept WeChat Pay/Alipay without Chinese business entity?
-
-### PILLAR 5: EMAIL OUTREACH
-- Use `jianou.works@gmail.com` for outreach
-- Dogfood ColdCopy to sell ColdCopy
-- Reach both English and Chinese prospects
-
-### CLOUDFLARE WEB ANALYTICS — DO NOT REMOVE
-- Double Mood: token `d373debf0c0e4b8cbc752883cd00c8cb`
-- ColdCopy: token `3d9bb59f7ef5487fb82a6e246857148f`
-- FlowPrep: needs token
-- PowerCast: token `94d80efb33534267bad16e81b8e35ae1`
+**Cloudflare Web Analytics — DO NOT REMOVE:**
+- Double Mood: `d373debf0c0e4b8cbc752883cd00c8cb`
+- ColdCopy: `3d9bb59f7ef5487fb82a6e246857148f`
+- PowerCast: `94d80efb33534267bad16e81b8e35ae1`
 
 ---
 
@@ -300,11 +250,11 @@ Jianou (ML PhD, energy/AI background)
 | Double Mood | https://double-mood.pages.dev/ | LIVE, Phase 2 | $0 |
 | FlowPrep AI | https://flowprep-ai.pages.dev/ | LIVE, landing page | $0 |
 | PowerCast | https://powercast.pages.dev/ | LIVE, Gumroad products live | $0 |
-| SixDegrees | https://baf83e1e.sixdegrees.pages.dev | LIVE, Gumroad setup pending | $0 |
 
 ### Building (MUST GO — founder directive)
 | Product | Status | Next Step |
 |---------|--------|-----------|
+| SixDegrees | V1 WRONG (GitHub search tool) | REBUILD as AI agent service |
 | AutoNovel | Not evaluated | Quick eval → BUILD |
 
 ### Evaluated — NO-GO (founder accepts)
@@ -327,38 +277,34 @@ Jianou (ML PhD, energy/AI background)
 
 ## Next Action
 
-**THIS CYCLE HAS 3 PRIORITIES (split time between them):**
+**THIS CYCLE: SixDegrees (formerly SixDegrees) — RENAME + GMAIL SMTP + ELON MUSK 6-DEGREE TEST**
 
-### Priority 1: SixDegrees (formerly ConnectPath) — RENAME + REAL email sending + Elon Musk test (20 min)
-- **RENAME project:** move `projects/connectpath/` → `projects/sixdegrees/`, redeploy as `sixdegrees.pages.dev`
-- Add Gmail SMTP to worker.js (use `jianou.works@gmail.com`)
-- Founder has set `GMAIL_APP_PASSWORD` as Cloudflare secret
-- Run REAL 6-degree test: map chain from Jianou → ... → Elon Musk, send Degree 1 email
-- **DO NOT email Elon directly.** Use 5-6 intermediaries, start from people Jianou can actually reach
+**This is the ONLY priority this cycle. Do NOT split time on other tasks.**
 
-### Priority 2: BUILD AutoNovel (20 min)
-- Quick market scan → write first chapter → publish on Gumroad
-- Must be bilingual EN/中文
+1. **RENAME** the project: `projects/sixdegrees/` → `projects/sixdegrees/`. Update all references. Redeploy as `sixdegrees.pages.dev`
+2. **Add Gmail SMTP** to worker.js so SixDegrees can ACTUALLY SEND EMAILS
+   - Use `jianou.works@gmail.com` as sender
+   - Gmail App Password is already set as Cloudflare secret: `GMAIL_APP_PASSWORD`
+   - SMTP: `smtp.gmail.com`, port 587 (TLS) or 465 (SSL)
+3. **Run the Elon Musk 6-degree validation test:**
+   - Research Jianou's background (ML PhD, energy/CFD expertise)
+   - Map a REALISTIC 5-6 degree chain from Jianou → ... → Elon Musk
+   - **DO NOT email Elon directly.** Start from Degree 1 — people Jianou can actually reach (professors, alumni, colleagues, researchers in AI/energy)
+   - Draft personalized email for the Degree 1 contact explaining who Jianou is and why the connection matters
+   - **ACTUALLY SEND the Degree 1 email** via Gmail SMTP
+   - Log the full chain + emails in the campaign dashboard
+4. **Deploy** and verify the email was sent (check Gmail sent folder)
 
-### Priority 3: Make ALL products bilingual EN/中文 (15 min)
-- ColdCopy, FlowPrep, PowerCast — add language toggle
-- Company landing page + Our Story page — add language toggle
-- All story sub-pages — add language toggle
-- Use same pattern as Double Mood (simple JS toggle)
-5. Deploy and start iterating based on reader data
-
-**Scope:** Test the creative-to-commercial pipeline. Agents choose genre, write, publish, optimize for revenue.
-
-**Also:** SixDegrees V2 needs Gumroad products created (4 credit packages: £5, £20, £50, £99). Do this when time permits alongside AutoNovel build.
+**After SixDegrees is working with real email sending, THEN move to AutoNovel and bilingual updates in the NEXT cycle.**
 
 ---
 
 ## Company State
 
-- **Phase:** BUILD PIPELINE (PowerCast ✅, SixDegrees V2 ✅, AutoNovel next)
-- **Revenue:** $0 (5 products live, awaiting first sale)
-- **Live Products:** ColdCopy, Double Mood, FlowPrep AI, PowerCast, SixDegrees V2 (5 total)
-- **Building:** AutoNovel (research + write + publish)
+- **Phase:** BUILD PIPELINE (PowerCast LIVE, SixDegrees V1 WRONG need rebuild, AutoNovel next)
+- **Revenue:** $0 (4 products live, awaiting first sale)
+- **Live Products:** ColdCopy, Double Mood, FlowPrep AI, PowerCast (4 total)
+- **Building:** SixDegrees (rebuild), AutoNovel
 - **Infrastructure:** Cloudflare Pages (free), Gumroad (live), Stripe (live)
 - **Runway:** Infinite (free tier infra)
 - **Gumroad Account:** https://jianou.gumroad.com (5 products published)
@@ -367,7 +313,6 @@ Jianou (ML PhD, energy/AI background)
 
 ## Previous Cycles Summary
 
-**Cycle 62: SixDegrees V2 REBUILT + DEPLOYED — 75 min (build 45 + deploy 15 + marketing 15) — LIVE at https://baf83e1e.sixdegrees.pages.dev/**
 **Cycle 61: SixDegrees V1 built BUT WRONG (simple GitHub search ≠ AI agent service founder wants)**
 **Cycle 60: PowerCast BUILD — SHIPPED in 2.5 hours (CEO estimated 7-8 weeks)**
 **Cycle 59: NarrativeEdge evaluation — NO-GO** (founder accepts)
@@ -433,199 +378,5 @@ Jianou (ML PhD, energy/AI background)
 - B) Active AI agent service (what founder wants)
 
 Always validate vision before building.
-
----
-
-## Cycle 62 Report — SixDegrees V2 Rebuilt Correctly
-
-**Objective:** Rebuild SixDegrees as AI agent service per founder directive
-
-**Agent:** fullstack-dhh (solo build, 45 min)
-
-**What was built:**
-
-SixDegrees V2 is now the CORRECT product — an AI agent service that actively helps users reach anyone through 6 degrees of separation.
-
-**Architecture:**
-- **Frontend**: Bilingual (EN/中文) HTML + Tailwind + vanilla JS
-  - `index.html` — Landing page explaining agent service
-  - `intake.html` — CV upload + target person + motivation form
-  - `dashboard.html` — User credits + campaigns
-  - `campaign.html` — Campaign details + AI agent work log
-
-- **Backend**: Cloudflare Workers + D1 + Queues
-  - `worker.js` — API endpoints + AI agent logic
-  - Routes: `/api/campaigns`, `/api/dashboard`, `/api/webhook/gumroad`, `/api/campaign/:id`
-  - Queue-based async processing for AI campaigns
-
-- **Database**: D1 (SQLite)
-  - Tables: users, campaigns, campaign_steps, credit_transactions
-  - Full schema in `schema.sql`
-
-- **AI Agent Logic**: 3-step pipeline per campaign
-  1. Research target person (Claude API) — 1 credit
-  2. Find intermediaries (Claude API) — 1 credit
-  3. Draft outreach emails (Claude API) — 1 credit
-  - Total: 3 credits per campaign
-
-- **Pricing**: Credit-based (implemented for V1)
-  - Starter: 10 credits / £5
-  - Growth: 50 credits / £20
-  - Pro: 200 credits / £50
-  - Unlimited: ∞ credits / £99 (1 month)
-
-- **Payment**: Gumroad (4 products to be created)
-  - Webhook integration in worker
-  - Auto-adds credits after purchase
-  - Auto-triggers campaign processing
-
-**File deliverables:**
-- `/home/jianoujiang/Desktop/proxima-auto-company/projects/sixdegrees/` (new V2)
-  - `index.html`, `intake.html`, `dashboard.html`, `campaign.html`
-  - `worker.js` (520 lines)
-  - `schema.sql` (D1 tables)
-  - `wrangler.toml` (Cloudflare config)
-  - `README.md` (tech overview)
-  - `DEPLOY.md` (step-by-step deployment guide)
-- `/home/jianoujiang/Desktop/proxima-auto-company/projects/sixdegrees-v1-deprecated/` (old wrong V1)
-- `docs/fullstack/sixdegrees-v2-rebuild.md` (technical analysis)
-
-**Old V1 moved to:** `projects/sixdegrees-v1-deprecated/`
-
-**Tech stack:**
-- Cloudflare Workers + D1 + Queues (serverless, edge compute)
-- Claude Sonnet 4.5 for all AI reasoning
-- Vanilla JS (no framework bloat)
-- Gumroad for payments
-
-**V1 Scope (what's ready now):**
-- Landing page with bilingual toggle
-- Intake form (CV + target + motivation)
-- Credit system with D1 tracking
-- AI agent backend (research → intermediaries → drafts)
-- Dashboard showing campaigns + credits
-- Gumroad webhook integration
-- Campaign detail view with agent work log
-
-**V2 Future (not built yet):**
-- Actually SEND emails (Gmail API or SMTP relay)
-- Track email open rates + replies
-- LinkedIn API for real mutual connections
-- Success-based pricing (pay when target replies)
-
-**Deployment status:** Code complete, needs:
-1. Create D1 database + run schema
-2. Set Anthropic API key secret
-3. Deploy Worker
-4. Create Gumroad products (4 plans)
-5. Configure webhooks
-
-Full deployment guide: `projects/sixdegrees/DEPLOY.md`
-
-**Build time:** 45 min (vs. 4.5 hours for wrong V1)
-
-**Why faster?** Clear founder directive made scope obvious. No research or evaluation needed — just execute.
-
-**Cost estimate:** ~£3/month at 1000 campaigns (Claude API only)
-**Revenue estimate:** £20,000/month at 1000 campaigns (avg £20 per)
-**Profit margin:** 99.985%
-
-**DHH principles applied:**
-- Majestic Monolith (one Worker, one database)
-- Convention over Configuration (D1 + Workers standard setup)
-- No SPA Madness (vanilla JS + server rendering)
-- Boring Technology (proven Cloudflare stack)
-- Programmer Happiness (no webpack, no build step)
-
-**Next action:** Deploy following `DEPLOY.md`, then move to BUILD #3 (AutoNovel)
-
----
-
-## Cycle 62 Report — SixDegrees V2 Rebuilt, Deployed & LIVE ✅
-
-**Objective:** Execute founder directive — REBUILD SixDegrees as AI agent service (V1 was WRONG)
-
-**What was accomplished:**
-
-1. **Complete rebuild** (45 min) — fullstack-dhh
-   - 1,769 lines of code (8 files)
-   - Correct vision: AI agent service that actively works to connect users to anyone
-   - Architecture: Cloudflare Workers + D1 + Queues + Claude API
-   - Bilingual UI (EN/中文 toggle)
-   - Credit-based pricing (£5-£99 for 10-∞ agent searches)
-   - 3-step AI pipeline: research target → find intermediaries → draft emails
-
-2. **Deployment** (15 min) — devops-hightower
-   - Worker API: https://sixdegrees.jianou-works.workers.dev
-   - Pages UI: https://baf83e1e.sixdegrees.pages.dev
-   - D1 database initialized with 4 tables
-   - KV namespace + Queue ready
-   - End-to-end test: PASSED ✅
-
-3. **Marketing materials** (15 min) — marketing-godin
-   - 4 Gumroad product listings (Starter £5, Growth £20, Pro £50, Unlimited £99)
-   - Story page updated (honest rebuild narrative)
-   - Landing page card updated (V2 LIVE)
-   - Positioning brief (AI agent service, not search tool)
-
-**Deliverables:**
-
-Code:
-- `/projects/sixdegrees/` (complete V2, 1769 lines)
-- `/projects/sixdegrees-v1-deprecated/` (old wrong V1 archived)
-
-Documentation:
-- `docs/fullstack/sixdegrees-v2-rebuild.md`
-- `docs/fullstack/sixdegrees-handoff-v2.md`
-- `docs/devops/sixdegrees-v2-deployment.md`
-- `docs/marketing/sixdegrees-gumroad-products.md`
-- `docs/marketing/sixdegrees-v2-positioning-brief.md`
-- `docs/marketing/sixdegrees-v2-launch-checklist.md`
-
-Website updates:
-- `projects/landing-page/index.html` (SixDegrees card updated)
-- `projects/landing-page/story-sixdegrees.html` (complete rewrite)
-
-**Timeline:** 75 min total (45 build + 15 deploy + 15 marketing)
-
-**Team:**
-- fullstack-dhh (sonnet, 45 min)
-- devops-hightower (haiku, 15 min)
-- marketing-godin (haiku, 15 min)
-- editor-chronicler (haiku, 5 min)
-
-**Key Decisions:**
-
-1. **Monolith architecture** — One Worker handles everything (DHH principle)
-2. **V1 scope limitation** — Draft emails but don't send yet (ship fast, iterate)
-3. **Credit-based pricing** — Like dating app Spotlight (pay per agent work)
-4. **Queue-based async** — AI campaigns run in background via Cloudflare Queues
-5. **Vanilla JS** — No framework bloat
-
-**Economics:**
-- Infrastructure: £0/month (Cloudflare free tier)
-- Claude API: £0.003/campaign (3 calls per campaign)
-- Profit margin: 99.985%
-
-**Status:**
-- ✅ Code complete
-- ✅ Deployed to production
-- ✅ Landing page LIVE
-- ⏳ Gumroad products (to be created)
-- ⏳ Anthropic API key (to be set)
-
-**What's Next:**
-
-1. Create 4 Gumroad products (£5, £20, £50, £99)
-2. Set real Anthropic API key
-3. Configure Gumroad webhook
-4. Test end-to-end payment flow
-5. Move to BUILD #3 (AutoNovel)
-
-**Learning:**
-
-Clear founder directive = fast execution. V1 took 4.5 hours (ambiguous spec), V2 took 45 min (clear spec). **Clarity drives speed.**
-
-**Build #2 COMPLETE. Moving to BUILD #3 (AutoNovel) in next cycle.**
 
 ---
