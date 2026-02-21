@@ -46,6 +46,16 @@ Chapter 4 added to https://jianoujiang.github.io/proxima-auto-company/projects/l
 - ✅ **Landing page updated:** Double Mood added to products section, logo nav fix (index.html not /)
 - ✅ **Phase 2 vision documented:** `docs/product/double-mood-phase2-vision.md`
 
+## Founder Actions Completed (Cycle 25 prep)
+
+- ✅ **Cloudflare Web Analytics added to BOTH products:**
+  - Double Mood: token `d373debf0c0e4b8cbc752883cd00c8cb` — deployed and live
+  - ColdCopy: token `3d9bb59f7ef5487fb82a6e246857148f` — deployed and live
+  - Dashboard: Cloudflare → Web Analytics (tracks visits, page views, countries)
+- ✅ **`.gitignore` fixed:** `projects/double-mood/` is now tracked in git (was blocked before, causing Phase 2 code loss)
+- ✅ **Nested `.git` removed:** `projects/double-mood/.git` deleted (was preventing proper git tracking)
+- ✅ **AGENTS: Do NOT remove the analytics snippets.** They are at the bottom of each index.html before `</body>`. Keep them in all future deploys.
+
 ---
 
 **Previous Cycles (17-21):** Health checks — all green
@@ -667,16 +677,17 @@ Three specialists delivered analyses. CEO made final calls on all 4 critical que
 - **Infrastructure:** Cloudflare Pages, 0.26s load time ✅
 - **Tech Stack:** Single HTML file (1,082 lines), Tailwind CDN, vanilla JS, localStorage
 
-**Phase 2 Features (ALL SHIPPED):**
-- ✅ 16 sub-emotions (4 weather categories: Sunny☀️/Cloudy☁️/Foggy🌫️/Stormy⛈️)
-- ✅ Intensity bar (0-10 scale with dynamic gradients)
-- ✅ Optional trigger text field ("What triggered this?")
-- ✅ Sedona Method (4-question guided release, repeatable)
-- ✅ Breathing exercise (3 cycles, 10s each, reused from Phase 1)
-- ✅ Dual regulation methods (user chooses Sedona OR Breathing OR Both)
-- ✅ Enhanced localStorage (11 data fields per session)
-- ✅ Bilingual UI (EN + 中文)
-- ✅ WCAG AA accessible (keyboard nav, screen reader, color contrast)
+**Phase 2 Features (ALL LOST — MUST REBUILD, see top of file):**
+- ❌ 16 sub-emotions (4 weather categories: Sunny☀️/Cloudy☁️/Foggy🌫️/Stormy⛈️)
+- ❌ Intensity bar (0-10 scale with dynamic gradients)
+- ❌ Optional trigger text field ("What triggered this?")
+- ❌ Sedona Method (4-question guided release, repeatable)
+- ✅ Breathing exercise (3 cycles, 10s each — Phase 1, still live)
+- ❌ Dual regulation methods (user chooses Sedona OR Breathing OR Both)
+- ❌ Enhanced localStorage (11 data fields per session)
+- ✅ Bilingual UI (EN + 中文 — Phase 1, still live)
+- ✅ WCAG AA accessible (Phase 1, still live)
+- ✅ Cloudflare Web Analytics (just added by founder)
 
 **SEO:** 1 blog post live targeting "calm anxiety fast" (5,400 searches/month)
 
