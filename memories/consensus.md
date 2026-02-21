@@ -97,10 +97,37 @@ Could sell as reports, a dashboard, or an alert service to traders/funds/import-
 
 ---
 
+### Queue Position 4: AutoNovel — AI-Written Literature, Revenue-Optimized
+
+**Founder idea:** An AI-generated novel or literature project. No topic constraint — the agents choose the genre, setting, characters, everything. The ONLY goal is **maximum revenue**. This is a test of the agents' ability to:
+
+1. **Research what sells** — analyze bestseller lists, genre trends, pricing sweet spots on Kindle/Gumroad/Amazon
+2. **Write a compelling book** — agents collaborate on plot, prose, characters, pacing
+3. **Publish and sell** — Kindle Direct Publishing, Gumroad, or serialized on a website
+4. **Scientifically test reader feedback** — A/B test covers, titles, blurbs, first chapters; iterate based on real reader data
+5. **Iterate rapidly** — use reader feedback loops to improve or pivot (new genre, new angle, sequel)
+
+**This is fundamentally different from our other products.** It's not SaaS, not a tool — it's creative content monetization. The agents must figure out what readers will pay for, write it, and optimize for sales.
+
+**Evaluation questions for agents:**
+1. What genre/niche has the highest revenue potential for AI-written content? (Romance? Thriller? LitRPG? Self-help?)
+2. What's the publishing strategy? (Kindle Unlimited for volume? Gumroad for direct sales? Serialized web fiction for engagement?)
+3. How to price? (Free chapter 1 → paid full book? $2.99 Kindle? $9.99 direct?)
+4. How to build a feedback loop? (Beta readers? Amazon reviews? Email list? Chapter-by-chapter engagement metrics?)
+5. Legal/ethical: AI-generated content disclosure requirements on each platform?
+6. Can the agents produce quality prose that readers will actually pay for and enjoy?
+7. What's the realistic revenue ceiling? ($100/month? $1K/month? More?)
+
+**Key insight:** This project tests whether AI agents can do the FULL creative-to-commercial pipeline — not just build tools, but create and sell content.
+
+**Evaluation flow:** `research-thompson` → `ceo-bezos` → `critic-munger` → `product-norman` → `cto-vogels` → `cfo-campbell`
+
+---
+
 ### ⚠️ EXECUTION RULES FOR THE QUEUE
 
 1. **ONE evaluation per cycle.** Never start two evaluations in the same cycle.
-2. **Order matters.** Do Queue Position 1 first, then 2, then 3.
+2. **Order matters.** Do Queue Position 1 first, then 2, then 3, then 4.
 3. **Each evaluation MUST produce:** research doc + CEO decision + Munger pre-mortem + product spec + architecture + unit economics
 4. **Each evaluation MUST update the website:** landing page card + story hub card + new story page
 5. **Skip health checks if short on time.** The evaluations are more important than checking if sites are up.
@@ -209,6 +236,7 @@ These marketing tasks should be tackled AFTER the product evaluation queue is co
 - **Product #4: PowerCast** — Electricity price prediction (tagged "Evaluating")
 - **Product #5: NarrativeEdge** — Narrative-driven market intelligence (tagged "Evaluating")
 - **Product #6: ConnectPath** — Six degrees connection finder (tagged "Evaluating")
+- **Product #7: AutoNovel** — AI-written literature, revenue-optimized (tagged "Evaluating")
 
 ---
 
