@@ -227,10 +227,11 @@ Three products. Three markets. Three teams could work. This is portfolio optiona
 
 - **Production:** https://coldcopy-au3.pages.dev
 - **Infrastructure:** Cloudflare Pages + D1 + KV, all green ✅
-- **Outreach:** ~10 LinkedIn DMs sent, awaiting responses
+- **Outreach:** ~10 LinkedIn DMs sent — ❌ **0 READ after 24+ hours** (LinkedIn DMs failing as channel)
 - **Engagement:** 79 sessions, ~60 sequences (77% rate)
 - **Conversion:** In-app CTA deployed, $0 revenue (Stripe payouts paused)
-- **Next:** Wait for DM responses, check health daily (5 min max)
+- **Analytics:** Cloudflare Web Analytics installed (token: `3d9bb59f7ef5487fb82a6e246857148f`) — DO NOT REMOVE
+- **Next:** Pivot to email outreach (see Marketing Strategy Pivot section), check health daily (5 min max)
 
 ---
 
@@ -337,10 +338,11 @@ Three products. Three markets. Three teams could work. This is portfolio optiona
 - **Status:** LIVE, monitoring mode (max 5 min/cycle)
 - **Production:** https://coldcopy-au3.pages.dev
 - **Infrastructure:** Cloudflare Pages + D1 + KV, all green ✅
-- **Outreach:** ~10 LinkedIn DMs sent, awaiting responses
+- **Outreach:** ~10 LinkedIn DMs sent — ❌ **0 READ after 24+ hours** (LinkedIn DMs failing as channel)
 - **Engagement:** 79 sessions, ~60 sequences (77% rate)
 - **Conversion:** In-app CTA deployed, $0 revenue (Stripe payouts paused)
-- **Next:** Wait for DM responses, check health daily (5 min max)
+- **Analytics:** Cloudflare Web Analytics installed (token: `3d9bb59f7ef5487fb82a6e246857148f`) — DO NOT REMOVE
+- **Next:** Pivot to email outreach (see Marketing Strategy Pivot section), check health daily (5 min max)
 
 ### Double Mood (Product #2)
 - **Status:** ✅ PHASE 2 LIVE — Day 3+ of 3-day experiment
@@ -855,3 +857,74 @@ Could sell as reports, a dashboard, or an alert service to traders/funds/import-
 4. **Each evaluation MUST update the website:** landing page card + story hub card + new story page
 5. **Skip health checks if short on time.** The evaluations are more important than checking if sites are up.
 6. **Time budget:** Each evaluation should take 30-60 min max. If an agent is taking too long, summarize and move on.
+
+---
+
+## 🔴 FOUNDER DIRECTIVE — MARKETING STRATEGY PIVOT (apply after current evaluation queue)
+
+**LinkedIn outreach is failing.** 10 DMs sent for ColdCopy, 0 read after 24+ hours. People don't check LinkedIn messages frequently. We need alternative channels NOW.
+
+### Strategy 1: Direct Email Outreach via Gmail
+
+**The founder has working Gmail SMTP/IMAP scripts** (in the `quant/` project outside this repo). Pattern:
+- Send via `smtplib.SMTP` with STARTTLS on port 587
+- Receive via `imaplib.IMAP4_SSL` on port 993
+- Auth via Gmail app password (stored in `email_config.yaml`, NOT in this repo)
+- Supports Gmail, QQ Mail, 163 Mail
+
+**Agent task:** Build an email outreach tool/script that:
+1. Takes a list of target emails + product context
+2. Generates personalized cold emails (can reuse ColdCopy's own engine!)
+3. Sends via Gmail SMTP (founder provides app password via env var)
+4. Tracks opens/replies via IMAP polling
+5. Lives in `projects/email-outreach/` or integrates into existing products
+
+**Use ColdCopy to sell ColdCopy** — dogfood our own product for outreach.
+
+### Strategy 2: Chinese Social Media (Xiaohongshu / RedNote + others)
+
+**The Chinese market is untapped.** Founder wants to promote on:
+- **Xiaohongshu (小红书 / RedNote)** — visual-first platform, good for product demos
+- **WeChat Official Account** — if feasible
+- **Bilibili** — for technical content / demos
+- **Zhihu (知乎)** — for thought leadership / technical articles
+
+**Agent task:** Research how to:
+1. Automate posting to Xiaohongshu (API? Selenium? Manual template?)
+2. Create compelling Chinese-language content for each product
+3. Identify which platform is best for each product type:
+   - Double Mood → Xiaohongshu (emotional wellness content fits perfectly)
+   - ColdCopy → Zhihu / WeChat (B2B cold email is a business topic)
+   - FlowPrep → Zhihu / Bilibili (technical engineering audience)
+4. Build automation scripts so the founder doesn't have to manually post
+
+### Strategy 3: Bilingual Products (EN + 中文)
+
+**All products should support Chinese audience with auto-translate.** Specifically:
+- Double Mood already has bilingual (EN + 中文) — ✅ DONE
+- ColdCopy should support Chinese companies doing international outreach
+- FlowPrep landing page should have a Chinese version
+- Company landing page + story pages should have Chinese toggle
+
+**Agent task:** Add language toggle (EN/中文) to all product landing pages and the company site. Use simple JS-based i18n (no heavy framework needed).
+
+### Strategy 4: Cloudflare Web Analytics — DO NOT REMOVE
+
+**Already installed on these products (founder set up manually):**
+- Double Mood: token `d373debf0c0e4b8cbc752883cd00c8cb`
+- ColdCopy: token `3d9bb59f7ef5487fb82a6e246857148f`
+
+**FlowPrep needs analytics too** — add the beacon snippet before `</body>` once token is available.
+
+⚠️ **DO NOT remove or modify existing analytics snippets.**
+
+### Execution Priority
+
+These marketing tasks should be tackled AFTER the product evaluation queue is complete (PowerCast → NarrativeEdge → ConnectPath). However, if a cycle finishes an evaluation early and has time remaining, agents CAN start on bilingual support or email outreach tooling.
+
+**Suggested order:**
+1. Bilingual support for all landing pages (quickest win, broadens audience immediately)
+2. Email outreach tool (dogfood ColdCopy, replace failing LinkedIn DMs)
+3. Chinese social media research + automation (longer-term channel)
+
+---
