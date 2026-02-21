@@ -1,0 +1,19 @@
+name = "powercast"
+type = "javascript"
+account_id = ""
+workers_dev = true
+route = ""
+zone_id = ""
+pages_build_output_dir = "."
+
+[env.production]
+name = "powercast-dashboard-prod"
+routes = [
+  { pattern = "powercast.example.com", zone_name = "example.com" }
+]
+
+[build]
+command = ""
+
+[[triggers.crons]]
+cron = "0 6 * * *"

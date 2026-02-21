@@ -1,0 +1,48 @@
+# PowerCast .gitignore
+
+# Data files (large CSVs)
+data/*.csv
+data/*.parquet
+!data/README.md
+
+# Model files (large binary)
+models/*.pkl
+models/*.pth
+models/*.h5
+models/*.onnx
+!models/README.md
+
+# Generated reports
+reports/*.html
+reports/*.pdf
+reports/*.csv
+!reports/sample_report.html
+!reports/README.md
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+*.so
+.env
+.venv
+venv/
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
