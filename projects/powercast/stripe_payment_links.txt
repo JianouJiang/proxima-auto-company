@@ -1,0 +1,17 @@
+PowerCast Stripe Payment Links
+============================================================
+
+Weekly Forecast ($99/month):
+https://buy.stripe.com/3cIeVdathbFj1WS0Oy0VO0b
+
+Dataset ($39 one-time):
+https://buy.stripe.com/00w14nbxl38Nbxs40K0VO0c
+
+Bundle ($69 one-time):
+https://buy.stripe.com/9B6fZh7h5aBfcBwgNw0VO0d
+
+
+Product IDs:
+- Weekly: prod_U1LDufcDhvDHDy
+- Dataset: prod_U1LEg7K7ekHEKc
+- Bundle: prod_U1LEFAomhweEJN
