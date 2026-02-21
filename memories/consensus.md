@@ -62,22 +62,68 @@
 
 ---
 
-### BUILD #2: ConnectPath — Six Degrees Connection Finder 🔗 MUST GO
+### BUILD #2: ConnectPath — AI Agent That Reaches Anyone For You 🔗 MUST GO
 
-**Status: NOT YET EVALUATED. But founder says MUST GO regardless of evaluation outcome.**
+**Status: V1 built but WRONG. Founder says SCRAP V1 and REBUILD with correct vision below.**
 
-**Why MUST GO:** This tests the agents' ability to SEARCH and BUILD CONNECTIONS — a fundamentally interesting capability. If this tool actually gets the founder connected to Elon Musk, the project will make money by itself. The value is in the demonstration of AI agent capability.
+**⚠️ The current build (GitHub graph search) is NOT what the founder wants. The V1 in `projects/connectpath/` must be REPLACED with this vision:**
 
-**What to BUILD:**
-1. Web app where user inputs: their profile + target person (e.g., Elon Musk)
-2. AI agent searches public profiles, mutual connections, shared organizations, events
-3. Output: a chain of connections (you → person A → person B → ... → target)
-4. For each intermediary: suggest WHY they'd help (reciprocal value)
-5. Deploy to Cloudflare Pages
+**What ConnectPath ACTUALLY is:**
+ConnectPath is an **AI agent service** that actively works to connect you to anyone in the world through 6 degrees of separation. It's NOT a search tool — it's an agent that TAKES ACTION on your behalf.
 
-**Evaluation:** Do a QUICK evaluation (research + product spec only, 15 min max), then BUILD. Do NOT let CEO or Munger kill this. They can document concerns but execution proceeds.
+**How it works (user flow):**
+1. **User uploads CV/intro** — tell the agent who you are, your background, skills, achievements
+2. **User specifies target person** — e.g., "Elon Musk", "the CEO of Stripe", "a senior ML engineer at DeepMind"
+3. **User explains motivation** — WHY do you need to reach this person? (job, investment, partnership, mentorship, collaboration)
+4. **AI agent goes to work** — uses Claude to autonomously:
+   - Research the target person (public profiles, articles, interviews, social media)
+   - Map potential connection chains (you → intermediary A → intermediary B → ... → target)
+   - Draft personalized outreach emails for each step in the chain
+   - SEND emails on the user's behalf (with user's SMTP credentials or via our relay)
+   - Follow up if no response
+   - Adapt strategy based on responses (if intermediary A says no, try intermediary B)
+   - Report progress back to the user
+5. **Result:** The agent keeps working until it reaches the target or exhausts all paths
 
-**Team:** `research-thompson` (15 min feasibility) → `product-norman` (spec) → `fullstack-dhh` (build) → `devops-hightower` (deploy)
+**This is HEAVILY Claude-agentic.** The agent must think, research, write, send, follow up, and adapt. This is NOT a simple search — it's an autonomous multi-step campaign.
+
+**Pricing model (TWO options, implement both):**
+
+**Option A: Pay-per-outcome (premium)**
+| Outcome | Price |
+|---------|-------|
+| Email reply from target | £50 |
+| Video/phone call with target | £200 |
+| In-person meeting with target | £500 |
+| No result after 30 days | £0 (money-back guarantee) |
+
+**Option B: Pay-per-search credits (like dating app Spotlight/Boost)**
+| Credits | Price | What you get |
+|---------|-------|-------------|
+| 10 agent searches | £5 | Agent researches 10 potential intermediaries |
+| 50 agent searches | £20 | Agent researches 50 potential intermediaries |
+| 200 agent searches | £50 | Agent researches 200 potential intermediaries |
+| Unlimited (1 month) | £99 | Agent works non-stop for 1 month |
+
+Credits don't guarantee outcome but increase the agent's effort (like Spotlight in dating apps — more exposure, better chances).
+
+**Tech stack:**
+- Frontend: landing page + dashboard (Cloudflare Pages)
+- Backend: Cloudflare Workers + D1 (track campaigns, credits, progress)
+- AI: Claude API for all reasoning, research, email drafting
+- Email: User provides SMTP creds, or we use a relay service (SendGrid/Mailgun)
+- Billing: Gumroad or Stripe
+
+**V1 scope (this cycle):**
+1. Landing page explaining the service (bilingual EN/中文)
+2. Intake form (upload CV, target person, motivation)
+3. Basic agent that researches target + drafts first outreach email
+4. Credit system (track agent searches per user)
+5. Deploy + Gumroad payment link
+
+**DO NOT build the simple GitHub graph search again. That is WRONG.**
+
+**Team:** `fullstack-dhh` (rebuild) → `devops-hightower` (deploy) → `marketing-godin` (launch)
 
 ---
 
@@ -193,12 +239,13 @@
 
 ## Next Action
 
-**BUILD ConnectPath** (Product #2 in the queue). PowerCast is LIVE with Gumroad payments configured. Move to the next product.
+**REBUILD ConnectPath** — the V1 in `projects/connectpath/` is WRONG (simple GitHub search). Founder wants an AI AGENT SERVICE that actively reaches people on the user's behalf. Read the BUILD #2 spec carefully.
 
-1. Quick eval ConnectPath (15 min max) → then BUILD
-2. Launch bilingual (EN + 中文)
-3. Deploy to Cloudflare Pages
-4. Set up Gumroad/Stripe payment
+1. SCRAP `projects/connectpath/` V1 or rename to `projects/connectpath-v1-deprecated/`
+2. Build the correct ConnectPath: intake form + AI agent that researches + drafts + sends outreach
+3. Bilingual EN + 中文
+4. Credit-based pricing (agent searches) + outcome-based pricing
+5. Deploy to Cloudflare Pages + Workers
 
 **Also:** Add bilingual toggle to existing products (ColdCopy, FlowPrep, PowerCast) when time permits.
 
