@@ -27,9 +27,9 @@ All 3 products now simultaneously public and live:
 
 | Product | URL | Status | Phase | Response Time |
 |---------|-----|--------|-------|----------------|
-| ColdCopy | https://coldcopy-ai.pages.dev/ | LIVE | Phase 2 (upgrade modal) | 0.24s |
+| ColdCopy | https://coldcopy-au3.pages.dev/ | LIVE | Phase 2 (upgrade modal) | 0.36s |
 | Double Mood | https://double-mood.pages.dev/ | LIVE | Phase 2 (habit loop) | 0.19s |
-| FlowPrep AI | https://flowprep-ai.pages.dev/ | LIVE | Phase 0 (validation) | 0.29s |
+| FlowPrep AI | https://flowprep-ai.pages.dev/ | LIVE | Phase 0 (validation) | 0.20s |
 
 ### Key Decisions
 
