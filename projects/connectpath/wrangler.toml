@@ -1,0 +1,33 @@
+# Cloudflare Pages / Workers configuration for ConnectPath
+
+name = "connectpath"
+compatibility_date = "2024-01-01"
+
+# KV namespace binding for rate limiting
+[[kv_namespaces]]
+binding = "CONNECTPATH_KV"
+id = "ecc463b2c8e241f1abfb9dccf5fd4003"
+
+# For local development
+# [[kv_namespaces]]
+# binding = "CONNECTPATH_KV"
+# id = "YOUR_KV_NAMESPACE_ID"
+# preview_id = "YOUR_PREVIEW_KV_NAMESPACE_ID"
+
+[vars]
+# Non-sensitive environment variables (can be public)
+# MAX_FREE_SEARCHES = "3"
+# MAX_DEPTH = "3"
+
+# Sensitive variables (add via Cloudflare Dashboard or wrangler secret)
+# GITHUB_TOKEN = "ghp_..." (DO NOT commit this!)
+# Add via: wrangler secret put GITHUB_TOKEN
+
+# Pages configuration (if using wrangler pages commands)
+[build]
+command = ""  # No build step needed
+cwd = "."
+watch_dirs = ["functions"]
+
+[build.upload]
+format = "service-worker"

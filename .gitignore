@@ -162,6 +162,13 @@ projects/*
 !projects/powercast/dashboard/
 !projects/powercast/dashboard/*.html
 !projects/powercast/dashboard/*.toml
+# ConnectPath - GitHub connection finder
+!projects/connectpath/
+!projects/connectpath/*.html
+!projects/connectpath/*.md
+!projects/connectpath/*.json
+!projects/connectpath/*.toml
+!projects/connectpath/functions/
 .vscode-test-web
 **/.vitepress/cache
 **/.vitepress/.temp

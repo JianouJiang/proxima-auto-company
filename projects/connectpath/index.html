@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ConnectPath - Find Your Professional Connection</title>
+    <meta name="description" content="Discover hidden professional relationships. Find the shortest path between any two professionals using public data.">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #0066FF;
+            --success: #10B981;
+            --error: #EF4444;
+            --bg: #F9FAFB;
+            --text: #111827;
+            --text-light: #6B7280;
+            --border: #E5E7EB;
+            --purple: #8B5CF6;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'SF Pro Display', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            max-width: 640px;
+            margin: 0 auto;
+            padding: 20px;
+            flex: 1;
+        }
+
+        header {
+            text-align: center;
+            padding: 60px 20px 40px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--purple) 100%);
+            color: white;
+            margin-bottom: 40px;
+        }
+
+        .logo {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .tagline {
+            font-size: 18px;
+            opacity: 0.95;
+            font-weight: 400;
+        }
+
+        .lang-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.2s;
+        }
+
+        .lang-toggle:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 32px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            margin-bottom: 24px;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text);
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.2s;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .help-text {
+            font-size: 14px;
+            color: var(--text-light);
+            margin-top: 4px;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px 24px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--purple) 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        button:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 102, 255, 0.3);
+        }
+
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 40px;
+        }
+
+        .loading.active {
+            display: block;
+        }
+
+        .spinner {
+            border: 3px solid var(--border);
+            border-top: 3px solid var(--primary);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 16px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .results {
+            display: none;
+        }
+
+        .results.active {
+            display: block;
+        }
+
+        .result-success {
+            border-left: 4px solid var(--success);
+        }
+
+        .result-error {
+            border-left: 4px solid var(--error);
+        }
+
+        .path {
+            margin: 24px 0;
+            padding-left: 20px;
+        }
+
+        .node {
+            padding: 16px;
+            margin: 12px 0;
+            background: var(--bg);
+            border-radius: 8px;
+            position: relative;
+        }
+
+        .node::before {
+            content: '↓';
+            position: absolute;
+            left: -10px;
+            top: -16px;
+            font-size: 20px;
+            color: var(--primary);
+        }
+
+        .node:first-child::before {
+            content: '';
+        }
+
+        .node-name {
+            font-weight: 600;
+            font-size: 18px;
+            margin-bottom: 4px;
+        }
+
+        .node-meta {
+            color: var(--text-light);
+            font-size: 14px;
+        }
+
+        .stats {
+            display: flex;
+            gap: 24px;
+            margin: 24px 0;
+            padding: 16px;
+            background: var(--bg);
+            border-radius: 8px;
+        }
+
+        .stat {
+            flex: 1;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: var(--text-light);
+        }
+
+        .actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .error-details {
+            margin-top: 16px;
+            padding: 16px;
+            background: #FEF2F2;
+            border-radius: 8px;
+            color: #991B1B;
+        }
+
+        .paywall {
+            text-align: center;
+            padding: 32px;
+            background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%);
+            border-radius: 12px;
+            margin-top: 24px;
+        }
+
+        .paywall h3 {
+            margin-bottom: 12px;
+        }
+
+        .paywall-cta {
+            display: inline-block;
+            margin-top: 16px;
+            padding: 12px 32px;
+            background: #111827;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: transform 0.2s;
+        }
+
+        .paywall-cta:hover {
+            transform: translateY(-2px);
+        }
+
+        footer {
+            text-align: center;
+            padding: 32px 20px;
+            color: var(--text-light);
+            font-size: 14px;
+            border-top: 1px solid var(--border);
+            margin-top: 40px;
+        }
+
+        .footer-note {
+            margin-top: 8px;
+        }
+
+        @media (max-width: 640px) {
+            header {
+                padding: 40px 20px 30px;
+            }
+
+            .logo {
+                font-size: 24px;
+            }
+
+            .tagline {
+                font-size: 16px;
+            }
+
+            .card {
+                padding: 24px;
+            }
+
+            .stats {
+                flex-direction: column;
+                gap: 16px;
+            }
+
+            .actions {
+                flex-direction: column;
+            }
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <button class="lang-toggle" onclick="toggleLanguage()">
+        <span class="lang-en">中文</span>
+        <span class="lang-zh hidden">EN</span>
+    </button>
+
+    <header>
+        <div class="logo">ConnectPath</div>
+        <div class="tagline lang-en">Find your professional connection in 6 degrees</div>
+        <div class="tagline lang-zh hidden">在六度空间内找到你的专业连接</div>
+    </header>
+
+    <div class="container">
+        <!-- Search Form -->
+        <div id="search-form" class="card">
+            <form onsubmit="handleSearch(event)">
+                <div class="form-group">
+                    <label class="lang-en">Person A (Starting point)</label>
+                    <label class="lang-zh hidden">起点人物</label>
+                    <input type="text" id="personA" required placeholder="e.g., John Smith or john@example.com">
+                    <div class="help-text lang-en">Enter name or email</div>
+                    <div class="help-text lang-zh hidden">输入姓名或邮箱</div>
+                </div>
+
+                <div class="form-group">
+                    <label class="lang-en">Person B (Target)</label>
+                    <label class="lang-zh hidden">目标人物</label>
+                    <input type="text" id="personB" required placeholder="e.g., Jane Doe or jane@example.com">
+                    <div class="help-text lang-en">Enter name or email</div>
+                    <div class="help-text lang-zh hidden">输入姓名或邮箱</div>
+                </div>
+
+                <button type="submit" id="search-btn">
+                    <span class="lang-en">🔍 Find Connection</span>
+                    <span class="lang-zh hidden">🔍 查找连接</span>
+                </button>
+            </form>
+
+            <div id="rate-limit-info" class="help-text" style="margin-top: 16px; text-align: center;">
+                <span class="lang-en">Free searches today: <span id="searches-left">3</span>/3</span>
+                <span class="lang-zh hidden">今日免费搜索次数: <span id="searches-left-zh">3</span>/3</span>
+            </div>
+        </div>
+
+        <!-- Loading State -->
+        <div id="loading" class="card loading">
+            <div class="spinner"></div>
+            <div class="lang-en">Searching for connections...</div>
+            <div class="lang-zh hidden">正在搜索连接...</div>
+        </div>
+
+        <!-- Results -->
+        <div id="results" class="card results">
+            <!-- Success result will be injected here -->
+        </div>
+
+        <!-- Paywall -->
+        <div id="paywall" class="paywall hidden">
+            <h3 class="lang-en">You've used your free searches!</h3>
+            <h3 class="lang-zh hidden">免费搜索次数已用完!</h3>
+            <p class="lang-en">Get unlimited searches + deeper connections (up to 6 degrees)</p>
+            <p class="lang-zh hidden">获取无限搜索 + 更深度连接(最多6度)</p>
+            <a href="https://jiangyingjuner.gumroad.com/l/connectpath-unlimited" class="paywall-cta" target="_blank">
+                <span class="lang-en">Upgrade for $9.99/month</span>
+                <span class="lang-zh hidden">升级至 $9.99/月</span>
+            </a>
+        </div>
+    </div>
+
+    <footer>
+        <div class="lang-en">We search GitHub, Twitter, Crunchbase, and public company pages.</div>
+        <div class="lang-zh hidden">我们搜索 GitHub、Twitter、Crunchbase 和公开公司页面。</div>
+        <div class="footer-note lang-en">All data is from public sources. No private information is accessed.</div>
+        <div class="footer-note lang-zh hidden">所有数据来自公开来源，不访问私人信息。</div>
+    </footer>
+
+    <script>
+        let currentLang = 'en';
+        const MAX_FREE_SEARCHES = 3;
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'en' ? 'zh' : 'en';
+            document.querySelectorAll('.lang-en').forEach(el => {
+                el.classList.toggle('hidden', currentLang !== 'en');
+            });
+            document.querySelectorAll('.lang-zh').forEach(el => {
+                el.classList.toggle('hidden', currentLang !== 'zh');
+            });
+            updateSearchesLeft();
+        }
+
+        function getSearchCount() {
+            const count = localStorage.getItem('connectpath_searches');
+            const date = localStorage.getItem('connectpath_search_date');
+            const today = new Date().toDateString();
+
+            if (date !== today) {
+                localStorage.setItem('connectpath_searches', '0');
+                localStorage.setItem('connectpath_search_date', today);
+                return 0;
+            }
+
+            return parseInt(count || '0');
+        }
+
+        function incrementSearchCount() {
+            const count = getSearchCount();
+            localStorage.setItem('connectpath_searches', String(count + 1));
+        }
+
+        function updateSearchesLeft() {
+            const used = getSearchCount();
+            const left = Math.max(0, MAX_FREE_SEARCHES - used);
+            document.getElementById('searches-left').textContent = left;
+            document.getElementById('searches-left-zh').textContent = left;
+
+            if (left === 0) {
+                document.getElementById('paywall').classList.remove('hidden');
+                document.getElementById('search-btn').disabled = true;
+            }
+        }
+
+        async function handleSearch(event) {
+            event.preventDefault();
+
+            const personA = document.getElementById('personA').value.trim();
+            const personB = document.getElementById('personB').value.trim();
+
+            if (!personA || !personB) return;
+
+            // Check rate limit
+            if (getSearchCount() >= MAX_FREE_SEARCHES) {
+                document.getElementById('paywall').classList.remove('hidden');
+                return;
+            }
+
+            // Show loading
+            document.getElementById('search-form').style.display = 'none';
+            document.getElementById('loading').classList.add('active');
+            document.getElementById('results').classList.remove('active');
+
+            try {
+                const response = await fetch('/api/search', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ personA, personB, lang: currentLang })
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.error || 'Search failed');
+                }
+
+                incrementSearchCount();
+                updateSearchesLeft();
+                displayResults(data);
+
+            } catch (error) {
+                displayError(error.message);
+            } finally {
+                document.getElementById('loading').classList.remove('active');
+                document.getElementById('results').classList.add('active');
+            }
+        }
+
+        function displayResults(data) {
+            const resultsDiv = document.getElementById('results');
+
+            if (data.found && data.path && data.path.length > 0) {
+                // Success case
+                resultsDiv.className = 'card results result-success active';
+
+                const pathHTML = data.path.map((node, index) => {
+                    return `
+                        <div class="node">
+                            <div class="node-name">${escapeHtml(node.name)}</div>
+                            ${node.title || node.company ? `<div class="node-meta">${escapeHtml(node.title || '')} ${node.company ? '@ ' + escapeHtml(node.company) : ''}</div>` : ''}
+                            ${node.source ? `<div class="node-meta">Source: ${escapeHtml(node.source)}</div>` : ''}
+                        </div>
+                    `;
+                }).join('');
+
+                resultsDiv.innerHTML = `
+                    <h2 class="lang-en">✓ Connection Found!</h2>
+                    <h2 class="lang-zh hidden">✓ 找到连接！</h2>
+
+                    <div class="path">${pathHTML}</div>
+
+                    <div class="stats">
+                        <div class="stat">
+                            <div class="stat-value">${data.degree || data.path.length - 1}</div>
+                            <div class="stat-label lang-en">Degrees</div>
+                            <div class="stat-label lang-zh hidden">度数</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">${data.confidence || 'N/A'}%</div>
+                            <div class="stat-label lang-en">Confidence</div>
+                            <div class="stat-label lang-zh hidden">置信度</div>
+                        </div>
+                    </div>
+
+                    <div class="actions">
+                        <button class="btn-secondary" onclick="resetSearch()">
+                            <span class="lang-en">New Search</span>
+                            <span class="lang-zh hidden">新搜索</span>
+                        </button>
+                    </div>
+                `;
+            } else {
+                // Not found case
+                resultsDiv.className = 'card results result-error active';
+                resultsDiv.innerHTML = `
+                    <h2 class="lang-en">× No Path Found</h2>
+                    <h2 class="lang-zh hidden">× 未找到路径</h2>
+
+                    <div class="error-details">
+                        <p class="lang-en">We searched ${data.searched_profiles || 0} profiles but couldn't find a connection path.</p>
+                        <p class="lang-zh hidden">我们搜索了 ${data.searched_profiles || 0} 个资料，但未找到连接路径。</p>
+
+                        <p style="margin-top: 12px;" class="lang-en">This doesn't mean you're not connected — it means we don't have enough public data yet.</p>
+                        <p style="margin-top: 12px;" class="lang-zh hidden">这并不意味着你们没有连接 — 只是我们目前还没有足够的公开数据。</p>
+
+                        ${data.suggestions ? `
+                            <p style="margin-top: 12px;" class="lang-en"><strong>Suggestions:</strong> ${escapeHtml(data.suggestions)}</p>
+                            <p style="margin-top: 12px;" class="lang-zh hidden"><strong>建议:</strong> ${escapeHtml(data.suggestions)}</p>
+                        ` : ''}
+                    </div>
+
+                    <div class="actions">
+                        <button class="btn-secondary" onclick="resetSearch()">
+                            <span class="lang-en">Try Again</span>
+                            <span class="lang-zh hidden">重试</span>
+                        </button>
+                    </div>
+                `;
+            }
+
+            // Update language display
+            toggleLanguage();
+            toggleLanguage();
+        }
+
+        function displayError(message) {
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.className = 'card results result-error active';
+            resultsDiv.innerHTML = `
+                <h2 class="lang-en">⚠ Error</h2>
+                <h2 class="lang-zh hidden">⚠ 错误</h2>
+
+                <div class="error-details">
+                    <p>${escapeHtml(message)}</p>
+                </div>
+
+                <div class="actions">
+                    <button class="btn-secondary" onclick="resetSearch()">
+                        <span class="lang-en">Try Again</span>
+                        <span class="lang-zh hidden">重试</span>
+                    </button>
+                </div>
+            `;
+        }
+
+        function resetSearch() {
+            document.getElementById('search-form').style.display = 'block';
+            document.getElementById('results').classList.remove('active');
+            document.getElementById('personA').value = '';
+            document.getElementById('personB').value = '';
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // Initialize
+        updateSearchesLeft();
+    </script>
+</body>
+</html>
