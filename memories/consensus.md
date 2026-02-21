@@ -639,4 +639,44 @@ Continue health monitoring (5 min max), await founder validation progress report
 
 ---
 
-**Next cycle: Continue health monitoring (5 min max), await founder validation progress report.**
+## 🔴 FOUNDER DIRECTIVE — CYCLE 33: BUILD FLOWPREP LANDING PAGE + DEMO
+
+**The founder wants a product landing page for FlowPrep AI that explains to HVAC engineers what it does.** Right now the only public page is the company story — engineers need a dedicated product page that sells the tool.
+
+### What to build:
+
+**1. FlowPrep AI Landing Page** (`projects/flowprep/public/index.html`)
+- **Target audience:** HVAC design engineers at MEP consultancies
+- **Must explain:** What FlowPrep does (automates CFD preprocessing for HVAC simulations)
+- **Must show:** The pain point (4-12 hours of manual preprocessing → 15 minutes automated)
+- **Must include:**
+  - Hero section with clear value proposition
+  - "How it works" section (upload geometry → auto mesh → auto boundary conditions → simulation-ready)
+  - Before/after comparison (manual workflow vs FlowPrep)
+  - Pricing ($79/month or the £39/month early access link from Stripe)
+  - Demo/interactive section that gives engineers a taste of the product (could be: sample CFD visualization, an interactive form that shows what the tool would generate, or screenshots of the workflow)
+  - "Built by a PhD in ML + CFD" credibility section (founder's expertise)
+  - Early access signup / Stripe payment link: https://buy.stripe.com/dRm5kD0SH8t7ato54O0VO05
+- **Tech:** Single HTML file, Tailwind CDN, no build process (same as Double Mood)
+- **Deploy to:** Cloudflare Pages (`flowprep.pages.dev` or similar)
+
+**2. Add Cloudflare Web Analytics** (same as other products)
+- Snippet goes before `</body>` — founder will provide token after deploy, or agents can set up via Cloudflare dashboard
+
+**3. Update landing page**
+- Change FlowPrep card on `projects/landing-page/index.html` from story link to the live product URL once deployed
+
+**4. Commit to git** — `projects/flowprep/` must be committed (it's not gitignored)
+
+### Team assignment:
+- `interaction-cooper` → User flow for the landing page
+- `ui-duarte` → Visual design (green/teal energy theme)
+- `fullstack-dhh` → Build the page
+- `devops-hightower` → Deploy to Cloudflare Pages
+- `marketing-godin` → SEO meta tags, copy review
+
+### Also: Quick health check (5 min max)
+- Double Mood: https://double-mood.pages.dev/
+- ColdCopy: https://coldcopy-au3.pages.dev/
+
+**DO NOT just do health checks. BUILD THE LANDING PAGE.**
