@@ -1,220 +1,208 @@
-# ConnectPath MVP
+# ConnectPath - AI Agent Connection Service
 
-**Find professional connections in 6 degrees of separation.**
+An AI agent that helps you reach anyone in the world by researching targets, mapping connection chains, and drafting personalized outreach emails.
 
-ConnectPath helps you discover hidden professional relationships by finding the shortest path between any two people using public data from GitHub, Twitter, Crunchbase, and company team pages.
+## What It Does
 
-## Features
+ConnectPath takes the "6 degrees of separation" concept and automates it with AI:
 
-- **Bilingual UI**: English + Simplified Chinese
-- **Free tier**: 3 searches per day
-- **Fast search**: Results in < 5 seconds
-- **Mobile-first**: Responsive design
-- **Privacy-focused**: Only public data, no login required
+1. **User inputs**: CV/intro + target person + motivation
+2. **AI agent researches**: Target's background, interests, and public presence
+3. **AI finds paths**: Potential intermediaries who can bridge the connection
+4. **AI drafts emails**: Personalized outreach for each step in the chain
+5. **User reviews & sends**: Get the draft emails and send when ready
 
 ## Tech Stack
 
-- **Frontend**: Vanilla JS (no framework bloat)
-- **Backend**: Cloudflare Workers (serverless)
-- **Database**: Cloudflare KV (rate limiting + cache)
-- **APIs**: GitHub REST API (primary data source)
-- **Hosting**: Cloudflare Pages
+- **Frontend**: HTML + Tailwind CSS + vanilla JS (bilingual EN/中文)
+- **Backend**: Cloudflare Workers + D1 Database
+- **AI**: Claude Sonnet 4.5 (Anthropic API)
+- **Payment**: Gumroad credit packages
+- **Infrastructure**: Cloudflare (Workers, D1, KV, Queues)
+
+## Pricing Model
+
+| Plan | Credits | Price |
+|------|---------|-------|
+| Starter | 10 | £5 |
+| Growth | 50 | £20 |
+| Pro | 200 | £50 |
+| Unlimited | ∞ (1 month) | £99 |
+
+**1 credit = 1 agent search operation** (research target, find intermediary, draft email)
 
 ## Setup
 
-### 1. Prerequisites
-
-- Cloudflare account (free tier)
-- GitHub account
-- GitHub Personal Access Token
-
-### 2. Environment Variables
-
-Copy `.env.example` to `.env` and fill in:
+### 1. Create D1 Database
 
 ```bash
-cp .env.example .env
+cd projects/connectpath
+wrangler d1 create connectpath-db
 ```
 
-Required:
-- `GITHUB_TOKEN`: Create at https://github.com/settings/tokens
-  - Scopes needed: `public_repo`, `read:user`
-  - This increases rate limit from 60/hr to 5,000/hr
+Copy the database ID and update `wrangler.toml`:
 
-### 3. Cloudflare KV Setup
+```toml
+database_id = "YOUR_DATABASE_ID"
+```
 
-Create a KV namespace for rate limiting:
+### 2. Initialize Database Schema
 
 ```bash
-wrangler kv:namespace create "CONNECTPATH_KV"
+wrangler d1 execute connectpath-db --file=schema.sql
 ```
 
-Note the namespace ID and bind it in `wrangler.toml` (see below).
-
-### 4. Deploy to Cloudflare Pages
-
-#### Option A: GitHub Integration (Recommended)
-
-1. Push this directory to GitHub
-2. Go to Cloudflare Dashboard → Pages
-3. Create new project → Connect to Git
-4. Select your repo
-5. Build settings:
-   - Build command: (leave empty)
-   - Build output directory: `/`
-   - Root directory: `projects/connectpath`
-6. Environment variables:
-   - Add `GITHUB_TOKEN`
-7. Deploy
-
-#### Option B: Direct Upload
+### 3. Create KV Namespace (optional)
 
 ```bash
-# Install Wrangler if not already
-npm install -g wrangler
-
-# Login to Cloudflare
-wrangler login
-
-# Deploy
-wrangler pages publish . --project-name=connectpath
+wrangler kv:namespace create "connectpath-kv"
 ```
 
-### 5. Configure KV Binding
+Update `wrangler.toml` with the KV namespace ID.
 
-In Cloudflare Dashboard → Pages → Your Project → Settings → Functions:
+### 4. Set Secrets
 
-Add KV namespace binding:
-- Variable name: `CONNECTPATH_KV`
-- KV namespace: Select the one you created
+```bash
+# Anthropic API key for Claude
+wrangler secret put ANTHROPIC_API_KEY
 
-### 6. Test
-
-Visit your deployed URL (e.g., `connectpath.pages.dev`)
-
-Try searching for:
-- Person A: `torvalds` (Linus Torvalds on GitHub)
-- Person B: `tj` (TJ Holowaychuk on GitHub)
-
-## Project Structure
-
-```
-connectpath/
-├── index.html              # Frontend SPA
-├── functions/
-│   └── api/
-│       └── search.js       # Cloudflare Workers API
-├── .env.example            # Environment variables template
-├── README.md               # This file
-└── gumroad-listing.txt     # Gumroad product description
+# Gumroad webhook secret (if using webhook verification)
+wrangler secret put GUMROAD_WEBHOOK_SECRET
 ```
 
-## How It Works
+### 5. Deploy Worker
 
-### Search Algorithm
+```bash
+wrangler deploy
+```
 
-1. **Input**: User enters two names/emails
-2. **Resolve identities**: Search GitHub API for matching users
-3. **BFS graph search**:
-   - Start from Person A
-   - Explore followers + following
-   - Track visited nodes to avoid cycles
-   - Stop at 3 degrees (free tier) or when target found
-4. **Return path**: Display connection chain with confidence score
+### 6. Setup Gumroad Products
 
-### Rate Limiting
+Create 4 products on Gumroad:
+- ConnectPath Starter (£5) - custom field: `plan=starter`
+- ConnectPath Growth (£20) - custom field: `plan=growth`
+- ConnectPath Pro (£50) - custom field: `plan=pro`
+- ConnectPath Unlimited (£99) - custom field: `plan=unlimited`
 
-- **Client-side**: localStorage tracks searches per day
-- **Server-side**: Cloudflare KV stores IP-based rate limits
-- **Free tier**: 3 searches/day per IP
-- **Reset**: Daily at midnight UTC
+Configure webhook to: `https://YOUR-WORKER.workers.dev/api/webhook/gumroad`
 
-### Data Sources (MVP)
+Update `intake.html` with real Gumroad product links.
 
-- ✅ **GitHub API**: Followers, following, org memberships, profile data
-- ⏳ **Twitter/X API**: (Future) Follows, mentions, bio
-- ⏳ **Crunchbase**: (Future) Company employees, investors
-- ⏳ **Web scraping**: (Future) Company team pages
+## Development
 
-## Monetization
+### Run locally
 
-### Free Tier
-- 3 searches per day
-- Up to 3 degrees of separation
-- Text-based results
+```bash
+wrangler dev
+```
 
-### Paid Tier ($9.99/month via Gumroad)
-- Unlimited searches
-- Up to 6 degrees of separation
-- Export to PDF
-- Priority support
+### Test database queries
 
-Link: https://jiangyingjuner.gumroad.com/l/connectpath-unlimited
+```bash
+wrangler d1 execute connectpath-db --command="SELECT * FROM users"
+```
 
-## Metrics to Track
+## API Endpoints
 
-1. **Search success rate**: % of searches that find a path (target: >40%)
-2. **Average degree**: Average path length (target: 2-4 degrees)
-3. **Completion rate**: % of users who complete full flow (target: >70%)
-4. **Free → Paid conversion**: % hitting paywall who upgrade (target: >5%)
+### POST /api/campaigns
+Create new campaign
 
-## Known Limitations
+**Body**:
+```json
+{
+  "email": "user@example.com",
+  "cv": "I'm a software engineer...",
+  "target_name": "Elon Musk",
+  "target_role": "CEO at Tesla",
+  "motivation": "Want to discuss AI safety...",
+  "plan": "starter"
+}
+```
 
-- **GitHub-centric**: MVP only searches GitHub profiles
-- **Public data only**: No LinkedIn, no private profiles
-- **Rate limits**: GitHub API has 5,000/hr limit with token
-- **Shallow search**: Free tier stops at 3 degrees (not 6)
+**Response**:
+```json
+{
+  "success": true,
+  "campaign_id": "uuid",
+  "message": "Campaign created. Complete payment to start AI agent."
+}
+```
 
-## Roadmap
+### GET /api/dashboard?email=user@example.com
+Get user credits and campaigns
 
-### V1.1 (Week 2)
-- [ ] Add Twitter/X API integration
-- [ ] Improve name disambiguation (multiple John Smiths)
-- [ ] Cache search results in KV (reduce API calls)
+**Response**:
+```json
+{
+  "credits": 50,
+  "campaigns": [
+    {
+      "id": "uuid",
+      "target_name": "Elon Musk",
+      "status": "completed",
+      "credits_used": 3,
+      "results": { ... }
+    }
+  ]
+}
+```
 
-### V1.2 (Week 3)
-- [ ] Crunchbase integration (company/investor data)
-- [ ] Export path to PDF
-- [ ] Share link generation
+### POST /api/webhook/gumroad
+Gumroad webhook handler (adds credits after purchase)
 
-### V2.0 (Month 2)
-- [ ] User accounts (save search history)
-- [ ] API endpoint for programmatic access
-- [ ] D3.js graph visualization
-- [ ] Bulk upload (CSV)
+### GET /api/campaign/:id
+Get single campaign details with steps
 
-## Troubleshooting
+## Database Schema
 
-### "Rate limit exceeded" error
-- GitHub API has limits: 60/hr (no token) or 5,000/hr (with token)
-- Solution: Add `GITHUB_TOKEN` to environment variables
+### users
+- id, email, credits_balance, created_at, updated_at
 
-### "No path found" for known connections
-- MVP only searches GitHub followers/following
-- If people don't follow each other on GitHub, no path will be found
-- Solution: Wait for Twitter/Crunchbase integration
+### campaigns
+- id, user_id, email, cv, target_name, target_role, motivation, status, credits_used, results, created_at, updated_at
 
-### Search is slow (>10s)
-- BFS explores many nodes
-- Solution: Reduce `MAX_NODES` in `search.js` or add caching
+### campaign_steps
+- id, campaign_id, step_type, step_description, credits_cost, result, status, created_at, completed_at
 
-## Contributing
+### credit_transactions
+- id, user_id, amount, transaction_type, plan, campaign_id, created_at
 
-This is an MVP built by AI agents. Code is intentionally simple and unoptimized.
+## AI Agent Logic
 
-Priorities:
-1. **Shipping > Perfection** — Get it working first
-2. **Simple > Complex** — No fancy frameworks
-3. **Free > Paid APIs** — Minimize costs in MVP phase
+The agent runs 3 steps per campaign:
+
+1. **Research Target** (1 credit)
+   - Professional background
+   - Interests and passions
+   - Recent public content
+   - Potential connection points
+
+2. **Find Intermediaries** (1 credit)
+   - 2-3 potential bridge people
+   - Connection strength analysis
+   - How to reach them
+
+3. **Draft Emails** (1 credit)
+   - Personalized email to each intermediary
+   - Direct email to target (backup)
+   - Concise, specific, actionable
+
+Total: **3 credits per campaign**
+
+## Future Enhancements (V2+)
+
+- [ ] Actually send emails on user's behalf (with Gmail API)
+- [ ] Track email open rates and replies
+- [ ] LinkedIn API integration for real mutual connections
+- [ ] Success-based pricing (pay when target replies)
+- [ ] Multi-language support beyond EN/中文
+- [ ] Campaign templates for common use cases
+- [ ] Team accounts with shared credits
+
+## Deployment
+
+Deployed to: `https://connectpath.jianoujiang.workers.dev`
 
 ## License
 
-Proprietary. Built by Proxima Auto Company.
-
-## Support
-
-Questions? Issues? Contact: [your-email@example.com]
-
----
-
-**Built with ❤️ by fullstack-dhh agent in 4 hours.**
+Proprietary - Auto Company

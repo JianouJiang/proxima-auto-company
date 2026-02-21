@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campaign Details - ConnectPath</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50">
+    <!-- Language Toggle -->
+    <div class="fixed top-4 right-4 z-50">
+        <button onclick="toggleLanguage()" class="bg-white px-4 py-2 rounded-lg shadow-sm border border-gray-200 hover:bg-gray-50">
+            <span id="lang-toggle">中文</span>
+        </button>
+    </div>
+
+    <div class="min-h-screen py-12 px-4">
+        <div class="max-w-4xl mx-auto">
+            <div class="mb-8">
+                <a href="dashboard.html" class="text-blue-600 hover:underline">
+                    <span data-en="← Back to Dashboard" data-zh="← 返回仪表盘">← Back to Dashboard</span>
+                </a>
+            </div>
+
+            <div id="campaign-details" class="space-y-6">
+                <div class="text-center py-12">
+                    <span data-en="Loading campaign..." data-zh="加载活动中...">Loading campaign...</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentLang = 'en';
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'en' ? 'zh' : 'en';
+            document.getElementById('lang-toggle').textContent = currentLang === 'en' ? '中文' : 'EN';
+
+            document.querySelectorAll('[data-en]').forEach(el => {
+                el.textContent = currentLang === 'en' ? el.dataset.en : el.dataset.zh;
+            });
+        }
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const campaignId = urlParams.get('id');
+
+        if (!campaignId) {
+            document.getElementById('campaign-details').innerHTML = `
+                <div class="text-center py-12 text-red-600">
+                    Campaign ID not provided
+                </div>
+            `;
+        } else {
+            loadCampaign();
+        }
+
+        async function loadCampaign() {
+            try {
+                const response = await fetch(`/api/campaign/${campaignId}`);
+                const campaign = await response.json();
+
+                if (campaign.error) {
+                    throw new Error(campaign.error);
+                }
+
+                // Render campaign details
+                document.getElementById('campaign-details').innerHTML = `
+                    <!-- Campaign Header -->
+                    <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <h1 class="text-3xl font-bold mb-2">${campaign.target_name}</h1>
+                                <p class="text-gray-600">${campaign.target_role || ''}</p>
+                            </div>
+                            <span class="px-4 py-2 rounded-full text-sm font-semibold ${getStatusColor(campaign.status)}">
+                                ${getStatusText(campaign.status)}
+                            </span>
+                        </div>
+                        <div class="border-t pt-4">
+                            <p class="text-sm text-gray-600 mb-2"><strong>Your Motivation:</strong></p>
+                            <p class="text-gray-800">${campaign.motivation}</p>
+                        </div>
+                        <div class="mt-4 flex justify-between text-sm text-gray-600">
+                            <span>Credits Used: <strong>${campaign.credits_used || 0}</strong></span>
+                            <span>Created: ${new Date(campaign.created_at * 1000).toLocaleDateString()}</span>
+                        </div>
+                    </div>
+
+                    <!-- Campaign Steps -->
+                    ${campaign.steps && campaign.steps.length > 0 ? `
+                        <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                            <h2 class="text-2xl font-bold mb-4">AI Agent Work Log</h2>
+                            <div class="space-y-4">
+                                ${campaign.steps.map((step, idx) => `
+                                    <div class="border-l-4 ${step.status === 'completed' ? 'border-green-500' : 'border-gray-300'} pl-4">
+                                        <div class="flex justify-between items-center mb-2">
+                                            <h3 class="font-semibold">Step ${idx + 1}: ${step.step_description}</h3>
+                                            <span class="text-sm ${step.status === 'completed' ? 'text-green-600' : 'text-gray-500'}">
+                                                ${step.status === 'completed' ? '✓ Completed' : 'Pending'}
+                                            </span>
+                                        </div>
+                                        ${step.result ? `
+                                            <pre class="text-sm bg-gray-50 p-3 rounded overflow-x-auto">${JSON.stringify(step.result, null, 2)}</pre>
+                                        ` : ''}
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    ` : ''}
+
+                    <!-- Results -->
+                    ${campaign.status === 'completed' && campaign.results ? `
+                        <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                            <h2 class="text-2xl font-bold mb-4">Final Results</h2>
+
+                            <!-- Target Research -->
+                            ${campaign.results.target_research ? `
+                                <div class="mb-6">
+                                    <h3 class="text-lg font-semibold mb-2">1. Target Research</h3>
+                                    <pre class="text-sm bg-blue-50 p-4 rounded overflow-x-auto">${JSON.stringify(campaign.results.target_research, null, 2)}</pre>
+                                </div>
+                            ` : ''}
+
+                            <!-- Intermediaries -->
+                            ${campaign.results.intermediaries ? `
+                                <div class="mb-6">
+                                    <h3 class="text-lg font-semibold mb-2">2. Potential Intermediaries</h3>
+                                    <pre class="text-sm bg-yellow-50 p-4 rounded overflow-x-auto">${JSON.stringify(campaign.results.intermediaries, null, 2)}</pre>
+                                </div>
+                            ` : ''}
+
+                            <!-- Email Drafts -->
+                            ${campaign.results.email_drafts ? `
+                                <div class="mb-6">
+                                    <h3 class="text-lg font-semibold mb-2">3. Personalized Email Drafts</h3>
+                                    <pre class="text-sm bg-green-50 p-4 rounded overflow-x-auto">${JSON.stringify(campaign.results.email_drafts, null, 2)}</pre>
+                                    <div class="mt-4 p-4 bg-blue-50 border border-blue-200 rounded">
+                                        <p class="text-sm text-blue-900">
+                                            <strong>Next Step:</strong> Copy these email drafts and send them when you're ready.
+                                            Future versions will allow ConnectPath to send emails on your behalf.
+                                        </p>
+                                    </div>
+                                </div>
+                            ` : ''}
+                        </div>
+                    ` : ''}
+
+                    ${campaign.status === 'processing' ? `
+                        <div class="bg-blue-50 border border-blue-200 rounded-lg p-6 text-center">
+                            <div class="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mb-4"></div>
+                            <p class="text-blue-900 font-semibold">AI agent is working on your campaign...</p>
+                            <p class="text-sm text-blue-700 mt-2">This usually takes 2-5 minutes. Refresh this page to see progress.</p>
+                        </div>
+                    ` : ''}
+
+                    ${campaign.status === 'pending' ? `
+                        <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-6 text-center">
+                            <p class="text-yellow-900 font-semibold">Waiting for payment...</p>
+                            <p class="text-sm text-yellow-700 mt-2">Complete your credit purchase to start the AI agent.</p>
+                        </div>
+                    ` : ''}
+                `;
+
+            } catch (error) {
+                console.error('Failed to load campaign:', error);
+                document.getElementById('campaign-details').innerHTML = `
+                    <div class="text-center py-12 text-red-600">
+                        Failed to load campaign. Please try again.
+                    </div>
+                `;
+            }
+        }
+
+        function getStatusColor(status) {
+            const colors = {
+                pending: 'bg-yellow-100 text-yellow-800',
+                processing: 'bg-blue-100 text-blue-800',
+                completed: 'bg-green-100 text-green-800',
+                failed: 'bg-red-100 text-red-800'
+            };
+            return colors[status] || 'bg-gray-100 text-gray-800';
+        }
+
+        function getStatusText(status) {
+            const texts = {
+                pending: 'Pending Payment',
+                processing: 'AI Agent Working',
+                completed: 'Results Ready',
+                failed: 'Failed'
+            };
+            return texts[status] || status;
+        }
+    </script>
+</body>
+</html>

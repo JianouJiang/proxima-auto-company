@@ -1,289 +1,238 @@
 # ConnectPath Deployment Guide
 
-**For devops-hightower: Complete deployment checklist**
+Quick deployment checklist for ConnectPath V2.
 
-## Pre-Deployment Checklist
+## Prerequisites
 
-- [ ] GitHub Personal Access Token created
-- [ ] Cloudflare account ready (free tier OK)
-- [ ] Gumroad product listing created
-- [ ] Domain name decided (if custom domain)
+- Wrangler CLI installed and authenticated
+- Cloudflare account
+- Anthropic API key for Claude
+- Gumroad account (for payments)
 
 ## Step-by-Step Deployment
 
-### 1. Create Cloudflare KV Namespace
+### 1. Create D1 Database
 
 ```bash
 cd /home/jianoujiang/Desktop/proxima-auto-company/projects/connectpath
-
-# Login to Cloudflare (if not already)
-wrangler login
-
-# Create KV namespace for production
-wrangler kv:namespace create "CONNECTPATH_KV"
-
-# Note the output: "id = YOUR_KV_NAMESPACE_ID"
-# Update wrangler.toml with this ID
+wrangler d1 create connectpath-db
 ```
 
-### 2. Set Environment Variables
+Copy the output `database_id` and update `wrangler.toml`:
 
-#### GitHub Token Setup
-1. Go to https://github.com/settings/tokens
-2. Click "Generate new token (classic)"
-3. Select scopes:
-   - ✅ `public_repo`
-   - ✅ `read:user`
-4. Generate token → Copy it (starts with `ghp_`)
-
-#### Add to Cloudflare
-```bash
-# Add GitHub token as secret
-wrangler secret put GITHUB_TOKEN
-# Paste your token when prompted
+```toml
+[[d1_databases]]
+binding = "DB"
+database_name = "connectpath-db"
+database_id = "YOUR_DATABASE_ID_HERE"  # Replace this
 ```
 
-### 3. Deploy to Cloudflare Pages
-
-#### Option A: GitHub Integration (Recommended)
-
-1. **Push to GitHub**:
-```bash
-cd /home/jianoujiang/Desktop/proxima-auto-company
-git add projects/connectpath
-git commit -m "Add ConnectPath MVP"
-git push origin main
-```
-
-2. **Connect to Cloudflare Pages**:
-   - Go to Cloudflare Dashboard → Pages
-   - Click "Create a project"
-   - Choose "Connect to Git"
-   - Select your GitHub repo: `proxima-auto-company`
-   - **Build settings**:
-     - Framework preset: None
-     - Build command: (leave empty)
-     - Build output directory: `/`
-     - Root directory: `projects/connectpath`
-   - Click "Save and Deploy"
-
-3. **Add Environment Variables** (in Pages settings):
-   - Go to Settings → Environment variables
-   - Add `GITHUB_TOKEN` → paste your token
-   - Save
-
-4. **Bind KV Namespace**:
-   - Go to Settings → Functions
-   - Scroll to "KV namespace bindings"
-   - Add binding:
-     - Variable name: `CONNECTPATH_KV`
-     - KV namespace: Select the one you created
-   - Save
-
-5. **Redeploy** (to apply KV binding):
-   - Go to Deployments → Click latest deployment → Retry deployment
-
-#### Option B: Direct Upload (Faster for MVP)
+### 2. Initialize Database Schema
 
 ```bash
-cd /home/jianoujiang/Desktop/proxima-auto-company/projects/connectpath
-
-# Install dependencies
-npm install
-
-# Deploy
-wrangler pages deploy . --project-name=connectpath --branch=main
+wrangler d1 execute connectpath-db --file=schema.sql
 ```
 
-**After first deploy, add secrets**:
-```bash
-# Navigate to your project in Cloudflare Dashboard
-# Settings → Environment variables → Add variable
-# GITHUB_TOKEN = ghp_your_token_here
-```
-
-**Bind KV namespace manually** (via Dashboard):
-- Settings → Functions → KV namespace bindings
-- Add: `CONNECTPATH_KV` → select your namespace
-
-### 4. Verify Deployment
-
-Visit your deployed URL (e.g., `https://connectpath.pages.dev`)
-
-**Test with real GitHub users**:
-1. Person A: `torvalds` (Linus Torvalds)
-2. Person B: `tj` (TJ Holowaychuk)
-
-Expected result: Should find a path (they're both highly connected in OSS community)
-
-**Test rate limiting**:
-1. Open in incognito window
-2. Do 3 searches
-3. 4th search should show paywall
-
-### 5. Custom Domain (Optional)
-
-If you have a custom domain:
-
-1. Go to Cloudflare Pages → Your project → Custom domains
-2. Click "Set up a custom domain"
-3. Enter: `connectpath.yourdomain.com`
-4. Cloudflare auto-configures DNS
-5. Wait for SSL certificate (< 5 min)
-6. Visit your custom domain
-
-### 6. Gumroad Integration
-
-1. **Create Gumroad product**:
-   - Go to https://gumroad.com/products/new
-   - Copy content from `gumroad-listing.txt`
-   - Price: $9.99/month (recurring)
-   - Content: "After purchase, you'll receive an access code via email"
-   - Publish
-
-2. **Update frontend link**:
-   - Edit `index.html` line 374
-   - Replace `https://jiangyingjuner.gumroad.com/l/connectpath-unlimited`
-   - With your actual Gumroad product URL
-
-3. **Deploy changes**:
-```bash
-git add index.html
-git commit -m "Update Gumroad link"
-git push origin main
-# Cloudflare auto-deploys
-```
-
-### 7. Setup Gumroad Webhook (Future: V1.1)
-
-For automatic access code delivery:
-
-1. Gumroad → Settings → Advanced → Webhooks
-2. Add webhook URL: `https://connectpath.pages.dev/api/gumroad-webhook`
-3. Select events: `sale`, `refund`
-4. Create webhook function: `functions/api/gumroad-webhook.js`
-   - Receives sale notification
-   - Generates unique access code
-   - Stores in KV: `access_code:CODE` → `{email, expiry, plan}`
-   - Sends email with code (via Resend/SendGrid)
-
-**For MVP**: Manual delivery OK. After purchase, founder manually generates code and emails customer.
-
-## Post-Deployment
-
-### Monitoring
-
-**Check these daily (first week)**:
-
-1. **Error rate**:
-```bash
-# View Workers logs
-wrangler tail --project-name=connectpath
-```
-
-2. **Rate limiting stats**:
-```bash
-# List KV keys to see how many IPs hit rate limit
-wrangler kv:key list --namespace-id=YOUR_KV_NAMESPACE_ID
-```
-
-3. **GitHub API usage**:
-   - Check headers in responses: `X-RateLimit-Remaining`
-   - Should stay above 4,000/hr if traffic is low
-
-### Analytics Setup (Optional)
-
-Add Cloudflare Web Analytics (free):
-
-1. Dashboard → Web Analytics → Add a site
-2. Get snippet code
-3. Add to `index.html` before `</head>`
-4. Track:
-   - Page views
-   - Searches initiated (via custom events)
-   - Paywall shown
-
-### First Week Checklist
-
-- [ ] Deploy successful (site loads)
-- [ ] Test search works (real GitHub users)
-- [ ] Rate limiting works (3 searches then paywall)
-- [ ] Mobile responsive (test on phone)
-- [ ] Gumroad link works
-- [ ] Error handling works (try fake usernames)
-- [ ] Bilingual toggle works (EN ↔ 中文)
-
-### If Something Breaks
-
-**Frontend not loading**:
-- Check Cloudflare Pages → Deployments → View build logs
-- Common issue: Root directory wrong (should be `projects/connectpath`)
-
-**API returns 500 errors**:
-- Check Workers logs: `wrangler tail`
-- Common issues:
-  - `GITHUB_TOKEN` not set → Add in environment variables
-  - `CONNECTPATH_KV` not bound → Add in Functions settings
-  - GitHub API rate limit hit → Wait 1 hour or add token
-
-**Rate limiting not working**:
-- Check KV namespace is bound correctly
-- Check browser console for errors
-- Common issue: KV read/write fails silently → check binding name matches code
-
-**No path found for known connections**:
-- Expected behavior — MVP only searches GitHub
-- Most people don't follow each other on GitHub
-- Solution: Add Twitter/Crunchbase in V1.1
-
-## Rollback Plan
-
-If deployment breaks:
+Verify tables created:
 
 ```bash
-# Rollback to previous deployment
-# Go to Cloudflare Dashboard → Pages → Deployments
-# Click on previous working deployment → "Rollback to this deployment"
+wrangler d1 execute connectpath-db --command="SELECT name FROM sqlite_master WHERE type='table'"
 ```
 
-Or:
+Should show: users, campaigns, campaign_steps, credit_transactions
+
+### 3. Create KV Namespace (Optional)
 
 ```bash
-# Redeploy previous git commit
-git revert HEAD
-git push origin main
-# Cloudflare auto-deploys the revert
+wrangler kv:namespace create "connectpath-kv"
 ```
+
+Update `wrangler.toml` with the namespace ID if using KV.
+
+### 4. Set Environment Secrets
+
+```bash
+# Anthropic API key for Claude
+wrangler secret put ANTHROPIC_API_KEY
+# Paste your key when prompted
+
+# Gumroad webhook secret (optional, for webhook verification)
+wrangler secret put GUMROAD_WEBHOOK_SECRET
+# Generate a random secret and paste it
+```
+
+### 5. Deploy Worker
+
+```bash
+wrangler deploy
+```
+
+Note the deployed URL: `https://connectpath.YOUR-SUBDOMAIN.workers.dev`
+
+### 6. Setup Gumroad Products
+
+Create 4 products on [Gumroad](https://gumroad.com):
+
+1. **ConnectPath Starter** - £5
+   - Add custom field: `plan` = `starter`
+   - Permalink: `connectpath-starter`
+
+2. **ConnectPath Growth** - £20
+   - Add custom field: `plan` = `growth`
+   - Permalink: `connectpath-growth`
+
+3. **ConnectPath Pro** - £50
+   - Add custom field: `plan` = `pro`
+   - Permalink: `connectpath-pro`
+
+4. **ConnectPath Unlimited** - £99
+   - Add custom field: `plan` = `unlimited`
+   - Permalink: `connectpath-unlimited`
+
+### 7. Configure Gumroad Webhook
+
+In each product settings:
+- Go to "Advanced" → "Webhooks"
+- Add webhook URL: `https://YOUR-WORKER-URL.workers.dev/api/webhook/gumroad`
+- Select "Sale" event
+- Save
+
+### 8. Update Frontend Links
+
+Edit `intake.html` line ~180, replace Gumroad links:
+
+```javascript
+const gumroadLinks = {
+    starter: 'https://gumroad.com/l/connectpath-starter',
+    growth: 'https://gumroad.com/l/connectpath-growth',
+    pro: 'https://gumroad.com/l/connectpath-pro',
+    unlimited: 'https://gumroad.com/l/connectpath-unlimited'
+};
+```
+
+Replace with your actual Gumroad product URLs.
+
+### 9. Test Full Flow
+
+1. Go to `https://YOUR-WORKER-URL.workers.dev/index.html`
+2. Click "Start Your First Connection"
+3. Fill intake form with test data
+4. Submit (will redirect to Gumroad)
+5. Complete test purchase (Gumroad test mode)
+6. Check database: `wrangler d1 execute connectpath-db --command="SELECT * FROM users"`
+7. Verify credits added
+8. Check campaign processing
+
+### 10. Enable Queue Processing
+
+If using Cloudflare Queues for async processing:
+
+```bash
+wrangler queues create connectpath-queue
+```
+
+Update `wrangler.toml` with queue name, then redeploy:
+
+```bash
+wrangler deploy
+```
+
+## Production Readiness Checklist
+
+- [ ] D1 database created and initialized
+- [ ] Anthropic API key set
+- [ ] Worker deployed successfully
+- [ ] Gumroad products created
+- [ ] Gumroad webhooks configured
+- [ ] Frontend links updated
+- [ ] End-to-end flow tested
+- [ ] Error handling tested
+- [ ] Claude API integration tested (uncomment in `worker.js`)
+- [ ] Database backups configured (D1 auto-backups)
+
+## Monitoring
+
+Check Worker logs:
+
+```bash
+wrangler tail
+```
+
+View D1 database:
+
+```bash
+wrangler d1 execute connectpath-db --command="SELECT * FROM campaigns ORDER BY created_at DESC LIMIT 10"
+```
+
+## Troubleshooting
+
+### Worker not receiving webhook
+- Check Gumroad webhook URL is correct
+- Verify CORS headers in Worker
+- Check Worker logs: `wrangler tail`
+
+### Credits not added after purchase
+- Verify webhook is hitting `/api/webhook/gumroad`
+- Check user exists in database
+- Verify `plan` field in Gumroad product
+
+### Campaign stuck in "processing"
+- Check Claude API key is set
+- Uncomment real Claude API call in `worker.js`
+- Check Worker logs for errors
+
+### Database errors
+- Verify schema.sql ran successfully
+- Check table names match Worker queries
+- Run: `wrangler d1 execute connectpath-db --command="PRAGMA table_info(users)"`
+
+## Custom Domain (Optional)
+
+Add custom domain to Worker:
+
+1. Go to Cloudflare Dashboard → Workers & Pages
+2. Select `connectpath` Worker
+3. Settings → Triggers → Add Custom Domain
+4. Enter `connectpath.yourdomain.com`
+5. Update DNS records as prompted
 
 ## Cost Estimate
 
-**Cloudflare Free Tier**:
-- Pages: 500 builds/month (we use ~10/month)
-- Workers: 100K requests/day (MVP uses ~100-500/day)
-- KV: 100K reads/day, 1K writes/day (MVP uses ~10 writes, ~50 reads/day)
-- **Total cost**: $0/month (until we hit 1K+ users)
+- **D1**: ~£0 (generous free tier: 5GB, 25M reads/month)
+- **Workers**: ~£0 (100k requests/day free)
+- **Queues**: ~£0 (1M operations/month free)
+- **Claude API**: ~£0.003 per campaign (3 API calls × ~£0.001 each)
 
-**Scaling costs** (if we hit 10K searches/day):
-- Cloudflare Workers Paid: $5/month + $0.50/million requests
-- KV storage: $0.50/GB-month (negligible for rate limit data)
-- **Estimated**: ~$10-20/month at 10K searches/day
+At 1000 campaigns/month:
+- D1: £0
+- Workers: £0
+- Queues: £0
+- Claude: £3
+- **Total: ~£3/month**
 
-**GitHub API**:
-- Free with token: 5,000 requests/hour
-- If we hit limits: GitHub Enterprise $21/user/month (NOT needed for MVP)
+Revenue at 1000 campaigns (avg £20 per):
+- **£20,000/month**
 
-## Success Metrics to Track
+Profit margin: **99.985%**
 
-1. **Deployment uptime**: Target 99.9% (Cloudflare provides this free)
-2. **Search success rate**: Track in KV (store search results metadata)
-3. **Rate limit hits**: How many users hit 3-search limit?
-4. **Error rate**: < 5% of searches fail
+## Security Notes
+
+- **NEVER** commit API keys to git
+- Use `wrangler secret` for all secrets
+- Verify Gumroad webhook signatures (optional)
+- Validate all user inputs in Worker
+- Rate limit API endpoints (TODO)
+- Add CAPTCHA to intake form (TODO)
+
+## Next Steps After Deployment
+
+1. Test thoroughly with real payments (small amounts)
+2. Monitor first 10 campaigns closely
+3. Fix any issues in Claude prompts
+4. Improve email draft quality based on feedback
+5. Add analytics (Cloudflare Web Analytics)
+6. Launch marketing campaign
 
 ---
 
-**Status**: Ready to deploy
-**Owner**: devops-hightower
-**Estimated time**: 30 minutes (first time), 5 minutes (subsequent deploys)
-**Blockers**: None
-
-**Next action**: Create KV namespace → Add GitHub token → Deploy to Pages
+**Ready to ship?** Run: `wrangler deploy`
