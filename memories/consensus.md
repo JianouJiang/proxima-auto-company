@@ -680,3 +680,89 @@ Continue health monitoring (5 min max), await founder validation progress report
 - ColdCopy: https://coldcopy-au3.pages.dev/
 
 **DO NOT just do health checks. BUILD THE LANDING PAGE.**
+
+---
+
+## 📋 PRODUCT EVALUATION QUEUE — DO ONE PER CYCLE (in order)
+
+**IMPORTANT: These are queued for AFTER the FlowPrep landing page is built. Do NOT start these until Cycle 33's FlowPrep directive is complete. Then do ONE evaluation per cycle — never two at once (timeout risk).**
+
+**After each evaluation completes:**
+1. Update the company landing page (`projects/landing-page/index.html`) with a new product card
+2. Update the story hub (`projects/landing-page/story.html`) with a new story card
+3. Create a story page (`projects/landing-page/story-<product>.html`) with Chapter 1: The Evaluation
+4. Commit and push to git
+
+### Queue Position 1: PowerCast — Electricity Price Prediction
+
+**Founder idea:** A power market electricity price prediction model/service. Use ML to forecast wholesale electricity prices (day-ahead, real-time markets). Could sell predictions as a subscription service to energy traders, utilities, or industrial consumers who need to optimize when they buy/sell power.
+
+**Founder background:** PhD in ML — directly applicable to time-series forecasting.
+
+**Evaluation questions for agents:**
+1. Who buys electricity price forecasts? (Traders? Utilities? Industrial consumers? Battery storage operators?)
+2. What data is publicly available? (Grid operator APIs, weather data, demand data)
+3. What accuracy is needed to be useful? What do competitors charge?
+4. Can this ship as a web dashboard/API with $0 infra cost?
+5. Revenue model: subscription? Per-report? API access?
+6. Can it demonstrate ML expertise for founder's job portfolio?
+
+**Evaluation flow:** `research-thompson` → `ceo-bezos` → `critic-munger` → `product-norman` → `cto-vogels` → `cfo-campbell`
+
+---
+
+### Queue Position 2: NarrativeEdge — Narrative-Driven Market Intelligence
+
+**Founder idea:** Analyze how media narratives affect financial markets and trade indices. Examples:
+- How CNN reporting negatively on China affects the Yiwu import index
+- How TikTok trends on certain products affect related fund indices
+- How geopolitical narratives shift commodity prices
+
+Could sell as reports, a dashboard, or an alert service to traders/funds/import-export businesses.
+
+**This is novel:** Most market tools analyze numbers. This analyzes stories → numbers causation.
+
+**Evaluation questions for agents:**
+1. Who would pay for this? (Hedge funds? Import/export businesses? Individual traders?)
+2. What's the data pipeline? (News APIs, social media APIs, market data APIs)
+3. Is this a report service (sell PDFs), a dashboard (SaaS), or an alert system (notifications)?
+4. Legal/compliance issues with financial advice?
+5. How to validate: can we show 3 historical examples where narrative → market move is clear?
+6. Revenue model and pricing?
+
+**Evaluation flow:** `research-thompson` → `ceo-bezos` → `critic-munger` → `product-norman` → `cto-vogels` → `cfo-campbell`
+
+---
+
+### Queue Position 3: ConnectPath — Six Degrees Connection Finder
+
+**Founder idea:** What if you want to reach someone like Elon Musk to pitch an idea? A direct DM on Twitter won't be seen. Use the law of 6 degrees of connection to map a path from you to the target person.
+
+**How it works:**
+- Input: Your LinkedIn/Twitter profile + target person (e.g., Elon Musk)
+- Output: A chain of connections (you → person A → person B → ... → Elon Musk)
+- The AI agent searches public profiles, mutual connections, shared organizations, events, etc.
+- For each intermediary: suggest WHY they'd help (what value you offer them in return)
+
+**Key challenge:** Why would intermediaries help? The tool must suggest reciprocal value — what you can offer each connection in the chain, not just ask for favors.
+
+**Evaluation questions for agents:**
+1. Is this technically feasible with public data? (LinkedIn API restrictions, Twitter/X API costs)
+2. Who would pay for this? (Founders? Job seekers? Sales professionals? Investors?)
+3. Legal/privacy concerns with scraping connection data?
+4. How to deliver: web app? Chrome extension? Report?
+5. Revenue model: per-search? Subscription?
+6. Can this be built with $0 infra?
+
+**Evaluation flow:** `research-thompson` → `ceo-bezos` → `critic-munger` → `product-norman` → `cto-vogels` → `cfo-campbell`
+
+---
+
+### ⚠️ EXECUTION RULES FOR THE QUEUE
+
+1. **ONE evaluation per cycle.** Never start two evaluations in the same cycle.
+2. **Order matters.** Do Queue Position 1 first, then 2, then 3.
+3. **Each evaluation MUST produce:** research doc + CEO decision + Munger pre-mortem + product spec + architecture + unit economics
+4. **Each evaluation MUST update the website:** landing page card + story hub card + new story page
+5. **Skip health checks if short on time.** The evaluations are more important than checking if sites are up.
+6. **Time budget:** Each evaluation should take 30-60 min max. If an agent is taking too long, summarize and move on.

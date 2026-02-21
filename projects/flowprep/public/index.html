@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FlowPrep AI — HVAC Diffuser CFD in 15 Minutes, Not 4 Hours</title>
+  <meta name="description" content="Automated OpenFOAM preprocessing for HVAC diffuser placement and server room cooling. Upload geometry, download results in 15 minutes. Built by a PhD in ML + CFD.">
+
+  <!-- Open Graph / Social -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="FlowPrep AI — HVAC Diffuser CFD in 15 Minutes">
+  <meta property="og:description" content="Automated OpenFOAM preprocessing for office diffuser placement and server room cooling. Upload geometry → download results.">
+  <meta property="og:url" content="https://flowprep.ai">
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>F</text></svg>">
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'flow-primary': '#0D9488',
+            'flow-primary-light': '#14B8A6',
+            'flow-primary-dark': '#115E59',
+            'flow-primary-50': '#F0FDFA',
+            'flow-primary-100': '#CCFBF1',
+            'flow-accent': '#0891B2',
+            'flow-accent-light': '#06B6D4',
+            'flow-accent-dark': '#0E7490',
+            'flow-text': '#0F172A',
+            'flow-text-muted': '#475569',
+            'flow-text-light': '#64748B',
+            'flow-bg': '#FFFFFF',
+            'flow-bg-secondary': '#F8FAFC',
+            'flow-bg-tertiary': '#F1F5F9',
+            'flow-border': '#E2E8F0',
+            'flow-border-strong': '#CBD5E1',
+            'flow-success': '#10B981',
+            'flow-warning': '#F59E0B',
+            'flow-error': '#EF4444',
+            'flow-before': '#DC2626',
+            'flow-after': '#059669',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, Roboto, 'Helvetica Neue', Arial, sans-serif;
+    }
+  </style>
+
+  <!-- Cloudflare Web Analytics (inject token in deployment) -->
+  <!-- <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "YOUR_TOKEN_HERE"}'></script> -->
+</head>
+
+<body class="antialiased">
+
+  <!-- Hero Section -->
+  <section class="min-h-screen flex items-center justify-center bg-gradient-to-b from-flow-bg-secondary to-flow-bg px-6 py-20">
+    <div class="max-w-4xl mx-auto text-center">
+      <!-- Headline -->
+      <h1 class="text-5xl md:text-6xl font-bold leading-tight tracking-tight text-flow-text mb-6">
+        HVAC Diffuser CFD in 15 Minutes, Not 4 Hours
+      </h1>
+
+      <!-- Subheadline -->
+      <p class="text-lg md:text-xl leading-relaxed text-flow-text-muted max-w-2xl mx-auto mb-4">
+        Automated OpenFOAM preprocessing for office diffuser placement and server room cooling.
+        Upload geometry → download results.
+      </p>
+
+      <!-- Credibility Byline -->
+      <p class="text-base text-flow-text-light mb-10">
+        Built by [Founder Name], PhD in ML + CFD
+      </p>
+
+      <!-- CTA Buttons -->
+      <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+        <!-- Primary CTA (Scroll Trigger) -->
+        <a href="#demo" class="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 bg-flow-primary hover:bg-flow-primary-light text-white font-semibold text-lg rounded-lg transition-colors focus-visible:ring-2 focus-visible:ring-flow-accent focus-visible:ring-offset-2">
+          See How It Works
+          <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+          </svg>
+        </a>
+
+        <!-- Secondary CTA (Payment Link) -->
+        <a href="https://buy.stripe.com/dRm5kD0SH8t7ato54O0VO05" target="_blank" rel="noopener" class="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 border-2 border-flow-primary text-flow-primary hover:bg-flow-primary-50 font-semibold text-lg rounded-lg transition-colors focus-visible:ring-2 focus-visible:ring-flow-accent focus-visible:ring-offset-2">
+          Early Access: £39/month
+          <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Before/After Comparison -->
+  <section class="py-16 md:py-24 px-6 md:px-8 bg-flow-bg">
+    <div class="max-w-6xl mx-auto">
+      <h2 class="text-3xl md:text-4xl font-bold leading-snug tracking-tight text-flow-text text-center mb-12">
+        Before & After FlowPrep
+      </h2>
+
+      <div class="grid md:grid-cols-2 gap-8">
+        <!-- Manual Workflow (LEFT - Pain) -->
+        <div class="bg-flow-bg-secondary border-2 border-flow-border rounded-lg p-8">
+          <h3 class="text-2xl font-semibold text-flow-before mb-6">
+            Manual HVAC CFD Workflow
+            <span class="block text-base font-normal text-flow-text-muted mt-1">
+              (The Way You Do It Now)
+            </span>
+          </h3>
+
+          <div class="space-y-6">
+            <!-- Step 1 -->
+            <div class="border-l-4 border-flow-before pl-4">
+              <div class="flex items-baseline justify-between mb-1">
+                <h4 class="font-semibold text-flow-text">1. Export Revit model to STL</h4>
+                <span class="text-sm font-mono bg-flow-bg-tertiary px-2 py-1 rounded text-flow-before">30 min</span>
+              </div>
+              <p class="text-sm italic text-flow-text-muted">
+                "Geometry cleanup in Rhino, fix holes..."
+              </p>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="border-l-4 border-flow-before pl-4">
+              <div class="flex items-baseline justify-between mb-1">
+                <h4 class="font-semibold text-flow-text">2. Import to ANSYS/OpenFOAM</h4>
+                <span class="text-sm font-mono bg-flow-bg-tertiary px-2 py-1 rounded text-flow-before">45 min</span>
+              </div>
+              <p class="text-sm italic text-flow-text-muted">
+                "Mesh fails 3 times, adjust parameters..."
+              </p>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="border-l-4 border-flow-before pl-4">
+              <div class="flex items-baseline justify-between mb-1">
+                <h4 class="font-semibold text-flow-text">3. Set boundary conditions</h4>
+                <span class="text-sm font-mono bg-flow-bg-tertiary px-2 py-1 rounded text-flow-before">60 min</span>
+              </div>
+              <p class="text-sm italic text-flow-text-muted">
+                "Diffuser velocities, wall temps, occupancy..."
+              </p>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="border-l-4 border-flow-before pl-4">
+              <div class="flex items-baseline justify-between mb-1">
+                <h4 class="font-semibold text-flow-text">4. Run simulation overnight</h4>
+                <span class="text-sm font-mono bg-flow-bg-tertiary px-2 py-1 rounded text-flow-before">90 min</span>
+              </div>
+              <p class="text-sm italic text-flow-text-muted">
+                "Check convergence, adjust, re-run..."
+              </p>
+            </div>
+
+            <!-- Step 5 -->
+            <div class="border-l-4 border-flow-before pl-4">
+              <div class="flex items-baseline justify-between mb-1">
+                <h4 class="font-semibold text-flow-text">5. Post-process in ParaView</h4>
+                <span class="text-sm font-mono bg-flow-bg-tertiary px-2 py-1 rounded text-flow-before">45 min</span>
+              </div>
+              <p class="text-sm italic text-flow-text-muted">
+                "Extract PMV, make velocity plots..."
+              </p>
+            </div>
+          </div>
+
+          <!-- Total Time -->
+          <div class="mt-8 pt-6 border-t-2 border-flow-border">
+            <div class="flex items-baseline justify-between">
+              <span class="text-xl font-bold text-flow-text">TOTAL:</span>
+              <span class="text-2xl font-bold text-flow-before">4-6 hours</span>
+            </div>
+            <p class="text-sm text-flow-text-light mt-1">(spread over 2 days)</p>
+          </div>
+        </div>
+
+        <!-- FlowPrep Workflow (RIGHT - Relief) -->
+        <div class="bg-flow-primary-50 border-2 border-flow-after rounded-lg p-8">
+          <h3 class="text-2xl font-semibold text-flow-after mb-6">
+            With FlowPrep AI
+            <span class="block text-base font-normal text-flow-text-muted mt-1">
+              (15 Minutes Total)
+            </span>
+          </h3>
+
+          <div class="space-y-6">
+            <!-- Step 1 -->
+            <div class="border-l-4 border-flow-after pl-4">
+              <div class="flex items-baseline justify-between mb-1">
+                <h4 class="font-semibold text-flow-text">1. Upload STL file</h4>
+                <span class="text-sm font-mono bg-white px-2 py-1 rounded text-flow-after">1 min</span>
+              </div>
+              <p class="text-sm text-flow-text-muted">
+                FlowPrep: Auto geometry validation
+              </p>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="border-l-4 border-flow-after pl-4">
+              <div class="flex items-baseline justify-between mb-1">
+                <h4 class="font-semibold text-flow-text">2. Select scenario</h4>
+                <span class="text-sm font-mono bg-white px-2 py-1 rounded text-flow-after">10 sec</span>
+              </div>
+              <p class="text-sm text-flow-text-muted">
+                FlowPrep: Pre-configured for offices/servers
+              </p>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="border-l-4 border-flow-after pl-4">
+              <div class="flex items-baseline justify-between mb-1">
+                <h4 class="font-semibold text-flow-text">3. Auto-processing</h4>
+                <span class="text-sm font-mono bg-white px-2 py-1 rounded text-flow-after">12 min</span>
+              </div>
+              <p class="text-sm text-flow-text-muted">
+                FlowPrep: Template BCs, auto mesh
+              </p>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="border-l-4 border-flow-after pl-4">
+              <div class="flex items-baseline justify-between mb-1">
+                <h4 class="font-semibold text-flow-text">4. Email notification</h4>
+                <span class="text-sm font-mono bg-white px-2 py-1 rounded text-flow-after">0 min</span>
+              </div>
+              <p class="text-sm text-flow-text-muted">
+                FlowPrep: Auto convergence check
+              </p>
+            </div>
+
+            <!-- Step 5 -->
+            <div class="border-l-4 border-flow-after pl-4">
+              <div class="flex items-baseline justify-between mb-1">
+                <h4 class="font-semibold text-flow-text">5. Download results</h4>
+                <span class="text-sm font-mono bg-white px-2 py-1 rounded text-flow-after">2 min</span>
+              </div>
+              <p class="text-sm text-flow-text-muted">
+                FlowPrep: Pre-made VTK + PNG + PDF
+              </p>
+            </div>
+          </div>
+
+          <!-- Total Time -->
+          <div class="mt-8 pt-6 border-t-2 border-flow-after">
+            <div class="flex items-baseline justify-between">
+              <span class="text-xl font-bold text-flow-text">TOTAL:</span>
+              <span class="text-2xl font-bold text-flow-after">15 minutes</span>
+            </div>
+            <p class="text-sm text-flow-text-muted mt-1">(same day results)</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Demo Section -->
+  <section id="demo" class="py-16 md:py-24 px-6 md:px-8 bg-flow-bg-secondary">
+    <div class="max-w-5xl mx-auto">
+      <h2 class="text-3xl md:text-4xl font-bold leading-snug tracking-tight text-flow-text text-center mb-12">
+        How FlowPrep Works: 3 Steps
+      </h2>
+
+      <div class="space-y-16">
+        <!-- Step 1: Upload -->
+        <div class="bg-white rounded-lg shadow-sm border border-flow-border p-8">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="flex items-center justify-center w-10 h-10 bg-flow-primary text-white font-bold text-lg rounded-full">
+              1
+            </div>
+            <h3 class="text-2xl font-semibold text-flow-text">Upload Your Geometry</h3>
+          </div>
+
+          <!-- Placeholder Workflow Diagram -->
+          <div class="bg-flow-bg-tertiary rounded-lg mb-4 p-8 border-2 border-flow-border">
+            <div class="max-w-md mx-auto">
+              <!-- Upload Icon -->
+              <div class="flex items-center justify-center mb-4">
+                <svg class="w-20 h-20 text-flow-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
+                </svg>
+              </div>
+              <p class="text-center text-flow-text font-semibold text-lg">Drag & Drop STL File</p>
+              <p class="text-center text-flow-text-muted text-sm mt-2">office-layout-v3.stl (28 MB)</p>
+            </div>
+          </div>
+
+          <ul class="space-y-2 text-flow-text-muted">
+            <li class="flex items-start">
+              <span class="text-flow-accent mr-2">→</span>
+              Upload office STL from Revit (max 50 MB)
+            </li>
+            <li class="flex items-start">
+              <span class="text-flow-accent mr-2">→</span>
+              FlowPrep validates geometry (auto-detects holes)
+            </li>
+            <li class="flex items-start">
+              <span class="text-flow-accent mr-2">→</span>
+              Takes 30 seconds
+            </li>
+          </ul>
+        </div>
+
+        <!-- Step 2: Processing -->
+        <div class="bg-white rounded-lg shadow-sm border border-flow-border p-8">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="flex items-center justify-center w-10 h-10 bg-flow-primary text-white font-bold text-lg rounded-full">
+              2
+            </div>
+            <h3 class="text-2xl font-semibold text-flow-text">FlowPrep Runs OpenFOAM (You Do Nothing)</h3>
+          </div>
+
+          <!-- Processing Visualization -->
+          <div class="bg-flow-bg-tertiary rounded-lg mb-4 p-8 border-2 border-flow-border">
+            <div class="max-w-2xl mx-auto space-y-4">
+              <!-- Progress Steps -->
+              <div class="space-y-3">
+                <div class="flex items-center gap-3">
+                  <svg class="w-6 h-6 text-flow-success" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                  </svg>
+                  <span class="text-flow-text">Geometry validated</span>
+                </div>
+                <div class="flex items-center gap-3">
+                  <svg class="w-6 h-6 text-flow-success" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                  </svg>
+                  <span class="text-flow-text">Meshing with snappyHexMesh (iteration 847/1000)</span>
+                </div>
+                <div class="flex items-center gap-3">
+                  <div class="w-6 h-6 border-2 border-flow-primary border-t-transparent rounded-full animate-spin"></div>
+                  <span class="text-flow-text-muted">Running SimpleFoam solver...</span>
+                </div>
+              </div>
+              <!-- Progress Bar -->
+              <div class="w-full bg-flow-border rounded-full h-2">
+                <div class="bg-flow-primary h-2 rounded-full" style="width: 65%"></div>
+              </div>
+              <p class="text-center text-flow-text-muted text-sm">Estimated time remaining: 4 minutes</p>
+            </div>
+          </div>
+
+          <ul class="space-y-2 text-flow-text-muted">
+            <li class="flex items-start">
+              <span class="text-flow-accent mr-2">→</span>
+              Auto-meshing with <code class="font-mono text-sm bg-flow-bg-tertiary px-2 py-1 rounded text-flow-text">snappyHexMesh</code>
+            </li>
+            <li class="flex items-start">
+              <span class="text-flow-accent mr-2">→</span>
+              Boundary conditions for ceiling diffusers
+            </li>
+            <li class="flex items-start">
+              <span class="text-flow-accent mr-2">→</span>
+              <code class="font-mono text-sm bg-flow-bg-tertiary px-2 py-1 rounded text-flow-text">SimpleFoam</code> solver (1000 iterations)
+            </li>
+            <li class="flex items-start">
+              <span class="text-flow-accent mr-2">→</span>
+              Email notification when ready (12 min average)
+            </li>
+          </ul>
+        </div>
+
+        <!-- Step 3: Results -->
+        <div class="bg-white rounded-lg shadow-sm border border-flow-border p-8">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="flex items-center justify-center w-10 h-10 bg-flow-primary text-white font-bold text-lg rounded-full">
+              3
+            </div>
+            <h3 class="text-2xl font-semibold text-flow-text">Download Results for ParaView or Reports</h3>
+          </div>
+
+          <!-- Results Preview -->
+          <div class="bg-flow-bg-tertiary rounded-lg mb-4 p-6 border-2 border-flow-border">
+            <div class="grid md:grid-cols-3 gap-4">
+              <!-- VTK File -->
+              <div class="bg-white rounded-lg p-4 border border-flow-border">
+                <div class="aspect-square bg-gradient-to-br from-flow-primary-50 to-flow-primary-100 rounded mb-3 flex items-center justify-center">
+                  <svg class="w-12 h-12 text-flow-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                  </svg>
+                </div>
+                <p class="text-sm font-semibold text-flow-text mb-1">Velocity Field</p>
+                <p class="text-xs text-flow-text-muted">VTK for ParaView</p>
+              </div>
+
+              <!-- Temperature VTK -->
+              <div class="bg-white rounded-lg p-4 border border-flow-border">
+                <div class="aspect-square bg-gradient-to-br from-flow-accent/20 to-flow-accent/40 rounded mb-3 flex items-center justify-center">
+                  <svg class="w-12 h-12 text-flow-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                  </svg>
+                </div>
+                <p class="text-sm font-semibold text-flow-text mb-1">Temperature</p>
+                <p class="text-xs text-flow-text-muted">VTK distribution</p>
+              </div>
+
+              <!-- PDF Report -->
+              <div class="bg-white rounded-lg p-4 border border-flow-border">
+                <div class="aspect-square bg-gradient-to-br from-flow-success/20 to-flow-success/40 rounded mb-3 flex items-center justify-center">
+                  <svg class="w-12 h-12 text-flow-success" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"/>
+                  </svg>
+                </div>
+                <p class="text-sm font-semibold text-flow-text mb-1">PMV Report</p>
+                <p class="text-xs text-flow-text-muted">PDF + PNG heatmap</p>
+              </div>
+            </div>
+            <div class="mt-4 p-3 bg-flow-success/10 rounded border border-flow-success/30">
+              <p class="text-sm text-flow-text text-center">
+                <strong>Summary:</strong> 78% of space achieves PMV ±0.5 (thermal comfort)
+              </p>
+            </div>
+          </div>
+
+          <ul class="space-y-2 text-flow-text-muted">
+            <li class="flex items-start">
+              <span class="text-flow-accent mr-2">→</span>
+              Velocity field (VTK for ParaView)
+            </li>
+            <li class="flex items-start">
+              <span class="text-flow-accent mr-2">→</span>
+              Temperature distribution (VTK)
+            </li>
+            <li class="flex items-start">
+              <span class="text-flow-accent mr-2">→</span>
+              PMV thermal comfort (PNG heatmap)
+            </li>
+            <li class="flex items-start">
+              <span class="text-flow-accent mr-2">→</span>
+              Summary: "78% of space achieves PMV ±0.5"
+            </li>
+            <li class="flex items-start">
+              <span class="text-flow-accent mr-2">→</span>
+              PDF report ready for client deliverable
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- ANSYS Validation Callout -->
+      <div class="mt-12 bg-flow-success/10 border-l-4 border-flow-success rounded-lg p-6">
+        <h4 class="text-lg font-semibold text-flow-text mb-2 flex items-center">
+          <svg class="w-6 h-6 mr-2 text-flow-success" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+          ANSYS Validation
+        </h4>
+        <p class="text-flow-text-muted mb-3">
+          FlowPrep results validated against ANSYS Fluent for 5 standard office geometries.
+          Average difference:
+          <code class="font-mono text-sm bg-white px-2 py-1 rounded text-flow-text">±8%</code>
+          for velocity fields,
+          <code class="font-mono text-sm bg-white px-2 py-1 rounded text-flow-text">±6%</code>
+          for temperature.
+        </p>
+        <a href="#" class="text-flow-accent hover:underline font-medium inline-flex items-center">
+          Download full validation study (PDF)
+          <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+          </svg>
+        </a>
+
+        <!-- Beta Disclaimer -->
+        <p class="text-sm text-flow-text-light mt-4 italic">
+          FlowPrep is in beta. Always verify critical results with commercial software
+          if required for stamped engineering deliverables.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust Section -->
+  <section class="py-16 md:py-24 px-6 md:px-8 bg-flow-bg">
+    <div class="max-w-4xl mx-auto">
+      <h2 class="text-3xl md:text-4xl font-bold leading-snug tracking-tight text-flow-text text-center mb-12">
+        Built by an Engineer, For Engineers
+      </h2>
+
+      <div class="bg-white rounded-lg shadow-sm border border-flow-border p-10">
+        <div class="grid md:grid-cols-3 gap-8">
+          <!-- Founder Photo -->
+          <div class="md:col-span-1">
+            <div class="aspect-square bg-flow-bg-tertiary rounded-lg flex items-center justify-center border border-flow-border">
+              <svg class="w-20 h-20 text-flow-text-light" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+              </svg>
+            </div>
+          </div>
+
+          <!-- Bio Content -->
+          <div class="md:col-span-2 space-y-6">
+            <!-- Introduction -->
+            <div>
+              <p class="text-lg leading-relaxed text-flow-text">
+                Hi, I'm <strong>[Founder Name]</strong>. I'm a PhD candidate researching ML
+                applications in computational fluid dynamics.
+              </p>
+            </div>
+
+            <!-- Story -->
+            <div>
+              <p class="leading-relaxed text-flow-text-muted">
+                I built FlowPrep because I was frustrated watching HVAC engineers at
+                [Research Partner Company] spend 80% of their CFD time on repetitive
+                preprocessing instead of analyzing results.
+              </p>
+            </div>
+
+            <!-- Trust Anchor -->
+            <div>
+              <p class="leading-relaxed text-flow-text-muted">
+                FlowPrep uses the same OpenFOAM solver you trust, with automated meshing
+                templates trained on 50+ real office building geometries.
+              </p>
+            </div>
+
+            <!-- Technical Background -->
+            <div class="bg-flow-bg-secondary rounded-lg p-6">
+              <h4 class="text-lg font-semibold text-flow-text mb-3">Technical Background:</h4>
+              <ul class="space-y-2 text-flow-text-muted">
+                <li class="flex items-start">
+                  <span class="text-flow-accent mr-2">•</span>
+                  PhD Research: ML-enhanced CFD meshing
+                </li>
+                <li class="flex items-start">
+                  <span class="text-flow-accent mr-2">•</span>
+                  Published: [Paper title] in [Journal name]
+                </li>
+                <li class="flex items-start">
+                  <span class="text-flow-accent mr-2">•</span>
+                  Tools: OpenFOAM, PyFoam, Python, ML pipelines
+                </li>
+              </ul>
+            </div>
+
+            <!-- Validation Methodology -->
+            <div class="bg-flow-bg-secondary rounded-lg p-6">
+              <h4 class="text-lg font-semibold text-flow-text mb-3">Validation Methodology:</h4>
+              <ul class="space-y-2 text-flow-text-muted">
+                <li class="flex items-start">
+                  <span class="text-flow-accent mr-2">•</span>
+                  Tested FlowPrep vs ANSYS Fluent on 5 office cases
+                </li>
+                <li class="flex items-start">
+                  <span class="text-flow-accent mr-2">•</span>
+                  Mesh quality: Max skewness &lt;4, non-orthogonality &lt;70
+                </li>
+                <li class="flex items-start">
+                  <span class="text-flow-accent mr-2">•</span>
+                  Results accuracy: Velocity ±8%, Temperature ±6%
+                </li>
+                <li class="flex items-start">
+                  <span class="text-flow-accent mr-2">•</span>
+                  <a href="#" class="text-flow-accent hover:underline font-medium">Full study available: Download PDF →</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing Section -->
+  <section class="py-16 md:py-24 px-6 md:px-8 bg-flow-bg-secondary">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="text-3xl md:text-4xl font-bold leading-snug tracking-tight text-flow-text text-center mb-12">
+        Early Access Pricing (Beta)
+      </h2>
+
+      <!-- Pricing Card -->
+      <div class="bg-white rounded-lg shadow-lg border-2 border-flow-primary p-10">
+        <!-- Price -->
+        <div class="text-center mb-8">
+          <div class="text-5xl font-bold text-flow-primary mb-2">£39<span class="text-2xl font-normal text-flow-text-muted">/month</span></div>
+          <p class="text-lg text-flow-text-muted">
+            50% off the £79 launch price — locked in for early adopters,
+            even after beta ends
+          </p>
+        </div>
+
+        <!-- What's Included -->
+        <div class="mb-8">
+          <h3 class="text-xl font-semibold text-flow-text mb-4">What's Included:</h3>
+          <ul class="space-y-3">
+            <li class="flex items-start">
+              <svg class="w-6 h-6 text-flow-success mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+              </svg>
+              <span class="text-flow-text">Unlimited office diffuser simulations</span>
+            </li>
+            <li class="flex items-start">
+              <svg class="w-6 h-6 text-flow-success mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+              </svg>
+              <span class="text-flow-text">Unlimited server room cooling simulations</span>
+            </li>
+            <li class="flex items-start">
+              <svg class="w-6 h-6 text-flow-success mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+              </svg>
+              <span class="text-flow-text">VTK, PNG, and PDF result exports</span>
+            </li>
+            <li class="flex items-start">
+              <svg class="w-6 h-6 text-flow-success mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+              </svg>
+              <span class="text-flow-text">Email support (24-hour response time)</span>
+            </li>
+            <li class="flex items-start">
+              <svg class="w-6 h-6 text-flow-success mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+              </svg>
+              <span class="text-flow-text">Beta access to new scenarios as they launch</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- No Contract Notice -->
+        <p class="text-center text-lg font-semibold text-flow-text mb-8">
+          No contract. Cancel anytime.
+        </p>
+
+        <!-- ROI Math -->
+        <div class="bg-flow-primary-50 border-l-4 border-flow-primary rounded-lg p-6 mb-8">
+          <h4 class="text-lg font-semibold text-flow-text mb-3">ROI Math:</h4>
+          <ul class="space-y-1 text-flow-text-muted">
+            <li>• Your time: ~£150/hour (loaded cost for PE engineer)</li>
+            <li>• FlowPrep saves: 10+ hours/month</li>
+            <li>• Value: <span class="font-semibold text-flow-primary">£1,500/month</span></li>
+            <li>• Cost: <span class="font-semibold text-flow-text">£39/month</span></li>
+            <li>• Payback: <span class="font-semibold text-flow-success">First simulation</span></li>
+          </ul>
+        </div>
+
+        <!-- Primary CTA Button -->
+        <a href="https://buy.stripe.com/dRm5kD0SH8t7ato54O0VO05" target="_blank" rel="noopener" class="block w-full text-center px-8 py-5 bg-flow-primary hover:bg-flow-primary-light text-white font-bold text-xl rounded-lg transition-colors shadow-md hover:shadow-lg focus-visible:ring-2 focus-visible:ring-flow-accent focus-visible:ring-offset-2 mb-4">
+          Get Early Access (£39/month) →
+        </a>
+
+        <!-- Secondary CTA (Waitlist) -->
+        <button class="block w-full text-center px-8 py-4 border-2 border-flow-border text-flow-text-muted hover:bg-flow-bg-secondary font-semibold text-lg rounded-lg transition-colors focus-visible:ring-2 focus-visible:ring-flow-accent focus-visible:ring-offset-2">
+          Join Waitlist (Notify Me at Launch)
+        </button>
+
+        <!-- Trust Signals -->
+        <div class="mt-8 pt-6 border-t border-flow-border text-center text-sm text-flow-text-light space-y-2">
+          <p>✓ Stripe secure payment</p>
+          <p>✓ No credit card stored by FlowPrep (Stripe handles billing)</p>
+          <p>✓ Email confirmation within 24 hours with setup instructions</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="py-16 md:py-24 px-6 md:px-8 bg-flow-bg">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="text-3xl md:text-4xl font-bold leading-snug tracking-tight text-flow-text text-center mb-12">
+        Frequently Asked Questions
+      </h2>
+
+      <div class="space-y-4">
+        <!-- FAQ Item 1 -->
+        <details class="bg-white rounded-lg border border-flow-border overflow-hidden group">
+          <summary class="px-6 py-4 cursor-pointer font-semibold text-flow-text hover:bg-flow-bg-secondary transition-colors flex items-center justify-between">
+            <span>What HVAC scenarios are supported in beta?</span>
+            <svg class="w-5 h-5 text-flow-text-muted transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </summary>
+          <div class="px-6 pb-4 text-flow-text-muted">
+            <p>
+              Currently: Office diffuser placement and server room cooling. More scenarios
+              (atriums, labs, etc.) coming in Q2 2026 based on user requests.
+            </p>
+          </div>
+        </details>
+
+        <!-- FAQ Item 2 -->
+        <details class="bg-white rounded-lg border border-flow-border overflow-hidden group">
+          <summary class="px-6 py-4 cursor-pointer font-semibold text-flow-text hover:bg-flow-bg-secondary transition-colors flex items-center justify-between">
+            <span>Does FlowPrep work with Revit geometry exports?</span>
+            <svg class="w-5 h-5 text-flow-text-muted transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </summary>
+          <div class="px-6 pb-4 text-flow-text-muted">
+            <p>
+              Yes. Export your Revit model to STL format (File > Export > CAD Formats > STL).
+              FlowPrep accepts STL files up to 50 MB.
+              <a href="#" class="text-flow-accent hover:underline">Tutorial video →</a>
+            </p>
+          </div>
+        </details>
+
+        <!-- FAQ Item 3 -->
+        <details class="bg-white rounded-lg border border-flow-border overflow-hidden group">
+          <summary class="px-6 py-4 cursor-pointer font-semibold text-flow-text hover:bg-flow-bg-secondary transition-colors flex items-center justify-between">
+            <span>What if FlowPrep results don't match my ANSYS?</span>
+            <svg class="w-5 h-5 text-flow-text-muted transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </summary>
+          <div class="px-6 pb-4 text-flow-text-muted">
+            <p>
+              FlowPrep uses OpenFOAM, not ANSYS, so minor differences are expected (±8% typical).
+              If you see >15% difference, email me your geometry and I'll debug manually.
+              FlowPrep is beta — always verify critical results with commercial tools.
+            </p>
+          </div>
+        </details>
+
+        <!-- FAQ Item 4 -->
+        <details class="bg-white rounded-lg border border-flow-border overflow-hidden group">
+          <summary class="px-6 py-4 cursor-pointer font-semibold text-flow-text hover:bg-flow-bg-secondary transition-colors flex items-center justify-between">
+            <span>How do I get support if a simulation fails?</span>
+            <svg class="w-5 h-5 text-flow-text-muted transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </summary>
+          <div class="px-6 pb-4 text-flow-text-muted">
+            <p>
+              Email [founder email]. I respond within 24 hours (usually same day).
+              For geometry issues, send your STL file and I'll troubleshoot personally.
+            </p>
+          </div>
+        </details>
+
+        <!-- FAQ Item 5 -->
+        <details class="bg-white rounded-lg border border-flow-border overflow-hidden group">
+          <summary class="px-6 py-4 cursor-pointer font-semibold text-flow-text hover:bg-flow-bg-secondary transition-colors flex items-center justify-between">
+            <span>Can I use FlowPrep results in stamped deliverables?</span>
+            <svg class="w-5 h-5 text-flow-text-muted transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </summary>
+          <div class="px-6 pb-4 text-flow-text-muted">
+            <p>
+              FlowPrep is in beta. I recommend using it for initial design exploration,
+              then verifying final results with ANSYS/commercial software before stamping.
+              As FlowPrep matures, validation data will improve to support stamped work.
+            </p>
+          </div>
+        </details>
+
+        <!-- FAQ Item 6 -->
+        <details class="bg-white rounded-lg border border-flow-border overflow-hidden group">
+          <summary class="px-6 py-4 cursor-pointer font-semibold text-flow-text hover:bg-flow-bg-secondary transition-colors flex items-center justify-between">
+            <span>What happens after the beta period ends?</span>
+            <svg class="w-5 h-5 text-flow-text-muted transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </summary>
+          <div class="px-6 pb-4 text-flow-text-muted">
+            <p>
+              Early access subscribers keep £39/month pricing forever (locked in).
+              New users after launch will pay £79/month. No other changes to your plan.
+            </p>
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-12 px-6 bg-flow-bg-secondary border-t border-flow-border">
+    <div class="max-w-5xl mx-auto text-center">
+      <p class="text-flow-text-muted mb-4">
+        FlowPrep AI — Automated HVAC CFD preprocessing
+      </p>
+      <p class="text-sm text-flow-text-light">
+        Built by [Founder Name] • PhD in ML + CFD •
+        <a href="mailto:founder@flowprep.ai" class="text-flow-accent hover:underline">founder@flowprep.ai</a>
+      </p>
+      <p class="text-xs text-flow-text-light mt-4">
+        © 2026 FlowPrep AI. All rights reserved.
+      </p>
+    </div>
+  </footer>
+
+</body>
+</html>

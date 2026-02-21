@@ -151,6 +151,11 @@ projects/*
 !projects/double-mood/public/blog/
 !projects/double-mood/public/blog/*.html
 !projects/double-mood/public/*.xml
+# FlowPrep AI landing page
+!projects/flowprep/
+!projects/flowprep/public/
+!projects/flowprep/public/*.html
+!projects/flowprep/*.md
 .vscode-test-web
 **/.vitepress/cache
 **/.vitepress/.temp
