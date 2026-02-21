@@ -2,7 +2,13 @@
 
 **Product:** HVAC CFD preprocessing automation for engineers
 **Tech Stack:** Single HTML file with Tailwind CDN (no build process)
-**Status:** Landing page complete, ready for deployment
+**Status:** LIVE on Cloudflare Pages
+
+## Live Site
+
+**Primary URL:** https://flowprep-ai.pages.dev/
+**Deployment Date:** 2026-02-21
+**Deployment ID:** 01ebc1f3
 
 ## Quick Start
 
@@ -14,9 +20,12 @@ open projects/flowprep/public/index.html
 xdg-open projects/flowprep/public/index.html
 ```
 
-**Live deployment:**
-- Deploy to Cloudflare Pages: `projects/flowprep/public/`
-- Custom domain: `flowprep.ai` (if registered)
+**Live site:**
+- https://flowprep-ai.pages.dev/ (production URL)
+- Ready for custom domain: `flowprep.ai` (add CNAME record)
+
+**Deployment documentation:**
+- See `/docs/devops/flowprep-deployment.md` for full deployment guide, monitoring, and rollback procedures
 
 ## Architecture
 

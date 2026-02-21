@@ -176,6 +176,37 @@
 
 ---
 
+## Deployment Log
+
+### 2026-02-21 FlowPrep AI Landing Page LIVE
+
+**Status:** DEPLOYED TO PRODUCTION
+**URL:** https://flowprep-ai.pages.dev/
+**Deployment ID:** 01ebc1f3
+**Deployed By:** Kelsey Hightower (DevOps)
+
+**Actions Completed:**
+- ✅ Created Cloudflare Pages project: `flowprep-ai`
+- ✅ Deployed static HTML landing page (39KB)
+- ✅ Verified HTTP 200 response (142ms load time)
+- ✅ Stripe payment link active and tested
+- ✅ Mobile responsive confirmed
+- ✅ Created deployment documentation: `/docs/devops/flowprep-deployment.md`
+- ✅ Updated project README with live URL
+
+**Technology Stack:**
+- Cloudflare Pages (free tier, 100K requests/day)
+- Static HTML + Tailwind CSS v4 (CDN)
+- Stripe Payment Links (£39/month early access)
+- Analytics: Ready for Cloudflare Web Analytics (beacon token needed)
+
+**Next Steps for DevOps:**
+1. Enable Cloudflare Web Analytics (get beacon token from dashboard)
+2. Configure custom domain `flowprep.ai` (add CNAME record)
+3. Monitor traffic and Core Web Vitals
+
+---
+
 ## Next Action
 
 **Week 0-1 (Starting Feb 22): Product #3 Phase 0 Validation**

@@ -177,6 +177,8 @@ docs/*/*
 !docs/operations/*.md
 # DevOps deployment reports and runbooks
 !docs/devops/*.md
+# Fullstack implementation docs (technical reference)
+!docs/fullstack/*.md
 # Keep LaTeX template, ignore compiled output
 !docs/editor/latex/
 !docs/editor/latex/report_template.tex
