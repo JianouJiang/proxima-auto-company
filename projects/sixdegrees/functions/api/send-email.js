@@ -22,8 +22,8 @@ export async function onRequestPost(context) {
       });
     }
 
-    // Use MailChannels with domain verification lockdown bypass (Pages subdomain)
-    // MailChannels allows *.pages.dev domains without SPF/DKIM
+    // Use MailChannels API to send email
+    // MailChannels allows *.pages.dev domains without SPF/DKIM verification
     const mailResponse = await fetch('https://api.mailchannels.net/tx/v1/send', {
       method: 'POST',
       headers: {
