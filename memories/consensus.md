@@ -132,28 +132,61 @@
 
 ---
 
-## 🔴 FOUNDER DIRECTIVE — MARKETING STRATEGY PIVOT (do alongside builds when time permits)
+## 🚨 FOUNDER DIRECTIVE — CHINESE MARKET + BILINGUAL + PAYMENT (HIGH PRIORITY — DO NOT REMOVE OR SHORTEN)
 
-**LinkedIn outreach is failing.** 10 DMs sent for ColdCopy, 0 read after 24+ hours.
+**LinkedIn has no active users. 10 DMs, 0 read after 24+ hours. We MUST pivot to Chinese social media and bilingual products. This is NOT optional — do this in the NEXT cycle alongside ConnectPath build if possible, or as a dedicated cycle.**
 
-### Strategy 1: Direct Email Outreach via Gmail
+**⚠️ AGENTS: This section was previously removed/shortened by agents. DO NOT DO THAT AGAIN. Preserve this section VERBATIM.**
+
+### Task 1: Bilingual Website (EN + 中文) — DO THIS FIRST
+- **ALL product landing pages** must have a language toggle (EN/中文)
+- **Company landing page** (`projects/landing-page/index.html`) must have Chinese version
+- **Story pages** must have Chinese version
+- **PowerCast dashboard** must have Chinese version
+- Double Mood already bilingual ✅ — use the same pattern
+- Use simple JS-based i18n — NO heavy frameworks. A `data-zh` attribute pattern or a simple translation object works fine.
+
+### Task 2: Chinese Social Media — Research + Automate
+**Agents must research and implement:**
+1. **Xiaohongshu (小红书 / RedNote)** — How to post? API? Selenium? What content format works? This is the #1 priority platform.
+2. **WeChat Official Account (微信公众号)** — Can we set one up? How to automate posting?
+3. **Zhihu (知乎)** — Technical articles for FlowPrep, PowerCast
+4. **Bilibili (B站)** — Video content? Screen recordings of products?
+5. **Douyin (抖音 / TikTok China)** — Short video demos?
+
+**For each platform:** Research how to automate posting so the founder doesn't manually do it. Build scripts in `projects/social-media-automation/` if possible.
+
+**Content mapping:**
+- Double Mood → Xiaohongshu, Douyin (emotional wellness, visual content)
+- ColdCopy → Zhihu, WeChat (B2B sales tool, professional audience)
+- FlowPrep → Zhihu, Bilibili (engineering, technical demos)
+- PowerCast → Zhihu, WeChat (energy market, finance audience)
+- AutoNovel → Xiaohongshu, WeChat (literature, reading audience)
+
+### Task 3: Chinese Payment Methods — CRITICAL for revenue
+**Stripe doesn't work well in China.** We need Chinese payment options:
+1. **WeChat Pay (微信支付)** — How to integrate? Do we need a Chinese business entity? Is there a cross-border option?
+2. **Alipay (支付宝)** — Same questions. Cross-border Alipay for overseas merchants?
+3. **Xiaohongshu native payments** — Can we sell directly on the platform?
+4. **Taobao / Tmall** — For digital products?
+5. **Stripe alternative for China** — Ping++? LianLian Pay? PayJS?
+
+**Agent task:** Research ALL viable payment methods for receiving money from Chinese users. Document in `docs/operations/chinese-payment-research.md`. Include:
+- Setup requirements (business entity? Chinese bank account? Passport only?)
+- Fees per platform
+- Integration difficulty
+- Which products fit which payment platform
+
+### Task 4: Email Outreach via Gmail
 - Founder has working SMTP/IMAP scripts in `quant/` project
 - Build email outreach tool in `projects/email-outreach/`
 - Dogfood ColdCopy to sell ColdCopy
 
-### Strategy 2: Chinese Social Media (Xiaohongshu, Zhihu, Bilibili)
-- Double Mood → Xiaohongshu (emotional wellness)
-- ColdCopy → Zhihu / WeChat (B2B)
-- FlowPrep → Zhihu / Bilibili (technical)
-
-### Strategy 3: Bilingual Products (EN + 中文)
-- Add language toggle to all landing pages
-- Double Mood already bilingual ✅
-
-### Strategy 4: Cloudflare Web Analytics — DO NOT REMOVE
+### Cloudflare Web Analytics — DO NOT REMOVE
 - Double Mood: token `d373debf0c0e4b8cbc752883cd00c8cb`
 - ColdCopy: token `3d9bb59f7ef5487fb82a6e246857148f`
 - FlowPrep: needs token — add once available
+- PowerCast: needs token — add once available
 
 ---
 
@@ -162,6 +195,7 @@
 ### Live Products
 | Product | URL | Status |
 |---------|-----|--------|
+| PowerCast | https://powercast.pages.dev | ⚡ LIVE — 8.2% MAPE, awaiting Gumroad setup |
 | ColdCopy | https://coldcopy-au3.pages.dev | LIVE, $0 revenue, LinkedIn DMs failing |
 | Double Mood | https://double-mood.pages.dev/ | LIVE, Phase 2, $0 revenue |
 | FlowPrep AI | https://flowprep-ai.pages.dev/ | LIVE, landing page only, awaiting validation |
@@ -169,9 +203,8 @@
 ### Building (MUST GO — founder directive)
 | Product | Status | Next Step |
 |---------|--------|-----------|
-| PowerCast | Evaluated, founder override GO | BUILD this cycle |
-| ConnectPath | Not evaluated | Quick eval → BUILD |
-| AutoNovel | Not evaluated | Quick eval → BUILD |
+| ConnectPath | Not evaluated | Quick eval → BUILD next cycle |
+| AutoNovel | Not evaluated | Quick eval → BUILD after ConnectPath |
 
 ### Evaluated — NO-GO (founder accepts)
 | Product | Reason |
