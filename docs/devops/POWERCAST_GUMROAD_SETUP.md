@@ -77,7 +77,7 @@ MONEY-BACK GUARANTEE:
 ```
 
 ### Files to Attach
-- Upload `/projects/powercast/reports/sample_report.html` as a preview (subscribers will see what they get)
+- Upload `/projects/powercast/dashboard/sample_report.html` as a preview (subscribers will see what they get)
 
 ### Settings
 - License type: "License"
@@ -313,7 +313,7 @@ No changes needed here — founder only needs to create the Gumroad products.
 | File | Purpose |
 |------|---------|
 | `/projects/powercast/data/dataset.csv` | Upload to Product 2 (dataset) |
-| `/projects/powercast/reports/sample_report.html` | Upload to Products 1 & 3 as preview |
+| `/projects/powercast/dashboard/sample_report.html` | Upload to Products 1 & 3 as preview |
 | `/projects/powercast/dashboard/index.html` | Already configured with payment links |
 | `https://powercast.pages.dev` | Live dashboard |
 
