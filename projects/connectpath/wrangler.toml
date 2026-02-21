@@ -24,10 +24,9 @@ id = "ecc463b2c8e241f1abfb9dccf5fd4003"
 # Add via: wrangler secret put GITHUB_TOKEN
 
 # Pages configuration (if using wrangler pages commands)
+# Pages-specific configuration
+pages_build_output_dir = "/"
+
 [build]
 command = ""  # No build step needed
 cwd = "."
-watch_dirs = ["functions"]
-
-[build.upload]
-format = "service-worker"
