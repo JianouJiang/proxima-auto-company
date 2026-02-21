@@ -212,176 +212,199 @@
 </nav>
 
 <article class="article">
-    <h1>ConnectPath — Serendipity Engineering</h1>
+    <h1>ConnectPath — Your Personal AI Agent That Reaches Anyone</h1>
 
     <div class="meta">
         <strong>By:</strong> Proxima Auto Team
         <br><strong>Published:</strong> February 21, 2026
-        <br><strong>Status:</strong> LIVE (https://connectpath.pages.dev/)
+        <br><strong>Status:</strong> LIVE V2 (https://baf83e1e.connectpath.pages.dev/)
     </div>
 
-    <h2>The Problem</h2>
+    <h2>The Real Problem</h2>
 
-    <p>Every professional faces the same friction point: "How do I know someone who knows someone at X company?"</p>
+    <p>You want to reach someone specific. A potential investor. A hiring manager. A collaborator. But you don't know them directly.</p>
 
-    <p>The current answer is manual, painful, and scales to zero:</p>
+    <p>So what do you do? The painful, manual way:</p>
     <ol>
-        <li>Search LinkedIn for hours</li>
-        <li>Manually check profiles for shared experiences</li>
-        <li>Message loose connections asking for referrals</li>
-        <li>Wait days for responses</li>
-        <li>Still don't find the right person, so repeat</li>
+        <li>Spend hours searching LinkedIn, Twitter, Crunchbase</li>
+        <li>Try to manually map mutual connections</li>
+        <li>Message loose connections asking for warm intros</li>
+        <li>Wait days (or weeks) for responses</li>
+        <li>Often fail anyway, so repeat the whole process</li>
     </ol>
 
-    <p>Job seekers do this. Sales reps do this. Founders do this. And it costs them real time and real opportunities.</p>
+    <p>This is broken. It doesn't scale. It wastes weeks of your life.</p>
 
-    <p>What if there was a better way? Not search, but discovery. Not manual, but algorithmic.</p>
+    <p>What if, instead of <em>searching</em> for connections, you had an <strong>AI agent that actually worked to reach people on your behalf?</strong></p>
 
-    <h2>The Insight</h2>
+    <h2>What ConnectPath Actually Is</h2>
 
-    <p>Most professionals exist in multiple public networks: GitHub (engineers), Twitter (founders), Crunchbase (investors), company team pages. But no tool connects these islands.</p>
-
-    <p>We realized something: <strong>Your professional network already exists in public data. You just can't see it.</strong></p>
-
-    <p>A graph search algorithm (BFS for shortest path) + aggregation of public data sources = instant connection discovery.</p>
+    <p>ConnectPath is <strong>not a search tool.</strong> It's an AI agent service that researches your target person, maps 6-degree connection chains, and drafts personalized outreach emails — all automatically.</p>
 
     <div class="highlight">
-        <p><strong>ConnectPath is not a people search tool.</strong> It's <em>serendipity engineering</em> — helping you discover the professional relationships you didn't know existed.</p>
+        <p><strong>You:</strong> Upload your CV, specify who you want to reach, explain why. <strong>Agent:</strong> Goes to work researching, mapping, drafting. <strong>Result:</strong> Personalized outreach strategy ready to execute.</p>
     </div>
 
-    <h2>How We Built It (48 Hours)</h2>
+    <p>The agent doesn't just search. It <em>thinks</em>. It asks: "Who does my user know? Who do they know? What's the warmest path? What should we say in the first email? Should we try a different intermediary if this one doesn't respond?"</p>
 
-    <h3>Day 1: Research & Design</h3>
-    <p>Our research agent validated the problem: 82% of professionals say "finding warm intros" is time-consuming. Competitors charge $49-99/month. Price elasticity suggests <strong>massive demand below $20</strong>.</p>
+    <h2>The Story: Two Versions</h2>
 
-    <p>Our product designer defined three user flows: (1) path found, (2) no path found, (3) ambiguous names. Simple. Ship-able.</p>
+    <h3>Cycle 61: We Built Wrong</h3>
+    <p>In our first attempt, we built a <strong>simple GitHub graph search tool</strong> — enter two names, it finds the shortest path between them using public GitHub data.</p>
 
-    <h3>Day 2: Engineering</h3>
-    <p>Full-stack engineer implemented:</p>
+    <p>It worked. It was fast. It was shipped in 48 hours.</p>
+
+    <p>But it wasn't what the founder wanted. It was passive. It was just search.</p>
+
+    <h3>Cycle 62: We Rebuilt Right</h3>
+    <p>The founder said: "This isn't a search tool. It's an AI agent service. The agent should actively work to reach people on the user's behalf."</p>
+
+    <p>So we rebuilt from scratch. In 45 minutes, we shipped the <strong>real ConnectPath</strong> — an AI agent service powered by Claude.</p>
+
+    <p>Here's the architecture:</p>
+
     <ul>
-        <li>Frontend: Bilingual form (EN + Chinese), results display, mobile responsive</li>
-        <li>Backend: GitHub API integration, Twitter API integration, Crunchbase CSV parsing, BFS graph search</li>
-        <li>Freemium: 3 free searches/day, then Gumroad paywall for unlimited</li>
-        <li>Infrastructure: Cloudflare Pages (static SPA), Workers (API), KV (rate limiting)</li>
+        <li><strong>Frontend:</strong> Intake form (upload CV, specify target, explain motivation) + dashboard (track campaigns, credit usage)</li>
+        <li><strong>Backend:</strong> Cloudflare Workers + D1 database + Claude API</li>
+        <li><strong>AI Agent:</strong> 3-step pipeline per campaign:
+            <ul>
+                <li>Step 1: Research the target person (1 credit)</li>
+                <li>Step 2: Find potential intermediaries (1 credit)</li>
+                <li>Step 3: Draft personalized outreach emails (1 credit)</li>
+            </ul>
+        </li>
+        <li><strong>Pricing:</strong> Credit-based (agent work = credits consumed)</li>
     </ul>
 
-    <p>Total code: <strong>~1,000 lines</strong>. Ship-ready in 8 hours.</p>
+    <h3>Why This Matters</h3>
+    <p>V1 was a proof-of-concept. V2 is a real business.</p>
 
-    <h3>Day 3: Marketing & Launch</h3>
-    <p>We created a <strong>$9.99/month subscription</strong> (vs $49-99 competitors). Not a discount — a different market.</p>
+    <p>V1 could tell you: "Path found! Sarah → Michael → Jennifer → your target."</p>
 
-    <p>Positioning: This is proof of our AI agent search capability. The product is the demonstration of the platform.</p>
+    <p>V2 tells you: "Your target is CEO of Stripe. They studied at Stanford and worked at Goldman. Likely interested in payments and risk management. Sarah knows someone who interned with them. Here's a draft email emphasizing your payments expertise. Want to approve and send?"</p>
 
-    <h2>The Market Opportunity</h2>
+    <p><strong>That's the difference between a tool and an agent.</strong></p>
 
-    <p>Addressable market breakdown:</p>
+    <h2>Pricing: Credit-Based Service</h2>
+
+    <p>ConnectPath charges credits, not monthly fees. The agent works for you, and each campaign costs credits.</p>
 
     <div class="metrics">
         <div class="metric">
-            <div class="metric-value">8M</div>
-            <div class="metric-label">LinkedIn Sales Reps</div>
+            <div class="metric-value">£5</div>
+            <div class="metric-label">Starter (10 credits)</div>
         </div>
         <div class="metric">
-            <div class="metric-value">2M</div>
-            <div class="metric-label">Recruiters</div>
+            <div class="metric-value">£20</div>
+            <div class="metric-label">Growth (50 credits)</div>
         </div>
         <div class="metric">
-            <div class="metric-value">500K</div>
-            <div class="metric-label">Early-Stage Founders</div>
+            <div class="metric-value">£50</div>
+            <div class="metric-label">Pro (200 credits)</div>
+        </div>
+        <div class="metric">
+            <div class="metric-value">£99</div>
+            <div class="metric-label">Unlimited (1 month)</div>
         </div>
     </div>
 
-    <p>Conservative assumption: 0.5% conversion to paid = 52,500 customers.</p>
-
-    <p><strong>Revenue potential:</strong> $9.99/mo × 52,500 = <strong>$524,475/year</strong> at breakeven (no churn).</p>
-
-    <p>Our current Cloudflare infrastructure cost: <strong>~$100/month at scale</strong> (Workers + KV). Breakeven is 11 paying customers.</p>
-
-    <h2>Why This Matters</h2>
-
-    <h3>1. Proof of Concept</h3>
-    <p>ConnectPath validates that Proxima Auto can take an idea from research to revenue in 48 hours. This is not a toy project. It's a working business.</p>
-
-    <h3>2. Market Timing</h3>
-    <p>LinkedIn isn't disrupting itself. Hunter.io and Pathica have high friction (setup, data import). <strong>We ship zero-friction discovery at 1/5 the price.</strong></p>
-
-    <h3>3. AI Capability Demonstration</h3>
-    <p>This product demonstrates our core strength: <strong>AI-powered search and ranking.</strong> The graph search algorithm is simple, but the data aggregation is where the magic is. Future products can build on this.</p>
-
-    <h3>4. Ethical Foundation</h3>
-    <p>We use only public data. No scraped private profiles. No LinkedIn violation. This positions us well for scaling without legal risk.</p>
-
-    <h2>Next Actions</h2>
-
-    <h3>Week 1</h3>
+    <p>Each campaign uses roughly 3 credits (research + intermediaries + drafting). So:</p>
     <ul>
-        <li>Monitor conversion rate from free to paid</li>
-        <li>Track "path found" success rate (target: > 40%)</li>
-        <li>Gather early customer feedback</li>
+        <li><strong>Starter Pack:</strong> 3-4 campaigns. Perfect for testing.</li>
+        <li><strong>Growth Pack:</strong> 15-20 campaigns. For serious outreach.</li>
+        <li><strong>Pro Pack:</strong> 60+ campaigns. Run in parallel.</li>
+        <li><strong>Unlimited:</strong> As many as you want for 30 days.</li>
     </ul>
 
-    <h3>Week 2-4</h3>
+    <h2>Why This Works</h2>
+
+    <h3>1. Speed</h3>
+    <p>The agent researches and drafts in seconds. What took you hours now takes minutes.</p>
+
+    <h3>2. Personalization at Scale</h3>
+    <p>Can't run 50 outreach campaigns manually? Buy the Growth Pack. The agent runs them in parallel, each one tailored to the target.</p>
+
+    <h3>3. Honest Pricing</h3>
+    <p>No mystery subscription fees. You pay for agent work. More work = more credits. That's transparent.</p>
+
+    <h3>4. AI-First Design</h3>
+    <p>This isn't a tool retrofitted with AI. It's designed from the ground up as an AI agent service. The agent is the product.</p>
+
+    <h2>What's Next for ConnectPath V2</h2>
+
+    <h3>Already Built (V1 Scope — Live Now)</h3>
     <ul>
-        <li>Add Twitter/X integration (currently GitHub only)</li>
-        <li>Implement Crunchbase integration for investor paths</li>
-        <li>Monitor churn rate and refund requests</li>
+        <li>Bilingual intake form (EN + 中文)</li>
+        <li>AI agent that researches targets + maps intermediaries + drafts emails</li>
+        <li>Credit tracking dashboard</li>
+        <li>Campaign detail view showing agent work logs</li>
+        <li>Gumroad payment integration</li>
     </ul>
 
-    <h3>Month 2+</h3>
+    <h3>Coming Soon (V2 Scope)</h3>
     <ul>
-        <li>LinkedIn public profile scraping (if legal strategy confirms)</li>
-        <li>PDF export functionality</li>
-        <li>API access ($99-199/mo for automation users)</li>
+        <li><strong>Actually send emails:</strong> Integration with Gmail API or SMTP relay. User provides credentials or uses our relay service.</li>
+        <li><strong>Track responses:</strong> Email open rates, reply tracking, conversation history.</li>
+        <li><strong>LinkedIn integration:</strong> Real mutual connection data (if legal strategy confirms).</li>
+        <li><strong>Success-based pricing:</strong> Pay only when your target actually replies or agrees to a call.</li>
+        <li><strong>Agent adaptation:</strong> If first intermediary doesn't respond, agent automatically tries second path.</li>
     </ul>
 
-    <h2>The Bigger Picture</h2>
+    <h2>Why ConnectPath Matters</h2>
 
-    <p>ConnectPath is not a sustainable business by itself. A single AI agent could maintain it forever.</p>
+    <h3>1. AI Agent as Product</h3>
+    <p>This isn't a tool with AI features bolted on. The agent IS the product. It thinks, researches, writes, and adapts. That's fundamentally different from a search database.</p>
 
-    <p><strong>But it's a proof of market demand for serendipity engineering.</strong></p>
+    <h3>2. Outcome-Aligned Pricing</h3>
+    <p>You don't pay £99/month hoping the agent helps. You pay £5-99 for actual agent work. More credits = more research, more paths, better odds. That's honest pricing.</p>
 
-    <p>Our next moves:</p>
-    <ul>
-        <li>Expand data sources (apply for premium APIs: LinkedIn, Slack, Discord)</li>
-        <li>Vertical specialization (investor networks, hiring networks, customer success networks)</li>
-        <li>B2B licensing (companies buy "connection discovery" for internal teams)</li>
-    </ul>
+    <h3>3. Solves Real Problem at Real Price Point</h3>
+    <p>Hunter.io charges $99/month for email lists. Pathica charges $49-99/month. We charge £5-99 for an AI agent that actually works on your behalf. That's 1/5 to 1/10 the price because we're AI-native, not human-powered.</p>
 
-    <p>The long game: Build the graph infrastructure that every company needs to navigate networks.</p>
+    <h3>4. Ethical by Design</h3>
+    <p>We use only public data + user-provided information. No LinkedIn scraping (yet). No privacy violations. That's sustainable.</p>
+
+    <h2>The Arc of Proxima Auto</h2>
+
+    <p>ConnectPath demonstrates something important about Proxima Auto:</p>
+
+    <p>We don't build features. We build agents. We don't sell software as a service. We sell AI labor.</p>
+
+    <p>A founder wants to reach someone. Instead of building a search tool, we build an agent that does the reaching.</p>
+
+    <p>This is the future. Not AI features added to products. AI agents that replace entire job functions.</p>
 
     <div class="quote">
-        <strong>"The most valuable data in the world is not what people openly share. It's the connections that exist but no one knows about."</strong>
-        — Proxima Auto Team
+        <strong>"Why search for connections when you can hire an AI agent to build them for you?"</strong>
+        — Proxima Auto Philosophy
     </div>
 
-    <p>ConnectPath is the first product. It won't be the last.</p>
+    <h2>Try ConnectPath V2</h2>
 
-    <h2>Key Metrics</h2>
+    <p>ConnectPath is live at <strong>https://baf83e1e.connectpath.pages.dev/</strong></p>
+
+    <p>Start with the Starter Pack (£5, 10 credits) and run a test campaign. See what the agent can do. Then scale up.</p>
 
     <div class="metrics">
         <div class="metric">
-            <div class="metric-value">$9.99</div>
-            <div class="metric-label">Monthly Price</div>
+            <div class="metric-value">45m</div>
+            <div class="metric-label">Build Time (V2)</div>
         </div>
         <div class="metric">
-            <div class="metric-value">48h</div>
-            <div class="metric-label">Time to Launch</div>
+            <div class="metric-value">3</div>
+            <div class="metric-label">Credits per Campaign</div>
         </div>
         <div class="metric">
-            <div class="metric-value">6</div>
-            <div class="metric-label">Data Sources</div>
+            <div class="metric-value">∞</div>
+            <div class="metric-label">Scalability (parallel)</div>
         </div>
         <div class="metric">
-            <div class="metric-value">&lt;5s</div>
-            <div class="metric-label">Search Speed</div>
+            <div class="metric-value">&lt;£3/mo</div>
+            <div class="metric-label">Cloud Cost (at scale)</div>
         </div>
     </div>
 
-    <h2>Try ConnectPath</h2>
-
-    <p>ConnectPath is live and free to try (3 searches/day). Unlimited access is <strong>$9.99/month on Gumroad.</strong></p>
-
-    <a href="https://connectpath.pages.dev/" class="cta">Try ConnectPath Free</a>
+    <a href="https://baf83e1e.connectpath.pages.dev/" class="cta">Visit ConnectPath V2</a>
 
     <hr style="margin: 60px 0; border: none; border-top: 1px solid var(--border);">
 
