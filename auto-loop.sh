@@ -146,13 +146,20 @@ validate_consensus() {
     if [ ! -s "$CONSENSUS_FILE" ]; then
         return 1
     fi
+    # Must have the main header
     if ! grep -q "^# Auto Company Consensus" "$CONSENSUS_FILE"; then
         return 1
     fi
-    if ! grep -q "^## Next Action" "$CONSENSUS_FILE"; then
+    # Must have at least 2 second-level sections (any ## heading)
+    local section_count
+    section_count=$(grep -c "^## " "$CONSENSUS_FILE" 2>/dev/null || echo 0)
+    if [ "$section_count" -lt 2 ]; then
         return 1
     fi
-    if ! grep -q "^## Company State" "$CONSENSUS_FILE"; then
+    # Must be at least 50 lines (prevents agents from gutting the file)
+    local line_count
+    line_count=$(wc -l < "$CONSENSUS_FILE" 2>/dev/null || echo 0)
+    if [ "$line_count" -lt 50 ]; then
         return 1
     fi
     return 0
