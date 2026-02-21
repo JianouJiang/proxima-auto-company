@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Double Mood — Design Preview</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'breath-bg': '#F0F4F8',
+            'breath-primary': '#4A90E2',
+            'breath-accent': '#50C9B8',
+            'breath-text': '#2C3E50',
+            'breath-muted': '#7B8B9A',
+            'mood-before': '#E57373',
+            'mood-after': '#81C784',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .breath-circle {
+      filter: drop-shadow(0 4px 12px rgba(74, 144, 226, 0.15));
+    }
+
+    .breath-text {
+      transition: opacity 0.5s ease-in-out;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .breath-pulse animate {
+        animation: none !important;
+      }
+    }
+  </style>
+</head>
+<body class="bg-breath-bg text-breath-text min-h-screen flex items-center justify-center p-4">
+  <div class="w-full max-w-md space-y-8">
+
+    <!-- Header -->
+    <header class="text-center space-y-2">
+      <h1 class="text-2xl font-semibold text-breath-text">
+        How do you feel right now?
+      </h1>
+      <p class="text-base text-breath-muted">
+        现在感觉如何？
+      </p>
+    </header>
+
+    <!-- Before Mood Slider -->
+    <section class="space-y-3">
+      <div class="flex justify-between items-center text-sm text-breath-muted">
+        <span>Before breathing <span class="text-xs">深呼吸前</span></span>
+        <span class="text-breath-text font-medium">5/10</span>
+      </div>
+      <div class="relative">
+        <input
+          type="range"
+          min="1"
+          max="10"
+          value="5"
+          class="w-full h-2 rounded-lg appearance-none cursor-pointer"
+          style="background: linear-gradient(to right, #E57373 0%, #FFB74D 50%, #81C784 100%);"
+        >
+        <div class="flex justify-between text-xs text-breath-muted mt-1">
+          <span>😰 Anxious 焦虑</span>
+          <span>😊 Calm 平静</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Breathing Circle -->
+    <section class="space-y-4">
+      <div class="flex justify-center">
+        <svg viewBox="0 0 200 200" class="breath-circle w-72 h-72">
+          <!-- Background circle (static) -->
+          <circle cx="100" cy="100" r="90"
+                  fill="none"
+                  stroke="#E8EFF5"
+                  stroke-width="2"
+                  opacity="0.3"/>
+
+          <!-- Animated breathing circle -->
+          <circle cx="100" cy="100" r="40"
+                  class="breath-pulse"
+                  fill="url(#breathGradient)"
+                  stroke="#4A90E2"
+                  stroke-width="2">
+            <animate attributeName="r"
+                     values="40;80;40"
+                     dur="10s"
+                     keyTimes="0;0.4;1"
+                     keySplines="0.4 0 0.2 1; 0.4 0 0.2 1"
+                     calcMode="spline"
+                     repeatCount="indefinite"/>
+            <animate attributeName="opacity"
+                     values="0.7;1;0.7"
+                     dur="10s"
+                     keyTimes="0;0.4;1"
+                     repeatCount="indefinite"/>
+          </circle>
+
+          <!-- Gradient for depth -->
+          <defs>
+            <radialGradient id="breathGradient">
+              <stop offset="0%" style="stop-color:#50C9B8;stop-opacity:0.8"/>
+              <stop offset="100%" style="stop-color:#4A90E2;stop-opacity:0.6"/>
+            </radialGradient>
+          </defs>
+        </svg>
+      </div>
+
+      <!-- Breathing Instructions -->
+      <div class="text-center space-y-1">
+        <p class="text-lg font-medium text-breath-text breath-text" data-phase="inhale">
+          Breathe in... <span class="text-breath-muted">吸气...</span>
+        </p>
+        <p class="text-lg font-medium text-breath-text breath-text opacity-0" data-phase="exhale">
+          Breathe out... <span class="text-breath-muted">呼气...</span>
+        </p>
+      </div>
+    </section>
+
+    <!-- After Mood Slider -->
+    <section class="space-y-3">
+      <div class="flex justify-between items-center text-sm text-breath-muted">
+        <span>After breathing <span class="text-xs">深呼吸后</span></span>
+        <span class="text-breath-text font-medium">7/10</span>
+      </div>
+      <div class="relative">
+        <input
+          type="range"
+          min="1"
+          max="10"
+          value="7"
+          class="w-full h-2 rounded-lg appearance-none cursor-pointer"
+          style="background: linear-gradient(to right, #E57373 0%, #FFB74D 50%, #81C784 100%);"
+        >
+        <div class="flex justify-between text-xs text-breath-muted mt-1">
+          <span>😰 Anxious 焦虑</span>
+          <span>😊 Calm 平静</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="text-center text-sm text-breath-muted pt-4">
+      <p>Take a moment. You deserve it.</p>
+      <p class="text-xs">给自己一点时间，你值得。</p>
+    </footer>
+
+  </div>
+
+  <!-- Breathing Sync JavaScript -->
+  <script>
+    const BREATH_CYCLE = 10000; // 10 seconds
+    const INHALE_DURATION = 4000; // 4 seconds
+
+    function updateBreathingCue() {
+      const now = Date.now() % BREATH_CYCLE;
+      const isInhale = now < INHALE_DURATION;
+
+      const inhaleElements = document.querySelectorAll('[data-phase="inhale"]');
+      const exhaleElements = document.querySelectorAll('[data-phase="exhale"]');
+
+      inhaleElements.forEach(el => {
+        el.style.opacity = isInhale ? '1' : '0';
+      });
+
+      exhaleElements.forEach(el => {
+        el.style.opacity = isInhale ? '0' : '1';
+      });
+    }
+
+    // Update every 100ms for smooth transitions
+    setInterval(updateBreathingCue, 100);
+    updateBreathingCue(); // Initial call
+  </script>
+
+  <!-- Screen Reader Accessibility -->
+  <div aria-live="polite" aria-atomic="true" class="sr-only">
+    <span data-phase="inhale">Breathe in for 4 seconds</span>
+    <span data-phase="exhale">Breathe out for 6 seconds</span>
+  </div>
+
+</body>
+</html>
