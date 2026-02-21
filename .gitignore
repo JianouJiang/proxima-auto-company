@@ -162,13 +162,18 @@ projects/*
 !projects/powercast/dashboard/
 !projects/powercast/dashboard/*.html
 !projects/powercast/dashboard/*.toml
-# ConnectPath - GitHub connection finder
-!projects/connectpath/
-!projects/connectpath/*.html
-!projects/connectpath/*.md
-!projects/connectpath/*.json
-!projects/connectpath/*.toml
-!projects/connectpath/functions/
+# SixDegrees (formerly ConnectPath) - 6-degree connection finder
+!projects/sixdegrees/
+!projects/sixdegrees/*.html
+!projects/sixdegrees/*.md
+!projects/sixdegrees/*.json
+!projects/sixdegrees/*.toml
+!projects/sixdegrees/*.sql
+!projects/sixdegrees/*.js
+!projects/sixdegrees/functions/
+!projects/sixdegrees/functions/**/*.js
+!projects/sixdegrees/public/
+!projects/sixdegrees/public/**/*.html
 .vscode-test-web
 **/.vitepress/cache
 **/.vitepress/.temp

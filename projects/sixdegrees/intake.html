@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Start Your Connection - SixDegrees</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50">
+    <!-- Language Toggle -->
+    <div class="fixed top-4 right-4 z-50">
+        <button onclick="toggleLanguage()" class="bg-white px-4 py-2 rounded-lg shadow-sm border border-gray-200 hover:bg-gray-50">
+            <span id="lang-toggle">中文</span>
+        </button>
+    </div>
+
+    <div class="min-h-screen py-12 px-4">
+        <div class="max-w-2xl mx-auto">
+            <div class="text-center mb-8">
+                <a href="index.html" class="text-blue-600 hover:underline">
+                    <span data-en="← Back to Home" data-zh="← 返回首页">← Back to Home</span>
+                </a>
+                <h1 class="text-4xl font-bold mt-4 mb-2">
+                    <span data-en="Start Your Connection" data-zh="开始你的连接">Start Your Connection</span>
+                </h1>
+                <p class="text-gray-600">
+                    <span data-en="Tell our AI agent who you want to reach, and it will find the path."
+                          data-zh="告诉我们的 AI 智能体你想联系谁，它会找到路径。">
+                        Tell our AI agent who you want to reach, and it will find the path.
+                    </span>
+                </p>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-8">
+                <form id="intake-form" class="space-y-6">
+                    <!-- Email -->
+                    <div>
+                        <label class="block text-sm font-semibold mb-2">
+                            <span data-en="Your Email" data-zh="你的邮箱">Your Email</span> *
+                        </label>
+                        <input
+                            type="email"
+                            id="email"
+                            required
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            placeholder="you@example.com"
+                        >
+                        <p class="text-xs text-gray-500 mt-1">
+                            <span data-en="We'll send campaign updates here" data-zh="我们会将活动更新发送到这里">
+                                We'll send campaign updates here
+                            </span>
+                        </p>
+                    </div>
+
+                    <!-- CV/Intro -->
+                    <div>
+                        <label class="block text-sm font-semibold mb-2">
+                            <span data-en="Your CV or Introduction" data-zh="你的简历或简介">Your CV or Introduction</span> *
+                        </label>
+                        <textarea
+                            id="cv"
+                            rows="6"
+                            required
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            data-en-placeholder="Tell us about yourself: your background, skills, experience, current role, and what you're working on..."
+                            data-zh-placeholder="介绍一下你自己：背景、技能、经验、当前职位，以及你正在做什么..."
+                            placeholder="Tell us about yourself: your background, skills, experience, current role, and what you're working on..."
+                        ></textarea>
+                    </div>
+
+                    <!-- Target Person -->
+                    <div>
+                        <label class="block text-sm font-semibold mb-2">
+                            <span data-en="Target Person" data-zh="目标人物">Target Person</span> *
+                        </label>
+                        <input
+                            type="text"
+                            id="target-name"
+                            required
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent mb-3"
+                            data-en-placeholder="Full name (e.g., Elon Musk)"
+                            data-zh-placeholder="全名（例如：Elon Musk）"
+                            placeholder="Full name (e.g., Elon Musk)"
+                        >
+                        <input
+                            type="text"
+                            id="target-role"
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            data-en-placeholder="Role & Company (e.g., CEO at Tesla)"
+                            data-zh-placeholder="职位和公司（例如：Tesla CEO）"
+                            placeholder="Role & Company (e.g., CEO at Tesla)"
+                        >
+                    </div>
+
+                    <!-- Motivation -->
+                    <div>
+                        <label class="block text-sm font-semibold mb-2">
+                            <span data-en="Why Do You Want to Reach This Person?" data-zh="为什么想联系这个人？">Why Do You Want to Reach This Person?</span> *
+                        </label>
+                        <textarea
+                            id="motivation"
+                            rows="4"
+                            required
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            data-en-placeholder="Be specific: Are you seeking advice, partnership, investment, job opportunity, or something else?"
+                            data-zh-placeholder="具体说明：你是想寻求建议、合作、投资、工作机会，还是其他？"
+                            placeholder="Be specific: Are you seeking advice, partnership, investment, job opportunity, or something else?"
+                        ></textarea>
+                    </div>
+
+                    <!-- Selected Plan (hidden, from URL param) -->
+                    <input type="hidden" id="plan" value="starter">
+
+                    <!-- Credits Info -->
+                    <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                        <p class="text-sm text-blue-900">
+                            <strong data-en="Estimated Credits:" data-zh="预计积分：">Estimated Credits:</strong>
+                            <span data-en="10-20 credits (researching target + finding 2-3 intermediaries + drafting emails)"
+                                  data-zh="10-20 积分（研究目标 + 找到 2-3 个中间人 + 起草邮件）">
+                                10-20 credits (researching target + finding 2-3 intermediaries + drafting emails)
+                            </span>
+                        </p>
+                    </div>
+
+                    <!-- Submit -->
+                    <button
+                        type="submit"
+                        class="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition"
+                    >
+                        <span data-en="Start AI Agent Campaign" data-zh="启动 AI 智能体活动">Start AI Agent Campaign</span>
+                    </button>
+
+                    <p class="text-xs text-gray-500 text-center">
+                        <span data-en="By submitting, you'll be redirected to purchase credits. Campaign starts after payment."
+                              data-zh="提交后，你将被重定向到购买积分页面。付款后活动开始。">
+                            By submitting, you'll be redirected to purchase credits. Campaign starts after payment.
+                        </span>
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentLang = 'en';
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'en' ? 'zh' : 'en';
+            document.getElementById('lang-toggle').textContent = currentLang === 'en' ? '中文' : 'EN';
+
+            document.querySelectorAll('[data-en]').forEach(el => {
+                if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+                    el.placeholder = currentLang === 'en' ? el.dataset.enPlaceholder : el.dataset.zhPlaceholder;
+                } else {
+                    el.textContent = currentLang === 'en' ? el.dataset.en : el.dataset.zh;
+                }
+            });
+        }
+
+        // Get plan from URL parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        const plan = urlParams.get('plan') || 'starter';
+        document.getElementById('plan').value = plan;
+
+        // Handle form submission
+        document.getElementById('intake-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const formData = {
+                email: document.getElementById('email').value,
+                cv: document.getElementById('cv').value,
+                target_name: document.getElementById('target-name').value,
+                target_role: document.getElementById('target-role').value,
+                motivation: document.getElementById('motivation').value,
+                plan: document.getElementById('plan').value
+            };
+
+            try {
+                // Submit to Worker API
+                const response = await fetch('/api/campaigns', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formData)
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    // Redirect to Gumroad payment (will be real link in production)
+                    const gumroadLinks = {
+                        starter: 'https://gumroad.com/l/connectpath-starter',
+                        growth: 'https://gumroad.com/l/connectpath-growth',
+                        pro: 'https://gumroad.com/l/connectpath-pro',
+                        unlimited: 'https://gumroad.com/l/connectpath-unlimited'
+                    };
+
+                    // Store campaign ID for post-purchase webhook
+                    localStorage.setItem('pending_campaign_id', result.campaign_id);
+
+                    // Redirect to payment
+                    window.location.href = gumroadLinks[formData.plan] || gumroadLinks.starter;
+                } else {
+                    alert('Error: ' + result.error);
+                }
+            } catch (error) {
+                alert('Failed to submit campaign. Please try again.');
+                console.error(error);
+            }
+        });
+    </script>
+</body>
+</html>

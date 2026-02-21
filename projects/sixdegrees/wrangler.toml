@@ -1,0 +1,35 @@
+name = "sixdegrees"
+main = "worker.js"
+compatibility_date = "2024-01-01"
+
+# D1 Database binding (database name can't be changed, only binding)
+[[d1_databases]]
+binding = "DB"
+database_name = "connectpath-db"
+database_id = "ae0567a4-85ea-4e21-a764-074e20ba53bf"
+
+# KV namespace for credits (optional, using D1 for now)
+[[kv_namespaces]]
+binding = "KV"
+id = "ffef3056ad904d3abd891481dc9c7528"
+
+# Queue for async campaign processing
+[[queues.producers]]
+binding = "QUEUE"
+queue = "sixdegrees-queue"
+
+# Queue consumer - enable when handler is added to worker.js
+# [[queues.consumers]]
+# queue = "sixdegrees-queue"
+# max_batch_size = 10
+# max_batch_timeout = 30
+
+# Environment variables (set via: wrangler secret put ANTHROPIC_API_KEY)
+# ANTHROPIC_API_KEY - Claude API key for AI agent
+# GUMROAD_WEBHOOK_SECRET - Gumroad webhook signature verification
+
+[site]
+bucket = "./"
+
+[env.production]
+vars = { ENVIRONMENT = "production" }
