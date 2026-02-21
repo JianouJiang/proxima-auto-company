@@ -141,6 +141,9 @@ memories/consensus.md.bak
 # Projects directory (show folder on GitHub, hide contents)
 projects/*
 !projects/.gitkeep
+# Landing page content is publicly hosted
+!projects/landing-page/
+!projects/landing-page/*.html
 .vscode-test-web
 **/.vitepress/cache
 **/.vitepress/.temp
