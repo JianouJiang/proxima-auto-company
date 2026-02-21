@@ -62,9 +62,16 @@
 
 ---
 
-### ✅ BUILD #2: ConnectPath — AI Agent That Reaches Anyone For You 🔗 COMPLETE
+### ✅ BUILD #2: ConnectPath — AI Agent That Reaches Anyone For You 🔗 COMPLETE & DEPLOYED
 
-**Status: V2 rebuilt correctly (Cycle 62). Ready for deployment.**
+**Status: V2 deployed to production (Cycle 62)**
+- **Worker:** https://connectpath.jianou-works.workers.dev (API backend)
+- **Pages:** https://baf83e1e.connectpath.pages.dev (UI frontend)
+- **Database:** D1 initialized (users, campaigns, campaign_steps, credit_transactions)
+- **Queue:** Ready for async AI processing
+- **Testing:** End-to-end flow verified (create campaign → check dashboard → query DB)
+- **Cost:** Zero infrastructure cost (within Cloudflare free tier)
+- **Next:** Set Anthropic API key, enable Gumroad products, launch payment flow
 
 **⚠️ Cycle 61 built a simple GitHub graph search tool, which is NOT what the founder wants. The V1 in `projects/connectpath/` must be REPLACED with this vision:**
 
