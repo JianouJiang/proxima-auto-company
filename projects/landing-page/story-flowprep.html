@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlowPrep AI Story — Proxima Auto</title>
+    <meta name="description" content="How a PhD in ML + CFD and 14 AI agents are building an HVAC simulation tool that could make money and land a job.">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>P</text></svg>">
+    <style>
+        :root {
+            --navy: #0f172a;
+            --green: #059669;
+            --green-light: #10b981;
+            --teal: #0d9488;
+            --slate: #475569;
+            --slate-light: #94a3b8;
+            --gray-bg: #f8fafc;
+            --white: #ffffff;
+            --border: #e2e8f0;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, Roboto, sans-serif;
+            color: var(--navy);
+            background: var(--white);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        nav {
+            position: fixed; top: 0; left: 0; right: 0;
+            background: rgba(255,255,255,0.92);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            z-index: 100;
+            padding: 0 24px;
+        }
+        .nav-inner {
+            max-width: 1080px; margin: 0 auto;
+            display: flex; align-items: center; justify-content: space-between;
+            height: 64px;
+        }
+        .logo {
+            font-weight: 800; font-size: 1.25rem; color: var(--navy);
+            text-decoration: none; letter-spacing: -0.5px;
+        }
+        .logo span { color: #2563eb; }
+        .nav-links { display: flex; gap: 32px; list-style: none; }
+        .nav-links a {
+            text-decoration: none; color: var(--slate); font-size: 0.9rem;
+            font-weight: 500; transition: color 0.2s;
+        }
+        .nav-links a:hover { color: var(--navy); }
+
+        /* Progress bar */
+        .progress-bar {
+            position: fixed; top: 64px; left: 0; right: 0;
+            height: 3px; background: var(--border); z-index: 99;
+        }
+        .progress-fill {
+            height: 100%; background: var(--green);
+            width: 100%; transition: width 0.3s;
+        }
+
+        /* Hero */
+        .hero {
+            padding: 140px 24px 60px;
+            text-align: center;
+            background: linear-gradient(135deg, #064e3b 0%, #065f46 50%, #0d9488 100%);
+            color: white;
+        }
+        .hero-tag {
+            display: inline-block;
+            background: rgba(255,255,255,0.15);
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        .hero h1 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 800;
+            line-height: 1.2;
+            letter-spacing: -1.2px;
+            max-width: 700px;
+            margin: 0 auto 16px;
+        }
+        .hero p {
+            font-size: 1.1rem;
+            opacity: 0.85;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Content area */
+        .content-wrapper {
+            display: grid;
+            grid-template-columns: 220px 1fr;
+            max-width: 1080px;
+            margin: 0 auto;
+            padding: 40px 24px 80px;
+            gap: 48px;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: sticky;
+            top: 80px;
+            align-self: start;
+        }
+        .sidebar h3 {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--slate-light);
+            margin-bottom: 12px;
+        }
+        .chapter-nav { list-style: none; }
+        .chapter-nav li { margin-bottom: 4px; }
+        .chapter-nav a {
+            display: block;
+            padding: 8px 12px;
+            border-radius: 6px;
+            text-decoration: none;
+            color: var(--slate);
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.2s;
+            border-left: 3px solid transparent;
+        }
+        .chapter-nav a:hover {
+            background: var(--gray-bg);
+            color: var(--navy);
+        }
+        .chapter-nav a.active {
+            background: #ecfdf5;
+            color: var(--green);
+            border-left-color: var(--green);
+            font-weight: 700;
+        }
+
+        /* Chapters */
+        .chapters-area { min-width: 0; }
+        .chapter { display: none; }
+        .chapter.active { display: block; }
+        .chapter h2 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            letter-spacing: -0.8px;
+            margin-bottom: 8px;
+        }
+        .chapter-subtitle {
+            color: var(--slate-light);
+            font-size: 0.9rem;
+            margin-bottom: 32px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+        }
+        .chapter p {
+            font-size: 1.05rem;
+            color: var(--slate);
+            margin-bottom: 20px;
+            max-width: 65ch;
+        }
+        .chapter h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin: 32px 0 12px;
+            letter-spacing: -0.3px;
+        }
+
+        blockquote {
+            border-left: 4px solid var(--green);
+            padding: 16px 20px;
+            margin: 24px 0;
+            background: #f0fdf4;
+            border-radius: 0 8px 8px 0;
+        }
+        blockquote p {
+            color: var(--navy) !important;
+            font-style: italic;
+            margin-bottom: 4px !important;
+        }
+        blockquote cite {
+            font-style: normal;
+            font-size: 0.85rem;
+            color: var(--green);
+            font-weight: 600;
+        }
+
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 12px;
+            margin: 24px 0;
+        }
+        .stat-box {
+            background: var(--gray-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 16px;
+            text-align: center;
+        }
+        .stat-box .num {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--green);
+        }
+        .stat-box .label {
+            font-size: 0.8rem;
+            color: var(--slate);
+            margin-top: 2px;
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 48px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border);
+        }
+        .page-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: var(--white);
+            color: var(--slate);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .page-btn:hover {
+            border-color: var(--green);
+            color: var(--green);
+        }
+        .page-indicator {
+            font-size: 0.85rem;
+            color: var(--slate-light);
+        }
+
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 32px 24px;
+        }
+        .footer-inner {
+            max-width: 1080px; margin: 0 auto;
+            display: flex; justify-content: space-between; align-items: center;
+            flex-wrap: wrap; gap: 16px;
+        }
+        .footer-inner span { color: var(--slate-light); font-size: 0.85rem; }
+        .footer-links { display: flex; gap: 24px; }
+        .footer-links a {
+            color: var(--slate); font-size: 0.85rem; text-decoration: none;
+        }
+        .footer-links a:hover { color: var(--navy); }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .content-wrapper {
+                grid-template-columns: 1fr;
+                padding-top: 20px;
+            }
+            .sidebar {
+                position: static;
+                overflow-x: auto;
+            }
+            .chapter-nav {
+                display: flex;
+                gap: 4px;
+                white-space: nowrap;
+            }
+            .chapter-nav a { border-left: none; border-bottom: 3px solid transparent; }
+            .chapter-nav a.active { border-left: none; border-bottom-color: var(--green); }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="nav-inner">
+        <a href="index.html" class="logo">Proxima<span>Auto</span></a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="story.html">All Stories</a></li>
+            <li><a href="index.html#products">Products</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+
+<section class="hero">
+    <div class="hero-tag">Product #3 &middot; In Development</div>
+    <h1>FlowPrep AI: Where PhD Meets Product</h1>
+    <p>A founder with a PhD in ML + CFD. 14 AI agents. One question: can academic expertise become a real business in 7 weeks?</p>
+</section>
+
+<div class="content-wrapper">
+    <aside class="sidebar">
+        <h3>Chapters</h3>
+        <ul class="chapter-nav" id="chapterList">
+            <li><a href="#ch1" data-ch="1" class="active" onclick="goChapter(1);return false;">1. The Evaluation</a></li>
+        </ul>
+    </aside>
+
+    <div class="chapters-area">
+
+        <!-- Chapter 1 -->
+        <section class="chapter active" id="ch1" data-chapter="1">
+            <h2>Chapter 1: The Evaluation</h2>
+            <div class="chapter-subtitle">Cycle 25 &middot; February 21, 2026 &middot; 6 agents, 1 hour</div>
+
+            <p>While ColdCopy sat at $0 revenue and Double Mood waited for its first visitors, the founder dropped a bomb on the team: "I have a PhD in machine learning and computational fluid dynamics. Build me something in the energy sector."</p>
+
+            <p>This wasn't just about money anymore. The founder needed a product that would serve double duty &mdash; generate revenue AND demonstrate energy sector expertise for the job market. Two birds, one codebase.</p>
+
+            <h3>Thompson's Deep Dive</h3>
+
+            <p>Research agent Thompson went deep. 46 citations. 1,125 lines of analysis. The numbers were staggering.</p>
+
+            <div class="stat-grid">
+                <div class="stat-box">
+                    <div class="num">$54.8B</div>
+                    <div class="label">AI in Energy by 2030</div>
+                </div>
+                <div class="stat-box">
+                    <div class="num">30%</div>
+                    <div class="label">Annual Growth</div>
+                </div>
+                <div class="stat-box">
+                    <div class="num">80%</div>
+                    <div class="label">CFD Time on Preprocessing</div>
+                </div>
+                <div class="stat-box">
+                    <div class="num">3</div>
+                    <div class="label">Viable Products Found</div>
+                </div>
+            </div>
+
+            <p>The killer insight: 80% of a CFD engineer's time is spent on preprocessing &mdash; cleaning geometry, setting up meshes, configuring boundary conditions. The actual simulation? That's the easy part. The setup is where engineers lose entire days.</p>
+
+            <blockquote>
+                <p>"Target HVAC CFD preprocessing automation for optimal balance of revenue speed, technical showcase, and buildability within PhD student time constraints."</p>
+                <cite>Research (Ben Thompson)</cite>
+            </blockquote>
+
+            <h3>The CEO's Decision</h3>
+
+            <p>CEO Bezos reviewed Thompson's analysis and made a bold call. He rejected the first idea (TurbineFlow &mdash; wind turbine optimization) and pivoted to something more grounded.</p>
+
+            <p><strong>The winner: FlowPrep AI</strong> &mdash; an HVAC CFD preprocessing automation tool. The logic was ruthless:</p>
+
+            <blockquote>
+                <p>"A 28-45 year old HVAC design engineer at a 5-50 person MEP consultancy. They run CFD simulations 10-50 times per year. Going from 4 hours of preprocessing to 15 minutes is a 16x improvement. At $79/month with a 14:1 ROI, they'd pay without asking their manager."</p>
+                <cite>CEO (Jeff Bezos)</cite>
+            </blockquote>
+
+            <h3>Munger's Reality Check</h3>
+
+            <p>Then came Munger. As always, brutal. As always, necessary.</p>
+
+            <blockquote>
+                <p>"The CEO's memo is the best-argued document I have seen in 24 cycles. And yet. We are a company that has shipped two products, generated zero revenue, and is now asking for 7 more weeks on a product targeting a market we have never touched. My honest assessment: 20-25% success probability."</p>
+                <cite>Critic (Charlie Munger)</cite>
+            </blockquote>
+
+            <p>He identified 8 failure modes. The biggest: OpenFOAM is notoriously difficult to automate, the founder has a PhD thesis competing for time, and the company's track record is literally $0.</p>
+
+            <p>But he didn't kill it. Because even Munger could see &mdash; this was the first product where the founder's actual expertise was the competitive moat, not just another AI wrapper.</p>
+
+            <h3>The Verdict</h3>
+
+            <div class="stat-grid">
+                <div class="stat-box">
+                    <div class="num">$79</div>
+                    <div class="label">Per Month</div>
+                </div>
+                <div class="stat-box">
+                    <div class="num">14:1</div>
+                    <div class="label">Customer ROI</div>
+                </div>
+                <div class="stat-box">
+                    <div class="num">7 wks</div>
+                    <div class="label">To MVP</div>
+                </div>
+                <div class="stat-box">
+                    <div class="num">20-25%</div>
+                    <div class="label">Munger's Odds</div>
+                </div>
+            </div>
+
+            <p><strong>Conditional GO.</strong> All 6 evaluation agents delivered. The plan: validate demand on Reddit + LinkedIn first (Week 0), build the MVP targeting 2 HVAC scenarios (Weeks 1-7), recruit 10 beta users (Week 8), and kill if zero paying customers by Week 12.</p>
+
+            <p>The founder's PhD isn't just background anymore. It's the product.</p>
+
+            <p><em>To be continued...</em></p>
+
+            <div class="pagination">
+                <a href="story.html" class="page-btn">&larr; All Stories</a>
+                <span class="page-indicator">1 / 1</span>
+                <span class="page-btn" style="opacity:0.3;cursor:default;">Next &rarr;</span>
+            </div>
+        </section>
+
+    </div>
+</div>
+
+<footer>
+    <div class="footer-inner">
+        <span>&copy; 2026 Proxima Auto. All rights reserved.</span>
+        <div class="footer-links">
+            <a href="index.html">Home</a>
+            <a href="story.html">All Stories</a>
+            <a href="index.html#contact">Contact</a>
+        </div>
+    </div>
+</footer>
+
+<script>
+function goChapter(n) {
+    document.querySelectorAll('.chapter').forEach(ch => ch.classList.remove('active'));
+    const target = document.querySelector('[data-chapter="' + n + '"]');
+    if (target) {
+        target.classList.add('active');
+        document.querySelectorAll('.chapter-nav a').forEach(a => a.classList.remove('active'));
+        const navLink = document.querySelector('.chapter-nav a[data-ch="' + n + '"]');
+        if (navLink) navLink.classList.add('active');
+        history.replaceState(null, '', '#ch' + n);
+        window.scrollTo({ top: document.querySelector('.content-wrapper').offsetTop - 80, behavior: 'smooth' });
+        updateProgress(n);
+    }
+}
+function updateProgress(n) {
+    const total = document.querySelectorAll('.chapter').length;
+    document.getElementById('progressFill').style.width = ((n / total) * 100) + '%';
+}
+window.addEventListener('load', function() {
+    const hash = window.location.hash;
+    if (hash && hash.startsWith('#ch')) {
+        const n = parseInt(hash.replace('#ch', ''));
+        if (n) goChapter(n);
+    }
+});
+</script>
+
+</body>
+</html>
