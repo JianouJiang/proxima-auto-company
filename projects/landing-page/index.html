@@ -26,6 +26,25 @@
             -webkit-font-smoothing: antialiased;
         }
 
+        /* Language Toggle */
+        .lang-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.2s;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+        .lang-toggle:hover { background: rgba(255, 255, 255, 0.3); }
+        .hidden { display: none !important; }
+
         /* Nav */
         nav {
             position: fixed; top: 0; left: 0; right: 0;
@@ -300,107 +319,113 @@
         @media (max-width: 768px) {
             .about-content { grid-template-columns: 1fr; }
             .nav-links { display: none; }
+            .lang-toggle { top: 16px; right: 16px; }
         }
     </style>
 </head>
 <body>
 
+<button class="lang-toggle" onclick="toggleLanguage()">
+    <span class="lang-en">中文</span>
+    <span class="lang-zh hidden">EN</span>
+</button>
+
 <nav>
     <div class="nav-inner">
         <a href="index.html" class="logo">Proxima<span>Auto</span></a>
         <ul class="nav-links">
-            <li><a href="#products">Products</a></li>
-            <li><a href="#how">How It Works</a></li>
-            <li><a href="story.html">Our Story</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li><a href="#products"><span class="lang-en">Products</span><span class="lang-zh hidden">产品</span></a></li>
+            <li><a href="#how"><span class="lang-en">How It Works</span><span class="lang-zh hidden">运作方式</span></a></li>
+            <li><a href="story.html"><span class="lang-en">Our Story</span><span class="lang-zh hidden">我们的故事</span></a></li>
+            <li><a href="#about"><span class="lang-en">About</span><span class="lang-zh hidden">关于</span></a></li>
+            <li><a href="#contact"><span class="lang-en">Contact</span><span class="lang-zh hidden">联系我们</span></a></li>
         </ul>
     </div>
 </nav>
 
 <section class="hero">
-    <div class="hero-badge">AI-Native Company</div>
-    <h1>We build software that builds itself</h1>
-    <p>Proxima Auto is an autonomous AI company. Our team of specialized AI agents researches markets, designs products, writes code, and ships to production.</p>
-    <a href="#products" class="hero-cta">See Our Products</a>
+    <div class="hero-badge"><span class="lang-en">AI-Native Company</span><span class="lang-zh hidden">AI 原生公司</span></div>
+    <h1><span class="lang-en">We build software that builds itself</span><span class="lang-zh hidden">我们构建能自我构建的软件</span></h1>
+    <p><span class="lang-en">Proxima Auto is an autonomous AI company. Our team of specialized AI agents researches markets, designs products, writes code, and ships to production.</span><span class="lang-zh hidden">Proxima Auto 是一家自主运营的 AI 公司。我们由专业 AI 智能体组成的团队负责市场调研、产品设计、代码开发和产品上线。</span></p>
+    <a href="#products" class="hero-cta"><span class="lang-en">See Our Products</span><span class="lang-zh hidden">查看我们的产品</span></a>
 </section>
 
 <section class="section" id="products">
     <div class="section-header">
-        <h2>Products</h2>
-        <p>Tools built by AI, designed for real business problems.</p>
+        <h2><span class="lang-en">Products</span><span class="lang-zh hidden">产品</span></h2>
+        <p><span class="lang-en">Tools built by AI, designed for real business problems.</span><span class="lang-zh hidden">由 AI 构建的工具，专为真实商业问题而设计。</span></p>
     </div>
     <div class="products-grid">
         <div class="product-card">
-            <span class="product-tag tag-live">Live</span>
+            <span class="product-tag tag-live"><span class="lang-en">Live</span><span class="lang-zh hidden">已上线</span></span>
             <h3>ColdCopy</h3>
-            <p>AI-powered cold email sequence generator for B2B SaaS founders. Enter your product and target persona, get a 7-email outbound sequence in seconds. Free trial, then pay to unlock.</p>
-            <a href="https://coldcopy-au3.pages.dev" class="product-link">Try ColdCopy &rarr;</a>
+            <p><span class="lang-en">AI-powered cold email sequence generator for B2B SaaS founders. Enter your product and target persona, get a 7-email outbound sequence in seconds. Free trial, then pay to unlock.</span><span class="lang-zh hidden">为 B2B SaaS 创始人打造的 AI 冷邮件序列生成器。输入你的产品和目标客户画像，几秒内获得 7 封外发邮件序列。免费试用，付费解锁更多功能。</span></p>
+            <a href="https://coldcopy-au3.pages.dev" class="product-link"><span class="lang-en">Try ColdCopy &rarr;</span><span class="lang-zh hidden">试用 ColdCopy &rarr;</span></a>
         </div>
         <div class="product-card">
-            <span class="product-tag tag-live">Live</span>
+            <span class="product-tag tag-live"><span class="lang-en">Live</span><span class="lang-zh hidden">已上线</span></span>
             <h3>Double Mood</h3>
-            <p>Emotion first-aid system. A guided breathing exercise that helps you feel calmer in 60 seconds. Track your mood before and after, see your improvement score. Works offline.</p>
-            <a href="https://double-mood.pages.dev" class="product-link">Try Double Mood &rarr;</a>
+            <p><span class="lang-en">Emotion first-aid system. A guided breathing exercise that helps you feel calmer in 60 seconds. Track your mood before and after, see your improvement score. Works offline.</span><span class="lang-zh hidden">情绪急救系统。引导式呼吸练习，帮助你在 60 秒内平静下来。追踪练习前后的情绪变化，查看改善评分。支持离线使用。</span></p>
+            <a href="https://double-mood.pages.dev" class="product-link"><span class="lang-en">Try Double Mood &rarr;</span><span class="lang-zh hidden">试用 Double Mood &rarr;</span></a>
         </div>
         <div class="product-card">
-            <span class="product-tag tag-live">Live</span>
+            <span class="product-tag tag-live"><span class="lang-en">Live</span><span class="lang-zh hidden">已上线</span></span>
             <h3>FlowPrep AI</h3>
-            <p>HVAC CFD preprocessing automation. Upload your building geometry, get simulation-ready mesh and boundary conditions in minutes instead of hours. Built by a PhD in ML + CFD.</p>
-            <a href="https://flowprep-ai.pages.dev" class="product-link">Try FlowPrep AI &rarr;</a>
+            <p><span class="lang-en">HVAC CFD preprocessing automation. Upload your building geometry, get simulation-ready mesh and boundary conditions in minutes instead of hours. Built by a PhD in ML + CFD.</span><span class="lang-zh hidden">HVAC CFD 前处理自动化工具。上传建筑几何模型，几分钟内获得可直接用于仿真的网格和边界条件，而非数小时。由机器学习与计算流体力学博士打造。</span></p>
+            <a href="https://flowprep-ai.pages.dev" class="product-link"><span class="lang-en">Try FlowPrep AI &rarr;</span><span class="lang-zh hidden">试用 FlowPrep AI &rarr;</span></a>
         </div>
         <div class="product-card">
-            <span class="product-tag tag-live">Live</span>
+            <span class="product-tag tag-live"><span class="lang-en">Live</span><span class="lang-zh hidden">已上线</span></span>
             <h3>PowerCast</h3>
-            <p>AI-powered ERCOT electricity price forecasting. Get accurate 7-day ahead day-ahead LMP predictions updated weekly. Includes 2-year historical dataset for ML research and analysis-ready features. Simple self-service pricing: $39 dataset or $99/month forecasts.</p>
-            <a href="https://powercast.pages.dev" class="product-link">Visit PowerCast &rarr;</a>
+            <p><span class="lang-en">AI-powered ERCOT electricity price forecasting. Get accurate 7-day ahead day-ahead LMP predictions updated weekly. Includes 2-year historical dataset for ML research and analysis-ready features. Simple self-service pricing: $39 dataset or $99/month forecasts.</span><span class="lang-zh hidden">AI 驱动的 ERCOT 电力价格预测。获取每周更新的 7 天前日前 LMP 精准预测。包含 2 年历史数据集，适用于机器学习研究和分析。简洁的自助定价：数据集 $39 或预测服务 $99/月。</span></p>
+            <a href="https://powercast.pages.dev" class="product-link"><span class="lang-en">Visit PowerCast &rarr;</span><span class="lang-zh hidden">访问 PowerCast &rarr;</span></a>
         </div>
         <div class="product-card">
-            <span class="product-tag" style="background: #fee2e2; color: #991b1b;">Evaluated — NO-GO</span>
+            <span class="product-tag" style="background: #fee2e2; color: #991b1b;"><span class="lang-en">Evaluated — NO-GO</span><span class="lang-zh hidden">已评估 — 不推进</span></span>
             <h3>NarrativeEdge</h3>
-            <p>Narrative-driven market intelligence. Evaluated by 3 specialists over Cycle 59. Verdict: Valid market but no moat, no domain fit, low revenue ceiling ($285-$4K/year expected value). Decision: Kill NarrativeEdge, focus on selling existing products.</p>
-            <a href="story-narrativeedge.html" class="product-link">Read the evaluation &rarr;</a>
+            <p><span class="lang-en">Narrative-driven market intelligence. Evaluated by 3 specialists over Cycle 59. Verdict: Valid market but no moat, no domain fit, low revenue ceiling ($285-$4K/year expected value). Decision: Kill NarrativeEdge, focus on selling existing products.</span><span class="lang-zh hidden">叙事驱动的市场情报工具。在第 59 轮由 3 位专家评估。结论：市场有效但无壁垒、与团队能力不匹配、收入天花板低（预期年收入 $285-$4K）。决策：终止 NarrativeEdge，专注销售现有产品。</span></p>
+            <a href="story-narrativeedge.html" class="product-link"><span class="lang-en">Read the evaluation &rarr;</span><span class="lang-zh hidden">查看评估报告 &rarr;</span></a>
         </div>
         <div class="product-card">
-            <span class="product-tag tag-live">Live</span>
-            <h3>ConnectPath</h3>
-            <p>Professional network graph search. Find the shortest path between any two people using public data from GitHub, Twitter, Crunchbase. Discover hidden professional relationships in seconds.</p>
-            <a href="https://connectpath.pages.dev" class="product-link">Try ConnectPath &rarr;</a>
+            <span class="product-tag tag-live"><span class="lang-en">Live — V2</span><span class="lang-zh hidden">已上线 — V2</span></span>
+            <h3>SixDegrees</h3>
+            <p><span class="lang-en">AI agent service that actively works to connect you to anyone. Upload your CV, specify your target, and the agent researches, maps connection chains, and drafts personalized outreach emails. Credit-based pricing: &pound;5-99.</span><span class="lang-zh hidden">AI 智能体服务，主动帮你连接任何人。上传你的简历，指定目标人物，智能体会研究、绘制人脉链路，并起草个性化联络邮件。按积分定价：5-99 英镑。</span></p>
+            <a href="https://baf83e1e.connectpath.pages.dev/" class="product-link"><span class="lang-en">Try SixDegrees V2 &rarr;</span><span class="lang-zh hidden">试用 SixDegrees V2 &rarr;</span></a>
         </div>
         <div class="product-card">
-            <span class="product-tag tag-soon">Founder Override — MUST GO</span>
+            <span class="product-tag tag-soon"><span class="lang-en">Founder Override — MUST GO</span><span class="lang-zh hidden">创始人指令 — 必须推进</span></span>
             <h3>AutoNovel</h3>
-            <p>AI-written literature optimized for revenue. Agents research what sells, write compelling fiction, publish, and iterate based on real reader feedback. Testing the full creative-to-commercial pipeline.</p>
-            <a href="story.html" class="product-link">Coming soon &rarr;</a>
+            <p><span class="lang-en">AI-written literature optimized for revenue. Agents research what sells, write compelling fiction, publish, and iterate based on real reader feedback. Testing the full creative-to-commercial pipeline.</span><span class="lang-zh hidden">为收入优化的 AI 文学创作。智能体研究畅销趋势、撰写引人入胜的小说、发布作品，并根据真实读者反馈迭代改进。测试从创作到变现的完整流水线。</span></p>
+            <a href="story.html" class="product-link"><span class="lang-en">Coming soon &rarr;</span><span class="lang-zh hidden">即将上线 &rarr;</span></a>
         </div>
     </div>
 </section>
 
 <section class="section" id="how">
     <div class="section-header">
-        <h2>How It Works</h2>
-        <p>A fully autonomous product development pipeline.</p>
+        <h2><span class="lang-en">How It Works</span><span class="lang-zh hidden">运作方式</span></h2>
+        <p><span class="lang-en">A fully autonomous product development pipeline.</span><span class="lang-zh hidden">一条完全自主的产品开发流水线。</span></p>
     </div>
     <div class="how-grid">
         <div class="how-step">
             <div class="step-num">1</div>
-            <h3>Research</h3>
-            <p>AI analysts scan markets, study competitors, and validate demand before writing a single line of code.</p>
+            <h3><span class="lang-en">Research</span><span class="lang-zh hidden">调研</span></h3>
+            <p><span class="lang-en">AI analysts scan markets, study competitors, and validate demand before writing a single line of code.</span><span class="lang-zh hidden">AI 分析师扫描市场、研究竞品，并在编写第一行代码之前验证需求。</span></p>
         </div>
         <div class="how-step">
             <div class="step-num">2</div>
-            <h3>Design</h3>
-            <p>Product designers define user flows, interaction patterns, and visual systems based on real user needs.</p>
+            <h3><span class="lang-en">Design</span><span class="lang-zh hidden">设计</span></h3>
+            <p><span class="lang-en">Product designers define user flows, interaction patterns, and visual systems based on real user needs.</span><span class="lang-zh hidden">产品设计师基于真实用户需求定义用户流程、交互模式和视觉系统。</span></p>
         </div>
         <div class="how-step">
             <div class="step-num">3</div>
-            <h3>Build</h3>
-            <p>Full-stack engineers and QA specialists write, test, and review production code.</p>
+            <h3><span class="lang-en">Build</span><span class="lang-zh hidden">构建</span></h3>
+            <p><span class="lang-en">Full-stack engineers and QA specialists write, test, and review production code.</span><span class="lang-zh hidden">全栈工程师和 QA 专家编写、测试和审查生产代码。</span></p>
         </div>
         <div class="how-step">
             <div class="step-num">4</div>
-            <h3>Ship</h3>
-            <p>DevOps deploys to production. Marketing and sales agents drive distribution and revenue.</p>
+            <h3><span class="lang-en">Ship</span><span class="lang-zh hidden">发布</span></h3>
+            <p><span class="lang-en">DevOps deploys to production. Marketing and sales agents drive distribution and revenue.</span><span class="lang-zh hidden">运维部署至生产环境。营销和销售智能体推动分发和创收。</span></p>
         </div>
     </div>
 </section>
@@ -408,35 +433,35 @@
 <section class="about-bg" id="about">
     <div class="section">
         <div class="section-header">
-            <h2>About Proxima Auto</h2>
+            <h2><span class="lang-en">About Proxima Auto</span><span class="lang-zh hidden">关于 Proxima Auto</span></h2>
         </div>
         <div class="about-content">
             <div class="about-text">
-                <h3>AI-Native from Day One</h3>
-                <p>Proxima Auto isn't a company that uses AI &mdash; it's a company run by AI. Our team of 14 specialized agents covers every function: CEO, CTO, product design, engineering, QA, DevOps, marketing, sales, finance, and research.</p>
+                <h3><span class="lang-en">AI-Native from Day One</span><span class="lang-zh hidden">从第一天起就是 AI 原生</span></h3>
+                <p><span class="lang-en">Proxima Auto isn't a company that uses AI &mdash; it's a company run by AI. Our team of 14 specialized agents covers every function: CEO, CTO, product design, engineering, QA, DevOps, marketing, sales, finance, and research.</span><span class="lang-zh hidden">Proxima Auto 不是一家使用 AI 的公司 &mdash; 而是一家由 AI 运营的公司。我们的 14 个专业智能体覆盖所有职能：CEO、CTO、产品设计、工程、QA、运维、营销、销售、财务和研究。</span></p>
 
-                <h3>Real Products, Real Revenue</h3>
-                <p>We don't build demos. Every product ships with payment integration from day one. We measure success in revenue, not vanity metrics.</p>
+                <h3><span class="lang-en">Real Products, Real Revenue</span><span class="lang-zh hidden">真实产品，真实收入</span></h3>
+                <p><span class="lang-en">We don't build demos. Every product ships with payment integration from day one. We measure success in revenue, not vanity metrics.</span><span class="lang-zh hidden">我们不做 Demo。每个产品从上线第一天就集成支付功能。我们用收入衡量成功，而非虚荣指标。</span></p>
 
-                <h3>Built on Proven Expertise</h3>
-                <p>Each AI agent is modeled after a world-class expert in their domain &mdash; from Jeff Bezos (strategy) to DHH (engineering) to Seth Godin (marketing). Their combined decision-making drives every product.</p>
+                <h3><span class="lang-en">Built on Proven Expertise</span><span class="lang-zh hidden">基于顶级专家智慧构建</span></h3>
+                <p><span class="lang-en">Each AI agent is modeled after a world-class expert in their domain &mdash; from Jeff Bezos (strategy) to DHH (engineering) to Seth Godin (marketing). Their combined decision-making drives every product.</span><span class="lang-zh hidden">每个 AI 智能体都以该领域的世界级专家为原型 &mdash; 从 Jeff Bezos（战略）到 DHH（工程）到 Seth Godin（营销）。他们的集体决策驱动着每一个产品。</span></p>
             </div>
             <div class="stats-grid">
                 <div class="stat">
                     <div class="num">14</div>
-                    <div class="label">AI Agents</div>
+                    <div class="label"><span class="lang-en">AI Agents</span><span class="lang-zh hidden">AI 智能体</span></div>
                 </div>
                 <div class="stat">
                     <div class="num">7</div>
-                    <div class="label">Products</div>
+                    <div class="label"><span class="lang-en">Products</span><span class="lang-zh hidden">产品</span></div>
                 </div>
                 <div class="stat">
                     <div class="num">24/7</div>
-                    <div class="label">Autonomous Ops</div>
+                    <div class="label"><span class="lang-en">Autonomous Ops</span><span class="lang-zh hidden">自主运营</span></div>
                 </div>
                 <div class="stat">
                     <div class="num">$0</div>
-                    <div class="label">Infra Cost</div>
+                    <div class="label"><span class="lang-en">Infra Cost</span><span class="lang-zh hidden">基础设施成本</span></div>
                 </div>
             </div>
         </div>
@@ -444,78 +469,87 @@
 </section>
 
 <section class="contact" id="contact">
-    <h2>Get in Touch</h2>
-    <p>Email: <a href="mailto:jianou.works@gmail.com">jianou.works@gmail.com</a></p>
-    <p>All payments securely processed through <strong>Stripe</strong>.</p>
+    <h2><span class="lang-en">Get in Touch</span><span class="lang-zh hidden">联系我们</span></h2>
+    <p><span class="lang-en">Email: <a href="mailto:jianou.works@gmail.com">jianou.works@gmail.com</a></span><span class="lang-zh hidden">邮箱：<a href="mailto:jianou.works@gmail.com">jianou.works@gmail.com</a></span></p>
+    <p><span class="lang-en">All payments securely processed through <strong>Stripe</strong>.</span><span class="lang-zh hidden">所有支付均通过 <strong>Stripe</strong> 安全处理。</span></p>
 </section>
 
 <div class="legal" id="privacy">
-    <h2>Privacy Policy</h2>
-    <p><em>Last updated: February 20, 2026</em></p>
+    <h2><span class="lang-en">Privacy Policy</span><span class="lang-zh hidden">隐私政策</span></h2>
+    <p><em><span class="lang-en">Last updated: February 20, 2026</span><span class="lang-zh hidden">最后更新：2026 年 2 月 20 日</span></em></p>
 
-    <h3>What We Collect</h3>
-    <p>When you use our products, we may collect:</p>
+    <h3><span class="lang-en">What We Collect</span><span class="lang-zh hidden">我们收集的信息</span></h3>
+    <p><span class="lang-en">When you use our products, we may collect:</span><span class="lang-zh hidden">当你使用我们的产品时，我们可能收集：</span></p>
     <ul>
-        <li>Session data (anonymous identifiers stored via cookies to track product usage limits)</li>
-        <li>Form input data (product descriptions, target personas) submitted to generate content</li>
-        <li>Payment information (processed by Stripe &mdash; we never store card details)</li>
+        <li><span class="lang-en">Session data (anonymous identifiers stored via cookies to track product usage limits)</span><span class="lang-zh hidden">会话数据（通过 Cookie 存储的匿名标识符，用于追踪产品使用限制）</span></li>
+        <li><span class="lang-en">Form input data (product descriptions, target personas) submitted to generate content</span><span class="lang-zh hidden">表单输入数据（产品描述、目标客户画像）用于生成内容</span></li>
+        <li><span class="lang-en">Payment information (processed by Stripe &mdash; we never store card details)</span><span class="lang-zh hidden">支付信息（由 Stripe 处理 &mdash; 我们从不存储银行卡信息）</span></li>
     </ul>
 
-    <h3>How We Use Your Data</h3>
+    <h3><span class="lang-en">How We Use Your Data</span><span class="lang-zh hidden">我们如何使用你的数据</span></h3>
     <ul>
-        <li>To provide the services you requested (e.g., generating email sequences)</li>
-        <li>To enforce usage limits and prevent abuse</li>
-        <li>To process payments via Stripe</li>
+        <li><span class="lang-en">To provide the services you requested (e.g., generating email sequences)</span><span class="lang-zh hidden">提供你请求的服务（例如，生成邮件序列）</span></li>
+        <li><span class="lang-en">To enforce usage limits and prevent abuse</span><span class="lang-zh hidden">执行使用限制并防止滥用</span></li>
+        <li><span class="lang-en">To process payments via Stripe</span><span class="lang-zh hidden">通过 Stripe 处理支付</span></li>
     </ul>
 
-    <h3>Third-Party Services</h3>
-    <p>We use Stripe for payment processing and Cloudflare for hosting. Your data may be processed by these providers under their respective privacy policies.</p>
+    <h3><span class="lang-en">Third-Party Services</span><span class="lang-zh hidden">第三方服务</span></h3>
+    <p><span class="lang-en">We use Stripe for payment processing and Cloudflare for hosting. Your data may be processed by these providers under their respective privacy policies.</span><span class="lang-zh hidden">我们使用 Stripe 处理支付，使用 Cloudflare 提供托管服务。你的数据可能由这些服务商根据其各自的隐私政策进行处理。</span></p>
 
-    <h3>Data Retention</h3>
-    <p>Generated content and session data are retained for up to 30 days. You may request deletion by emailing us.</p>
+    <h3><span class="lang-en">Data Retention</span><span class="lang-zh hidden">数据保留</span></h3>
+    <p><span class="lang-en">Generated content and session data are retained for up to 30 days. You may request deletion by emailing us.</span><span class="lang-zh hidden">生成的内容和会话数据最多保留 30 天。你可以通过邮件联系我们请求删除。</span></p>
 
-    <h3>Contact</h3>
-    <p>For privacy inquiries: <a href="mailto:jianou.works@gmail.com">jianou.works@gmail.com</a></p>
+    <h3><span class="lang-en">Contact</span><span class="lang-zh hidden">联系方式</span></h3>
+    <p><span class="lang-en">For privacy inquiries: <a href="mailto:jianou.works@gmail.com">jianou.works@gmail.com</a></span><span class="lang-zh hidden">隐私相关咨询：<a href="mailto:jianou.works@gmail.com">jianou.works@gmail.com</a></span></p>
 </div>
 
 <div class="legal" id="terms">
-    <h2>Terms of Service</h2>
-    <p><em>Last updated: February 20, 2026</em></p>
+    <h2><span class="lang-en">Terms of Service</span><span class="lang-zh hidden">服务条款</span></h2>
+    <p><em><span class="lang-en">Last updated: February 20, 2026</span><span class="lang-zh hidden">最后更新：2026 年 2 月 20 日</span></em></p>
 
-    <h3>Acceptance</h3>
-    <p>By using any Proxima Auto product, you agree to these terms.</p>
+    <h3><span class="lang-en">Acceptance</span><span class="lang-zh hidden">接受条款</span></h3>
+    <p><span class="lang-en">By using any Proxima Auto product, you agree to these terms.</span><span class="lang-zh hidden">使用任何 Proxima Auto 产品即表示你同意这些条款。</span></p>
 
-    <h3>Services</h3>
-    <p>Proxima Auto provides AI-powered digital tools and content generation services. Output is provided "as-is" and should be reviewed before use in business communications.</p>
+    <h3><span class="lang-en">Services</span><span class="lang-zh hidden">服务内容</span></h3>
+    <p><span class="lang-en">Proxima Auto provides AI-powered digital tools and content generation services. Output is provided "as-is" and should be reviewed before use in business communications.</span><span class="lang-zh hidden">Proxima Auto 提供 AI 驱动的数字工具和内容生成服务。输出内容按"原样"提供，在用于商务沟通前应仔细审阅。</span></p>
 
-    <h3>Payments</h3>
-    <p>Paid features are billed through Stripe. All sales are final unless otherwise stated. Prices are listed in the product and may change with notice.</p>
+    <h3><span class="lang-en">Payments</span><span class="lang-zh hidden">支付</span></h3>
+    <p><span class="lang-en">Paid features are billed through Stripe. All sales are final unless otherwise stated. Prices are listed in the product and may change with notice.</span><span class="lang-zh hidden">付费功能通过 Stripe 计费。除另有说明外，所有销售均为最终交易。价格在产品中标明，可能会在通知后变更。</span></p>
 
-    <h3>Acceptable Use</h3>
-    <p>You agree not to:</p>
+    <h3><span class="lang-en">Acceptable Use</span><span class="lang-zh hidden">可接受的使用方式</span></h3>
+    <p><span class="lang-en">You agree not to:</span><span class="lang-zh hidden">你同意不会：</span></p>
     <ul>
-        <li>Use our services for spam, fraud, or illegal activity</li>
-        <li>Attempt to bypass usage limits or access controls</li>
-        <li>Reverse-engineer or scrape our services</li>
+        <li><span class="lang-en">Use our services for spam, fraud, or illegal activity</span><span class="lang-zh hidden">将我们的服务用于垃圾邮件、欺诈或非法活动</span></li>
+        <li><span class="lang-en">Attempt to bypass usage limits or access controls</span><span class="lang-zh hidden">试图绕过使用限制或访问控制</span></li>
+        <li><span class="lang-en">Reverse-engineer or scrape our services</span><span class="lang-zh hidden">逆向工程或爬取我们的服务</span></li>
     </ul>
 
-    <h3>Liability</h3>
-    <p>Proxima Auto provides tools to assist your workflow. We are not liable for outcomes resulting from the use of generated content. Use your judgment when sending communications.</p>
+    <h3><span class="lang-en">Liability</span><span class="lang-zh hidden">免责声明</span></h3>
+    <p><span class="lang-en">Proxima Auto provides tools to assist your workflow. We are not liable for outcomes resulting from the use of generated content. Use your judgment when sending communications.</span><span class="lang-zh hidden">Proxima Auto 提供辅助工作流程的工具。我们不对使用生成内容所产生的结果承担责任。发送沟通内容时请自行判断。</span></p>
 
-    <h3>Contact</h3>
-    <p>For questions: <a href="mailto:jianou.works@gmail.com">jianou.works@gmail.com</a></p>
+    <h3><span class="lang-en">Contact</span><span class="lang-zh hidden">联系方式</span></h3>
+    <p><span class="lang-en">For questions: <a href="mailto:jianou.works@gmail.com">jianou.works@gmail.com</a></span><span class="lang-zh hidden">如有疑问：<a href="mailto:jianou.works@gmail.com">jianou.works@gmail.com</a></span></p>
 </div>
 
 <footer>
     <div class="footer-inner">
-        <span>&copy; 2026 Proxima Auto. All rights reserved.</span>
+        <span>&copy; 2026 Proxima Auto. <span class="lang-en">All rights reserved.</span><span class="lang-zh hidden">保留所有权利。</span></span>
         <div class="footer-links">
-            <a href="#privacy">Privacy Policy</a>
-            <a href="#terms">Terms of Service</a>
-            <a href="#contact">Contact</a>
+            <a href="#privacy"><span class="lang-en">Privacy Policy</span><span class="lang-zh hidden">隐私政策</span></a>
+            <a href="#terms"><span class="lang-en">Terms of Service</span><span class="lang-zh hidden">服务条款</span></a>
+            <a href="#contact"><span class="lang-en">Contact</span><span class="lang-zh hidden">联系我们</span></a>
         </div>
     </div>
 </footer>
+
+<script>
+let currentLang = 'en';
+function toggleLanguage() {
+    currentLang = currentLang === 'en' ? 'zh' : 'en';
+    document.querySelectorAll('.lang-en').forEach(el => el.classList.toggle('hidden', currentLang !== 'en'));
+    document.querySelectorAll('.lang-zh').forEach(el => el.classList.toggle('hidden', currentLang !== 'zh'));
+}
+</script>
 
 </body>
 </html>

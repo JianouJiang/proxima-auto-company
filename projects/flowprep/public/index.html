@@ -86,36 +86,64 @@
       * { animation: none !important; transition: none !important; }
       .btn-transition { transition: none !important; transform: none !important; }
     }
+    .lang-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: rgba(255, 255, 255, 0.2);
+      border: none;
+      color: white;
+      padding: 8px 16px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background 0.2s;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+    }
+    .lang-toggle:hover { background: rgba(255, 255, 255, 0.3); }
+    .hidden { display: none !important; }
   </style>
 </head>
 <body class="antialiased">
+
+  <button class="lang-toggle" onclick="toggleLanguage()">
+    <span class="lang-en">中文</span>
+    <span class="lang-zh hidden">EN</span>
+  </button>
 
   <!-- Hero Section -->
   <section class="min-h-screen flex items-center justify-center bg-gradient-to-b from-flow-bg-secondary to-flow-bg px-6 py-20">
     <div class="max-w-4xl mx-auto text-center">
       <h1 class="text-5xl md:text-6xl font-bold leading-tight tracking-tight text-flow-text mb-6">
-        HVAC CFD Preprocessing in 15 Minutes, Not 4 Hours
+        <span class="lang-en">HVAC CFD Preprocessing in 15 Minutes, Not 4 Hours</span>
+        <span class="lang-zh hidden">HVAC CFD 预处理只需 15 分钟，而非 4 小时</span>
       </h1>
 
       <p class="text-lg md:text-xl leading-relaxed text-flow-text-muted max-w-2xl mx-auto mb-4">
-        Automated OpenFOAM preprocessing for office diffuser placement and server room cooling.
-        Upload geometry → download simulation-ready results.
+        <span class="lang-en">Automated OpenFOAM preprocessing for office diffuser placement and server room cooling.
+        Upload geometry → download simulation-ready results.</span>
+        <span class="lang-zh hidden">自动化 OpenFOAM 预处理，适用于办公室散流器布置和机房散热。
+        上传几何模型 → 下载可直接仿真的结果。</span>
       </p>
 
       <p class="text-base text-flow-text-light mb-10">
-        Built by [Founder Name], PhD in ML + CFD
+        <span class="lang-en">Built by [Founder Name], PhD in ML + CFD</span>
+        <span class="lang-zh hidden">由 [创始人姓名] 开发，机器学习 + CFD 博士</span>
       </p>
 
       <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
         <a href="#demo" class="btn-transition w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 bg-flow-primary hover:bg-flow-primary-light text-white font-semibold text-lg rounded-lg shadow-md hover:shadow-lg focus-visible:ring-2 focus-visible:ring-flow-accent focus-visible:ring-offset-2">
-          See How It Works
+          <span class="lang-en">See How It Works</span>
+          <span class="lang-zh hidden">查看工作原理</span>
           <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
           </svg>
         </a>
 
         <a href="https://buy.stripe.com/dRm5kD0SH8t7ato54O0VO05" target="_blank" rel="noopener" class="btn-transition w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 border-2 border-flow-primary text-flow-primary hover:bg-flow-primary-50 font-semibold text-lg rounded-lg focus-visible:ring-2 focus-visible:ring-flow-accent focus-visible:ring-offset-2">
-          Early Access: £39/month
+          <span class="lang-en">Early Access: £39/month</span>
+          <span class="lang-zh hidden">抢先体验：£39/月</span>
           <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
           </svg>
@@ -128,147 +156,210 @@
   <section class="py-16 md:py-24 px-6 md:px-8 bg-flow-bg">
     <div class="max-w-6xl mx-auto">
       <h2 class="text-3xl md:text-4xl font-bold leading-snug tracking-tight text-flow-text text-center mb-12">
-        Before & After FlowPrep
+        <span class="lang-en">Before & After FlowPrep</span>
+        <span class="lang-zh hidden">使用 FlowPrep 前后对比</span>
       </h2>
 
       <div class="grid md:grid-cols-2 gap-8">
         <!-- Manual Workflow (LEFT - Pain) -->
         <div class="bg-flow-bg-secondary border-2 border-flow-border rounded-lg p-8">
           <h3 class="text-2xl font-semibold text-flow-before mb-6">
-            Manual HVAC CFD Workflow
+            <span class="lang-en">Manual HVAC CFD Workflow</span>
+            <span class="lang-zh hidden">手动 HVAC CFD 工作流</span>
             <span class="block text-base font-normal text-flow-text-muted mt-1">
-              (The Way You Do It Now)
+              <span class="lang-en">(The Way You Do It Now)</span>
+              <span class="lang-zh hidden">(你现在的工作方式)</span>
             </span>
           </h3>
 
           <div class="space-y-6">
             <div class="border-l-4 border-flow-before pl-4">
               <div class="flex items-baseline justify-between mb-1">
-                <h4 class="font-semibold text-flow-text">1. Export Revit model to STL</h4>
+                <h4 class="font-semibold text-flow-text">
+                  <span class="lang-en">1. Export Revit model to STL</span>
+                  <span class="lang-zh hidden">1. 将 Revit 模型导出为 STL</span>
+                </h4>
                 <span class="text-sm font-mono bg-flow-bg-tertiary px-2 py-1 rounded text-flow-before">30 min</span>
               </div>
               <p class="text-sm italic text-flow-text-muted">
-                "Geometry cleanup in Rhino, fix holes..."
+                <span class="lang-en">"Geometry cleanup in Rhino, fix holes..."</span>
+                <span class="lang-zh hidden">"在 Rhino 中清理几何体，修补孔洞..."</span>
               </p>
             </div>
 
             <div class="border-l-4 border-flow-before pl-4">
               <div class="flex items-baseline justify-between mb-1">
-                <h4 class="font-semibold text-flow-text">2. Import to ANSYS/OpenFOAM</h4>
+                <h4 class="font-semibold text-flow-text">
+                  <span class="lang-en">2. Import to ANSYS/OpenFOAM</span>
+                  <span class="lang-zh hidden">2. 导入 ANSYS/OpenFOAM</span>
+                </h4>
                 <span class="text-sm font-mono bg-flow-bg-tertiary px-2 py-1 rounded text-flow-before">45 min</span>
               </div>
               <p class="text-sm italic text-flow-text-muted">
-                "Mesh fails 3 times, adjust parameters..."
+                <span class="lang-en">"Mesh fails 3 times, adjust parameters..."</span>
+                <span class="lang-zh hidden">"网格划分失败 3 次，调整参数..."</span>
               </p>
             </div>
 
             <div class="border-l-4 border-flow-before pl-4">
               <div class="flex items-baseline justify-between mb-1">
-                <h4 class="font-semibold text-flow-text">3. Set boundary conditions</h4>
+                <h4 class="font-semibold text-flow-text">
+                  <span class="lang-en">3. Set boundary conditions</span>
+                  <span class="lang-zh hidden">3. 设置边界条件</span>
+                </h4>
                 <span class="text-sm font-mono bg-flow-bg-tertiary px-2 py-1 rounded text-flow-before">60 min</span>
               </div>
               <p class="text-sm italic text-flow-text-muted">
-                "Diffuser velocities, wall temps, occupancy..."
+                <span class="lang-en">"Diffuser velocities, wall temps, occupancy..."</span>
+                <span class="lang-zh hidden">"散流器风速、壁面温度、人员密度..."</span>
               </p>
             </div>
 
             <div class="border-l-4 border-flow-before pl-4">
               <div class="flex items-baseline justify-between mb-1">
-                <h4 class="font-semibold text-flow-text">4. Run simulation overnight</h4>
+                <h4 class="font-semibold text-flow-text">
+                  <span class="lang-en">4. Run simulation overnight</span>
+                  <span class="lang-zh hidden">4. 过夜运行仿真</span>
+                </h4>
                 <span class="text-sm font-mono bg-flow-bg-tertiary px-2 py-1 rounded text-flow-before">90 min</span>
               </div>
               <p class="text-sm italic text-flow-text-muted">
-                "Check convergence, adjust, re-run..."
+                <span class="lang-en">"Check convergence, adjust, re-run..."</span>
+                <span class="lang-zh hidden">"检查收敛性，调整参数，重新运行..."</span>
               </p>
             </div>
 
             <div class="border-l-4 border-flow-before pl-4">
               <div class="flex items-baseline justify-between mb-1">
-                <h4 class="font-semibold text-flow-text">5. Post-process in ParaView</h4>
+                <h4 class="font-semibold text-flow-text">
+                  <span class="lang-en">5. Post-process in ParaView</span>
+                  <span class="lang-zh hidden">5. 在 ParaView 中后处理</span>
+                </h4>
                 <span class="text-sm font-mono bg-flow-bg-tertiary px-2 py-1 rounded text-flow-before">45 min</span>
               </div>
               <p class="text-sm italic text-flow-text-muted">
-                "Extract PMV, make velocity plots..."
+                <span class="lang-en">"Extract PMV, make velocity plots..."</span>
+                <span class="lang-zh hidden">"提取 PMV，绘制速度场..."</span>
               </p>
             </div>
           </div>
 
           <div class="mt-8 pt-6 border-t-2 border-flow-border">
             <div class="flex items-baseline justify-between">
-              <span class="text-xl font-bold text-flow-text">TOTAL:</span>
-              <span class="text-2xl font-bold text-flow-before">4-6 hours</span>
+              <span class="text-xl font-bold text-flow-text">
+                <span class="lang-en">TOTAL:</span>
+                <span class="lang-zh hidden">总计：</span>
+              </span>
+              <span class="text-2xl font-bold text-flow-before">
+                <span class="lang-en">4-6 hours</span>
+                <span class="lang-zh hidden">4-6 小时</span>
+              </span>
             </div>
-            <p class="text-sm text-flow-text-light mt-1">(spread over 2 days)</p>
+            <p class="text-sm text-flow-text-light mt-1">
+              <span class="lang-en">(spread over 2 days)</span>
+              <span class="lang-zh hidden">(跨越 2 天)</span>
+            </p>
           </div>
         </div>
 
         <!-- FlowPrep Workflow (RIGHT - Relief) -->
         <div class="bg-flow-primary-50 border-2 border-flow-after rounded-lg p-8">
           <h3 class="text-2xl font-semibold text-flow-after mb-6">
-            With FlowPrep AI
+            <span class="lang-en">With FlowPrep AI</span>
+            <span class="lang-zh hidden">使用 FlowPrep AI</span>
             <span class="block text-base font-normal text-flow-text-muted mt-1">
-              (15 Minutes Total)
+              <span class="lang-en">(15 Minutes Total)</span>
+              <span class="lang-zh hidden">(总共 15 分钟)</span>
             </span>
           </h3>
 
           <div class="space-y-6">
             <div class="border-l-4 border-flow-after pl-4">
               <div class="flex items-baseline justify-between mb-1">
-                <h4 class="font-semibold text-flow-text">1. Upload STL file</h4>
+                <h4 class="font-semibold text-flow-text">
+                  <span class="lang-en">1. Upload STL file</span>
+                  <span class="lang-zh hidden">1. 上传 STL 文件</span>
+                </h4>
                 <span class="text-sm font-mono bg-white px-2 py-1 rounded text-flow-after">1 min</span>
               </div>
               <p class="text-sm text-flow-text-muted">
-                FlowPrep: Auto geometry validation
+                <span class="lang-en">FlowPrep: Auto geometry validation</span>
+                <span class="lang-zh hidden">FlowPrep：自动几何体验证</span>
               </p>
             </div>
 
             <div class="border-l-4 border-flow-after pl-4">
               <div class="flex items-baseline justify-between mb-1">
-                <h4 class="font-semibold text-flow-text">2. Select scenario</h4>
+                <h4 class="font-semibold text-flow-text">
+                  <span class="lang-en">2. Select scenario</span>
+                  <span class="lang-zh hidden">2. 选择仿真场景</span>
+                </h4>
                 <span class="text-sm font-mono bg-white px-2 py-1 rounded text-flow-after">10 sec</span>
               </div>
               <p class="text-sm text-flow-text-muted">
-                FlowPrep: Pre-configured for offices/servers
+                <span class="lang-en">FlowPrep: Pre-configured for offices/servers</span>
+                <span class="lang-zh hidden">FlowPrep：已预配置办公室/机房场景</span>
               </p>
             </div>
 
             <div class="border-l-4 border-flow-after pl-4">
               <div class="flex items-baseline justify-between mb-1">
-                <h4 class="font-semibold text-flow-text">3. Auto-processing</h4>
+                <h4 class="font-semibold text-flow-text">
+                  <span class="lang-en">3. Auto-processing</span>
+                  <span class="lang-zh hidden">3. 自动处理</span>
+                </h4>
                 <span class="text-sm font-mono bg-white px-2 py-1 rounded text-flow-after">12 min</span>
               </div>
               <p class="text-sm text-flow-text-muted">
-                FlowPrep: Template BCs, auto mesh
+                <span class="lang-en">FlowPrep: Template BCs, auto mesh</span>
+                <span class="lang-zh hidden">FlowPrep：模板边界条件，自动网格划分</span>
               </p>
             </div>
 
             <div class="border-l-4 border-flow-after pl-4">
               <div class="flex items-baseline justify-between mb-1">
-                <h4 class="font-semibold text-flow-text">4. Email notification</h4>
+                <h4 class="font-semibold text-flow-text">
+                  <span class="lang-en">4. Email notification</span>
+                  <span class="lang-zh hidden">4. 邮件通知</span>
+                </h4>
                 <span class="text-sm font-mono bg-white px-2 py-1 rounded text-flow-after">0 min</span>
               </div>
               <p class="text-sm text-flow-text-muted">
-                FlowPrep: Auto convergence check
+                <span class="lang-en">FlowPrep: Auto convergence check</span>
+                <span class="lang-zh hidden">FlowPrep：自动收敛性检查</span>
               </p>
             </div>
 
             <div class="border-l-4 border-flow-after pl-4">
               <div class="flex items-baseline justify-between mb-1">
-                <h4 class="font-semibold text-flow-text">5. Download results</h4>
+                <h4 class="font-semibold text-flow-text">
+                  <span class="lang-en">5. Download results</span>
+                  <span class="lang-zh hidden">5. 下载结果</span>
+                </h4>
                 <span class="text-sm font-mono bg-white px-2 py-1 rounded text-flow-after">2 min</span>
               </div>
               <p class="text-sm text-flow-text-muted">
-                FlowPrep: Pre-made VTK + PNG + PDF
+                <span class="lang-en">FlowPrep: Pre-made VTK + PNG + PDF</span>
+                <span class="lang-zh hidden">FlowPrep：预生成 VTK + PNG + PDF</span>
               </p>
             </div>
           </div>
 
           <div class="mt-8 pt-6 border-t-2 border-flow-after">
             <div class="flex items-baseline justify-between">
-              <span class="text-xl font-bold text-flow-text">TOTAL:</span>
-              <span class="text-2xl font-bold text-flow-after">15 minutes</span>
+              <span class="text-xl font-bold text-flow-text">
+                <span class="lang-en">TOTAL:</span>
+                <span class="lang-zh hidden">总计：</span>
+              </span>
+              <span class="text-2xl font-bold text-flow-after">
+                <span class="lang-en">15 minutes</span>
+                <span class="lang-zh hidden">15 分钟</span>
+              </span>
             </div>
-            <p class="text-sm text-flow-text-muted mt-1">(same day results)</p>
+            <p class="text-sm text-flow-text-muted mt-1">
+              <span class="lang-en">(same day results)</span>
+              <span class="lang-zh hidden">(当天出结果)</span>
+            </p>
           </div>
         </div>
       </div>
@@ -279,7 +370,8 @@
   <section id="demo" class="py-16 md:py-24 px-6 md:px-8 bg-flow-bg-secondary">
     <div class="max-w-5xl mx-auto">
       <h2 class="text-3xl md:text-4xl font-bold leading-snug tracking-tight text-flow-text text-center mb-12">
-        How FlowPrep Works: 3 Steps
+        <span class="lang-en">How FlowPrep Works: 3 Steps</span>
+        <span class="lang-zh hidden">FlowPrep 工作流程：3 个步骤</span>
       </h2>
 
       <div class="space-y-16">
@@ -289,25 +381,40 @@
             <div class="flex items-center justify-center w-10 h-10 bg-flow-primary text-white font-bold text-lg rounded-full">
               1
             </div>
-            <h3 class="text-2xl font-semibold text-flow-text">Upload Your Geometry</h3>
+            <h3 class="text-2xl font-semibold text-flow-text">
+              <span class="lang-en">Upload Your Geometry</span>
+              <span class="lang-zh hidden">上传您的几何模型</span>
+            </h3>
           </div>
 
           <div class="bg-flow-bg-tertiary rounded-lg mb-4 aspect-video flex items-center justify-center border-2 border-dashed border-flow-border">
-            <p class="text-flow-text-light text-center px-4">[Screenshot: Drag-drop interface with STL file upload]<br><span class="text-sm">Founder will add screenshot Week 2</span></p>
+            <p class="text-flow-text-light text-center px-4">
+              <span class="lang-en">[Screenshot: Drag-drop interface with STL file upload]<br><span class="text-sm">Founder will add screenshot Week 2</span></span>
+              <span class="lang-zh hidden">[截图：拖放式 STL 文件上传界面]<br><span class="text-sm">创始人将在第 2 周添加截图</span></span>
+            </p>
           </div>
 
           <ul class="space-y-2 text-flow-text-muted">
             <li class="flex items-start">
               <span class="text-flow-accent mr-2">→</span>
-              Upload office STL from Revit (max 50 MB)
+              <span>
+                <span class="lang-en">Upload office STL from Revit (max 50 MB)</span>
+                <span class="lang-zh hidden">从 Revit 上传办公室 STL 文件（最大 50 MB）</span>
+              </span>
             </li>
             <li class="flex items-start">
               <span class="text-flow-accent mr-2">→</span>
-              FlowPrep validates geometry (auto-detects holes)
+              <span>
+                <span class="lang-en">FlowPrep validates geometry (auto-detects holes)</span>
+                <span class="lang-zh hidden">FlowPrep 验证几何体（自动检测孔洞）</span>
+              </span>
             </li>
             <li class="flex items-start">
               <span class="text-flow-accent mr-2">→</span>
-              Takes 30 seconds
+              <span>
+                <span class="lang-en">Takes 30 seconds</span>
+                <span class="lang-zh hidden">仅需 30 秒</span>
+              </span>
             </li>
           </ul>
         </div>
@@ -318,29 +425,47 @@
             <div class="flex items-center justify-center w-10 h-10 bg-flow-primary text-white font-bold text-lg rounded-full">
               2
             </div>
-            <h3 class="text-2xl font-semibold text-flow-text">FlowPrep Runs OpenFOAM (You Do Nothing)</h3>
+            <h3 class="text-2xl font-semibold text-flow-text">
+              <span class="lang-en">FlowPrep Runs OpenFOAM (You Do Nothing)</span>
+              <span class="lang-zh hidden">FlowPrep 运行 OpenFOAM（您无需操作）</span>
+            </h3>
           </div>
 
           <div class="bg-flow-bg-tertiary rounded-lg mb-4 aspect-video flex items-center justify-center border-2 border-dashed border-flow-border">
-            <p class="text-flow-text-light text-center px-4">[Screenshot: Processing status with progress bar]<br><span class="text-sm">Founder will add screenshot Week 2</span></p>
+            <p class="text-flow-text-light text-center px-4">
+              <span class="lang-en">[Screenshot: Processing status with progress bar]<br><span class="text-sm">Founder will add screenshot Week 2</span></span>
+              <span class="lang-zh hidden">[截图：带进度条的处理状态]<br><span class="text-sm">创始人将在第 2 周添加截图</span></span>
+            </p>
           </div>
 
           <ul class="space-y-2 text-flow-text-muted">
             <li class="flex items-start">
               <span class="text-flow-accent mr-2">→</span>
-              Auto-meshing with <code class="font-mono text-sm bg-flow-bg-tertiary px-2 py-1 rounded text-flow-text">snappyHexMesh</code>
+              <span>
+                <span class="lang-en">Auto-meshing with <code class="font-mono text-sm bg-flow-bg-tertiary px-2 py-1 rounded text-flow-text">snappyHexMesh</code></span>
+                <span class="lang-zh hidden">使用 <code class="font-mono text-sm bg-flow-bg-tertiary px-2 py-1 rounded text-flow-text">snappyHexMesh</code> 自动网格划分</span>
+              </span>
             </li>
             <li class="flex items-start">
               <span class="text-flow-accent mr-2">→</span>
-              Boundary conditions for ceiling diffusers
+              <span>
+                <span class="lang-en">Boundary conditions for ceiling diffusers</span>
+                <span class="lang-zh hidden">天花板散流器边界条件</span>
+              </span>
             </li>
             <li class="flex items-start">
               <span class="text-flow-accent mr-2">→</span>
-              <code class="font-mono text-sm bg-flow-bg-tertiary px-2 py-1 rounded text-flow-text">SimpleFoam</code> solver (1000 iterations)
+              <span>
+                <span class="lang-en"><code class="font-mono text-sm bg-flow-bg-tertiary px-2 py-1 rounded text-flow-text">SimpleFoam</code> solver (1000 iterations)</span>
+                <span class="lang-zh hidden"><code class="font-mono text-sm bg-flow-bg-tertiary px-2 py-1 rounded text-flow-text">SimpleFoam</code> 求解器（1000 次迭代）</span>
+              </span>
             </li>
             <li class="flex items-start">
               <span class="text-flow-accent mr-2">→</span>
-              Email notification when ready (12 min average)
+              <span>
+                <span class="lang-en">Email notification when ready (12 min average)</span>
+                <span class="lang-zh hidden">完成后邮件通知（平均 12 分钟）</span>
+              </span>
             </li>
           </ul>
         </div>
@@ -351,33 +476,54 @@
             <div class="flex items-center justify-center w-10 h-10 bg-flow-primary text-white font-bold text-lg rounded-full">
               3
             </div>
-            <h3 class="text-2xl font-semibold text-flow-text">Download Results for ParaView or Reports</h3>
+            <h3 class="text-2xl font-semibold text-flow-text">
+              <span class="lang-en">Download Results for ParaView or Reports</span>
+              <span class="lang-zh hidden">下载结果用于 ParaView 或报告</span>
+            </h3>
           </div>
 
           <div class="bg-flow-bg-tertiary rounded-lg mb-4 aspect-video flex items-center justify-center border-2 border-dashed border-flow-border">
-            <p class="text-flow-text-light text-center px-4">[Screenshot: Results page with 3 visualization thumbnails]<br><span class="text-sm">Founder will add screenshot Week 2</span></p>
+            <p class="text-flow-text-light text-center px-4">
+              <span class="lang-en">[Screenshot: Results page with 3 visualization thumbnails]<br><span class="text-sm">Founder will add screenshot Week 2</span></span>
+              <span class="lang-zh hidden">[截图：包含 3 个可视化缩略图的结果页面]<br><span class="text-sm">创始人将在第 2 周添加截图</span></span>
+            </p>
           </div>
 
           <ul class="space-y-2 text-flow-text-muted">
             <li class="flex items-start">
               <span class="text-flow-accent mr-2">→</span>
-              Velocity field (VTK for ParaView)
+              <span>
+                <span class="lang-en">Velocity field (VTK for ParaView)</span>
+                <span class="lang-zh hidden">速度场（VTK 格式，可用 ParaView 查看）</span>
+              </span>
             </li>
             <li class="flex items-start">
               <span class="text-flow-accent mr-2">→</span>
-              Temperature distribution (VTK)
+              <span>
+                <span class="lang-en">Temperature distribution (VTK)</span>
+                <span class="lang-zh hidden">温度分布（VTK 格式）</span>
+              </span>
             </li>
             <li class="flex items-start">
               <span class="text-flow-accent mr-2">→</span>
-              PMV thermal comfort (PNG heatmap)
+              <span>
+                <span class="lang-en">PMV thermal comfort (PNG heatmap)</span>
+                <span class="lang-zh hidden">PMV 热舒适性（PNG 热力图）</span>
+              </span>
             </li>
             <li class="flex items-start">
               <span class="text-flow-accent mr-2">→</span>
-              Summary: "78% of space achieves PMV ±0.5"
+              <span>
+                <span class="lang-en">Summary: "78% of space achieves PMV ±0.5"</span>
+                <span class="lang-zh hidden">摘要："78% 的空间达到 PMV ±0.5"</span>
+              </span>
             </li>
             <li class="flex items-start">
               <span class="text-flow-accent mr-2">→</span>
-              PDF report ready for client deliverable
+              <span>
+                <span class="lang-en">PDF report ready for client deliverable</span>
+                <span class="lang-zh hidden">PDF 报告可直接交付客户</span>
+              </span>
             </li>
           </ul>
         </div>
@@ -389,23 +535,32 @@
           <svg class="w-6 h-6 mr-2 text-flow-success" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
           </svg>
-          ANSYS Validation
+          <span class="lang-en">ANSYS Validation</span>
+          <span class="lang-zh hidden">ANSYS 验证</span>
         </h4>
         <p class="text-flow-text-muted mb-3">
-          FlowPrep results validated against ANSYS Fluent for 5 standard office geometries.
+          <span class="lang-en">FlowPrep results validated against ANSYS Fluent for 5 standard office geometries.
           Average difference:
           <code class="font-mono text-sm bg-white px-2 py-1 rounded text-flow-text">±8%</code>
           for velocity fields,
           <code class="font-mono text-sm bg-white px-2 py-1 rounded text-flow-text">±6%</code>
-          for temperature.
+          for temperature.</span>
+          <span class="lang-zh hidden">FlowPrep 结果已与 ANSYS Fluent 在 5 个标准办公室几何体上进行验证。
+          平均偏差：速度场
+          <code class="font-mono text-sm bg-white px-2 py-1 rounded text-flow-text">±8%</code>，
+          温度场
+          <code class="font-mono text-sm bg-white px-2 py-1 rounded text-flow-text">±6%</code>。</span>
         </p>
         <p class="text-flow-accent font-medium">
-          Full validation study (PDF) — Available Week 4
+          <span class="lang-en">Full validation study (PDF) — Available Week 4</span>
+          <span class="lang-zh hidden">完整验证报告 (PDF) — 第 4 周发布</span>
         </p>
 
         <p class="text-sm text-flow-text-light mt-4 italic">
-          FlowPrep is in beta. Always verify critical results with commercial software
-          if required for stamped engineering deliverables.
+          <span class="lang-en">FlowPrep is in beta. Always verify critical results with commercial software
+          if required for stamped engineering deliverables.</span>
+          <span class="lang-zh hidden">FlowPrep 目前处于测试版。如需用于签章工程交付物，
+          请务必使用商业软件验证关键结果。</span>
         </p>
       </div>
     </div>
@@ -415,7 +570,8 @@
   <section class="py-16 md:py-24 px-6 md:px-8 bg-flow-bg">
     <div class="max-w-4xl mx-auto">
       <h2 class="text-3xl md:text-4xl font-bold leading-snug tracking-tight text-flow-text text-center mb-12">
-        Built by an Engineer, For Engineers
+        <span class="lang-en">Built by an Engineer, For Engineers</span>
+        <span class="lang-zh hidden">由工程师打造，为工程师服务</span>
       </h2>
 
       <div class="bg-white rounded-lg shadow-sm border border-flow-border p-10">
@@ -423,7 +579,10 @@
           <!-- Founder Photo -->
           <div class="md:col-span-1">
             <div class="aspect-square bg-flow-bg-tertiary rounded-lg flex items-center justify-center border border-flow-border">
-              <p class="text-flow-text-light text-center px-4 text-sm">[Founder Photo]<br>Professional headshot<br>(to be added)</p>
+              <p class="text-flow-text-light text-center px-4 text-sm">
+                <span class="lang-en">[Founder Photo]<br>Professional headshot<br>(to be added)</span>
+                <span class="lang-zh hidden">[创始人照片]<br>专业头像<br>(待添加)</span>
+              </p>
             </div>
           </div>
 
@@ -431,62 +590,95 @@
           <div class="md:col-span-2 space-y-6">
             <div>
               <p class="text-lg leading-relaxed text-flow-text">
-                Hi, I'm <strong>[Founder Name]</strong>. I'm a PhD candidate researching ML
-                applications in computational fluid dynamics.
+                <span class="lang-en">Hi, I'm <strong>[Founder Name]</strong>. I'm a PhD candidate researching ML
+                applications in computational fluid dynamics.</span>
+                <span class="lang-zh hidden">你好，我是 <strong>[创始人姓名]</strong>。我是一名博士研究生，
+                研究方向为机器学习在计算流体力学中的应用。</span>
               </p>
             </div>
 
             <div>
               <p class="leading-relaxed text-flow-text-muted">
-                I built FlowPrep because I was frustrated watching HVAC engineers at
+                <span class="lang-en">I built FlowPrep because I was frustrated watching HVAC engineers at
                 [Research Partner Company] spend 80% of their CFD time on repetitive
-                preprocessing instead of analyzing results.
+                preprocessing instead of analyzing results.</span>
+                <span class="lang-zh hidden">我开发 FlowPrep 的原因是，我看到 [合作研究公司] 的 HVAC 工程师
+                将 80% 的 CFD 时间花在重复性预处理上，而非分析结果，这让我深感不满。</span>
               </p>
             </div>
 
             <div>
               <p class="leading-relaxed text-flow-text-muted">
-                FlowPrep uses the same OpenFOAM solver you trust, with automated meshing
-                templates trained on 50+ real office building geometries.
+                <span class="lang-en">FlowPrep uses the same OpenFOAM solver you trust, with automated meshing
+                templates trained on 50+ real office building geometries.</span>
+                <span class="lang-zh hidden">FlowPrep 使用您信赖的 OpenFOAM 求解器，
+                网格划分模板基于 50 多个真实办公建筑几何体训练而成。</span>
               </p>
             </div>
 
             <div class="bg-flow-bg-secondary rounded-lg p-6">
-              <h4 class="text-lg font-semibold text-flow-text mb-3">Technical Background:</h4>
+              <h4 class="text-lg font-semibold text-flow-text mb-3">
+                <span class="lang-en">Technical Background:</span>
+                <span class="lang-zh hidden">技术背景：</span>
+              </h4>
               <ul class="space-y-2 text-flow-text-muted">
                 <li class="flex items-start">
                   <span class="text-flow-accent mr-2">•</span>
-                  PhD Research: ML-enhanced CFD meshing
+                  <span>
+                    <span class="lang-en">PhD Research: ML-enhanced CFD meshing</span>
+                    <span class="lang-zh hidden">博士研究：机器学习增强的 CFD 网格划分</span>
+                  </span>
                 </li>
                 <li class="flex items-start">
                   <span class="text-flow-accent mr-2">•</span>
-                  Published: [Paper Title] in [Journal Name]
+                  <span>
+                    <span class="lang-en">Published: [Paper Title] in [Journal Name]</span>
+                    <span class="lang-zh hidden">已发表：[论文标题] 于 [期刊名称]</span>
+                  </span>
                 </li>
                 <li class="flex items-start">
                   <span class="text-flow-accent mr-2">•</span>
-                  Tools: OpenFOAM, PyFoam, Python, ML pipelines
+                  <span>
+                    <span class="lang-en">Tools: OpenFOAM, PyFoam, Python, ML pipelines</span>
+                    <span class="lang-zh hidden">工具栈：OpenFOAM、PyFoam、Python、ML 流水线</span>
+                  </span>
                 </li>
               </ul>
             </div>
 
             <div class="bg-flow-bg-secondary rounded-lg p-6">
-              <h4 class="text-lg font-semibold text-flow-text mb-3">Validation Methodology:</h4>
+              <h4 class="text-lg font-semibold text-flow-text mb-3">
+                <span class="lang-en">Validation Methodology:</span>
+                <span class="lang-zh hidden">验证方法：</span>
+              </h4>
               <ul class="space-y-2 text-flow-text-muted">
                 <li class="flex items-start">
                   <span class="text-flow-accent mr-2">•</span>
-                  Tested FlowPrep vs ANSYS Fluent on 5 office cases
+                  <span>
+                    <span class="lang-en">Tested FlowPrep vs ANSYS Fluent on 5 office cases</span>
+                    <span class="lang-zh hidden">在 5 个办公室案例中对比测试 FlowPrep 与 ANSYS Fluent</span>
+                  </span>
                 </li>
                 <li class="flex items-start">
                   <span class="text-flow-accent mr-2">•</span>
-                  Mesh quality: Max skewness &lt;0.4, non-orthogonality &lt;70
+                  <span>
+                    <span class="lang-en">Mesh quality: Max skewness &lt;0.4, non-orthogonality &lt;70</span>
+                    <span class="lang-zh hidden">网格质量：最大偏斜度 &lt;0.4，非正交性 &lt;70</span>
+                  </span>
                 </li>
                 <li class="flex items-start">
                   <span class="text-flow-accent mr-2">•</span>
-                  Results accuracy: Velocity ±8%, Temperature ±6%
+                  <span>
+                    <span class="lang-en">Results accuracy: Velocity ±8%, Temperature ±6%</span>
+                    <span class="lang-zh hidden">结果精度：速度 ±8%，温度 ±6%</span>
+                  </span>
                 </li>
                 <li class="flex items-start">
                   <span class="text-flow-accent mr-2">•</span>
-                  Full study available: Download PDF (Week 4)
+                  <span>
+                    <span class="lang-en">Full study available: Download PDF (Week 4)</span>
+                    <span class="lang-zh hidden">完整研究报告：PDF 下载（第 4 周）</span>
+                  </span>
                 </li>
               </ul>
             </div>
@@ -500,77 +692,130 @@
   <section class="py-16 md:py-24 px-6 md:px-8 bg-flow-bg-secondary">
     <div class="max-w-3xl mx-auto">
       <h2 class="text-3xl md:text-4xl font-bold leading-snug tracking-tight text-flow-text text-center mb-12">
-        Early Access Pricing (Beta)
+        <span class="lang-en">Early Access Pricing (Beta)</span>
+        <span class="lang-zh hidden">抢先体验价格（测试版）</span>
       </h2>
 
       <div class="bg-white rounded-lg shadow-lg border-2 border-flow-primary p-10">
         <div class="text-center mb-8">
-          <div class="text-5xl font-bold text-flow-primary mb-2">£39<span class="text-2xl font-normal text-flow-text-muted">/month</span></div>
+          <div class="text-5xl font-bold text-flow-primary mb-2">£39<span class="text-2xl font-normal text-flow-text-muted">
+            <span class="lang-en">/month</span>
+            <span class="lang-zh hidden">/月</span>
+          </span></div>
           <p class="text-lg text-flow-text-muted">
-            50% off the £79 launch price — locked in for early adopters,
-            even after beta ends
+            <span class="lang-en">50% off the £79 launch price — locked in for early adopters,
+            even after beta ends</span>
+            <span class="lang-zh hidden">正式价 £79 的五折优惠 — 早期用户永久锁定此价格，
+            测试版结束后依然有效</span>
           </p>
         </div>
 
         <div class="mb-8">
-          <h3 class="text-xl font-semibold text-flow-text mb-4">What's Included:</h3>
+          <h3 class="text-xl font-semibold text-flow-text mb-4">
+            <span class="lang-en">What's Included:</span>
+            <span class="lang-zh hidden">包含内容：</span>
+          </h3>
           <ul class="space-y-3">
             <li class="flex items-start">
               <svg class="w-6 h-6 text-flow-success mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
               </svg>
-              <span class="text-flow-text">Unlimited office diffuser simulations</span>
+              <span class="text-flow-text">
+                <span class="lang-en">Unlimited office diffuser simulations</span>
+                <span class="lang-zh hidden">无限次办公室散流器仿真</span>
+              </span>
             </li>
             <li class="flex items-start">
               <svg class="w-6 h-6 text-flow-success mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
               </svg>
-              <span class="text-flow-text">Unlimited server room cooling simulations</span>
+              <span class="text-flow-text">
+                <span class="lang-en">Unlimited server room cooling simulations</span>
+                <span class="lang-zh hidden">无限次机房散热仿真</span>
+              </span>
             </li>
             <li class="flex items-start">
               <svg class="w-6 h-6 text-flow-success mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
               </svg>
-              <span class="text-flow-text">VTK, PNG, and PDF result exports</span>
+              <span class="text-flow-text">
+                <span class="lang-en">VTK, PNG, and PDF result exports</span>
+                <span class="lang-zh hidden">VTK、PNG 和 PDF 结果导出</span>
+              </span>
             </li>
             <li class="flex items-start">
               <svg class="w-6 h-6 text-flow-success mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
               </svg>
-              <span class="text-flow-text">Email support (24-hour response time)</span>
+              <span class="text-flow-text">
+                <span class="lang-en">Email support (24-hour response time)</span>
+                <span class="lang-zh hidden">邮件支持（24 小时内响应）</span>
+              </span>
             </li>
             <li class="flex items-start">
               <svg class="w-6 h-6 text-flow-success mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
               </svg>
-              <span class="text-flow-text">Beta access to new scenarios as they launch</span>
+              <span class="text-flow-text">
+                <span class="lang-en">Beta access to new scenarios as they launch</span>
+                <span class="lang-zh hidden">新场景上线时优先获得测试资格</span>
+              </span>
             </li>
           </ul>
         </div>
 
         <p class="text-center text-lg font-semibold text-flow-text mb-8">
-          No contract. Cancel anytime.
+          <span class="lang-en">No contract. Cancel anytime.</span>
+          <span class="lang-zh hidden">无合约。随时取消。</span>
         </p>
 
         <div class="bg-flow-primary-50 border-l-4 border-flow-primary rounded-lg p-6 mb-8">
-          <h4 class="text-lg font-semibold text-flow-text mb-3">ROI Math:</h4>
+          <h4 class="text-lg font-semibold text-flow-text mb-3">
+            <span class="lang-en">ROI Math:</span>
+            <span class="lang-zh hidden">投资回报计算：</span>
+          </h4>
           <ul class="space-y-1 text-flow-text-muted">
-            <li>• Your time: ~£150/hour (loaded cost for PE engineer)</li>
-            <li>• FlowPrep saves: 10+ hours/month</li>
-            <li>• Value: <span class="font-semibold text-flow-primary">£1,500/month</span></li>
-            <li>• Cost: <span class="font-semibold text-flow-text">£39/month</span></li>
-            <li>• Payback: <span class="font-semibold text-flow-success">First simulation</span></li>
+            <li>
+              <span class="lang-en">• Your time: ~£150/hour (loaded cost for PE engineer)</span>
+              <span class="lang-zh hidden">• 您的时间成本：约 £150/小时（PE 工程师综合成本）</span>
+            </li>
+            <li>
+              <span class="lang-en">• FlowPrep saves: 10+ hours/month</span>
+              <span class="lang-zh hidden">• FlowPrep 每月节省：10+ 小时</span>
+            </li>
+            <li>
+              <span class="lang-en">• Value: <span class="font-semibold text-flow-primary">£1,500/month</span></span>
+              <span class="lang-zh hidden">• 价值：<span class="font-semibold text-flow-primary">£1,500/月</span></span>
+            </li>
+            <li>
+              <span class="lang-en">• Cost: <span class="font-semibold text-flow-text">£39/month</span></span>
+              <span class="lang-zh hidden">• 费用：<span class="font-semibold text-flow-text">£39/月</span></span>
+            </li>
+            <li>
+              <span class="lang-en">• Payback: <span class="font-semibold text-flow-success">First simulation</span></span>
+              <span class="lang-zh hidden">• 回本时间：<span class="font-semibold text-flow-success">第一次仿真</span></span>
+            </li>
           </ul>
         </div>
 
         <a href="https://buy.stripe.com/dRm5kD0SH8t7ato54O0VO05" target="_blank" rel="noopener" class="btn-transition block w-full text-center px-8 py-5 bg-flow-primary hover:bg-flow-primary-light text-white font-bold text-xl rounded-lg shadow-md hover:shadow-lg focus-visible:ring-2 focus-visible:ring-flow-accent focus-visible:ring-offset-2 mb-4">
-          Get Early Access (£39/month) →
+          <span class="lang-en">Get Early Access (£39/month) →</span>
+          <span class="lang-zh hidden">立即抢先体验 (£39/月) →</span>
         </a>
 
         <div class="mt-8 pt-6 border-t border-flow-border text-center text-sm text-flow-text-light space-y-2">
-          <p>✓ Stripe secure payment</p>
-          <p>✓ No credit card stored by FlowPrep (Stripe handles billing)</p>
-          <p>✓ Email confirmation within 24 hours with setup instructions</p>
+          <p>
+            <span class="lang-en">✓ Stripe secure payment</span>
+            <span class="lang-zh hidden">✓ Stripe 安全支付</span>
+          </p>
+          <p>
+            <span class="lang-en">✓ No credit card stored by FlowPrep (Stripe handles billing)</span>
+            <span class="lang-zh hidden">✓ FlowPrep 不存储信用卡信息（由 Stripe 处理账单）</span>
+          </p>
+          <p>
+            <span class="lang-en">✓ Email confirmation within 24 hours with setup instructions</span>
+            <span class="lang-zh hidden">✓ 24 小时内邮件确认并附设置说明</span>
+          </p>
         </div>
       </div>
     </div>
@@ -580,114 +825,153 @@
   <section class="py-16 md:py-24 px-6 md:px-8 bg-flow-bg">
     <div class="max-w-3xl mx-auto">
       <h2 class="text-3xl md:text-4xl font-bold leading-snug tracking-tight text-flow-text text-center mb-12">
-        Frequently Asked Questions
+        <span class="lang-en">Frequently Asked Questions</span>
+        <span class="lang-zh hidden">常见问题</span>
       </h2>
 
       <div class="space-y-4">
         <details class="bg-white rounded-lg border border-flow-border overflow-hidden">
           <summary class="px-6 py-4 cursor-pointer font-semibold text-flow-text hover:bg-flow-bg-secondary transition-colors flex items-center justify-between">
-            <span>What HVAC scenarios are supported in beta?</span>
-            <svg class="w-5 h-5 text-flow-text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <span>
+              <span class="lang-en">What HVAC scenarios are supported in beta?</span>
+              <span class="lang-zh hidden">测试版支持哪些 HVAC 场景？</span>
+            </span>
+            <svg class="w-5 h-5 text-flow-text-muted flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
             </svg>
           </summary>
           <div class="px-6 pb-4 text-flow-text-muted">
             <p>
-              Currently: Office diffuser placement and server room cooling. More scenarios
-              (atriums, labs, cleanrooms) coming in Q2 2026 based on user requests.
+              <span class="lang-en">Currently: Office diffuser placement and server room cooling. More scenarios
+              (atriums, labs, cleanrooms) coming in Q2 2026 based on user requests.</span>
+              <span class="lang-zh hidden">目前支持：办公室散流器布置和机房散热。更多场景
+              （中庭、实验室、洁净室）将根据用户需求于 2026 年第二季度推出。</span>
             </p>
           </div>
         </details>
 
         <details class="bg-white rounded-lg border border-flow-border overflow-hidden">
           <summary class="px-6 py-4 cursor-pointer font-semibold text-flow-text hover:bg-flow-bg-secondary transition-colors flex items-center justify-between">
-            <span>Does FlowPrep work with Revit geometry exports?</span>
-            <svg class="w-5 h-5 text-flow-text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <span>
+              <span class="lang-en">Does FlowPrep work with Revit geometry exports?</span>
+              <span class="lang-zh hidden">FlowPrep 支持 Revit 导出的几何体吗？</span>
+            </span>
+            <svg class="w-5 h-5 text-flow-text-muted flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
             </svg>
           </summary>
           <div class="px-6 pb-4 text-flow-text-muted">
             <p>
-              Yes. Export your Revit model to STL format (File > Export > CAD Formats > STL).
-              FlowPrep accepts STL files up to 50 MB. Tutorial video coming Week 3.
+              <span class="lang-en">Yes. Export your Revit model to STL format (File > Export > CAD Formats > STL).
+              FlowPrep accepts STL files up to 50 MB. Tutorial video coming Week 3.</span>
+              <span class="lang-zh hidden">支持。将您的 Revit 模型导出为 STL 格式（文件 > 导出 > CAD 格式 > STL）。
+              FlowPrep 接受最大 50 MB 的 STL 文件。教程视频将于第 3 周发布。</span>
             </p>
           </div>
         </details>
 
         <details class="bg-white rounded-lg border border-flow-border overflow-hidden">
           <summary class="px-6 py-4 cursor-pointer font-semibold text-flow-text hover:bg-flow-bg-secondary transition-colors flex items-center justify-between">
-            <span>What if FlowPrep results don't match my ANSYS?</span>
-            <svg class="w-5 h-5 text-flow-text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <span>
+              <span class="lang-en">What if FlowPrep results don't match my ANSYS?</span>
+              <span class="lang-zh hidden">如果 FlowPrep 的结果与我的 ANSYS 不一致怎么办？</span>
+            </span>
+            <svg class="w-5 h-5 text-flow-text-muted flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
             </svg>
           </summary>
           <div class="px-6 pb-4 text-flow-text-muted">
             <p>
-              FlowPrep uses OpenFOAM, not ANSYS, so minor differences are expected (±8% typical).
+              <span class="lang-en">FlowPrep uses OpenFOAM, not ANSYS, so minor differences are expected (±8% typical).
               If you see >15% difference, email the founder with your geometry for manual debugging.
-              FlowPrep is beta — always verify critical results with commercial tools.
+              FlowPrep is beta — always verify critical results with commercial tools.</span>
+              <span class="lang-zh hidden">FlowPrep 使用 OpenFOAM 而非 ANSYS，因此存在轻微差异属于正常现象（通常 ±8%）。
+              如果差异超过 15%，请将您的几何体发邮件给创始人进行手动排查。
+              FlowPrep 目前为测试版 — 请务必使用商业工具验证关键结果。</span>
             </p>
           </div>
         </details>
 
         <details class="bg-white rounded-lg border border-flow-border overflow-hidden">
           <summary class="px-6 py-4 cursor-pointer font-semibold text-flow-text hover:bg-flow-bg-secondary transition-colors flex items-center justify-between">
-            <span>How do I get support if a simulation fails?</span>
-            <svg class="w-5 h-5 text-flow-text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <span>
+              <span class="lang-en">How do I get support if a simulation fails?</span>
+              <span class="lang-zh hidden">仿真失败时如何获得支持？</span>
+            </span>
+            <svg class="w-5 h-5 text-flow-text-muted flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
             </svg>
           </summary>
           <div class="px-6 pb-4 text-flow-text-muted">
             <p>
-              Email [founder email] (to be added). Response within 24 hours (usually same day).
-              For geometry issues, send your STL file for personal troubleshooting.
+              <span class="lang-en">Email [founder email] (to be added). Response within 24 hours (usually same day).
+              For geometry issues, send your STL file for personal troubleshooting.</span>
+              <span class="lang-zh hidden">发送邮件至 [创始人邮箱]（待添加）。24 小时内回复（通常当天）。
+              如遇几何体问题，请发送您的 STL 文件以便进行个性化排查。</span>
             </p>
           </div>
         </details>
 
         <details class="bg-white rounded-lg border border-flow-border overflow-hidden">
           <summary class="px-6 py-4 cursor-pointer font-semibold text-flow-text hover:bg-flow-bg-secondary transition-colors flex items-center justify-between">
-            <span>Can I use FlowPrep results in stamped deliverables?</span>
-            <svg class="w-5 h-5 text-flow-text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <span>
+              <span class="lang-en">Can I use FlowPrep results in stamped deliverables?</span>
+              <span class="lang-zh hidden">FlowPrep 的结果能用于签章交付物吗？</span>
+            </span>
+            <svg class="w-5 h-5 text-flow-text-muted flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
             </svg>
           </summary>
           <div class="px-6 pb-4 text-flow-text-muted">
             <p>
-              FlowPrep is in beta. Recommended use: initial design exploration,
+              <span class="lang-en">FlowPrep is in beta. Recommended use: initial design exploration,
               then verify final results with ANSYS/commercial software before stamping.
-              As FlowPrep matures, validation data will improve to support stamped work.
+              As FlowPrep matures, validation data will improve to support stamped work.</span>
+              <span class="lang-zh hidden">FlowPrep 目前处于测试版。建议用途：初步设计探索，
+              签章前使用 ANSYS 等商业软件验证最终结果。
+              随着 FlowPrep 的成熟，验证数据将不断完善以支持签章工作。</span>
             </p>
           </div>
         </details>
 
         <details class="bg-white rounded-lg border border-flow-border overflow-hidden">
           <summary class="px-6 py-4 cursor-pointer font-semibold text-flow-text hover:bg-flow-bg-secondary transition-colors flex items-center justify-between">
-            <span>What file formats do you support?</span>
-            <svg class="w-5 h-5 text-flow-text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <span>
+              <span class="lang-en">What file formats do you support?</span>
+              <span class="lang-zh hidden">支持哪些文件格式？</span>
+            </span>
+            <svg class="w-5 h-5 text-flow-text-muted flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
             </svg>
           </summary>
           <div class="px-6 pb-4 text-flow-text-muted">
             <p>
-              Currently: STL only (max 50 MB). STEP and IGES coming in Q2 2026.
-              Export from Revit, Rhino, SketchUp, or any CAD tool to STL format.
+              <span class="lang-en">Currently: STL only (max 50 MB). STEP and IGES coming in Q2 2026.
+              Export from Revit, Rhino, SketchUp, or any CAD tool to STL format.</span>
+              <span class="lang-zh hidden">目前仅支持 STL 格式（最大 50 MB）。STEP 和 IGES 格式将于 2026 年第二季度推出。
+              可从 Revit、Rhino、SketchUp 或任何 CAD 工具导出为 STL 格式。</span>
             </p>
           </div>
         </details>
 
         <details class="bg-white rounded-lg border border-flow-border overflow-hidden">
           <summary class="px-6 py-4 cursor-pointer font-semibold text-flow-text hover:bg-flow-bg-secondary transition-colors flex items-center justify-between">
-            <span>Can I customize boundary conditions?</span>
-            <svg class="w-5 h-5 text-flow-text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <span>
+              <span class="lang-en">Can I customize boundary conditions?</span>
+              <span class="lang-zh hidden">可以自定义边界条件吗？</span>
+            </span>
+            <svg class="w-5 h-5 text-flow-text-muted flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
             </svg>
           </summary>
           <div class="px-6 pb-4 text-flow-text-muted">
             <p>
-              Not in beta. FlowPrep uses pre-configured templates (ceiling diffusers, server racks).
+              <span class="lang-en">Not in beta. FlowPrep uses pre-configured templates (ceiling diffusers, server racks).
               Custom BC editing coming in full release (Q3 2026). For now, edit the exported
-              OpenFOAM case files manually if needed.
+              OpenFOAM case files manually if needed.</span>
+              <span class="lang-zh hidden">测试版暂不支持。FlowPrep 使用预配置模板（天花板散流器、服务器机架）。
+              自定义边界条件编辑将在正式版中推出（2026 年第三季度）。目前如有需要，
+              可手动编辑导出的 OpenFOAM 案例文件。</span>
             </p>
           </div>
         </details>
@@ -699,19 +983,23 @@
   <section class="py-16 md:py-24 px-6 md:px-8 bg-flow-bg-secondary">
     <div class="max-w-3xl mx-auto text-center">
       <h2 class="text-3xl md:text-4xl font-bold leading-snug tracking-tight text-flow-text mb-6">
-        Ready to Get 6 Hours Back This Week?
+        <span class="lang-en">Ready to Get 6 Hours Back This Week?</span>
+        <span class="lang-zh hidden">准备好每周省下 6 小时了吗？</span>
       </h2>
 
       <p class="text-lg text-flow-text-muted mb-8">
-        Join HVAC engineers already using FlowPrep to ship CFD reports faster.
+        <span class="lang-en">Join HVAC engineers already using FlowPrep to ship CFD reports faster.</span>
+        <span class="lang-zh hidden">加入已在使用 FlowPrep 加速 CFD 报告交付的 HVAC 工程师行列。</span>
       </p>
 
       <a href="https://buy.stripe.com/dRm5kD0SH8t7ato54O0VO05" target="_blank" rel="noopener" class="btn-transition inline-flex items-center justify-center px-12 py-5 bg-flow-primary hover:bg-flow-primary-light text-white font-bold text-xl rounded-lg shadow-md hover:shadow-lg focus-visible:ring-2 focus-visible:ring-flow-accent focus-visible:ring-offset-2 mb-4">
-        Start Early Access (£39/month) →
+        <span class="lang-en">Start Early Access (£39/month) →</span>
+        <span class="lang-zh hidden">开始抢先体验 (£39/月) →</span>
       </a>
 
       <p class="text-sm text-flow-text-light mt-4">
-        Immediate access after payment. No credit card stored by FlowPrep.
+        <span class="lang-en">Immediate access after payment. No credit card stored by FlowPrep.</span>
+        <span class="lang-zh hidden">付款后立即开通。FlowPrep 不存储信用卡信息。</span>
       </p>
     </div>
   </section>
@@ -719,20 +1007,44 @@
   <!-- Footer -->
   <footer class="py-8 px-6 bg-flow-bg border-t border-flow-border">
     <div class="max-w-5xl mx-auto text-center text-flow-text-light text-sm">
-      <p class="mb-2">FlowPrep AI © 2026 — Beta Product</p>
-      <p class="mb-4">Contact: [Founder Email] (to be added)</p>
+      <p class="mb-2">
+        <span class="lang-en">FlowPrep AI © 2026 — Beta Product</span>
+        <span class="lang-zh hidden">FlowPrep AI © 2026 — 测试版产品</span>
+      </p>
+      <p class="mb-4">
+        <span class="lang-en">Contact: [Founder Email] (to be added)</span>
+        <span class="lang-zh hidden">联系方式：[创始人邮箱]（待添加）</span>
+      </p>
       <div class="space-x-4">
-        <a href="#" class="hover:text-flow-accent">Terms of Service</a>
+        <a href="#" class="hover:text-flow-accent">
+          <span class="lang-en">Terms of Service</span>
+          <span class="lang-zh hidden">服务条款</span>
+        </a>
         <span>•</span>
-        <a href="#" class="hover:text-flow-accent">Privacy Policy</a>
+        <a href="#" class="hover:text-flow-accent">
+          <span class="lang-en">Privacy Policy</span>
+          <span class="lang-zh hidden">隐私政策</span>
+        </a>
         <span>•</span>
-        <a href="#" class="hover:text-flow-accent">Refund Policy</a>
+        <a href="#" class="hover:text-flow-accent">
+          <span class="lang-en">Refund Policy</span>
+          <span class="lang-zh hidden">退款政策</span>
+        </a>
       </div>
 
       <!-- Cloudflare Web Analytics Placeholder -->
       <!-- Cloudflare Web Analytics: Add beacon script here -->
     </div>
   </footer>
+
+  <script>
+    let currentLang = 'en';
+    function toggleLanguage() {
+      currentLang = currentLang === 'en' ? 'zh' : 'en';
+      document.querySelectorAll('.lang-en').forEach(el => el.classList.toggle('hidden', currentLang !== 'en'));
+      document.querySelectorAll('.lang-zh').forEach(el => el.classList.toggle('hidden', currentLang !== 'zh'));
+    }
+  </script>
 
 </body>
 </html>

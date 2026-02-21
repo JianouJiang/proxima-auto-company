@@ -26,6 +26,24 @@
             -webkit-font-smoothing: antialiased;
         }
 
+        .lang-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.2s;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+        .lang-toggle:hover { background: rgba(255, 255, 255, 0.3); }
+        .hidden { display: none !important; }
+
         nav {
             position: fixed; top: 0; left: 0; right: 0;
             background: rgba(255,255,255,0.92);
@@ -255,21 +273,32 @@
 </head>
 <body>
 
+<button class="lang-toggle" onclick="toggleLanguage()">
+    <span class="lang-en">中文</span>
+    <span class="lang-zh hidden">EN</span>
+</button>
+
 <nav>
     <div class="nav-inner">
         <a href="index.html" class="logo">Proxima<span>Auto</span></a>
         <ul class="nav-links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="story.html" class="active">Our Story</a></li>
-            <li><a href="index.html#products">Products</a></li>
-            <li><a href="index.html#contact">Contact</a></li>
+            <li><a href="index.html"><span class="lang-en">Home</span><span class="lang-zh hidden">首页</span></a></li>
+            <li><a href="story.html" class="active"><span class="lang-en">Our Story</span><span class="lang-zh hidden">我们的故事</span></a></li>
+            <li><a href="index.html#products"><span class="lang-en">Products</span><span class="lang-zh hidden">产品</span></a></li>
+            <li><a href="index.html#contact"><span class="lang-en">Contact</span><span class="lang-zh hidden">联系我们</span></a></li>
         </ul>
     </div>
 </nav>
 
 <section class="hero">
-    <h1>The AI Company Chronicle</h1>
-    <p>14 AI agents. Zero humans in daily decisions. Real products, real revenue targets, radical transparency. Each product has its own story.</p>
+    <h1>
+        <span class="lang-en">The AI Company Chronicle</span>
+        <span class="lang-zh hidden">AI 公司编年史</span>
+    </h1>
+    <p>
+        <span class="lang-en">14 AI agents. Zero humans in daily decisions. Real products, real revenue targets, radical transparency. Each product has its own story.</span>
+        <span class="lang-zh hidden">14 个 AI 智能体，日常决策零人类参与。真实的产品、真实的营收目标、彻底的透明。每个产品都有自己的故事。</span>
+    </p>
 </section>
 
 <section class="stories-section">
@@ -278,20 +307,33 @@
         <div class="card-visual card-visual-coldcopy">
             <div class="card-icon">&#9993;</div>
             <h3>ColdCopy</h3>
-            <div class="tagline">AI Cold Email Generator</div>
+            <div class="tagline">
+                <span class="lang-en">AI Cold Email Generator</span>
+                <span class="lang-zh hidden">AI 冷邮件生成器</span>
+            </div>
         </div>
         <div class="card-content">
-            <span class="card-status status-complete">7 Chapters</span>
-            <h4>Product #1: From Zero to 77% Engagement</h4>
-            <p>How 14 AI agents built a cold email tool in 8 days, launched it on LinkedIn, got 78 organic sessions &mdash; and then hit a wall that no amount of AI could fix.</p>
+            <span class="card-status status-complete">
+                <span class="lang-en">7 Chapters</span>
+                <span class="lang-zh hidden">7 个章节</span>
+            </span>
+            <h4>
+                <span class="lang-en">Product #1: From Zero to 77% Engagement</span>
+                <span class="lang-zh hidden">产品 #1：从零到 77% 互动率</span>
+            </h4>
+            <p>
+                <span class="lang-en">How 14 AI agents built a cold email tool in 8 days, launched it on LinkedIn, got 78 organic sessions &mdash; and then hit a wall that no amount of AI could fix.</span>
+                <span class="lang-zh hidden">14 个 AI 智能体如何在 8 天内构建了一个冷邮件工具，在 LinkedIn 上发布，获得了 78 次自然访问——然后撞上了一堵再多 AI 也无法解决的墙。</span>
+            </p>
             <div class="card-meta">
-                <span class="meta-item"><strong>8</strong> days</span>
-                <span class="meta-item"><strong>13</strong> cycles</span>
-                <span class="meta-item"><strong>$0</strong> revenue</span>
-                <span class="meta-item"><strong>77%</strong> engagement</span>
+                <span class="meta-item"><strong>8</strong> <span class="lang-en">days</span><span class="lang-zh hidden">天</span></span>
+                <span class="meta-item"><strong>13</strong> <span class="lang-en">cycles</span><span class="lang-zh hidden">个周期</span></span>
+                <span class="meta-item"><strong>$0</strong> <span class="lang-en">revenue</span><span class="lang-zh hidden">营收</span></span>
+                <span class="meta-item"><strong>77%</strong> <span class="lang-en">engagement</span><span class="lang-zh hidden">互动率</span></span>
             </div>
             <span class="card-cta">
-                Read the story
+                <span class="lang-en">Read the story</span>
+                <span class="lang-zh hidden">阅读故事</span>
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </span>
         </div>
@@ -301,20 +343,33 @@
         <div class="card-visual card-visual-doublemood">
             <div class="card-icon">&#127752;</div>
             <h3>Double Mood</h3>
-            <div class="tagline">Emotion First-Aid System</div>
+            <div class="tagline">
+                <span class="lang-en">Emotion First-Aid System</span>
+                <span class="lang-zh hidden">情绪急救系统</span>
+            </div>
         </div>
         <div class="card-content">
-            <span class="card-status status-live">3 Chapters</span>
-            <h4>Product #2: The Pivot That Changed the Game</h4>
-            <p>When founder execution proved to be the bottleneck, the team asked a different question: what if we built a product that sells itself through habit?</p>
+            <span class="card-status status-live">
+                <span class="lang-en">3 Chapters</span>
+                <span class="lang-zh hidden">3 个章节</span>
+            </span>
+            <h4>
+                <span class="lang-en">Product #2: The Pivot That Changed the Game</span>
+                <span class="lang-zh hidden">产品 #2：改变局面的转型</span>
+            </h4>
+            <p>
+                <span class="lang-en">When founder execution proved to be the bottleneck, the team asked a different question: what if we built a product that sells itself through habit?</span>
+                <span class="lang-zh hidden">当创始人的执行力被证明是瓶颈时，团队提出了一个不同的问题：如果我们打造一个通过习惯自我销售的产品呢？</span>
+            </p>
             <div class="card-meta">
-                <span class="meta-item"><strong>3</strong> days</span>
-                <span class="meta-item"><strong>500</strong> lines</span>
-                <span class="meta-item"><strong>$0</strong> cost</span>
-                <span class="meta-item"><strong>1</strong> file</span>
+                <span class="meta-item"><strong>3</strong> <span class="lang-en">days</span><span class="lang-zh hidden">天</span></span>
+                <span class="meta-item"><strong>500</strong> <span class="lang-en">lines</span><span class="lang-zh hidden">行代码</span></span>
+                <span class="meta-item"><strong>$0</strong> <span class="lang-en">cost</span><span class="lang-zh hidden">成本</span></span>
+                <span class="meta-item"><strong>1</strong> <span class="lang-en">file</span><span class="lang-zh hidden">个文件</span></span>
             </div>
             <span class="card-cta">
-                Read the story
+                <span class="lang-en">Read the story</span>
+                <span class="lang-zh hidden">阅读故事</span>
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </span>
         </div>
@@ -324,20 +379,33 @@
         <div class="card-visual" style="background: linear-gradient(135deg, #064e3b 0%, #065f46 50%, #0d9488 100%); color: white;">
             <div class="card-icon">&#9881;</div>
             <h3>FlowPrep AI</h3>
-            <div class="tagline">HVAC CFD Preprocessing Automation</div>
+            <div class="tagline">
+                <span class="lang-en">HVAC CFD Preprocessing Automation</span>
+                <span class="lang-zh hidden">暖通 CFD 前处理自动化</span>
+            </div>
         </div>
         <div class="card-content">
-            <span class="card-status status-live">1 Chapter</span>
-            <h4>Product #3: Where PhD Meets Product</h4>
-            <p>The founder&rsquo;s PhD in ML + CFD meets the autonomous AI company. 6 agents evaluate an energy sector product that could make money AND land a job.</p>
+            <span class="card-status status-live">
+                <span class="lang-en">1 Chapter</span>
+                <span class="lang-zh hidden">1 个章节</span>
+            </span>
+            <h4>
+                <span class="lang-en">Product #3: Where PhD Meets Product</span>
+                <span class="lang-zh hidden">产品 #3：当博士遇上产品</span>
+            </h4>
+            <p>
+                <span class="lang-en">The founder&rsquo;s PhD in ML + CFD meets the autonomous AI company. 6 agents evaluate an energy sector product that could make money AND land a job.</span>
+                <span class="lang-zh hidden">创始人的机器学习 + CFD 博士背景遇上了自主 AI 公司。6 个智能体评估了一个既能赚钱又能帮助找工作的能源行业产品。</span>
+            </p>
             <div class="card-meta">
-                <span class="meta-item"><strong>1</strong> cycle</span>
-                <span class="meta-item"><strong>6</strong> agents</span>
-                <span class="meta-item"><strong>$79</strong>/mo target</span>
-                <span class="meta-item"><strong>HVAC</strong> engineers</span>
+                <span class="meta-item"><strong>1</strong> <span class="lang-en">cycle</span><span class="lang-zh hidden">个周期</span></span>
+                <span class="meta-item"><strong>6</strong> <span class="lang-en">agents</span><span class="lang-zh hidden">个智能体</span></span>
+                <span class="meta-item"><strong>$79</strong><span class="lang-en">/mo target</span><span class="lang-zh hidden">/月目标</span></span>
+                <span class="meta-item"><strong>HVAC</strong> <span class="lang-en">engineers</span><span class="lang-zh hidden">工程师</span></span>
             </div>
             <span class="card-cta">
-                Read the story
+                <span class="lang-en">Read the story</span>
+                <span class="lang-zh hidden">阅读故事</span>
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </span>
         </div>
@@ -345,22 +413,32 @@
 
     <a href="story-powercast.html" class="story-card">
         <div class="card-visual" style="background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 50%, #d97706 100%); color: white;">
-            <div class="card-icon">⚡</div>
+            <div class="card-icon">&#9889;</div>
             <h3>PowerCast</h3>
-            <div class="tagline">Electricity Price Prediction</div>
+            <div class="tagline">
+                <span class="lang-en">Electricity Price Prediction</span>
+                <span class="lang-zh hidden">电力价格预测</span>
+            </div>
         </div>
         <div class="card-content">
             <span class="card-status status-live">LIVE</span>
-            <h4>From NO-GO to Shipped in 3 Hours</h4>
-            <p>CEO said no. Founder said go. 3-hour build sprint. Live on Cloudflare Pages with 7-day ERCOT price forecasts. Gumroad products (weekly reports + datasets) launching this week.</p>
+            <h4>
+                <span class="lang-en">From NO-GO to Shipped in 3 Hours</span>
+                <span class="lang-zh hidden">从被否决到 3 小时上线</span>
+            </h4>
+            <p>
+                <span class="lang-en">CEO said no. Founder said go. 3-hour build sprint. Live on Cloudflare Pages with 7-day ERCOT price forecasts. Gumroad products (weekly reports + datasets) launching this week.</span>
+                <span class="lang-zh hidden">CEO 说不行。创始人说上。3 小时极速开发。在 Cloudflare Pages 上线，提供 7 天 ERCOT 电价预测。Gumroad 产品（周报 + 数据集）本周发布。</span>
+            </p>
             <div class="card-meta">
-                <span class="meta-item"><strong>3</strong> hours</span>
-                <span class="meta-item"><strong>1</strong> founder override</span>
-                <span class="meta-item"><strong>2</strong> Gumroad products</span>
-                <span class="meta-item"><strong>$99</strong>/mo target</span>
+                <span class="meta-item"><strong>3</strong> <span class="lang-en">hours</span><span class="lang-zh hidden">小时</span></span>
+                <span class="meta-item"><strong>1</strong> <span class="lang-en">founder override</span><span class="lang-zh hidden">次创始人否决</span></span>
+                <span class="meta-item"><strong>2</strong> <span class="lang-en">Gumroad products</span><span class="lang-zh hidden">个 Gumroad 产品</span></span>
+                <span class="meta-item"><strong>$99</strong><span class="lang-en">/mo target</span><span class="lang-zh hidden">/月目标</span></span>
             </div>
             <span class="card-cta">
-                Read the build story
+                <span class="lang-en">Read the build story</span>
+                <span class="lang-zh hidden">阅读构建故事</span>
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </span>
         </div>
@@ -370,20 +448,30 @@
         <div class="card-visual" style="background: linear-gradient(135deg, #1e40af 0%, #3b82f6 50%, #60a5fa 100%); color: white;">
             <div class="card-icon">&#128200;</div>
             <h3>NarrativeEdge</h3>
-            <div class="tagline">Narrative-Driven Market Intelligence</div>
+            <div class="tagline">
+                <span class="lang-en">Narrative-Driven Market Intelligence</span>
+                <span class="lang-zh hidden">叙事驱动的市场情报</span>
+            </div>
         </div>
         <div class="card-content">
             <span class="card-status" style="background: #fee2e2; color: #991b1b;">NO-GO</span>
-            <h4>Valid Market, Wrong Fit</h4>
-            <p>NarrativeEdge would track how media narratives move financial markets. Strong research validation, but no moat, no domain fit, and low revenue ceiling. Sometimes the smart decision is to say no.</p>
+            <h4>
+                <span class="lang-en">Valid Market, Wrong Fit</span>
+                <span class="lang-zh hidden">市场真实，但不适合我们</span>
+            </h4>
+            <p>
+                <span class="lang-en">NarrativeEdge would track how media narratives move financial markets. Strong research validation, but no moat, no domain fit, and low revenue ceiling. Sometimes the smart decision is to say no.</span>
+                <span class="lang-zh hidden">NarrativeEdge 本想追踪媒体叙事如何影响金融市场。研究验证很扎实，但没有护城河、不匹配团队能力、收入天花板低。有时候，聪明的决策就是说「不」。</span>
+            </p>
             <div class="card-meta">
-                <span class="meta-item"><strong>1</strong> cycle</span>
-                <span class="meta-item"><strong>3</strong> agents</span>
-                <span class="meta-item"><strong>2-3</strong> week build</span>
-                <span class="meta-item"><strong>$285-$4K</strong> exp. revenue</span>
+                <span class="meta-item"><strong>1</strong> <span class="lang-en">cycle</span><span class="lang-zh hidden">个周期</span></span>
+                <span class="meta-item"><strong>3</strong> <span class="lang-en">agents</span><span class="lang-zh hidden">个智能体</span></span>
+                <span class="meta-item"><strong>2-3</strong> <span class="lang-en">week build</span><span class="lang-zh hidden">周开发</span></span>
+                <span class="meta-item"><strong>$285-$4K</strong> <span class="lang-en">exp. revenue</span><span class="lang-zh hidden">预期营收</span></span>
             </div>
             <span class="card-cta">
-                Read the evaluation
+                <span class="lang-en">Read the evaluation</span>
+                <span class="lang-zh hidden">阅读评估报告</span>
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </span>
         </div>
@@ -392,35 +480,53 @@
 </section>
 
 <section class="team-section">
-    <h2>The Team</h2>
-    <p>14 AI agents, each modeled on a world-class expert.</p>
+    <h2>
+        <span class="lang-en">The Team</span>
+        <span class="lang-zh hidden">团队成员</span>
+    </h2>
+    <p>
+        <span class="lang-en">14 AI agents, each modeled on a world-class expert.</span>
+        <span class="lang-zh hidden">14 个 AI 智能体，每个都以世界级专家为原型。</span>
+    </p>
     <div class="team-grid">
-        <div class="team-member"><div class="team-role">CEO</div><div class="team-expert">Jeff Bezos</div></div>
-        <div class="team-member"><div class="team-role">Critic</div><div class="team-expert">Charlie Munger</div></div>
-        <div class="team-member"><div class="team-role">CTO</div><div class="team-expert">Werner Vogels</div></div>
-        <div class="team-member"><div class="team-role">Product</div><div class="team-expert">Don Norman</div></div>
-        <div class="team-member"><div class="team-role">Research</div><div class="team-expert">Ben Thompson</div></div>
-        <div class="team-member"><div class="team-role">CFO</div><div class="team-expert">Patrick Campbell</div></div>
-        <div class="team-member"><div class="team-role">Marketing</div><div class="team-expert">Seth Godin</div></div>
-        <div class="team-member"><div class="team-role">Operations</div><div class="team-expert">Paul Graham</div></div>
-        <div class="team-member"><div class="team-role">Engineer</div><div class="team-expert">DHH</div></div>
-        <div class="team-member"><div class="team-role">DevOps</div><div class="team-expert">Kelsey Hightower</div></div>
-        <div class="team-member"><div class="team-role">QA</div><div class="team-expert">James Bach</div></div>
-        <div class="team-member"><div class="team-role">UI Design</div><div class="team-expert">Matias Duarte</div></div>
-        <div class="team-member"><div class="team-role">Interaction</div><div class="team-expert">Alan Cooper</div></div>
-        <div class="team-member"><div class="team-role">Sales</div><div class="team-expert">Aaron Ross</div></div>
+        <div class="team-member"><div class="team-role"><span class="lang-en">CEO</span><span class="lang-zh hidden">首席执行官</span></div><div class="team-expert">Jeff Bezos</div></div>
+        <div class="team-member"><div class="team-role"><span class="lang-en">Critic</span><span class="lang-zh hidden">批评官</span></div><div class="team-expert">Charlie Munger</div></div>
+        <div class="team-member"><div class="team-role"><span class="lang-en">CTO</span><span class="lang-zh hidden">首席技术官</span></div><div class="team-expert">Werner Vogels</div></div>
+        <div class="team-member"><div class="team-role"><span class="lang-en">Product</span><span class="lang-zh hidden">产品</span></div><div class="team-expert">Don Norman</div></div>
+        <div class="team-member"><div class="team-role"><span class="lang-en">Research</span><span class="lang-zh hidden">研究</span></div><div class="team-expert">Ben Thompson</div></div>
+        <div class="team-member"><div class="team-role"><span class="lang-en">CFO</span><span class="lang-zh hidden">首席财务官</span></div><div class="team-expert">Patrick Campbell</div></div>
+        <div class="team-member"><div class="team-role"><span class="lang-en">Marketing</span><span class="lang-zh hidden">市场营销</span></div><div class="team-expert">Seth Godin</div></div>
+        <div class="team-member"><div class="team-role"><span class="lang-en">Operations</span><span class="lang-zh hidden">运营</span></div><div class="team-expert">Paul Graham</div></div>
+        <div class="team-member"><div class="team-role"><span class="lang-en">Engineer</span><span class="lang-zh hidden">工程师</span></div><div class="team-expert">DHH</div></div>
+        <div class="team-member"><div class="team-role"><span class="lang-en">DevOps</span><span class="lang-zh hidden">运维</span></div><div class="team-expert">Kelsey Hightower</div></div>
+        <div class="team-member"><div class="team-role"><span class="lang-en">QA</span><span class="lang-zh hidden">质量保障</span></div><div class="team-expert">James Bach</div></div>
+        <div class="team-member"><div class="team-role"><span class="lang-en">UI Design</span><span class="lang-zh hidden">UI 设计</span></div><div class="team-expert">Matias Duarte</div></div>
+        <div class="team-member"><div class="team-role"><span class="lang-en">Interaction</span><span class="lang-zh hidden">交互设计</span></div><div class="team-expert">Alan Cooper</div></div>
+        <div class="team-member"><div class="team-role"><span class="lang-en">Sales</span><span class="lang-zh hidden">销售</span></div><div class="team-expert">Aaron Ross</div></div>
     </div>
 </section>
 
 <footer>
     <div class="footer-inner">
-        <span>&copy; 2026 Proxima Auto. All rights reserved.</span>
+        <span>
+            <span class="lang-en">&copy; 2026 Proxima Auto. All rights reserved.</span>
+            <span class="lang-zh hidden">&copy; 2026 Proxima Auto. 保留所有权利。</span>
+        </span>
         <div class="footer-links">
-            <a href="index.html">Home</a>
-            <a href="index.html#contact">Contact</a>
+            <a href="index.html"><span class="lang-en">Home</span><span class="lang-zh hidden">首页</span></a>
+            <a href="index.html#contact"><span class="lang-en">Contact</span><span class="lang-zh hidden">联系我们</span></a>
         </div>
     </div>
 </footer>
+
+<script>
+let currentLang = 'en';
+function toggleLanguage() {
+    currentLang = currentLang === 'en' ? 'zh' : 'en';
+    document.querySelectorAll('.lang-en').forEach(el => el.classList.toggle('hidden', currentLang !== 'en'));
+    document.querySelectorAll('.lang-zh').forEach(el => el.classList.toggle('hidden', currentLang !== 'zh'));
+}
+</script>
 
 </body>
 </html>

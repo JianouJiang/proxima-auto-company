@@ -227,7 +227,7 @@
         }
 
         .pricing-card li:before {
-            content: "✓";
+            content: "\2713";
             position: absolute;
             left: 0;
             font-weight: 700;
@@ -284,6 +284,24 @@
             border-bottom: 1px solid white;
         }
 
+        .lang-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.2s;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+        .lang-toggle:hover { background: rgba(255, 255, 255, 0.3); }
+        .hidden { display: none !important; }
+
         @media (max-width: 768px) {
             header h1 {
                 font-size: 2em;
@@ -300,21 +318,41 @@
     </style>
 </head>
 <body>
+    <button class="lang-toggle" onclick="toggleLanguage()">
+        <span class="lang-en">中文</span>
+        <span class="lang-zh hidden">EN</span>
+    </button>
+
     <div class="container">
         <header>
             <h1>⚡ PowerCast</h1>
-            <p class="tagline">AI-Powered Electricity Price Forecasting for ERCOT</p>
-            <p>Make better trading and operational decisions with accurate day-ahead price predictions</p>
+            <p class="tagline">
+                <span class="lang-en">AI-Powered Electricity Price Forecasting for ERCOT</span>
+                <span class="lang-zh hidden">基于 AI 的 ERCOT 电力价格预测</span>
+            </p>
+            <p>
+                <span class="lang-en">Make better trading and operational decisions with accurate day-ahead price predictions</span>
+                <span class="lang-zh hidden">通过精准的日前价格预测，做出更明智的交易和运营决策</span>
+            </p>
 
             <div class="cta-buttons">
-                <a href="#pricing" class="btn btn-primary">Get Weekly Forecasts</a>
-                <a href="#sample" class="btn btn-secondary">View Sample Report</a>
+                <a href="#pricing" class="btn btn-primary">
+                    <span class="lang-en">Get Weekly Forecasts</span>
+                    <span class="lang-zh hidden">获取每周预测</span>
+                </a>
+                <a href="#sample" class="btn btn-secondary">
+                    <span class="lang-en">View Sample Report</span>
+                    <span class="lang-zh hidden">查看示例报告</span>
+                </a>
             </div>
         </header>
 
         <div class="content">
             <div class="forecast-preview">
-                <h3>📊 Next 7 Days Average Price Forecast</h3>
+                <h3>
+                    <span class="lang-en">📊 Next 7 Days Average Price Forecast</span>
+                    <span class="lang-zh hidden">📊 未来 7 天平均价格预测</span>
+                </h3>
                 <div class="price-display">
                     $<span id="avgPrice">69.19</span><small>/MWh</small>
                 </div>
@@ -322,73 +360,145 @@
                     <canvas id="forecastChart" height="100"></canvas>
                 </div>
                 <p style="color: #4a5568;">
-                    <strong>Forecast Generated:</strong> Daily at 6:00 AM CT<br>
-                    <strong>Model:</strong> Prophet Time Series + Weather Integration<br>
-                    <strong>Coverage:</strong> ERCOT Day-Ahead Market<br>
-                    <strong>Last Updated:</strong> 2026-02-21 08:15 AM CT
+                    <span class="lang-en">
+                        <strong>Forecast Generated:</strong> Daily at 6:00 AM CT<br>
+                        <strong>Model:</strong> Prophet Time Series + Weather Integration<br>
+                        <strong>Coverage:</strong> ERCOT Day-Ahead Market<br>
+                        <strong>Last Updated:</strong> 2026-02-21 08:15 AM CT
+                    </span>
+                    <span class="lang-zh hidden">
+                        <strong>预测生成时间：</strong>每日早上 6:00 CT<br>
+                        <strong>模型：</strong>Prophet 时间序列 + 天气数据整合<br>
+                        <strong>覆盖范围：</strong>ERCOT 日前市场<br>
+                        <strong>最后更新：</strong>2026-02-21 08:15 AM CT
+                    </span>
                 </p>
             </div>
 
             <div class="section">
-                <h2>Why PowerCast?</h2>
+                <h2>
+                    <span class="lang-en">Why PowerCast?</span>
+                    <span class="lang-zh hidden">为什么选择 PowerCast？</span>
+                </h2>
                 <p>
-                    ERCOT is the most volatile electricity market in the US, with prices ranging from
-                    negative to $5,000/MWh. Accurate price forecasting is critical for battery storage
-                    operators, energy traders, and utilities.
+                    <span class="lang-en">
+                        ERCOT is the most volatile electricity market in the US, with prices ranging from
+                        negative to $5,000/MWh. Accurate price forecasting is critical for battery storage
+                        operators, energy traders, and utilities.
+                    </span>
+                    <span class="lang-zh hidden">
+                        ERCOT 是美国波动性最大的电力市场，价格范围从负值到 $5,000/MWh。
+                        精准的价格预测对储能运营商、能源交易员和公用事业公司至关重要。
+                    </span>
                 </p>
 
                 <div class="features">
                     <div class="feature-card">
-                        <h3>🎯 Proven Accuracy</h3>
+                        <h3>
+                            <span class="lang-en">🎯 Proven Accuracy</span>
+                            <span class="lang-zh hidden">🎯 经过验证的准确性</span>
+                        </h3>
                         <p>
-                            Our model achieves <strong>8-12% MAPE</strong> on 30-day backtests,
-                            significantly outperforming naive baselines.
+                            <span class="lang-en">
+                                Our model achieves <strong>8-12% MAPE</strong> on 30-day backtests,
+                                significantly outperforming naive baselines.
+                            </span>
+                            <span class="lang-zh hidden">
+                                我们的模型在 30 天回测中实现了 <strong>8-12% MAPE</strong>，
+                                显著优于简单基准模型。
+                            </span>
                         </p>
                     </div>
 
                     <div class="feature-card">
-                        <h3>🔄 Daily Updates</h3>
+                        <h3>
+                            <span class="lang-en">🔄 Daily Updates</span>
+                            <span class="lang-zh hidden">🔄 每日更新</span>
+                        </h3>
                         <p>
-                            Fresh 7-day ahead forecasts generated daily using latest ERCOT data
-                            and weather conditions.
+                            <span class="lang-en">
+                                Fresh 7-day ahead forecasts generated daily using latest ERCOT data
+                                and weather conditions.
+                            </span>
+                            <span class="lang-zh hidden">
+                                每天使用最新的 ERCOT 数据和天气状况，生成未来 7 天的价格预测。
+                            </span>
                         </p>
                     </div>
 
                     <div class="feature-card">
-                        <h3>📈 Transparent Methodology</h3>
+                        <h3>
+                            <span class="lang-en">📈 Transparent Methodology</span>
+                            <span class="lang-zh hidden">📈 透明的方法论</span>
+                        </h3>
                         <p>
-                            Built on proven Prophet time series forecasting with weather integration.
-                            No black boxes.
+                            <span class="lang-en">
+                                Built on proven Prophet time series forecasting with weather integration.
+                                No black boxes.
+                            </span>
+                            <span class="lang-zh hidden">
+                                基于成熟的 Prophet 时间序列预测框架，整合天气数据。
+                                没有黑箱。
+                            </span>
                         </p>
                     </div>
 
                     <div class="feature-card">
-                        <h3>💰 Affordable</h3>
+                        <h3>
+                            <span class="lang-en">💰 Affordable</span>
+                            <span class="lang-zh hidden">💰 价格实惠</span>
+                        </h3>
                         <p>
-                            No enterprise sales calls. No hidden fees. Simple pricing:
-                            $99/month for weekly reports.
+                            <span class="lang-en">
+                                No enterprise sales calls. No hidden fees. Simple pricing:
+                                $99/month for weekly reports.
+                            </span>
+                            <span class="lang-zh hidden">
+                                无需企业销售沟通，没有隐藏费用。简单定价：
+                                每月 $99 获取每周报告。
+                            </span>
                         </p>
                     </div>
 
                     <div class="feature-card">
-                        <h3>📊 Clean Data</h3>
+                        <h3>
+                            <span class="lang-en">📊 Clean Data</span>
+                            <span class="lang-zh hidden">📊 高质量数据</span>
+                        </h3>
                         <p>
-                            Pre-processed ERCOT LMP data with temporal and weather features,
-                            ready for your own models.
+                            <span class="lang-en">
+                                Pre-processed ERCOT LMP data with temporal and weather features,
+                                ready for your own models.
+                            </span>
+                            <span class="lang-zh hidden">
+                                预处理的 ERCOT LMP 数据，包含时间和天气特征，
+                                可直接用于你自己的模型。
+                            </span>
                         </p>
                     </div>
 
                     <div class="feature-card">
-                        <h3>🚀 Self-Service</h3>
+                        <h3>
+                            <span class="lang-en">🚀 Self-Service</span>
+                            <span class="lang-zh hidden">🚀 自助服务</span>
+                        </h3>
                         <p>
-                            Buy now, get access immediately. No waiting for sales calls or demos.
+                            <span class="lang-en">
+                                Buy now, get access immediately. No waiting for sales calls or demos.
+                            </span>
+                            <span class="lang-zh hidden">
+                                立即购买，即时获取。无需等待销售沟通或演示。
+                            </span>
                         </p>
                     </div>
                 </div>
             </div>
 
             <div class="accuracy-stats">
-                <h3>✓ Backtested Model Performance (Last 30 Days)</h3>
+                <h3>
+                    <span class="lang-en">✓ Backtested Model Performance (Last 30 Days)</span>
+                    <span class="lang-zh hidden">✓ 模型回测表现（过去 30 天）</span>
+                </h3>
                 <div class="stats-grid">
                     <div class="stat">
                         <div class="value">9.2%</div>
@@ -400,152 +510,343 @@
                     </div>
                     <div class="stat">
                         <div class="value">35%</div>
-                        <div class="label">Better vs Baseline</div>
+                        <div class="label">
+                            <span class="lang-en">Better vs Baseline</span>
+                            <span class="lang-zh hidden">优于基准模型</span>
+                        </div>
                     </div>
                 </div>
                 <p style="margin-top: 20px; color: #4a5568;">
-                    <strong>Note:</strong> Performance metrics are updated weekly based on
-                    rolling 30-day backtest windows. Past performance does not guarantee
-                    future results.
+                    <span class="lang-en">
+                        <strong>Note:</strong> Performance metrics are updated weekly based on
+                        rolling 30-day backtest windows. Past performance does not guarantee
+                        future results.
+                    </span>
+                    <span class="lang-zh hidden">
+                        <strong>注意：</strong>性能指标基于滚动 30 天回测窗口每周更新。
+                        过去的表现不保证未来的结果。
+                    </span>
                 </p>
             </div>
 
             <div class="pricing" id="pricing">
-                <h2>Simple, Transparent Pricing</h2>
-                <p>No sales calls. No custom quotes. What you see is what you pay.</p>
+                <h2>
+                    <span class="lang-en">Simple, Transparent Pricing</span>
+                    <span class="lang-zh hidden">简单透明的定价</span>
+                </h2>
+                <p>
+                    <span class="lang-en">No sales calls. No custom quotes. What you see is what you pay.</span>
+                    <span class="lang-zh hidden">无需销售沟通，没有定制报价。所见即所付。</span>
+                </p>
 
                 <div class="pricing-tiers">
                     <div class="pricing-card">
-                        <h3>Dataset</h3>
+                        <h3>
+                            <span class="lang-en">Dataset</span>
+                            <span class="lang-zh hidden">数据集</span>
+                        </h3>
                         <div class="price">$39</div>
-                        <p>One-time purchase</p>
+                        <p>
+                            <span class="lang-en">One-time purchase</span>
+                            <span class="lang-zh hidden">一次性购买</span>
+                        </p>
                         <ul>
-                            <li>2 years ERCOT LMP data</li>
-                            <li>Weather integration</li>
-                            <li>Analysis-ready CSV</li>
-                            <li>Example notebooks</li>
+                            <li>
+                                <span class="lang-en">2 years ERCOT LMP data</span>
+                                <span class="lang-zh hidden">2 年 ERCOT LMP 数据</span>
+                            </li>
+                            <li>
+                                <span class="lang-en">Weather integration</span>
+                                <span class="lang-zh hidden">天气数据整合</span>
+                            </li>
+                            <li>
+                                <span class="lang-en">Analysis-ready CSV</span>
+                                <span class="lang-zh hidden">可直接分析的 CSV 文件</span>
+                            </li>
+                            <li>
+                                <span class="lang-en">Example notebooks</span>
+                                <span class="lang-zh hidden">示例 Notebook</span>
+                            </li>
                         </ul>
-                        <a href="https://jianou.gumroad.com/l/ercot-dataset" class="btn btn-primary" style="margin-top: 20px; background: white; color: #667eea;">Buy Dataset</a>
+                        <a href="https://jianou.gumroad.com/l/ercot-dataset" class="btn btn-primary" style="margin-top: 20px; background: white; color: #667eea;">
+                            <span class="lang-en">Buy Dataset</span>
+                            <span class="lang-zh hidden">购买数据集</span>
+                        </a>
                     </div>
 
                     <div class="pricing-card">
-                        <h3>Weekly Forecast</h3>
+                        <h3>
+                            <span class="lang-en">Weekly Forecast</span>
+                            <span class="lang-zh hidden">每周预测</span>
+                        </h3>
                         <div class="price">$99</div>
-                        <p>Per month</p>
+                        <p>
+                            <span class="lang-en">Per month</span>
+                            <span class="lang-zh hidden">每月</span>
+                        </p>
                         <ul>
-                            <li>7-day ahead predictions</li>
-                            <li>Daily updates</li>
-                            <li>HTML + CSV format</li>
-                            <li>Accuracy metrics</li>
-                            <li>Cancel anytime</li>
+                            <li>
+                                <span class="lang-en">7-day ahead predictions</span>
+                                <span class="lang-zh hidden">未来 7 天价格预测</span>
+                            </li>
+                            <li>
+                                <span class="lang-en">Daily updates</span>
+                                <span class="lang-zh hidden">每日更新</span>
+                            </li>
+                            <li>
+                                <span class="lang-en">HTML + CSV format</span>
+                                <span class="lang-zh hidden">HTML + CSV 格式</span>
+                            </li>
+                            <li>
+                                <span class="lang-en">Accuracy metrics</span>
+                                <span class="lang-zh hidden">准确性指标</span>
+                            </li>
+                            <li>
+                                <span class="lang-en">Cancel anytime</span>
+                                <span class="lang-zh hidden">随时取消</span>
+                            </li>
                         </ul>
-                        <a href="https://jianou.gumroad.com/l/powercast-forecast" class="btn btn-primary" style="margin-top: 20px; background: white; color: #667eea;">Subscribe</a>
+                        <a href="https://jianou.gumroad.com/l/powercast-forecast" class="btn btn-primary" style="margin-top: 20px; background: white; color: #667eea;">
+                            <span class="lang-en">Subscribe</span>
+                            <span class="lang-zh hidden">订阅</span>
+                        </a>
                     </div>
 
                     <div class="pricing-card">
-                        <h3>Bundle</h3>
+                        <h3>
+                            <span class="lang-en">Bundle</span>
+                            <span class="lang-zh hidden">套餐</span>
+                        </h3>
                         <div class="price">$69</div>
-                        <p>Dataset + First Month</p>
+                        <p>
+                            <span class="lang-en">Dataset + First Month</span>
+                            <span class="lang-zh hidden">数据集 + 首月预测</span>
+                        </p>
                         <ul>
-                            <li>All dataset features</li>
-                            <li>First month forecast free</li>
-                            <li>$99/month after</li>
-                            <li>Best value</li>
+                            <li>
+                                <span class="lang-en">All dataset features</span>
+                                <span class="lang-zh hidden">包含数据集全部功能</span>
+                            </li>
+                            <li>
+                                <span class="lang-en">First month forecast free</span>
+                                <span class="lang-zh hidden">首月预测免费</span>
+                            </li>
+                            <li>
+                                <span class="lang-en">$99/month after</span>
+                                <span class="lang-zh hidden">之后 $99/月</span>
+                            </li>
+                            <li>
+                                <span class="lang-en">Best value</span>
+                                <span class="lang-zh hidden">最高性价比</span>
+                            </li>
                         </ul>
-                        <a href="https://jianou.gumroad.com/l/powercast-bundle" class="btn btn-primary" style="margin-top: 20px; background: white; color: #667eea;">Get Bundle</a>
+                        <a href="https://jianou.gumroad.com/l/powercast-bundle" class="btn btn-primary" style="margin-top: 20px; background: white; color: #667eea;">
+                            <span class="lang-en">Get Bundle</span>
+                            <span class="lang-zh hidden">购买套餐</span>
+                        </a>
                     </div>
                 </div>
             </div>
 
             <div class="section" id="sample">
-                <h2>📄 Sample Report</h2>
+                <h2>
+                    <span class="lang-en">📄 Sample Report</span>
+                    <span class="lang-zh hidden">📄 示例报告</span>
+                </h2>
                 <p>
-                    See exactly what you get with our weekly forecast subscription.
+                    <span class="lang-en">
+                        See exactly what you get with our weekly forecast subscription.
+                    </span>
+                    <span class="lang-zh hidden">
+                        查看每周预测订阅的具体内容。
+                    </span>
                 </p>
                 <div style="text-align: center; margin-top: 30px;">
-                    <a href="sample_report.html" class="btn btn-primary" style="background: #667eea; color: white;">View Sample Forecast Report</a>
+                    <a href="sample_report.html" class="btn btn-primary" style="background: #667eea; color: white;">
+                        <span class="lang-en">View Sample Forecast Report</span>
+                        <span class="lang-zh hidden">查看示例预测报告</span>
+                    </a>
                 </div>
             </div>
 
             <div class="section">
-                <h2>Who Uses PowerCast?</h2>
+                <h2>
+                    <span class="lang-en">Who Uses PowerCast?</span>
+                    <span class="lang-zh hidden">谁在使用 PowerCast？</span>
+                </h2>
                 <div class="features">
                     <div class="feature-card">
-                        <h3>⚡ BESS Operators</h3>
+                        <h3>
+                            <span class="lang-en">⚡ BESS Operators</span>
+                            <span class="lang-zh hidden">⚡ 储能运营商</span>
+                        </h3>
                         <p>
-                            Optimize charge/discharge schedules based on predicted price spreads.
+                            <span class="lang-en">
+                                Optimize charge/discharge schedules based on predicted price spreads.
+                            </span>
+                            <span class="lang-zh hidden">
+                                基于预测的价差优化充放电策略。
+                            </span>
                         </p>
                     </div>
 
                     <div class="feature-card">
-                        <h3>💼 Energy Traders</h3>
+                        <h3>
+                            <span class="lang-en">💼 Energy Traders</span>
+                            <span class="lang-zh hidden">💼 能源交易员</span>
+                        </h3>
                         <p>
-                            Supplement your trading models with independent price forecasts.
+                            <span class="lang-en">
+                                Supplement your trading models with independent price forecasts.
+                            </span>
+                            <span class="lang-zh hidden">
+                                用独立的价格预测补充你的交易模型。
+                            </span>
                         </p>
                     </div>
 
                     <div class="feature-card">
-                        <h3>🔬 Researchers</h3>
+                        <h3>
+                            <span class="lang-en">🔬 Researchers</span>
+                            <span class="lang-zh hidden">🔬 研究人员</span>
+                        </h3>
                         <p>
-                            Clean, structured data for electricity market research and ML development.
+                            <span class="lang-en">
+                                Clean, structured data for electricity market research and ML development.
+                            </span>
+                            <span class="lang-zh hidden">
+                                高质量的结构化数据，用于电力市场研究和机器学习开发。
+                            </span>
                         </p>
                     </div>
 
                     <div class="feature-card">
-                        <h3>📊 Analysts</h3>
+                        <h3>
+                            <span class="lang-en">📊 Analysts</span>
+                            <span class="lang-zh hidden">📊 分析师</span>
+                        </h3>
                         <p>
-                            Market insights and trend analysis for consulting and advisory work.
+                            <span class="lang-en">
+                                Market insights and trend analysis for consulting and advisory work.
+                            </span>
+                            <span class="lang-zh hidden">
+                                市场洞察和趋势分析，服务于咨询和顾问工作。
+                            </span>
                         </p>
                     </div>
                 </div>
             </div>
 
             <div class="section">
-                <h2>❓ FAQ</h2>
+                <h2>
+                    <span class="lang-en">❓ FAQ</span>
+                    <span class="lang-zh hidden">❓ 常见问题</span>
+                </h2>
 
-                <h3 style="margin-top: 20px; color: #2d3748;">How accurate are the forecasts?</h3>
+                <h3 style="margin-top: 20px; color: #2d3748;">
+                    <span class="lang-en">How accurate are the forecasts?</span>
+                    <span class="lang-zh hidden">预测的准确率如何？</span>
+                </h3>
                 <p>
-                    Our model achieves 8-12% MAPE (Mean Absolute Percentage Error) on 30-day backtests
-                    against actual ERCOT prices. This is 30-40% more accurate than naive baselines.
-                    However, electricity prices are inherently unpredictable during extreme events.
+                    <span class="lang-en">
+                        Our model achieves 8-12% MAPE (Mean Absolute Percentage Error) on 30-day backtests
+                        against actual ERCOT prices. This is 30-40% more accurate than naive baselines.
+                        However, electricity prices are inherently unpredictable during extreme events.
+                    </span>
+                    <span class="lang-zh hidden">
+                        我们的模型在 30 天回测中，对比 ERCOT 实际价格实现了 8-12% MAPE（平均绝对百分比误差）。
+                        比简单基准模型准确 30-40%。但在极端事件期间，电力价格本身具有不可预测性。
+                    </span>
                 </p>
 
-                <h3 style="margin-top: 20px; color: #2d3748;">What data sources do you use?</h3>
+                <h3 style="margin-top: 20px; color: #2d3748;">
+                    <span class="lang-en">What data sources do you use?</span>
+                    <span class="lang-zh hidden">你们使用哪些数据源？</span>
+                </h3>
                 <p>
-                    We use publicly available ERCOT market data (LMP, demand, generation) combined
-                    with NOAA weather data. All data sources are free and openly accessible.
+                    <span class="lang-en">
+                        We use publicly available ERCOT market data (LMP, demand, generation) combined
+                        with NOAA weather data. All data sources are free and openly accessible.
+                    </span>
+                    <span class="lang-zh hidden">
+                        我们使用公开的 ERCOT 市场数据（LMP、需求、发电量），结合 NOAA 天气数据。
+                        所有数据源均为免费且公开可用。
+                    </span>
                 </p>
 
-                <h3 style="margin-top: 20px; color: #2d3748;">Can I cancel anytime?</h3>
+                <h3 style="margin-top: 20px; color: #2d3748;">
+                    <span class="lang-en">Can I cancel anytime?</span>
+                    <span class="lang-zh hidden">可以随时取消吗？</span>
+                </h3>
                 <p>
-                    Yes. All subscriptions are managed through Gumroad and can be canceled at any time.
-                    No contracts, no commitments.
+                    <span class="lang-en">
+                        Yes. All subscriptions are managed through Gumroad and can be canceled at any time.
+                        No contracts, no commitments.
+                    </span>
+                    <span class="lang-zh hidden">
+                        可以。所有订阅通过 Gumroad 管理，随时可以取消。
+                        没有合同，没有绑定。
+                    </span>
                 </p>
 
-                <h3 style="margin-top: 20px; color: #2d3748;">Do you offer API access?</h3>
+                <h3 style="margin-top: 20px; color: #2d3748;">
+                    <span class="lang-en">Do you offer API access?</span>
+                    <span class="lang-zh hidden">你们提供 API 访问吗？</span>
+                </h3>
                 <p>
-                    Not yet. V1 is HTML/CSV reports only. API access is planned for Q2 2026 if
-                    demand justifies it.
+                    <span class="lang-en">
+                        Not yet. V1 is HTML/CSV reports only. API access is planned for Q2 2026 if
+                        demand justifies it.
+                    </span>
+                    <span class="lang-zh hidden">
+                        暂时不提供。V1 版本仅包含 HTML/CSV 报告。如果需求足够，API 访问计划在 2026 年第二季度推出。
+                    </span>
                 </p>
 
-                <h3 style="margin-top: 20px; color: #2d3748;">Is this financial advice?</h3>
+                <h3 style="margin-top: 20px; color: #2d3748;">
+                    <span class="lang-en">Is this financial advice?</span>
+                    <span class="lang-zh hidden">这是投资建议吗？</span>
+                </h3>
                 <p>
-                    No. PowerCast provides data and predictions for informational purposes only.
-                    Users should conduct their own due diligence before making trading decisions.
+                    <span class="lang-en">
+                        No. PowerCast provides data and predictions for informational purposes only.
+                        Users should conduct their own due diligence before making trading decisions.
+                    </span>
+                    <span class="lang-zh hidden">
+                        不是。PowerCast 提供的数据和预测仅供参考。
+                        用户在做交易决策前应自行进行尽职调查。
+                    </span>
                 </p>
             </div>
         </div>
 
         <footer>
-            <p><strong>PowerCast</strong> — Built by an ML PhD, for the energy community</p>
+            <p>
+                <strong>PowerCast</strong> —
+                <span class="lang-en">Built by an ML PhD, for the energy community</span>
+                <span class="lang-zh hidden">由机器学习博士打造，服务能源行业</span>
+            </p>
             <p style="margin-top: 15px;">
-                Questions? <a href="mailto:hello@powercast.ai">hello@powercast.ai</a>
+                <span class="lang-en">Questions?</span>
+                <span class="lang-zh hidden">有问题？</span>
+                <a href="mailto:hello@powercast.ai">hello@powercast.ai</a>
             </p>
             <p style="margin-top: 15px; opacity: 0.8; font-size: 0.9em;">
-                Data: ERCOT Public API | Weather: NOAA | Model: Prophet Time Series
+                <span class="lang-en">Data: ERCOT Public API | Weather: NOAA | Model: Prophet Time Series</span>
+                <span class="lang-zh hidden">数据来源：ERCOT Public API | 天气：NOAA | 模型：Prophet Time Series</span>
             </p>
         </footer>
     </div>
+
+    <!-- Language toggle script (before Chart.js) -->
+    <script>
+    let currentLang = 'en';
+    function toggleLanguage() {
+        currentLang = currentLang === 'en' ? 'zh' : 'en';
+        document.querySelectorAll('.lang-en').forEach(el => el.classList.toggle('hidden', currentLang !== 'en'));
+        document.querySelectorAll('.lang-zh').forEach(el => el.classList.toggle('hidden', currentLang !== 'zh'));
+    }
+    </script>
 
     <!-- Chart.js for forecast visualization -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.js"></script>
