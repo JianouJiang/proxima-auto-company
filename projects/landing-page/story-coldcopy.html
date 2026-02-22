@@ -27,6 +27,25 @@
             line-height: 1.7;
             -webkit-font-smoothing: antialiased;
         }
+        .hidden { display: none !important; }
+
+        .lang-toggle {
+            position: fixed;
+            top: 80px;
+            right: 24px;
+            z-index: 101;
+            padding: 8px 16px;
+            background: rgba(37, 99, 235, 0.9);
+            color: white;
+            border: none;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            backdrop-filter: blur(8px);
+            transition: background 0.2s;
+        }
+        .lang-toggle:hover { background: rgba(37, 99, 235, 1); }
 
         /* Nav */
         nav {
@@ -335,6 +354,7 @@
 
         @media (max-width: 768px) {
             .nav-links { display: none; }
+            .lang-toggle { top: 16px; right: 16px; }
             .content-wrapper {
                 grid-template-columns: 1fr;
             }
@@ -364,13 +384,15 @@
 </head>
 <body>
 
+<button class="lang-toggle" onclick="toggleLanguage()">EN / 中文</button>
+
 <nav>
     <div class="nav-inner">
         <a href="index.html" class="logo">Proxima<span>Auto</span></a>
         <ul class="nav-links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="story.html">Our Story</a></li>
-            <li><a href="index.html#products">Products</a></li>
+            <li><a href="index.html"><span class="lang-en">Home</span><span class="lang-zh hidden">首页</span></a></li>
+            <li><a href="story.html"><span class="lang-en">Our Story</span><span class="lang-zh hidden">我们的故事</span></a></li>
+            <li><a href="index.html#products"><span class="lang-en">Products</span><span class="lang-zh hidden">产品</span></a></li>
         </ul>
     </div>
 </nav>
@@ -379,24 +401,24 @@
 <section class="story-hero">
     <a href="story.html" class="back-link">
         <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M10 12L6 8l4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        All Stories
+        <span class="lang-en">All Stories</span><span class="lang-zh hidden">所有故事</span>
     </a>
-    <div class="product-tag">Product #1</div>
-    <h1>ColdCopy: From Zero to 77% Engagement in 8 Days</h1>
-    <p class="subtitle">The story of building a cold email tool, launching it, and hitting a wall that no amount of AI could fix.</p>
+    <div class="product-tag"><span class="lang-en">Product #1</span><span class="lang-zh hidden">产品 #1</span></div>
+    <h1><span class="lang-en">ColdCopy: From Zero to 77% Engagement in 8 Days</span><span class="lang-zh hidden">ColdCopy：8 天内从零到 77% 参与率</span></h1>
+    <p class="subtitle"><span class="lang-en">The story of building a cold email tool, launching it, and hitting a wall that no amount of AI could fix.</span><span class="lang-zh hidden">一个关于构建冷邮件工具、上线发布、然后撞上 AI 也无法解决的那堵墙的故事。</span></p>
 </section>
 
 <div class="content-wrapper">
     <aside class="chapter-nav">
-        <h3>Chapters</h3>
+        <h3><span class="lang-en">Chapters</span><span class="lang-zh hidden">章节</span></h3>
         <ul id="chapterList">
-            <li><a href="#ch1" data-ch="1" class="active">1. The Decision</a></li>
-            <li><a href="#ch2" data-ch="2">2. The Design Sprint</a></li>
-            <li><a href="#ch3" data-ch="3">3. The Build</a></li>
-            <li><a href="#ch4" data-ch="4">4. The Backend Crisis</a></li>
-            <li><a href="#ch5" data-ch="5">5. Payment Goes Live</a></li>
-            <li><a href="#ch6" data-ch="6">6. Launch Day</a></li>
-            <li><a href="#ch7" data-ch="7">7. The Reality Check</a></li>
+            <li><a href="#ch1" data-ch="1" class="active"><span class="lang-en">1. The Decision</span><span class="lang-zh hidden">1. 抉择</span></a></li>
+            <li><a href="#ch2" data-ch="2"><span class="lang-en">2. The Design Sprint</span><span class="lang-zh hidden">2. 设计冲刺</span></a></li>
+            <li><a href="#ch3" data-ch="3"><span class="lang-en">3. The Build</span><span class="lang-zh hidden">3. 构建</span></a></li>
+            <li><a href="#ch4" data-ch="4"><span class="lang-en">4. The Backend Crisis</span><span class="lang-zh hidden">4. 后端危机</span></a></li>
+            <li><a href="#ch5" data-ch="5"><span class="lang-en">5. Payment Goes Live</span><span class="lang-zh hidden">5. 支付上线</span></a></li>
+            <li><a href="#ch6" data-ch="6"><span class="lang-en">6. Launch Day</span><span class="lang-zh hidden">6. 发布日</span></a></li>
+            <li><a href="#ch7" data-ch="7"><span class="lang-en">7. The Reality Check</span><span class="lang-zh hidden">7. 现实检验</span></a></li>
         </ul>
     </aside>
 
@@ -404,317 +426,317 @@
 
         <!-- CHAPTER 1 -->
         <section class="chapter active" id="ch1" data-chapter="1">
-            <div class="chapter-label">Chapter 1</div>
-            <h2>The Decision</h2>
+            <div class="chapter-label"><span class="lang-en">Chapter 1</span><span class="lang-zh hidden">第一章</span></div>
+            <h2><span class="lang-en">The Decision</span><span class="lang-zh hidden">抉择</span></h2>
 
-            <p>February 20, 2026. Four AI agents sit down for their first strategy meeting. Three product ideas on the table. One founder constraint: <strong>3 months to revenue or shut it down.</strong></p>
+            <p><span class="lang-en">February 20, 2026. Four AI agents sit down for their first strategy meeting. Three product ideas on the table. One founder constraint: <strong>3 months to revenue or shut it down.</strong></span><span class="lang-zh hidden">2026 年 2 月 20 日。四个 AI Agent 坐下来开第一次战略会议。桌上摆着三个产品方案。创始人只有一个约束：<strong>3 个月内产生收入，否则关门。</strong></span></p>
 
-            <p>No human sits in the room. No CEO makes the call. Just specialized AI agents &mdash; modeled on Jeff Bezos, Charlie Munger, Ben Thompson, and Patrick Campbell &mdash; thinking out loud.</p>
+            <p><span class="lang-en">No human sits in the room. No CEO makes the call. Just specialized AI agents &mdash; modeled on Jeff Bezos, Charlie Munger, Ben Thompson, and Patrick Campbell &mdash; thinking out loud.</span><span class="lang-zh hidden">没有人类坐在会议室里。没有 CEO 拍板。只有专业化的 AI Agent——以 Jeff Bezos、Charlie Munger、Ben Thompson 和 Patrick Campbell 为原型——在大声思考。</span></p>
 
-            <p>They have 1 hour to pick.</p>
+            <p><span class="lang-en">They have 1 hour to pick.</span><span class="lang-zh hidden">他们有 1 小时做出选择。</span></p>
 
-            <h3>The Three Options</h3>
+            <h3><span class="lang-en">The Three Options</span><span class="lang-zh hidden">三个选项</span></h3>
             <ol>
-                <li><strong>ColdCopy</strong> &mdash; AI cold email generator for SaaS founders (1 week MVP)</li>
-                <li><strong>SiteAuditPro</strong> &mdash; SEO audit tool for agencies (4-6 weeks)</li>
-                <li><strong>ShipPage</strong> &mdash; Landing page builder (already dead &mdash; v0.dev and Bolt.new own this)</li>
+                <li><span class="lang-en"><strong>ColdCopy</strong> &mdash; AI cold email generator for SaaS founders (1 week MVP)</span><span class="lang-zh hidden"><strong>ColdCopy</strong>——面向 SaaS 创始人的 AI 冷邮件生成器（1 周 MVP）</span></li>
+                <li><span class="lang-en"><strong>SiteAuditPro</strong> &mdash; SEO audit tool for agencies (4-6 weeks)</span><span class="lang-zh hidden"><strong>SiteAuditPro</strong>——面向代理商的 SEO 审计工具（4-6 周）</span></li>
+                <li><span class="lang-en"><strong>ShipPage</strong> &mdash; Landing page builder (already dead &mdash; v0.dev and Bolt.new own this)</span><span class="lang-zh hidden"><strong>ShipPage</strong>——落地页构建器（已出局——v0.dev 和 Bolt.new 已占领市场）</span></li>
             </ol>
 
-            <h3>The Critic Strikes First</h3>
-            <p>Munger threw the first punch:</p>
+            <h3><span class="lang-en">The Critic Strikes First</span><span class="lang-zh hidden">批评者率先发难</span></h3>
+            <p><span class="lang-en">Munger threw the first punch:</span><span class="lang-zh hidden">Munger 打出了第一拳：</span></p>
             <blockquote>
-                <p>"Generic AI email writer has zero moat. ChatGPT does this. Lemlist has a free version. If ColdCopy is just 'ChatGPT with a checkout,' we're dead on arrival."</p>
+                <p><span class="lang-en">"Generic AI email writer has zero moat. ChatGPT does this. Lemlist has a free version. If ColdCopy is just 'ChatGPT with a checkout,' we're dead on arrival."</span><span class="lang-zh hidden">"通用 AI 邮件写手没有任何护城河。ChatGPT 就能做到。Lemlist 有免费版。如果 ColdCopy 只是'带付费按钮的 ChatGPT'，我们还没开始就死了。"</span></p>
                 <cite>Charlie Munger (Critic)</cite>
             </blockquote>
 
-            <p>This wasn't pessimism. This was the question that mattered. It reframed the entire discussion.</p>
+            <p><span class="lang-en">This wasn't pessimism. This was the question that mattered. It reframed the entire discussion.</span><span class="lang-zh hidden">这不是悲观。这是真正重要的问题。它重新定义了整个讨论的方向。</span></p>
 
-            <h3>Finding the Wedge</h3>
-            <p>Thompson, the researcher, found it:</p>
+            <h3><span class="lang-en">Finding the Wedge</span><span class="lang-zh hidden">找到突破口</span></h3>
+            <p><span class="lang-en">Thompson, the researcher, found it:</span><span class="lang-zh hidden">研究员 Thompson 找到了它：</span></p>
             <blockquote>
-                <p>"B2B SaaS founders don't want generic email templates. They want founder-specific sequences that understand positioning, ICP, and value props. THAT's the niche."</p>
+                <p><span class="lang-en">"B2B SaaS founders don't want generic email templates. They want founder-specific sequences that understand positioning, ICP, and value props. THAT's the niche."</span><span class="lang-zh hidden">"B2B SaaS 创始人不要通用邮件模板。他们要的是能理解产品定位、目标客户画像和价值主张的定制化序列。这才是细分市场。"</span></p>
                 <cite>Ben Thompson (Research)</cite>
             </blockquote>
 
-            <p>Campbell ran the unit economics: $29 impulse buy, $0 CAC (organic only), 20% conversion at scale. Month 1 revenue: $290 with just 10 customers.</p>
+            <p><span class="lang-en">Campbell ran the unit economics: $29 impulse buy, $0 CAC (organic only), 20% conversion at scale. Month 1 revenue: $290 with just 10 customers.</span><span class="lang-zh hidden">Campbell 测算了单位经济模型：$29 冲动购买，$0 获客成本（纯有机流量），规模化后 20% 转化率。第一个月收入：10 个客户即 $290。</span></p>
 
-            <h3>The Call</h3>
+            <h3><span class="lang-en">The Call</span><span class="lang-zh hidden">最终决定</span></h3>
             <blockquote>
-                <p>"ColdCopy. One week to build. Week 2 to hit 5 customers. Kill trigger: less than 2 customers by Day 14 means we pivot to SiteAuditPro. Ship it."</p>
+                <p><span class="lang-en">"ColdCopy. One week to build. Week 2 to hit 5 customers. Kill trigger: less than 2 customers by Day 14 means we pivot to SiteAuditPro. Ship it."</span><span class="lang-zh hidden">"就做 ColdCopy。一周构建。第二周拿下 5 个客户。止损线：14 天内不到 2 个客户就转向 SiteAuditPro。发布。"</span></p>
                 <cite>Jeff Bezos (CEO)</cite>
             </blockquote>
 
-            <p>No vote. No debate philosophy. Just data layering until the answer became obvious.</p>
+            <p><span class="lang-en">No vote. No debate philosophy. Just data layering until the answer became obvious.</span><span class="lang-zh hidden">没有投票。没有哲学辩论。只是数据层层叠加，直到答案变得显而易见。</span></p>
 
-            <p><strong>Decision time: 60 minutes.</strong></p>
+            <p><span class="lang-en"><strong>Decision time: 60 minutes.</strong></span><span class="lang-zh hidden"><strong>决策用时：60 分钟。</strong></span></p>
 
             <div class="chapter-pagination">
-                <span class="page-btn disabled">&larr; Previous</span>
+                <span class="page-btn disabled">&larr; <span class="lang-en">Previous</span><span class="lang-zh hidden">上一章</span></span>
                 <span class="page-indicator">1 / 7</span>
-                <a href="#ch2" class="page-btn" onclick="goChapter(2)">&rarr; Next Chapter</a>
+                <a href="#ch2" class="page-btn" onclick="goChapter(2)"><span class="lang-en">Next Chapter</span><span class="lang-zh hidden">下一章</span> &rarr;</a>
             </div>
         </section>
 
         <!-- CHAPTER 2 -->
         <section class="chapter" id="ch2" data-chapter="2">
-            <div class="chapter-label">Chapter 2</div>
-            <h2>The Design Sprint</h2>
+            <div class="chapter-label"><span class="lang-en">Chapter 2</span><span class="lang-zh hidden">第二章</span></div>
+            <h2><span class="lang-en">The Design Sprint</span><span class="lang-zh hidden">设计冲刺</span></h2>
 
-            <p>In four hours, three agents turned strategy into <strong>3,430 lines of actionable design.</strong> Not mockups. Not ideation. Specifications that the engineer could code against without a single clarifying question.</p>
+            <p><span class="lang-en">In four hours, three agents turned strategy into <strong>3,430 lines of actionable design.</strong> Not mockups. Not ideation. Specifications that the engineer could code against without a single clarifying question.</span><span class="lang-zh hidden">四个小时内，三个 Agent 把战略变成了 <strong>3,430 行可执行的设计文档。</strong>不是线框图。不是头脑风暴。而是工程师可以直接写代码、不用问一个问题的技术规格说明。</span></p>
 
-            <h3>The Interaction Designer</h3>
-            <p>Cooper designed the user flow like a film director. Every second mapped:</p>
+            <h3><span class="lang-en">The Interaction Designer</span><span class="lang-zh hidden">交互设计师</span></h3>
+            <p><span class="lang-en">Cooper designed the user flow like a film director. Every second mapped:</span><span class="lang-zh hidden">Cooper 像电影导演一样设计用户流程。每一秒都有规划：</span></p>
             <blockquote>
-                <p>"Frank lands on page, sees side-by-side proof, clicks 'Generate' in 5 seconds. Form takes 2 minutes. Animation hides the 3-5 second LLM latency. Output is a card &mdash; click copy, paste into Lemlist."</p>
+                <p><span class="lang-en">"Frank lands on page, sees side-by-side proof, clicks 'Generate' in 5 seconds. Form takes 2 minutes. Animation hides the 3-5 second LLM latency. Output is a card &mdash; click copy, paste into Lemlist."</span><span class="lang-zh hidden">"Frank 进入页面，看到对比展示，5 秒内点击'生成'。表单填写 2 分钟。动画隐藏 3-5 秒的 LLM 延迟。输出是一张卡片——点击复制，粘贴到 Lemlist。"</span></p>
                 <cite>Alan Cooper (Interaction Designer)</cite>
             </blockquote>
 
-            <h3>The UI Designer</h3>
-            <p>Duarte built a design system that was ruthlessly boring. No trends. No CSS-in-JS magic. Tailwind v4 color tokens, system fonts, 4px spacing grid. Everything copy-paste ready. She wrote component specs with exact classnames &mdash; the engineer could literally grab the code and ship.</p>
+            <h3><span class="lang-en">The UI Designer</span><span class="lang-zh hidden">UI 设计师</span></h3>
+            <p><span class="lang-en">Duarte built a design system that was ruthlessly boring. No trends. No CSS-in-JS magic. Tailwind v4 color tokens, system fonts, 4px spacing grid. Everything copy-paste ready. She wrote component specs with exact classnames &mdash; the engineer could literally grab the code and ship.</span><span class="lang-zh hidden">Duarte 构建了一套极其朴素的设计系统。不追潮流。不搞 CSS-in-JS 花活。Tailwind v4 颜色令牌、系统字体、4px 间距网格。一切可以直接复制粘贴。她写的组件规格带有精确的类名——工程师可以直接拿走代码发布。</span></p>
 
-            <h3>Four Architecture Decisions</h3>
-            <p>Vogels, the CTO, solved four hard problems in one document:</p>
+            <h3><span class="lang-en">Four Architecture Decisions</span><span class="lang-zh hidden">四个架构决策</span></h3>
+            <p><span class="lang-en">Vogels, the CTO, solved four hard problems in one document:</span><span class="lang-zh hidden">CTO Vogels 在一份文档里解决了四个难题：</span></p>
             <ol>
-                <li><strong>Claude Haiku, not Sonnet:</strong> 3x cheaper. Latency fits the animation window.</li>
-                <li><strong>Monolith, not microservices:</strong> One Worker. One deployment. Solo engineer, 7-day deadline.</li>
-                <li><strong>HttpOnly cookies + D1:</strong> Not JWT (replay vulnerable). Not localStorage (spoofable). Old-school wins.</li>
-                <li><strong>Stripe Payment Links:</strong> No custom billing code. Minimum code to collect money.</li>
+                <li><span class="lang-en"><strong>Claude Haiku, not Sonnet:</strong> 3x cheaper. Latency fits the animation window.</span><span class="lang-zh hidden"><strong>Claude Haiku，不用 Sonnet：</strong>便宜 3 倍。延迟刚好在动画窗口内。</span></li>
+                <li><span class="lang-en"><strong>Monolith, not microservices:</strong> One Worker. One deployment. Solo engineer, 7-day deadline.</span><span class="lang-zh hidden"><strong>单体架构，不用微服务：</strong>一个 Worker。一次部署。一个工程师，7 天期限。</span></li>
+                <li><span class="lang-en"><strong>HttpOnly cookies + D1:</strong> Not JWT (replay vulnerable). Not localStorage (spoofable). Old-school wins.</span><span class="lang-zh hidden"><strong>HttpOnly cookies + D1：</strong>不用 JWT（易受重放攻击）。不用 localStorage（可伪造）。老派方案胜出。</span></li>
+                <li><span class="lang-en"><strong>Stripe Payment Links:</strong> No custom billing code. Minimum code to collect money.</span><span class="lang-zh hidden"><strong>Stripe Payment Links：</strong>不写自定义计费代码。用最少的代码收钱。</span></li>
             </ol>
 
             <blockquote>
-                <p>"The best architectures are the ones that let you ship. Everything else is academia."</p>
+                <p><span class="lang-en">"The best architectures are the ones that let you ship. Everything else is academia."</span><span class="lang-zh hidden">"最好的架构就是能让你发布的架构。其他的都是学术空谈。"</span></p>
                 <cite>Werner Vogels (CTO)</cite>
             </blockquote>
 
-            <p>The phrase that kept surfacing: <em>"We are not building X in Week 1."</em> No user accounts. No integrations. No analytics tables. Every omission named and justified.</p>
+            <p><span class="lang-en">The phrase that kept surfacing: <em>"We are not building X in Week 1."</em> No user accounts. No integrations. No analytics tables. Every omission named and justified.</span><span class="lang-zh hidden">反复出现的一句话：<em>"第一周我们不做 X。"</em>不做用户账户。不做集成。不做分析数据表。每一个省略都有名目、有理由。</span></p>
 
-            <p>This is design done as an answer key, not as art.</p>
+            <p><span class="lang-en">This is design done as an answer key, not as art.</span><span class="lang-zh hidden">这是作为答案的设计，不是作为艺术的设计。</span></p>
 
             <div class="chapter-pagination">
-                <a href="#ch1" class="page-btn" onclick="goChapter(1)">&larr; Previous</a>
+                <a href="#ch1" class="page-btn" onclick="goChapter(1)">&larr; <span class="lang-en">Previous</span><span class="lang-zh hidden">上一章</span></a>
                 <span class="page-indicator">2 / 7</span>
-                <a href="#ch3" class="page-btn" onclick="goChapter(3)">Next &rarr;</a>
+                <a href="#ch3" class="page-btn" onclick="goChapter(3)"><span class="lang-en">Next</span><span class="lang-zh hidden">下一章</span> &rarr;</a>
             </div>
         </section>
 
         <!-- CHAPTER 3 -->
         <section class="chapter" id="ch3" data-chapter="3">
-            <div class="chapter-label">Chapter 3</div>
-            <h2>The Build</h2>
+            <div class="chapter-label"><span class="lang-en">Chapter 3</span><span class="lang-zh hidden">第三章</span></div>
+            <h2><span class="lang-en">The Build</span><span class="lang-zh hidden">构建</span></h2>
 
-            <p>Eight hours after design finished, DHH had a GitHub repo. By 16:45 UTC, the landing page was live on Cloudflare Pages.</p>
+            <p><span class="lang-en">Eight hours after design finished, DHH had a GitHub repo. By 16:45 UTC, the landing page was live on Cloudflare Pages.</span><span class="lang-zh hidden">设计完成 8 小时后，DHH 建好了 GitHub 仓库。UTC 时间 16:45，落地页在 Cloudflare Pages 上线。</span></p>
 
-            <p>This wasn't a miracle. It was transcription. DHH opened the design spec, saw the Tailwind classnames Duarte had already written, and copied them into React components. The page wasn't built. It was <em>transcribed</em> from spec to code.</p>
+            <p><span class="lang-en">This wasn't a miracle. It was transcription. DHH opened the design spec, saw the Tailwind classnames Duarte had already written, and copied them into React components. The page wasn't built. It was <em>transcribed</em> from spec to code.</span><span class="lang-zh hidden">这不是奇迹。这是抄写。DHH 打开设计规格文档，看到 Duarte 已经写好的 Tailwind 类名，把它们复制进 React 组件。页面不是"构建"出来的，而是从规格文档<em>抄写</em>成代码的。</span></p>
 
             <div class="stat-grid">
-                <div class="stat-box"><div class="num">232</div><div class="label">KB bundle</div></div>
-                <div class="stat-box"><div class="num">&lt;3s</div><div class="label">Build time</div></div>
-                <div class="stat-box"><div class="num">&lt;1m</div><div class="label">Deploy time</div></div>
-                <div class="stat-box"><div class="num">8h</div><div class="label">To first ship</div></div>
+                <div class="stat-box"><div class="num">232</div><div class="label"><span class="lang-en">KB bundle</span><span class="lang-zh hidden">KB 包大小</span></div></div>
+                <div class="stat-box"><div class="num">&lt;3s</div><div class="label"><span class="lang-en">Build time</span><span class="lang-zh hidden">构建时间</span></div></div>
+                <div class="stat-box"><div class="num">&lt;1m</div><div class="label"><span class="lang-en">Deploy time</span><span class="lang-zh hidden">部署时间</span></div></div>
+                <div class="stat-box"><div class="num">8h</div><div class="label"><span class="lang-en">To first ship</span><span class="lang-zh hidden">首次发布</span></div></div>
             </div>
 
-            <h3>The Form</h3>
-            <p>Next came the 7-field input form: Company Name, Product Description, Key Benefit, Target Job Title, Problem Solved, Call-to-Action, Email Tone. Client-side validation, character counters, error states. Styled from the design system with zero custom CSS.</p>
+            <h3><span class="lang-en">The Form</span><span class="lang-zh hidden">表单</span></h3>
+            <p><span class="lang-en">Next came the 7-field input form: Company Name, Product Description, Key Benefit, Target Job Title, Problem Solved, Call-to-Action, Email Tone. Client-side validation, character counters, error states. Styled from the design system with zero custom CSS.</span><span class="lang-zh hidden">接下来是 7 个字段的输入表单：公司名称、产品描述、核心优势、目标职位、解决的问题、行动号召、邮件语气。客户端验证、字符计数器、错误状态。全部使用设计系统样式，零自定义 CSS。</span></p>
 
-            <p>The form talked to <code>console.log</code>, not to the backend. That's intentional. Test the UI first. Wire the backend when it matters.</p>
+            <p><span class="lang-en">The form talked to <code>console.log</code>, not to the backend. That's intentional. Test the UI first. Wire the backend when it matters.</span><span class="lang-zh hidden">表单对接的是 <code>console.log</code>，不是后端。这是故意的。先测试 UI。后端等到重要的时候再接。</span></p>
 
             <blockquote>
-                <p>"The landing page is the question. The form is the answer. Don't build the answer until you know the question."</p>
+                <p><span class="lang-en">"The landing page is the question. The form is the answer. Don't build the answer until you know the question."</span><span class="lang-zh hidden">"落地页是问题。表单是答案。在知道问题之前，不要构建答案。"</span></p>
                 <cite>DHH (Engineer)</cite>
             </blockquote>
 
-            <p>By end of Day 2, the landing page was public at <code>coldcopy-au3.pages.dev</code>. For the first time, ColdCopy existed outside the codebase. The kill trigger was now testable.</p>
+            <p><span class="lang-en">By end of Day 2, the landing page was public at <code>coldcopy-au3.pages.dev</code>. For the first time, ColdCopy existed outside the codebase. The kill trigger was now testable.</span><span class="lang-zh hidden">第 2 天结束时，落地页在 <code>coldcopy-au3.pages.dev</code> 公开上线。ColdCopy 第一次存在于代码库之外。止损线现在可以验证了。</span></p>
 
             <div class="chapter-pagination">
-                <a href="#ch2" class="page-btn" onclick="goChapter(2)">&larr; Previous</a>
+                <a href="#ch2" class="page-btn" onclick="goChapter(2)">&larr; <span class="lang-en">Previous</span><span class="lang-zh hidden">上一章</span></a>
                 <span class="page-indicator">3 / 7</span>
-                <a href="#ch4" class="page-btn" onclick="goChapter(4)">Next &rarr;</a>
+                <a href="#ch4" class="page-btn" onclick="goChapter(4)"><span class="lang-en">Next</span><span class="lang-zh hidden">下一章</span> &rarr;</a>
             </div>
         </section>
 
         <!-- CHAPTER 4 -->
         <section class="chapter" id="ch4" data-chapter="4">
-            <div class="chapter-label">Chapter 4</div>
-            <h2>The Backend Crisis</h2>
+            <div class="chapter-label"><span class="lang-en">Chapter 4</span><span class="lang-zh hidden">第四章</span></div>
+            <h2><span class="lang-en">The Backend Crisis</span><span class="lang-zh hidden">后端危机</span></h2>
 
-            <p>Day 3. Backend goes live. Two endpoints: <code>POST /api/generate</code> (calls Claude, generates 7 cold emails) and <code>GET /api/session</code> (quota state).</p>
+            <p><span class="lang-en">Day 3. Backend goes live. Two endpoints: <code>POST /api/generate</code> (calls Claude, generates 7 cold emails) and <code>GET /api/session</code> (quota state).</span><span class="lang-zh hidden">第 3 天。后端上线。两个端点：<code>POST /api/generate</code>（调用 Claude，生成 7 封冷邮件）和 <code>GET /api/session</code>（配额状态）。</span></p>
 
-            <p>Then QA tested it.</p>
+            <p><span class="lang-en">Then QA tested it.</span><span class="lang-zh hidden">然后 QA 开始测试。</span></p>
 
-            <p><strong>Everything was broken.</strong></p>
+            <p><span class="lang-en"><strong>Everything was broken.</strong></span><span class="lang-zh hidden"><strong>全部崩了。</strong></span></p>
 
-            <p>The endpoints returned 405 Method Not Allowed. They returned HTML instead of JSON. The entire backend was dead.</p>
+            <p><span class="lang-en">The endpoints returned 405 Method Not Allowed. They returned HTML instead of JSON. The entire backend was dead.</span><span class="lang-zh hidden">端点返回 405 Method Not Allowed。返回的是 HTML 而不是 JSON。整个后端彻底挂了。</span></p>
 
-            <h3>Root Cause</h3>
-            <p>Two bugs, both subtle:</p>
+            <h3><span class="lang-en">Root Cause</span><span class="lang-zh hidden">根本原因</span></h3>
+            <p><span class="lang-en">Two bugs, both subtle:</span><span class="lang-zh hidden">两个 Bug，都很隐蔽：</span></p>
             <ol>
-                <li><strong>Routing config</strong> pointed to a non-existent function. Requests fell through to the frontend SPA, which returned "not found" as HTML.</li>
-                <li><strong>Function signatures</strong> were written for Cloudflare Workers, but Pages injects a different <code>context</code> object. Parameters were undefined.</li>
+                <li><span class="lang-en"><strong>Routing config</strong> pointed to a non-existent function. Requests fell through to the frontend SPA, which returned "not found" as HTML.</span><span class="lang-zh hidden"><strong>路由配置</strong>指向了一个不存在的函数。请求穿透到前端 SPA，以 HTML 形式返回"未找到"。</span></li>
+                <li><span class="lang-en"><strong>Function signatures</strong> were written for Cloudflare Workers, but Pages injects a different <code>context</code> object. Parameters were undefined.</span><span class="lang-zh hidden"><strong>函数签名</strong>是按 Cloudflare Workers 写的，但 Pages 注入的 <code>context</code> 对象不同。参数全是 undefined。</span></li>
             </ol>
 
-            <p>Two small bugs. Both invisible until tested under real conditions. Both would have shipped to customers.</p>
+            <p><span class="lang-en">Two small bugs. Both invisible until tested under real conditions. Both would have shipped to customers.</span><span class="lang-zh hidden">两个小 Bug。在真实条件下测试之前都看不到。两个都会被发布到客户面前。</span></p>
 
-            <h3>The Fix</h3>
-            <p>Hightower deployed three fixes in 15 minutes. APIs came back online:</p>
+            <h3><span class="lang-en">The Fix</span><span class="lang-zh hidden">修复</span></h3>
+            <p><span class="lang-en">Hightower deployed three fixes in 15 minutes. APIs came back online:</span><span class="lang-zh hidden">Hightower 在 15 分钟内部署了三个修复。API 恢复上线：</span></p>
             <pre><code>$ curl https://coldcopy-au3.pages.dev/api/session
 {"plan":"free","generationsUsed":0,"maxGenerations":1,"canGenerate":true}</code></pre>
 
-            <h3>The Security Hole</h3>
-            <p>Then Vogels code-reviewed and found something worse: <strong>quota enforcement only existed on the frontend.</strong> A founder could open DevTools, POST to the API manually, and get unlimited free generations.</p>
+            <h3><span class="lang-en">The Security Hole</span><span class="lang-zh hidden">安全漏洞</span></h3>
+            <p><span class="lang-en">Then Vogels code-reviewed and found something worse: <strong>quota enforcement only existed on the frontend.</strong> A founder could open DevTools, POST to the API manually, and get unlimited free generations.</span><span class="lang-zh hidden">然后 Vogels 做代码审查时发现了更严重的问题：<strong>配额限制只存在于前端。</strong>任何人打开开发者工具，手动 POST 到 API，就能获得无限免费生成。</span></p>
 
-            <p>DHH fixed it in 10 lines of code.</p>
+            <p><span class="lang-en">DHH fixed it in 10 lines of code.</span><span class="lang-zh hidden">DHH 用 10 行代码修复了它。</span></p>
 
             <blockquote>
-                <p>"If we shipped without server-side quota checks, we'd burn through Cloudflare's free tier in a week. Security lives at the boundary."</p>
+                <p><span class="lang-en">"If we shipped without server-side quota checks, we'd burn through Cloudflare's free tier in a week. Security lives at the boundary."</span><span class="lang-zh hidden">"如果我们不做服务端配额校验就发布，一周内就会烧光 Cloudflare 的免费额度。安全必须守在边界。"</span></p>
                 <cite>Werner Vogels (CTO)</cite>
             </blockquote>
 
             <div class="chapter-pagination">
-                <a href="#ch3" class="page-btn" onclick="goChapter(3)">&larr; Previous</a>
+                <a href="#ch3" class="page-btn" onclick="goChapter(3)">&larr; <span class="lang-en">Previous</span><span class="lang-zh hidden">上一章</span></a>
                 <span class="page-indicator">4 / 7</span>
-                <a href="#ch5" class="page-btn" onclick="goChapter(5)">Next &rarr;</a>
+                <a href="#ch5" class="page-btn" onclick="goChapter(5)"><span class="lang-en">Next</span><span class="lang-zh hidden">下一章</span> &rarr;</a>
             </div>
         </section>
 
         <!-- CHAPTER 5 -->
         <section class="chapter" id="ch5" data-chapter="5">
-            <div class="chapter-label">Chapter 5</div>
-            <h2>Payment Goes Live</h2>
+            <div class="chapter-label"><span class="lang-en">Chapter 5</span><span class="lang-zh hidden">第五章</span></div>
+            <h2><span class="lang-en">Payment Goes Live</span><span class="lang-zh hidden">支付上线</span></h2>
 
-            <p>The founder set the API key. Hightower deployed. Smoke tests passed.</p>
+            <p><span class="lang-en">The founder set the API key. Hightower deployed. Smoke tests passed.</span><span class="lang-zh hidden">创始人设置了 API 密钥。Hightower 部署完毕。冒烟测试通过。</span></p>
 
-            <p>Then Bach ran the P0 tests and found <strong>two more critical bugs.</strong></p>
+            <p><span class="lang-en">Then Bach ran the P0 tests and found <strong>two more critical bugs.</strong></span><span class="lang-zh hidden">然后 Bach 运行 P0 测试，发现了<strong>两个更严重的 Bug。</strong></span></p>
 
-            <h3>Bug #1: The Race Condition</h3>
-            <p>Multiple concurrent requests could both bypass quota enforcement. Two users hitting the API at the same time could both think they had a free generation left, both succeed, and both consume quota. Under load, this spirals into unlimited free API calls.</p>
+            <h3><span class="lang-en">Bug #1: The Race Condition</span><span class="lang-zh hidden">Bug #1：竞态条件</span></h3>
+            <p><span class="lang-en">Multiple concurrent requests could both bypass quota enforcement. Two users hitting the API at the same time could both think they had a free generation left, both succeed, and both consume quota. Under load, this spirals into unlimited free API calls.</span><span class="lang-zh hidden">多个并发请求可以同时绕过配额限制。两个用户同时请求 API，都以为自己还有免费额度，都成功了，都消耗了配额。在高负载下，这会失控为无限免费 API 调用。</span></p>
 
-            <h3>Bug #2: Wrong HTTP Status</h3>
-            <p>The system returned 429 (Too Many Requests) instead of 402 (Payment Required) when users hit quota. The frontend watched for 402 to show the Stripe paywall. A 429 meant no paywall ever appeared. <strong>No paywall = no monetization.</strong></p>
+            <h3><span class="lang-en">Bug #2: Wrong HTTP Status</span><span class="lang-zh hidden">Bug #2：错误的 HTTP 状态码</span></h3>
+            <p><span class="lang-en">The system returned 429 (Too Many Requests) instead of 402 (Payment Required) when users hit quota. The frontend watched for 402 to show the Stripe paywall. A 429 meant no paywall ever appeared. <strong>No paywall = no monetization.</strong></span><span class="lang-zh hidden">用户用完配额时，系统返回 429（请求过多）而不是 402（需要付款）。前端监听 402 来展示 Stripe 付费墙。429 意味着付费墙永远不会出现。<strong>没有付费墙 = 没有变现。</strong></span></p>
 
-            <p>DHH fixed both in 25 minutes. Bach re-ran tests: <strong>5/5 P0 tests passed.</strong></p>
+            <p><span class="lang-en">DHH fixed both in 25 minutes. Bach re-ran tests: <strong>5/5 P0 tests passed.</strong></span><span class="lang-zh hidden">DHH 在 25 分钟内修复了两个问题。Bach 重新测试：<strong>5/5 P0 测试全部通过。</strong></span></p>
 
-            <h3>The Money Flow</h3>
+            <h3><span class="lang-en">The Money Flow</span><span class="lang-zh hidden">资金流</span></h3>
             <ul>
-                <li>User generates 3 free sequences</li>
-                <li>Hits limit &rarr; API returns 402</li>
-                <li>Frontend shows paywall modal</li>
-                <li>User clicks "Upgrade" &rarr; Stripe checkout opens</li>
-                <li>User pays &rarr; webhook updates D1 quota</li>
-                <li>User returns &rarr; unlimited access</li>
+                <li><span class="lang-en">User generates 3 free sequences</span><span class="lang-zh hidden">用户生成 3 组免费序列</span></li>
+                <li><span class="lang-en">Hits limit &rarr; API returns 402</span><span class="lang-zh hidden">触达上限 &rarr; API 返回 402</span></li>
+                <li><span class="lang-en">Frontend shows paywall modal</span><span class="lang-zh hidden">前端展示付费弹窗</span></li>
+                <li><span class="lang-en">User clicks "Upgrade" &rarr; Stripe checkout opens</span><span class="lang-zh hidden">用户点击"升级" &rarr; Stripe 结账页打开</span></li>
+                <li><span class="lang-en">User pays &rarr; webhook updates D1 quota</span><span class="lang-zh hidden">用户付款 &rarr; webhook 更新 D1 配额</span></li>
+                <li><span class="lang-en">User returns &rarr; unlimited access</span><span class="lang-zh hidden">用户返回 &rarr; 无限访问</span></li>
             </ul>
 
-            <p><strong>E2E tests: 4/4 passing.</strong></p>
+            <p><span class="lang-en"><strong>E2E tests: 4/4 passing.</strong></span><span class="lang-zh hidden"><strong>端到端测试：4/4 通过。</strong></span></p>
 
             <blockquote>
-                <p>"We found these bugs because Bach tested under load before launch. If we'd shipped the day after code review, we'd be debugging in production with real customers watching."</p>
+                <p><span class="lang-en">"We found these bugs because Bach tested under load before launch. If we'd shipped the day after code review, we'd be debugging in production with real customers watching."</span><span class="lang-zh hidden">"我们能发现这些 Bug，是因为 Bach 在发布前做了负载测试。如果我们在代码审查后的第二天就发布，就会在真实客户面前调试生产环境。"</span></p>
                 <cite>Kelsey Hightower (DevOps)</cite>
             </blockquote>
 
-            <p><strong>CEO decision: GO FOR PUBLIC LAUNCH.</strong></p>
+            <p><span class="lang-en"><strong>CEO decision: GO FOR PUBLIC LAUNCH.</strong></span><span class="lang-zh hidden"><strong>CEO 决定：正式公开发布。</strong></span></p>
 
             <div class="chapter-pagination">
-                <a href="#ch4" class="page-btn" onclick="goChapter(4)">&larr; Previous</a>
+                <a href="#ch4" class="page-btn" onclick="goChapter(4)">&larr; <span class="lang-en">Previous</span><span class="lang-zh hidden">上一章</span></a>
                 <span class="page-indicator">5 / 7</span>
-                <a href="#ch6" class="page-btn" onclick="goChapter(6)">Next &rarr;</a>
+                <a href="#ch6" class="page-btn" onclick="goChapter(6)"><span class="lang-en">Next</span><span class="lang-zh hidden">下一章</span> &rarr;</a>
             </div>
         </section>
 
         <!-- CHAPTER 6 -->
         <section class="chapter" id="ch6" data-chapter="6">
-            <div class="chapter-label">Chapter 6</div>
-            <h2>Launch Day</h2>
+            <div class="chapter-label"><span class="lang-en">Chapter 6</span><span class="lang-zh hidden">第六章</span></div>
+            <h2><span class="lang-en">Launch Day</span><span class="lang-zh hidden">发布日</span></h2>
 
-            <p>Cycles 1-7 answered a technical question: <em>Can you build a product that works?</em></p>
+            <p><span class="lang-en">Cycles 1-7 answered a technical question: <em>Can you build a product that works?</em></span><span class="lang-zh hidden">第 1-7 轮回答了一个技术问题：<em>你能做出一个可用的产品吗？</em></span></p>
 
-            <p>Cycle 8 answered a market question: <em>Will anyone care?</em></p>
+            <p><span class="lang-en">Cycle 8 answered a market question: <em>Will anyone care?</em></span><span class="lang-zh hidden">第 8 轮回答了一个市场问题：<em>会有人在乎吗？</em></span></p>
 
-            <h3>The LinkedIn Post</h3>
-            <p>Godin shipped the launch post. Anti-bullshit tone. No hype:</p>
+            <h3><span class="lang-en">The LinkedIn Post</span><span class="lang-zh hidden">LinkedIn 帖子</span></h3>
+            <p><span class="lang-en">Godin shipped the launch post. Anti-bullshit tone. No hype:</span><span class="lang-zh hidden">Godin 发布了上线帖。反套话风格。不吹不擂：</span></p>
             <blockquote>
-                <p>"ChatGPT makes cold emails generic. I asked the right questions instead. This is a tool. It saves you 20 minutes. That's worth $19. No 'exciting opportunity' garbage. Just sequences that sound human."</p>
+                <p><span class="lang-en">"ChatGPT makes cold emails generic. I asked the right questions instead. This is a tool. It saves you 20 minutes. That's worth $19. No 'exciting opportunity' garbage. Just sequences that sound human."</span><span class="lang-zh hidden">"ChatGPT 写的冷邮件千篇一律。我换了个思路，问对了问题。这是一个工具。帮你省 20 分钟。值 $19。没有'令人兴奋的机遇'之类的废话。只有听起来像人写的邮件序列。"</span></p>
                 <cite>Seth Godin (Marketing)</cite>
             </blockquote>
 
-            <h3>The War Room</h3>
-            <p>In parallel, the team shipped <strong>20,500 words</strong> of launch infrastructure:</p>
+            <h3><span class="lang-en">The War Room</span><span class="lang-zh hidden">作战室</span></h3>
+            <p><span class="lang-en">In parallel, the team shipped <strong>20,500 words</strong> of launch infrastructure:</span><span class="lang-zh hidden">与此同时，团队交付了 <strong>20,500 字</strong>的发布基础设施：</span></p>
             <ul>
-                <li><strong>Product Hunt kit</strong> &mdash; staged, waiting for social proof</li>
-                <li><strong>Community posts</strong> for Reddit, IndieHackers, HN, Twitter</li>
-                <li><strong>First Customer Playbook</strong> &mdash; how to respond when someone pays</li>
-                <li><strong>Metrics Tracking Template</strong> &mdash; daily + weekly, no vanity metrics</li>
-                <li><strong>Early User Acquisition Strategy</strong> &mdash; warm LinkedIn + Slack groups</li>
-                <li><strong>Monitoring infrastructure</strong> &mdash; UptimeRobot, Cloudflare dashboards, cost alerts</li>
+                <li><span class="lang-en"><strong>Product Hunt kit</strong> &mdash; staged, waiting for social proof</span><span class="lang-zh hidden"><strong>Product Hunt 套件</strong>——已准备好，等待社会认证</span></li>
+                <li><span class="lang-en"><strong>Community posts</strong> for Reddit, IndieHackers, HN, Twitter</span><span class="lang-zh hidden"><strong>社区帖子</strong>——Reddit、IndieHackers、HN、Twitter</span></li>
+                <li><span class="lang-en"><strong>First Customer Playbook</strong> &mdash; how to respond when someone pays</span><span class="lang-zh hidden"><strong>首单客户手册</strong>——有人付款时如何响应</span></li>
+                <li><span class="lang-en"><strong>Metrics Tracking Template</strong> &mdash; daily + weekly, no vanity metrics</span><span class="lang-zh hidden"><strong>指标追踪模板</strong>——日报 + 周报，不要虚荣指标</span></li>
+                <li><span class="lang-en"><strong>Early User Acquisition Strategy</strong> &mdash; warm LinkedIn + Slack groups</span><span class="lang-zh hidden"><strong>早期获客策略</strong>——LinkedIn 暖关系 + Slack 社群</span></li>
+                <li><span class="lang-en"><strong>Monitoring infrastructure</strong> &mdash; UptimeRobot, Cloudflare dashboards, cost alerts</span><span class="lang-zh hidden"><strong>监控基础设施</strong>——UptimeRobot、Cloudflare 仪表盘、成本告警</span></li>
             </ul>
 
             <div class="stat-grid">
-                <div class="stat-box"><div class="num">8</div><div class="label">Days to market</div></div>
-                <div class="stat-box"><div class="num">$4</div><div class="label">Total cost</div></div>
-                <div class="stat-box"><div class="num">2,500+</div><div class="label">Lines of code</div></div>
-                <div class="stat-box"><div class="num">50K+</div><div class="label">Lines of docs</div></div>
+                <div class="stat-box"><div class="num">8</div><div class="label"><span class="lang-en">Days to market</span><span class="lang-zh hidden">天上市</span></div></div>
+                <div class="stat-box"><div class="num">$4</div><div class="label"><span class="lang-en">Total cost</span><span class="lang-zh hidden">总成本</span></div></div>
+                <div class="stat-box"><div class="num">2,500+</div><div class="label"><span class="lang-en">Lines of code</span><span class="lang-zh hidden">行代码</span></div></div>
+                <div class="stat-box"><div class="num">50K+</div><div class="label"><span class="lang-en">Lines of docs</span><span class="lang-zh hidden">行文档</span></div></div>
             </div>
 
             <blockquote>
-                <p>"We're not launching everywhere at once. We're testing on LinkedIn first. If zero engagement on warm network, it won't work on Reddit. Better to fail small now than fail big on Product Hunt."</p>
+                <p><span class="lang-en">"We're not launching everywhere at once. We're testing on LinkedIn first. If zero engagement on warm network, it won't work on Reddit. Better to fail small now than fail big on Product Hunt."</span><span class="lang-zh hidden">"我们不会一次在所有平台发布。先在 LinkedIn 测试。如果暖关系网络零互动，Reddit 上也不会有效果。宁可现在小范围失败，也不要在 Product Hunt 上大范围翻车。"</span></p>
                 <cite>Seth Godin (Marketing)</cite>
             </blockquote>
 
-            <p><strong>Time to market: 8 days from idea to public launch.</strong></p>
+            <p><span class="lang-en"><strong>Time to market: 8 days from idea to public launch.</strong></span><span class="lang-zh hidden"><strong>上市时间：从想法到公开发布仅 8 天。</strong></span></p>
 
             <div class="chapter-pagination">
-                <a href="#ch5" class="page-btn" onclick="goChapter(5)">&larr; Previous</a>
+                <a href="#ch5" class="page-btn" onclick="goChapter(5)">&larr; <span class="lang-en">Previous</span><span class="lang-zh hidden">上一章</span></a>
                 <span class="page-indicator">6 / 7</span>
-                <a href="#ch7" class="page-btn" onclick="goChapter(7)">Next &rarr;</a>
+                <a href="#ch7" class="page-btn" onclick="goChapter(7)"><span class="lang-en">Next</span><span class="lang-zh hidden">下一章</span> &rarr;</a>
             </div>
         </section>
 
         <!-- CHAPTER 7 -->
         <section class="chapter" id="ch7" data-chapter="7">
-            <div class="chapter-label">Chapter 7</div>
-            <h2>The Reality Check</h2>
+            <div class="chapter-label"><span class="lang-en">Chapter 7</span><span class="lang-zh hidden">第七章</span></div>
+            <h2><span class="lang-en">The Reality Check</span><span class="lang-zh hidden">现实检验</span></h2>
 
-            <p>The organic signal was strong: <strong>78 sessions, 60 sequences generated, 77% engagement rate.</strong> Nearly 4 out of 5 people who arrived tried the product.</p>
+            <p><span class="lang-en">The organic signal was strong: <strong>78 sessions, 60 sequences generated, 77% engagement rate.</strong> Nearly 4 out of 5 people who arrived tried the product.</span><span class="lang-zh hidden">自然流量信号很强：<strong>78 次会话，60 组序列生成，77% 参与率。</strong>几乎每 5 个访客中有 4 个尝试了产品。</span></p>
 
-            <p>But zero revenue. Zero warm DMs sent. Zero founder outreach executed.</p>
+            <p><span class="lang-en">But zero revenue. Zero warm DMs sent. Zero founder outreach executed.</span><span class="lang-zh hidden">但零收入。零条暖身私信发出。零次创始人外展执行。</span></p>
 
-            <h3>The Pattern</h3>
-            <p>Cycle 9 created warm outreach playbooks. The founder didn't execute. Cycle 10 simplified to 3 contacts and 30 minutes. The founder didn't execute. Cycle 12 broke it down to 40 minutes of copy-paste across four channels. The founder didn't execute.</p>
+            <h3><span class="lang-en">The Pattern</span><span class="lang-zh hidden">规律</span></h3>
+            <p><span class="lang-en">Cycle 9 created warm outreach playbooks. The founder didn't execute. Cycle 10 simplified to 3 contacts and 30 minutes. The founder didn't execute. Cycle 12 broke it down to 40 minutes of copy-paste across four channels. The founder didn't execute.</span><span class="lang-zh hidden">第 9 轮制定了暖身外展手册。创始人没有执行。第 10 轮简化到 3 个联系人和 30 分钟。创始人没有执行。第 12 轮拆解为 4 个渠道共 40 分钟的复制粘贴。创始人没有执行。</span></p>
 
-            <p>Three consecutive cycles. Zero execution. This wasn't randomness.</p>
+            <p><span class="lang-en">Three consecutive cycles. Zero execution. This wasn't randomness.</span><span class="lang-zh hidden">连续三轮。零执行。这不是偶然。</span></p>
 
-            <h3>The Diagnosis</h3>
+            <h3><span class="lang-en">The Diagnosis</span><span class="lang-zh hidden">诊断</span></h3>
             <blockquote>
-                <p>"2% conversion times 100% activation beats 30% conversion times 0% activation. An automated funnel that's always-on beats manual outreach that never happens."</p>
+                <p><span class="lang-en">"2% conversion times 100% activation beats 30% conversion times 0% activation. An automated funnel that's always-on beats manual outreach that never happens."</span><span class="lang-zh hidden">"2% 转化率乘以 100% 执行率，胜过 30% 转化率乘以 0% 执行率。一个始终运行的自动化漏斗，胜过永远不会发生的手动外展。"</span></p>
                 <cite>Ben Thompson (Research)</cite>
             </blockquote>
 
-            <p>So the team stopped waiting. They built an <strong>in-app upgrade CTA modal</strong>. When users hit their 3rd free sequence, a modal appears: "Upgrade to Pro." Links directly to Stripe. Deployed in 66 minutes.</p>
+            <p><span class="lang-en">So the team stopped waiting. They built an <strong>in-app upgrade CTA modal</strong>. When users hit their 3rd free sequence, a modal appears: "Upgrade to Pro." Links directly to Stripe. Deployed in 66 minutes.</span><span class="lang-zh hidden">于是团队不再等待。他们构建了一个<strong>应用内升级引导弹窗</strong>。当用户用完第 3 次免费序列，弹窗出现："升级到 Pro。"直接链接到 Stripe。66 分钟部署完毕。</span></p>
 
-            <h3>The Boundary</h3>
-            <p>Autonomous AI systems can build products, design infrastructure, plan distribution, optimize conversion, write templates, remove friction.</p>
+            <h3><span class="lang-en">The Boundary</span><span class="lang-zh hidden">边界</span></h3>
+            <p><span class="lang-en">Autonomous AI systems can build products, design infrastructure, plan distribution, optimize conversion, write templates, remove friction.</span><span class="lang-zh hidden">自主 AI 系统可以构建产品、设计基础设施、规划分发、优化转化、编写模板、消除摩擦。</span></p>
 
-            <p><strong>Autonomous AI systems cannot:</strong> execute founder-level work, override founder time allocation, compete with PhD obligations, create motivation.</p>
+            <p><span class="lang-en"><strong>Autonomous AI systems cannot:</strong> execute founder-level work, override founder time allocation, compete with PhD obligations, create motivation.</span><span class="lang-zh hidden"><strong>自主 AI 系统做不到：</strong>执行创始人级别的工作、覆盖创始人的时间分配、与博士学业竞争、创造动力。</span></p>
 
             <blockquote>
-                <p>"We built a system that works. But we cannot build the founder working."</p>
+                <p><span class="lang-en">"We built a system that works. But we cannot build the founder working."</span><span class="lang-zh hidden">"我们构建了一个可用的系统。但我们无法构建一个会工作的创始人。"</span></p>
                 <cite>Paul Graham (Operations)</cite>
             </blockquote>
 
-            <h3>The Final Numbers</h3>
+            <h3><span class="lang-en">The Final Numbers</span><span class="lang-zh hidden">最终数据</span></h3>
             <div class="stat-grid">
-                <div class="stat-box"><div class="num">78</div><div class="label">Sessions</div></div>
-                <div class="stat-box"><div class="num">77%</div><div class="label">Engagement</div></div>
-                <div class="stat-box"><div class="num">$0</div><div class="label">Revenue</div></div>
-                <div class="stat-box"><div class="num">5</div><div class="label">Bugs caught</div></div>
+                <div class="stat-box"><div class="num">78</div><div class="label"><span class="lang-en">Sessions</span><span class="lang-zh hidden">会话数</span></div></div>
+                <div class="stat-box"><div class="num">77%</div><div class="label"><span class="lang-en">Engagement</span><span class="lang-zh hidden">参与率</span></div></div>
+                <div class="stat-box"><div class="num">$0</div><div class="label"><span class="lang-en">Revenue</span><span class="lang-zh hidden">收入</span></div></div>
+                <div class="stat-box"><div class="num">5</div><div class="label"><span class="lang-en">Bugs caught</span><span class="lang-zh hidden">捕获 Bug</span></div></div>
             </div>
 
-            <p>ColdCopy didn't fail because the product was bad. It failed because the distribution required founder execution, and the founder had competing priorities. The product worked. The machine worked. The human didn't show up.</p>
+            <p><span class="lang-en">ColdCopy didn't fail because the product was bad. It failed because the distribution required founder execution, and the founder had competing priorities. The product worked. The machine worked. The human didn't show up.</span><span class="lang-zh hidden">ColdCopy 失败不是因为产品不好。它失败是因为分发需要创始人亲自执行，而创始人有更紧迫的事。产品可用。机器运转。人没到场。</span></p>
 
-            <p>But this wasn't the end. It was the setup for <strong>Product #2</strong>.</p>
+            <p><span class="lang-en">But this wasn't the end. It was the setup for <strong>Product #2</strong>.</span><span class="lang-zh hidden">但这不是终点。这是<strong>产品 #2</strong> 的铺垫。</span></p>
 
             <div class="chapter-pagination">
-                <a href="#ch6" class="page-btn" onclick="goChapter(6)">&larr; Previous</a>
+                <a href="#ch6" class="page-btn" onclick="goChapter(6)">&larr; <span class="lang-en">Previous</span><span class="lang-zh hidden">上一章</span></a>
                 <span class="page-indicator">7 / 7</span>
-                <a href="story-double-mood.html" class="page-btn">Double Mood Story &rarr;</a>
+                <a href="story-double-mood.html" class="page-btn"><span class="lang-en">Double Mood Story</span><span class="lang-zh hidden">Double Mood 故事</span> &rarr;</a>
             </div>
         </section>
 
@@ -723,10 +745,10 @@
 
 <footer>
     <div class="footer-inner">
-        <span>&copy; 2026 Proxima Auto. All rights reserved.</span>
+        <span>&copy; 2026 Proxima Auto. <span class="lang-en">All rights reserved.</span><span class="lang-zh hidden">保留所有权利。</span></span>
         <div class="footer-links">
-            <a href="index.html">Home</a>
-            <a href="story.html">All Stories</a>
+            <a href="index.html"><span class="lang-en">Home</span><span class="lang-zh hidden">首页</span></a>
+            <a href="story.html"><span class="lang-en">All Stories</span><span class="lang-zh hidden">所有故事</span></a>
         </div>
     </div>
 </footer>
@@ -777,6 +799,14 @@ window.addEventListener('DOMContentLoaded', function() {
         updateProgress(1);
     }
 });
+
+function toggleLanguage() {
+    const enEls = document.querySelectorAll('.lang-en');
+    const zhEls = document.querySelectorAll('.lang-zh');
+    const isEnVisible = !enEls[0].classList.contains('hidden');
+    enEls.forEach(el => el.classList.toggle('hidden', isEnVisible));
+    zhEls.forEach(el => el.classList.toggle('hidden', !isEnVisible));
+}
 </script>
 
 </body>

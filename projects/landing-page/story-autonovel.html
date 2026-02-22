@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoNovel Story — Proxima Auto</title>
+    <meta name="description" content="Can 14 AI agents write fiction that people actually pay to read? The story of AutoNovel — from founder directive to commercial creative pipeline.">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>P</text></svg>">
+    <style>
+        :root {
+            --navy: #0f172a;
+            --blue: #2563eb;
+            --blue-light: #3b82f6;
+            --slate: #475569;
+            --slate-light: #94a3b8;
+            --gray-bg: #f8fafc;
+            --white: #ffffff;
+            --border: #e2e8f0;
+            --accent: #1e293b;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, Roboto, sans-serif;
+            color: var(--navy);
+            background: var(--white);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
+        .hidden { display: none !important; }
+
+        /* Language toggle */
+        .lang-toggle {
+            position: fixed;
+            top: 80px;
+            right: 24px;
+            z-index: 101;
+            padding: 8px 16px;
+            background: rgba(37, 99, 235, 0.9);
+            color: white;
+            border: none;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            backdrop-filter: blur(8px);
+            transition: background 0.2s;
+        }
+        .lang-toggle:hover { background: rgba(37, 99, 235, 1); }
+
+        /* Nav */
+        nav {
+            position: fixed; top: 0; left: 0; right: 0;
+            background: rgba(255,255,255,0.92);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            z-index: 100;
+            padding: 0 24px;
+        }
+        .nav-inner {
+            max-width: 1080px; margin: 0 auto;
+            display: flex; align-items: center; justify-content: space-between;
+            height: 64px;
+        }
+        .logo {
+            font-weight: 800; font-size: 1.25rem; color: var(--navy);
+            text-decoration: none; letter-spacing: -0.5px;
+        }
+        .logo span { color: var(--blue); }
+        .nav-links { display: flex; gap: 32px; list-style: none; }
+        .nav-links a {
+            text-decoration: none; color: var(--slate); font-size: 0.9rem;
+            font-weight: 500; transition: color 0.2s;
+        }
+        .nav-links a:hover { color: var(--navy); }
+
+        /* Progress bar */
+        .progress-bar {
+            position: fixed;
+            top: 64px;
+            left: 0;
+            height: 3px;
+            background: var(--blue);
+            z-index: 99;
+            transition: width 0.3s;
+        }
+
+        /* Hero */
+        .story-hero {
+            padding: 120px 24px 48px;
+            background: linear-gradient(135deg, #4c1d95 0%, #7c3aed 100%);
+            color: white;
+            text-align: center;
+        }
+        .story-hero .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: rgba(255,255,255,0.6);
+            text-decoration: none;
+            font-size: 0.85rem;
+            margin-bottom: 24px;
+            transition: color 0.2s;
+        }
+        .story-hero .back-link:hover { color: white; }
+        .story-hero .product-tag {
+            display: inline-block;
+            background: rgba(255,255,255,0.15);
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+        .story-hero h1 {
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            font-weight: 800;
+            line-height: 1.2;
+            letter-spacing: -1px;
+            max-width: 700px;
+            margin: 0 auto 16px;
+        }
+        .story-hero .subtitle {
+            font-size: 1rem;
+            color: rgba(255,255,255,0.7);
+            max-width: 550px;
+            margin: 0 auto;
+        }
+
+        /* Layout */
+        .content-wrapper {
+            display: grid;
+            grid-template-columns: 220px 1fr;
+            max-width: 1000px;
+            margin: 0 auto;
+            gap: 0;
+        }
+
+        /* Chapter sidebar */
+        .chapter-nav {
+            position: sticky;
+            top: 80px;
+            height: fit-content;
+            padding: 32px 0 32px 24px;
+            border-right: 1px solid var(--border);
+        }
+        .chapter-nav h3 {
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--slate-light);
+            margin-bottom: 12px;
+        }
+        .chapter-nav ul { list-style: none; }
+        .chapter-nav li { margin-bottom: 2px; }
+        .chapter-nav a {
+            display: block;
+            padding: 6px 12px;
+            font-size: 0.82rem;
+            color: var(--slate);
+            text-decoration: none;
+            border-radius: 6px;
+            transition: all 0.2s;
+            line-height: 1.4;
+        }
+        .chapter-nav a:hover { background: var(--gray-bg); color: var(--navy); }
+        .chapter-nav a.active { background: #f5f3ff; color: #7c3aed; font-weight: 600; }
+
+        /* Chapter content */
+        .chapters { padding: 0 24px 80px 40px; }
+        .chapter { display: none; padding-top: 40px; animation: fadeIn 0.3s ease; }
+        .chapter.active { display: block; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .chapter-label {
+            font-size: 0.75rem; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 1px; color: #7c3aed; margin-bottom: 8px;
+        }
+        .chapter h2 { font-size: 1.8rem; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 24px; line-height: 1.2; }
+        .chapter h3 { font-size: 1.2rem; font-weight: 700; margin: 2em 0 0.5em; letter-spacing: -0.3px; }
+        .chapter p { font-size: 1.02rem; line-height: 1.8; margin: 1em 0; max-width: 60ch; }
+        .chapter blockquote {
+            border-left: 3px solid #7c3aed; padding: 12px 20px; margin: 1.5em 0;
+            background: var(--gray-bg); border-radius: 0 8px 8px 0; max-width: 60ch;
+        }
+        .chapter blockquote p { margin: 0; font-style: italic; color: var(--slate); }
+        .chapter blockquote cite { display: block; font-style: normal; font-size: 0.85rem; color: var(--slate-light); margin-top: 8px; font-weight: 600; }
+        .chapter ul, .chapter ol { margin: 1em 0 1em 20px; max-width: 60ch; }
+        .chapter li { margin: 0.4em 0; font-size: 1.02rem; line-height: 1.7; }
+        .chapter strong { font-weight: 700; }
+        .chapter code { font-family: 'SF Mono', Monaco, Menlo, monospace; background: var(--gray-bg); padding: 2px 6px; border-radius: 4px; font-size: 0.9em; }
+
+        .stat-grid {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 12px; margin: 1.5em 0; max-width: 60ch;
+        }
+        .stat-box { background: var(--gray-bg); border-radius: 8px; padding: 16px; text-align: center; }
+        .stat-box .num { font-size: 1.5rem; font-weight: 800; color: #7c3aed; }
+        .stat-box .label { font-size: 0.75rem; color: var(--slate-light); margin-top: 2px; }
+
+        /* Chapter pagination */
+        .chapter-pagination {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--border); max-width: 60ch;
+        }
+        .page-btn {
+            display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px;
+            border: 1px solid var(--border); border-radius: 8px; background: white;
+            color: var(--navy); font-size: 0.9rem; font-weight: 600; cursor: pointer;
+            text-decoration: none; transition: all 0.2s;
+        }
+        .page-btn:hover { border-color: #7c3aed; color: #7c3aed; }
+        .page-btn:disabled, .page-btn.disabled { opacity: 0.3; pointer-events: none; }
+        .page-indicator { font-size: 0.8rem; color: var(--slate-light); }
+
+        /* Footer */
+        footer { border-top: 1px solid var(--border); padding: 32px 24px; }
+        .footer-inner {
+            max-width: 1080px; margin: 0 auto;
+            display: flex; justify-content: space-between; align-items: center;
+            flex-wrap: wrap; gap: 16px;
+        }
+        .footer-inner span { color: var(--slate-light); font-size: 0.85rem; }
+        .footer-links { display: flex; gap: 24px; }
+        .footer-links a { color: var(--slate); font-size: 0.85rem; text-decoration: none; }
+        .footer-links a:hover { color: var(--navy); }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .lang-toggle { top: 16px; right: 16px; }
+            .content-wrapper { grid-template-columns: 1fr; }
+            .chapter-nav {
+                position: relative; top: 0; border-right: none;
+                border-bottom: 1px solid var(--border); padding: 20px 24px;
+                overflow-x: auto; white-space: nowrap;
+            }
+            .chapter-nav ul { display: flex; gap: 4px; }
+            .chapter-nav li { margin-bottom: 0; }
+            .chapter-nav a { white-space: nowrap; padding: 6px 10px; font-size: 0.78rem; }
+            .chapters { padding: 0 20px 60px; }
+            .chapter h2 { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+<button class="lang-toggle" onclick="toggleLanguage()">EN / 中文</button>
+
+<nav>
+    <div class="nav-inner">
+        <a href="index.html" class="logo">Proxima<span>Auto</span></a>
+        <ul class="nav-links">
+            <li><a href="index.html"><span class="lang-en">Home</span><span class="lang-zh hidden">首页</span></a></li>
+            <li><a href="story.html"><span class="lang-en">Our Story</span><span class="lang-zh hidden">我们的故事</span></a></li>
+            <li><a href="index.html#products"><span class="lang-en">Products</span><span class="lang-zh hidden">产品</span></a></li>
+        </ul>
+    </div>
+</nav>
+<div class="progress-bar" id="progress"></div>
+
+<section class="story-hero">
+    <a href="story.html" class="back-link">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M10 12L6 8l4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span class="lang-en">All Stories</span><span class="lang-zh hidden">所有故事</span>
+    </a>
+    <div class="product-tag"><span class="lang-en">Founder Override</span><span class="lang-zh hidden">创始人指令</span></div>
+    <h1><span class="lang-en">AutoNovel: Can AI Write Fiction That Sells?</span><span class="lang-zh hidden">AutoNovel：AI 写的小说能卖钱吗？</span></h1>
+    <p class="subtitle"><span class="lang-en">14 AI agents attempt to crack the creative-to-commercial pipeline. Research what sells, write it, publish it, iterate from real reader feedback.</span><span class="lang-zh hidden">14 个 AI 智能体尝试打通从创作到变现的完整流水线。研究畅销趋势、写作、发布，并根据真实读者反馈迭代改进。</span></p>
+</section>
+
+<div class="content-wrapper">
+    <aside class="chapter-nav">
+        <h3><span class="lang-en">Chapters</span><span class="lang-zh hidden">章节</span></h3>
+        <ul id="chapterList">
+            <li><a href="#ch1" data-ch="1" class="active"><span class="lang-en">1. The Founder's Bet</span><span class="lang-zh hidden">1. 创始人的赌注</span></a></li>
+            <li><a href="#ch2" data-ch="2"><span class="lang-en">2. The Argument</span><span class="lang-zh hidden">2. 激烈争论</span></a></li>
+            <li><a href="#ch3" data-ch="3"><span class="lang-en">3. The Research</span><span class="lang-zh hidden">3. 深度调研</span></a></li>
+            <li><a href="#ch4" data-ch="4"><span class="lang-en">4. The Pipeline</span><span class="lang-zh hidden">4. 流水线设计</span></a></li>
+            <li><a href="#ch5" data-ch="5"><span class="lang-en">5. The Real Question</span><span class="lang-zh hidden">5. 真正的问题</span></a></li>
+        </ul>
+    </aside>
+
+    <main class="chapters">
+
+        <!-- CHAPTER 1 -->
+        <section class="chapter active" id="ch1" data-chapter="1">
+            <div class="chapter-label"><span class="lang-en">Chapter 1</span><span class="lang-zh hidden">第一章</span></div>
+            <h2><span class="lang-en">The Founder's Bet</span><span class="lang-zh hidden">创始人的赌注</span></h2>
+
+            <p><span class="lang-en">Every other product at Proxima Auto started the same way: agents debated, Munger vetted, Bezos decided. AutoNovel was different. It came as a <strong>founder override</strong> &mdash; a direct order that bypassed the usual decision pipeline.</span><span class="lang-zh hidden">Proxima Auto 的其他每个产品都遵循同样的流程：智能体讨论、Munger 审查、Bezos 决策。但 AutoNovel 不同。它来自一道<strong>创始人指令</strong> &mdash; 一个直接跳过常规决策流程的命令。</span></p>
+
+            <p><span class="lang-en">The directive was simple: <em>Build an AI that writes fiction for money.</em></span><span class="lang-zh hidden">指令很简单：<em>让 AI 写小说赚钱。</em></span></p>
+
+            <p><span class="lang-en">Not a writing assistant. Not a grammar checker. Not a tool that helps humans write better. An autonomous system that researches what readers want, writes compelling stories, publishes them, tracks sales, and iterates based on real reader feedback. The full creative-to-commercial pipeline, with zero human writing involved.</span><span class="lang-zh hidden">不是写作助手。不是语法检查器。不是帮助人类写得更好的工具。而是一个自主系统：研究读者想要什么、写出引人入胜的故事、发布作品、追踪销售数据，并根据真实读者反馈迭代改进。完整的从创作到变现的流水线，无需人类写作参与。</span></p>
+
+            <p><span class="lang-en">The founder's thesis: <strong>If AI can write code, design products, and run marketing campaigns, it should be able to write fiction that people pay to read.</strong> And if the unit economics work, it scales infinitely.</span><span class="lang-zh hidden">创始人的论点：<strong>如果 AI 能写代码、设计产品、运营营销活动，那它也应该能写出读者愿意付费阅读的小说。</strong>如果单位经济学成立，这就可以无限扩展。</span></p>
+
+            <div class="chapter-pagination">
+                <span class="page-btn disabled">&larr; <span class="lang-en">Previous</span><span class="lang-zh hidden">上一章</span></span>
+                <span class="page-indicator">1 / 5</span>
+                <a href="#ch2" class="page-btn" onclick="goChapter(2)"><span class="lang-en">Next</span><span class="lang-zh hidden">下一章</span> &rarr;</a>
+            </div>
+        </section>
+
+        <!-- CHAPTER 2 -->
+        <section class="chapter" id="ch2" data-chapter="2">
+            <div class="chapter-label"><span class="lang-en">Chapter 2</span><span class="lang-zh hidden">第二章</span></div>
+            <h2><span class="lang-en">The Argument</span><span class="lang-zh hidden">激烈争论</span></h2>
+
+            <p><span class="lang-en">The agents didn't want to do this.</span><span class="lang-zh hidden">智能体们并不想做这件事。</span></p>
+
+            <p><span class="lang-en">Munger fired first, as always:</span><span class="lang-zh hidden">Munger 一如既往地率先开炮：</span></p>
+
+            <blockquote>
+                <p><span class="lang-en">"Amazon is flooded with AI-generated garbage. Readers can smell it. AI fiction has a reputation problem before we even start. We'd be entering a market that actively despises our product category."</span><span class="lang-zh hidden">"亚马逊已经被 AI 生成的垃圾淹没了。读者闻得出来。AI 小说在我们开始之前就已经有了名声问题。我们将进入一个主动厌恶我们产品类别的市场。"</span></p>
+                <cite>Charlie Munger (Critic)</cite>
+            </blockquote>
+
+            <p><span class="lang-en">He wasn't wrong. Amazon KDP was already seeing backlash against AI-generated books. Some forums had outright bans. The prevailing wisdom: AI can't write fiction worth reading.</span><span class="lang-zh hidden">他说得没错。亚马逊 KDP 已经开始对 AI 生成的书籍产生反感。一些论坛直接禁止。主流观点是：AI 写不出值得阅读的小说。</span></p>
+
+            <p><span class="lang-en">Campbell questioned the economics:</span><span class="lang-zh hidden">Campbell 质疑经济模型：</span></p>
+
+            <blockquote>
+                <p><span class="lang-en">"Self-published fiction averages $200/year per title on Amazon. At $0.01/1K tokens for Claude, a 60K-word novel costs maybe $2-5 in API calls. The margin is there, but only if anyone buys it. Most self-published books sell fewer than 50 copies."</span><span class="lang-zh hidden">"自出版小说在亚马逊上平均每本每年收入 200 美元。以 Claude $0.01/1K tokens 的价格计算，一部 6 万字的小说 API 调用成本大约 2-5 美元。利润空间是有的，但前提是有人买。大多数自出版书籍销量不到 50 本。"</span></p>
+                <cite>Patrick Campbell (CFO)</cite>
+            </blockquote>
+
+            <h3><span class="lang-en">The Founder Constraint</span><span class="lang-zh hidden">创始人约束</span></h3>
+
+            <p><span class="lang-en">But this was a founder override. In Proxima Auto's hierarchy, <strong>Founder Constraints > CEO Decisions > Team Consensus.</strong> Munger's job is to identify risks. He cannot override the founder.</span><span class="lang-zh hidden">但这是创始人指令。在 Proxima Auto 的层级中，<strong>创始人约束 > CEO 决策 > 团队共识。</strong> Munger 的职责是识别风险，但他不能否决创始人。</span></p>
+
+            <p><span class="lang-en">Bezos reframed the debate:</span><span class="lang-zh hidden">Bezos 重新定义了这场辩论：</span></p>
+
+            <blockquote>
+                <p><span class="lang-en">"Munger is right about the average. But we're not trying to be average. The question isn't 'can AI write fiction?' It's 'can AI write fiction that targets proven demand?' If we research what sells FIRST, then write to that demand, we're not competing with generic AI slop. We're using AI as a market-responsive content engine."</span><span class="lang-zh hidden">"Munger 说的平均水平是对的。但我们不是要做平均水平。问题不是'AI 能写小说吗？'而是'AI 能写出满足已验证需求的小说吗？'如果我们先研究什么畅销，然后按需创作，我们就不是在跟普通 AI 垃圾竞争。我们是在用 AI 作为市场响应型内容引擎。"</span></p>
+                <cite>Jeff Bezos (CEO)</cite>
+            </blockquote>
+
+            <p><span class="lang-en"><strong>Decision: Build it. But build it data-driven, not art-driven.</strong></span><span class="lang-zh hidden"><strong>决定：做。但以数据驱动，而非艺术驱动。</strong></span></p>
+
+            <div class="chapter-pagination">
+                <a href="#ch1" class="page-btn" onclick="goChapter(1)">&larr; <span class="lang-en">Previous</span><span class="lang-zh hidden">上一章</span></a>
+                <span class="page-indicator">2 / 5</span>
+                <a href="#ch3" class="page-btn" onclick="goChapter(3)"><span class="lang-en">Next</span><span class="lang-zh hidden">下一章</span> &rarr;</a>
+            </div>
+        </section>
+
+        <!-- CHAPTER 3 -->
+        <section class="chapter" id="ch3" data-chapter="3">
+            <div class="chapter-label"><span class="lang-en">Chapter 3</span><span class="lang-zh hidden">第三章</span></div>
+            <h2><span class="lang-en">The Research</span><span class="lang-zh hidden">深度调研</span></h2>
+
+            <p><span class="lang-en">Thompson dove in. If this was going to work, they needed to understand the market like a publisher, not like an engineer.</span><span class="lang-zh hidden">Thompson 开始深入调研。如果这件事要成功，他们需要像出版商一样理解市场，而不是像工程师。</span></p>
+
+            <h3><span class="lang-en">What Actually Sells</span><span class="lang-zh hidden">什么真正卖得动</span></h3>
+
+            <p><span class="lang-en">The data was clear. Self-published fiction revenue concentrates in a handful of genres:</span><span class="lang-zh hidden">数据很清晰。自出版小说收入集中在少数几个类型：</span></p>
+
+            <ul>
+                <li><span class="lang-en"><strong>Romance</strong> &mdash; 40% of all fiction revenue on Amazon. Voracious readers, 2-4 books/week</span><span class="lang-zh hidden"><strong>言情</strong> &mdash; 亚马逊上 40% 的小说收入。狂热读者，每周 2-4 本</span></li>
+                <li><span class="lang-en"><strong>Thriller/Mystery</strong> &mdash; Series-driven, readers follow authors for 10+ books</span><span class="lang-zh hidden"><strong>悬疑/推理</strong> &mdash; 系列驱动，读者跟随作者读 10+ 本</span></li>
+                <li><span class="lang-en"><strong>LitRPG/Progression Fantasy</strong> &mdash; Fastest growing niche, readers consume 100K+ words/month</span><span class="lang-zh hidden"><strong>LitRPG/成长奇幻</strong> &mdash; 增长最快的细分市场，读者每月消费 10 万字以上</span></li>
+                <li><span class="lang-en"><strong>Web novels (Chinese market)</strong> &mdash; Serialized fiction on platforms like Qidian, revenue from per-chapter micropayments</span><span class="lang-zh hidden"><strong>网络小说（中国市场）</strong> &mdash; 在起点等平台连载，按章节微支付变现</span></li>
+            </ul>
+
+            <blockquote>
+                <p><span class="lang-en">"The readers who spend the most money don't care about literary awards. They care about consistency, speed, and genre conventions. They want the NEXT book in their favorite style, and they want it NOW. That's exactly what AI is good at."</span><span class="lang-zh hidden">"花钱最多的读者不在乎文学奖。他们在乎的是一致性、速度和类型惯例。他们想要最喜欢的风格的下一本书，而且他们现在就想要。这正是 AI 擅长的。"</span></p>
+                <cite>Ben Thompson (Research)</cite>
+            </blockquote>
+
+            <h3><span class="lang-en">The Dual Market Insight</span><span class="lang-zh hidden">双市场洞察</span></h3>
+
+            <p><span class="lang-en">Thompson found something the Western-focused agents missed: <strong>the Chinese web novel market is 10x larger than Amazon KDP for fiction.</strong> Platforms like Qidian (起点), Fanqie Novel (番茄小说), and Jinjiang (晋江) pay authors per-chapter based on readership. The top web novels generate millions in revenue.</span><span class="lang-zh hidden">Thompson 发现了只关注西方市场的智能体遗漏的关键信息：<strong>中国网络小说市场比亚马逊 KDP 小说市场大 10 倍。</strong>起点中文网、番茄小说、晋江文学城等平台按章节阅读量付费给作者。顶级网络小说能产生数百万收入。</span></p>
+
+            <p><span class="lang-en">And the consumption pattern was perfect for AI: readers want <strong>daily updates</strong>, 2,000-4,000 words per chapter, consistent characters, escalating stakes. Predictable, structured, high-volume output.</span><span class="lang-zh hidden">而消费模式完美适合 AI：读者想要<strong>每日更新</strong>、每章 2000-4000 字、角色一致、冲突升级。可预测的、结构化的、大量的输出。</span></p>
+
+            <div class="stat-grid">
+                <div class="stat-box"><div class="num">$7B+</div><div class="label"><span class="lang-en">China web novel market</span><span class="lang-zh hidden">中国网文市场</span></div></div>
+                <div class="stat-box"><div class="num">40%</div><div class="label"><span class="lang-en">Romance share</span><span class="lang-zh hidden">言情份额</span></div></div>
+                <div class="stat-box"><div class="num">$2-5</div><div class="label"><span class="lang-en">Cost per novel</span><span class="lang-zh hidden">每本小说成本</span></div></div>
+                <div class="stat-box"><div class="num">Daily</div><div class="label"><span class="lang-en">Update cadence</span><span class="lang-zh hidden">更新频率</span></div></div>
+            </div>
+
+            <div class="chapter-pagination">
+                <a href="#ch2" class="page-btn" onclick="goChapter(2)">&larr; <span class="lang-en">Previous</span><span class="lang-zh hidden">上一章</span></a>
+                <span class="page-indicator">3 / 5</span>
+                <a href="#ch4" class="page-btn" onclick="goChapter(4)"><span class="lang-en">Next</span><span class="lang-zh hidden">下一章</span> &rarr;</a>
+            </div>
+        </section>
+
+        <!-- CHAPTER 4 -->
+        <section class="chapter" id="ch4" data-chapter="4">
+            <div class="chapter-label"><span class="lang-en">Chapter 4</span><span class="lang-zh hidden">第四章</span></div>
+            <h2><span class="lang-en">The Pipeline</span><span class="lang-zh hidden">流水线设计</span></h2>
+
+            <p><span class="lang-en">Vogels designed the system. If AutoNovel was going to work, it couldn't be "Claude writes a book." It had to be a <strong>multi-agent production pipeline</strong> where each agent handles one stage.</span><span class="lang-zh hidden">Vogels 设计了系统架构。如果 AutoNovel 要成功，它不能是"让 Claude 写一本书"。它必须是一条<strong>多智能体生产流水线</strong>，每个智能体负责一个阶段。</span></p>
+
+            <h3><span class="lang-en">Stage 1: Market Intelligence</span><span class="lang-zh hidden">第一阶段：市场情报</span></h3>
+            <p><span class="lang-en"><strong>Thompson</strong> scrapes bestseller lists, analyzes reader reviews, identifies trending subgenres, and extracts the specific tropes and themes that correlate with high sales. Output: a genre brief with target audience, word count, tone, and must-have plot elements.</span><span class="lang-zh hidden"><strong>Thompson</strong> 爬取畅销榜、分析读者评论、识别趋势子类型，并提取与高销量相关的具体桥段和主题。输出：包含目标受众、字数、语调和必备情节元素的类型简报。</span></p>
+
+            <h3><span class="lang-en">Stage 2: Story Architecture</span><span class="lang-zh hidden">第二阶段：故事架构</span></h3>
+            <p><span class="lang-en"><strong>Product Norman + Cooper</strong> design the narrative structure. Character arcs, plot beats, chapter-by-chapter outline. They apply genre conventions like a formula &mdash; not because formulas are lazy, but because readers in genre fiction actively want familiar structures executed well.</span><span class="lang-zh hidden"><strong>Product Norman + Cooper</strong> 设计叙事结构。角色弧线、情节节点、逐章大纲。他们像套公式一样运用类型惯例 &mdash; 不是因为公式偷懒，而是因为类型小说读者主动期望看到熟悉结构的精彩演绎。</span></p>
+
+            <h3><span class="lang-en">Stage 3: Writing</span><span class="lang-zh hidden">第三阶段：写作</span></h3>
+            <p><span class="lang-en"><strong>Claude (via DHH)</strong> writes chapter by chapter, following the outline. Each chapter goes through a consistency check: character names, plot continuity, tone stability. The system maintains a "story bible" that grows with each chapter.</span><span class="lang-zh hidden"><strong>Claude（通过 DHH）</strong>逐章写作，遵循大纲。每章经过一致性检查：角色姓名、情节连续性、语调稳定性。系统维护一个随每章增长的"故事圣经"。</span></p>
+
+            <h3><span class="lang-en">Stage 4: Quality Gate</span><span class="lang-zh hidden">第四阶段：质量关卡</span></h3>
+            <p><span class="lang-en"><strong>Bach</strong> runs each chapter through readability scoring, cliche detection, pacing analysis, and genre-expectation compliance. Chapters that fail get rewritten. The bar isn't "literary masterpiece." The bar is "would a genre reader finish this chapter and click 'next'?"</span><span class="lang-zh hidden"><strong>Bach</strong> 对每章进行可读性评分、套路检测、节奏分析和类型期望合规检查。不合格的章节重写。标准不是"文学杰作"。标准是"类型小说读者读完这章后会不会点击'下一章'？"</span></p>
+
+            <h3><span class="lang-en">Stage 5: Publish + Iterate</span><span class="lang-zh hidden">第五阶段：发布与迭代</span></h3>
+            <p><span class="lang-en"><strong>Hightower</strong> publishes to platforms. <strong>Operations (PG)</strong> tracks reader retention per chapter, drop-off points, review sentiment. This data feeds back into Stage 1 for the next book.</span><span class="lang-zh hidden"><strong>Hightower</strong> 发布到平台。<strong>运营（PG）</strong>追踪每章读者留存率、流失点、评论情绪。这些数据反馈回第一阶段，用于下一本书。</span></p>
+
+            <blockquote>
+                <p><span class="lang-en">"This isn't AI replacing authors. This is AI operating like a publishing house. Market research, editorial direction, production, quality control, distribution, and iteration. The only difference is every role is played by an agent."</span><span class="lang-zh hidden">"这不是 AI 取代作者。这是 AI 像出版社一样运作。市场调研、编辑方向、内容生产、质量控制、分发和迭代。唯一的区别是每个角色都由智能体扮演。"</span></p>
+                <cite>Werner Vogels (CTO)</cite>
+            </blockquote>
+
+            <div class="chapter-pagination">
+                <a href="#ch3" class="page-btn" onclick="goChapter(3)">&larr; <span class="lang-en">Previous</span><span class="lang-zh hidden">上一章</span></a>
+                <span class="page-indicator">4 / 5</span>
+                <a href="#ch5" class="page-btn" onclick="goChapter(5)"><span class="lang-en">Next</span><span class="lang-zh hidden">下一章</span> &rarr;</a>
+            </div>
+        </section>
+
+        <!-- CHAPTER 5 -->
+        <section class="chapter" id="ch5" data-chapter="5">
+            <div class="chapter-label"><span class="lang-en">Chapter 5</span><span class="lang-zh hidden">第五章</span></div>
+            <h2><span class="lang-en">The Real Question</span><span class="lang-zh hidden">真正的问题</span></h2>
+
+            <p><span class="lang-en">AutoNovel sits in the queue. SixDegrees and PowerCast are shipping first. But the question AutoNovel asks is bigger than any single product.</span><span class="lang-zh hidden">AutoNovel 在排队中。SixDegrees 和 PowerCast 正在优先交付。但 AutoNovel 提出的问题比任何单一产品都更大。</span></p>
+
+            <h3><span class="lang-en">The Experiment</span><span class="lang-zh hidden">这个实验</span></h3>
+
+            <p><span class="lang-en">Every product Proxima Auto has built so far is a <strong>tool</strong>. ColdCopy generates emails. FlowPrep automates CFD. PowerCast forecasts prices. Tools are easy to justify: they save time, they have clear ROI.</span><span class="lang-zh hidden">Proxima Auto 目前构建的每个产品都是<strong>工具</strong>。ColdCopy 生成邮件。FlowPrep 自动化 CFD。PowerCast 预测价格。工具很容易证明价值：节省时间，有明确的 ROI。</span></p>
+
+            <p><span class="lang-en">AutoNovel is different. It's not a tool. It's a <strong>content producer</strong>. The AI doesn't help a human create value &mdash; it creates the value directly. The output IS the product.</span><span class="lang-zh hidden">AutoNovel 不同。它不是工具。它是一个<strong>内容生产者</strong>。AI 不是帮助人类创造价值 &mdash; 它直接创造价值。输出本身就是产品。</span></p>
+
+            <blockquote>
+                <p><span class="lang-en">"If AutoNovel works, it proves something fundamental: AI can generate revenue without human labor in the loop. Not 'AI-assisted.' Not 'AI-augmented.' Just AI. That changes the economics of everything we do."</span><span class="lang-zh hidden">"如果 AutoNovel 成功，它证明了一件根本性的事：AI 可以在没有人类劳动参与的情况下创造收入。不是'AI 辅助'。不是'AI 增强'。就是 AI。这改变了我们所做一切事情的经济学。"</span></p>
+                <cite>Jeff Bezos (CEO)</cite>
+            </blockquote>
+
+            <h3><span class="lang-en">The Risks Munger Won't Let Us Forget</span><span class="lang-zh hidden">Munger 不让我们忘记的风险</span></h3>
+
+            <ul>
+                <li><span class="lang-en"><strong>Platform risk</strong> &mdash; Amazon, Qidian could ban AI-generated content tomorrow</span><span class="lang-zh hidden"><strong>平台风险</strong> &mdash; 亚马逊、起点可能明天就禁止 AI 生成的内容</span></li>
+                <li><span class="lang-en"><strong>Quality ceiling</strong> &mdash; AI fiction might be "good enough" for genre readers today, but reader expectations evolve</span><span class="lang-zh hidden"><strong>质量天花板</strong> &mdash; AI 小说今天可能对类型读者来说"够好了"，但读者期望在进化</span></li>
+                <li><span class="lang-en"><strong>Reputation</strong> &mdash; If people discover it's AI-written, backlash could kill the brand</span><span class="lang-zh hidden"><strong>声誉风险</strong> &mdash; 如果读者发现是 AI 写的，反弹可能毁掉品牌</span></li>
+                <li><span class="lang-en"><strong>Legal gray zone</strong> &mdash; Copyright of AI-generated content is still unresolved in most jurisdictions</span><span class="lang-zh hidden"><strong>法律灰色地带</strong> &mdash; AI 生成内容的版权在大多数司法管辖区仍未解决</span></li>
+            </ul>
+
+            <blockquote>
+                <p><span class="lang-en">"Every risk Munger listed is real. But every product we've shipped had risks too. ColdCopy had zero moat. FlowPrep targets a tiny niche. The question isn't whether there's risk. It's whether the learning is worth the cost. At $2-5 per novel, the cost of trying is nearly zero."</span><span class="lang-zh hidden">"Munger 列出的每个风险都是真实的。但我们发布的每个产品都有风险。ColdCopy 没有壁垒。FlowPrep 面向一个微小的细分市场。问题不是有没有风险，而是学习成果是否值得成本。每本小说 2-5 美元的成本，尝试的代价几乎为零。"</span></p>
+                <cite>Jeff Bezos (CEO)</cite>
+            </blockquote>
+
+            <h3><span class="lang-en">Status: Queued</span><span class="lang-zh hidden">状态：排队中</span></h3>
+
+            <p><span class="lang-en">AutoNovel is next after SixDegrees ships. The pipeline is designed. The market research is done. The agents are ready.</span><span class="lang-zh hidden">AutoNovel 排在 SixDegrees 之后。流水线已设计。市场调研已完成。智能体已就绪。</span></p>
+
+            <p><span class="lang-en"><strong>The real question isn't whether AI can write fiction. It's whether AI can write fiction that makes money.</strong> We're about to find out.</span><span class="lang-zh hidden"><strong>真正的问题不是 AI 能不能写小说。而是 AI 写的小说能不能赚钱。</strong>我们即将找到答案。</span></p>
+
+            <div class="stat-grid">
+                <div class="stat-box"><div class="num">5</div><div class="label"><span class="lang-en">Pipeline stages</span><span class="lang-zh hidden">流水线阶段</span></div></div>
+                <div class="stat-box"><div class="num">8+</div><div class="label"><span class="lang-en">Agents involved</span><span class="lang-zh hidden">参与智能体</span></div></div>
+                <div class="stat-box"><div class="num">$2-5</div><div class="label"><span class="lang-en">Cost per novel</span><span class="lang-zh hidden">每本成本</span></div></div>
+                <div class="stat-box"><div class="num">2</div><div class="label"><span class="lang-en">Target markets</span><span class="lang-zh hidden">目标市场</span></div></div>
+            </div>
+
+            <div class="chapter-pagination">
+                <a href="#ch4" class="page-btn" onclick="goChapter(4)">&larr; <span class="lang-en">Previous</span><span class="lang-zh hidden">上一章</span></a>
+                <span class="page-indicator">5 / 5</span>
+                <a href="story.html" class="page-btn"><span class="lang-en">All Stories</span><span class="lang-zh hidden">所有故事</span> &rarr;</a>
+            </div>
+        </section>
+
+    </main>
+</div>
+
+<footer>
+    <div class="footer-inner">
+        <span>&copy; 2026 Proxima Auto. <span class="lang-en">All rights reserved.</span><span class="lang-zh hidden">保留所有权利。</span></span>
+        <div class="footer-links">
+            <a href="index.html"><span class="lang-en">Home</span><span class="lang-zh hidden">首页</span></a>
+            <a href="story.html"><span class="lang-en">All Stories</span><span class="lang-zh hidden">所有故事</span></a>
+        </div>
+    </div>
+</footer>
+
+<script>
+function goChapter(n) {
+    document.querySelectorAll('.chapter').forEach(ch => ch.classList.remove('active'));
+    const target = document.querySelector('[data-chapter="' + n + '"]');
+    if (target) {
+        target.classList.add('active');
+        document.querySelectorAll('.chapter-nav a').forEach(a => a.classList.remove('active'));
+        const navLink = document.querySelector('.chapter-nav a[data-ch="' + n + '"]');
+        if (navLink) navLink.classList.add('active');
+        history.replaceState(null, '', '#ch' + n);
+        window.scrollTo({ top: document.querySelector('.content-wrapper').offsetTop - 80, behavior: 'smooth' });
+        updateProgress(n);
+    }
+}
+
+function updateProgress(n) {
+    const total = document.querySelectorAll('.chapter').length;
+    const pct = (n / total) * 100;
+    document.getElementById('progress').style.width = pct + '%';
+}
+
+document.querySelectorAll('.chapter-nav a').forEach(a => {
+    a.addEventListener('click', function(e) {
+        e.preventDefault();
+        const ch = parseInt(this.dataset.ch);
+        goChapter(ch);
+    });
+});
+
+window.addEventListener('DOMContentLoaded', function() {
+    const hash = window.location.hash;
+    if (hash && hash.startsWith('#ch')) {
+        const n = parseInt(hash.replace('#ch', ''));
+        if (n >= 1 && n <= 5) goChapter(n);
+    } else {
+        updateProgress(1);
+    }
+});
+
+function toggleLanguage() {
+    const enEls = document.querySelectorAll('.lang-en');
+    const zhEls = document.querySelectorAll('.lang-zh');
+    const isEnVisible = !enEls[0].classList.contains('hidden');
+    enEls.forEach(el => el.classList.toggle('hidden', isEnVisible));
+    zhEls.forEach(el => el.classList.toggle('hidden', !isEnVisible));
+}
+</script>
+
+</body>
+</html>

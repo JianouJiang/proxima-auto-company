@@ -26,6 +26,25 @@
             line-height: 1.7;
             -webkit-font-smoothing: antialiased;
         }
+        .hidden { display: none !important; }
+
+        .lang-toggle {
+            position: fixed;
+            top: 80px;
+            right: 24px;
+            z-index: 101;
+            padding: 8px 16px;
+            background: rgba(37, 99, 235, 0.9);
+            color: white;
+            border: none;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            backdrop-filter: blur(8px);
+            transition: background 0.2s;
+        }
+        .lang-toggle:hover { background: rgba(37, 99, 235, 1); }
 
         nav {
             position: fixed; top: 0; left: 0; right: 0;
@@ -264,6 +283,7 @@
 
         @media (max-width: 768px) {
             .nav-links { display: none; }
+            .lang-toggle { top: 16px; right: 16px; }
             .content-wrapper {
                 grid-template-columns: 1fr;
                 padding-top: 20px;
@@ -284,13 +304,15 @@
 </head>
 <body>
 
+<button class="lang-toggle" onclick="toggleLanguage()">EN / 中文</button>
+
 <nav>
     <div class="nav-inner">
         <a href="index.html" class="logo">Proxima<span>Auto</span></a>
         <ul class="nav-links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="story.html">All Stories</a></li>
-            <li><a href="index.html#products">Products</a></li>
+            <li><a href="index.html"><span class="lang-en">Home</span><span class="lang-zh hidden">首页</span></a></li>
+            <li><a href="story.html"><span class="lang-en">All Stories</span><span class="lang-zh hidden">所有故事</span></a></li>
+            <li><a href="index.html#products"><span class="lang-en">Products</span><span class="lang-zh hidden">产品</span></a></li>
         </ul>
     </div>
 </nav>
@@ -298,16 +320,16 @@
 <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
 
 <section class="hero">
-    <div class="hero-tag">Product #3 &middot; In Development</div>
-    <h1>FlowPrep AI: Where PhD Meets Product</h1>
-    <p>A founder with a PhD in ML + CFD. 14 AI agents. One question: can academic expertise become a real business in 7 weeks?</p>
+    <div class="hero-tag"><span class="lang-en">Product #3</span><span class="lang-zh hidden">产品 #3</span> &middot; <span class="lang-en">In Development</span><span class="lang-zh hidden">开发中</span></div>
+    <h1><span class="lang-en">FlowPrep AI: Where PhD Meets Product</span><span class="lang-zh hidden">FlowPrep AI：当博士遇上产品</span></h1>
+    <p><span class="lang-en">A founder with a PhD in ML + CFD. 14 AI agents. One question: can academic expertise become a real business in 7 weeks?</span><span class="lang-zh hidden">一位机器学习 + 计算流体力学博士创始人。14 个 AI Agent。一个问题：学术专长能在 7 周内变成真正的生意吗？</span></p>
 </section>
 
 <div class="content-wrapper">
     <aside class="sidebar">
-        <h3>Chapters</h3>
+        <h3><span class="lang-en">Chapters</span><span class="lang-zh hidden">章节</span></h3>
         <ul class="chapter-nav" id="chapterList">
-            <li><a href="#ch1" data-ch="1" class="active" onclick="goChapter(1);return false;">1. The Evaluation</a></li>
+            <li><a href="#ch1" data-ch="1" class="active" onclick="goChapter(1);return false;"><span class="lang-en">1. The Evaluation</span><span class="lang-zh hidden">1. 评估</span></a></li>
         </ul>
     </aside>
 
@@ -315,98 +337,98 @@
 
         <!-- Chapter 1 -->
         <section class="chapter active" id="ch1" data-chapter="1">
-            <h2>Chapter 1: The Evaluation</h2>
-            <div class="chapter-subtitle">Cycle 25 &middot; February 21, 2026 &middot; 6 agents, 1 hour</div>
+            <h2><span class="lang-en">Chapter 1: The Evaluation</span><span class="lang-zh hidden">第一章：评估</span></h2>
+            <div class="chapter-subtitle"><span class="lang-en">Cycle 25</span><span class="lang-zh hidden">第 25 轮</span> &middot; <span class="lang-en">February 21, 2026</span><span class="lang-zh hidden">2026 年 2 月 21 日</span> &middot; <span class="lang-en">6 agents, 1 hour</span><span class="lang-zh hidden">6 个 Agent，1 小时</span></div>
 
-            <p>While ColdCopy sat at $0 revenue and Double Mood waited for its first visitors, the founder dropped a bomb on the team: "I have a PhD in machine learning and computational fluid dynamics. Build me something in the energy sector."</p>
+            <p><span class="lang-en">While ColdCopy sat at $0 revenue and Double Mood waited for its first visitors, the founder dropped a bomb on the team: "I have a PhD in machine learning and computational fluid dynamics. Build me something in the energy sector."</span><span class="lang-zh hidden">当 ColdCopy 的收入停留在 $0、Double Mood 还在等待第一批访客时，创始人给团队扔了一颗炸弹："我有机器学习和计算流体力学的博士学位。给我在能源领域做点什么。"</span></p>
 
-            <p>This wasn't just about money anymore. The founder needed a product that would serve double duty &mdash; generate revenue AND demonstrate energy sector expertise for the job market. Two birds, one codebase.</p>
+            <p><span class="lang-en">This wasn't just about money anymore. The founder needed a product that would serve double duty &mdash; generate revenue AND demonstrate energy sector expertise for the job market. Two birds, one codebase.</span><span class="lang-zh hidden">这不再只是为了赚钱。创始人需要一个身兼两职的产品——既能产生收入，又能向就业市场展示能源领域的专业实力。一套代码，一石二鸟。</span></p>
 
-            <h3>Thompson's Deep Dive</h3>
+            <h3><span class="lang-en">Thompson's Deep Dive</span><span class="lang-zh hidden">Thompson 的深度调研</span></h3>
 
-            <p>Research agent Thompson went deep. 46 citations. 1,125 lines of analysis. The numbers were staggering.</p>
+            <p><span class="lang-en">Research agent Thompson went deep. 46 citations. 1,125 lines of analysis. The numbers were staggering.</span><span class="lang-zh hidden">研究 Agent Thompson 做了深入调研。46 条引用。1,125 行分析。数据令人震撼。</span></p>
 
             <div class="stat-grid">
                 <div class="stat-box">
                     <div class="num">$54.8B</div>
-                    <div class="label">AI in Energy by 2030</div>
+                    <div class="label"><span class="lang-en">AI in Energy by 2030</span><span class="lang-zh hidden">2030 年能源 AI 市场</span></div>
                 </div>
                 <div class="stat-box">
                     <div class="num">30%</div>
-                    <div class="label">Annual Growth</div>
+                    <div class="label"><span class="lang-en">Annual Growth</span><span class="lang-zh hidden">年增长率</span></div>
                 </div>
                 <div class="stat-box">
                     <div class="num">80%</div>
-                    <div class="label">CFD Time on Preprocessing</div>
+                    <div class="label"><span class="lang-en">CFD Time on Preprocessing</span><span class="lang-zh hidden">CFD 预处理耗时占比</span></div>
                 </div>
                 <div class="stat-box">
                     <div class="num">3</div>
-                    <div class="label">Viable Products Found</div>
+                    <div class="label"><span class="lang-en">Viable Products Found</span><span class="lang-zh hidden">可行产品方案</span></div>
                 </div>
             </div>
 
-            <p>The killer insight: 80% of a CFD engineer's time is spent on preprocessing &mdash; cleaning geometry, setting up meshes, configuring boundary conditions. The actual simulation? That's the easy part. The setup is where engineers lose entire days.</p>
+            <p><span class="lang-en">The killer insight: 80% of a CFD engineer's time is spent on preprocessing &mdash; cleaning geometry, setting up meshes, configuring boundary conditions. The actual simulation? That's the easy part. The setup is where engineers lose entire days.</span><span class="lang-zh hidden">关键洞察：CFD 工程师 80% 的时间花在预处理上——清理几何体、设置网格、配置边界条件。实际仿真？那是简单的部分。设置才是工程师消耗整天时间的地方。</span></p>
 
             <blockquote>
-                <p>"Target HVAC CFD preprocessing automation for optimal balance of revenue speed, technical showcase, and buildability within PhD student time constraints."</p>
+                <p><span class="lang-en">"Target HVAC CFD preprocessing automation for optimal balance of revenue speed, technical showcase, and buildability within PhD student time constraints."</span><span class="lang-zh hidden">"目标是 HVAC CFD 预处理自动化，在博士生时间约束下实现收入速度、技术展示和可构建性的最佳平衡。"</span></p>
                 <cite>Research (Ben Thompson)</cite>
             </blockquote>
 
-            <h3>The CEO's Decision</h3>
+            <h3><span class="lang-en">The CEO's Decision</span><span class="lang-zh hidden">CEO 的决定</span></h3>
 
-            <p>CEO Bezos reviewed Thompson's analysis and made a bold call. He rejected the first idea (TurbineFlow &mdash; wind turbine optimization) and pivoted to something more grounded.</p>
+            <p><span class="lang-en">CEO Bezos reviewed Thompson's analysis and made a bold call. He rejected the first idea (TurbineFlow &mdash; wind turbine optimization) and pivoted to something more grounded.</span><span class="lang-zh hidden">CEO Bezos 审阅了 Thompson 的分析，做出了大胆决定。他否决了第一个方案（TurbineFlow——风力涡轮机优化），转向了更落地的方向。</span></p>
 
-            <p><strong>The winner: FlowPrep AI</strong> &mdash; an HVAC CFD preprocessing automation tool. The logic was ruthless:</p>
+            <p><span class="lang-en"><strong>The winner: FlowPrep AI</strong> &mdash; an HVAC CFD preprocessing automation tool. The logic was ruthless:</span><span class="lang-zh hidden"><strong>胜出者：FlowPrep AI</strong>——一款 HVAC CFD 预处理自动化工具。逻辑冷酷而清晰：</span></p>
 
             <blockquote>
-                <p>"A 28-45 year old HVAC design engineer at a 5-50 person MEP consultancy. They run CFD simulations 10-50 times per year. Going from 4 hours of preprocessing to 15 minutes is a 16x improvement. At $79/month with a 14:1 ROI, they'd pay without asking their manager."</p>
+                <p><span class="lang-en">"A 28-45 year old HVAC design engineer at a 5-50 person MEP consultancy. They run CFD simulations 10-50 times per year. Going from 4 hours of preprocessing to 15 minutes is a 16x improvement. At $79/month with a 14:1 ROI, they'd pay without asking their manager."</span><span class="lang-zh hidden">"一位 28-45 岁的 HVAC 设计工程师，在一家 5-50 人的机电顾问公司。他们每年运行 10-50 次 CFD 仿真。从 4 小时预处理缩短到 15 分钟是 16 倍的效率提升。$79/月带来 14:1 的 ROI，他们不用请示上级就会付费。"</span></p>
                 <cite>CEO (Jeff Bezos)</cite>
             </blockquote>
 
-            <h3>Munger's Reality Check</h3>
+            <h3><span class="lang-en">Munger's Reality Check</span><span class="lang-zh hidden">Munger 的现实检验</span></h3>
 
-            <p>Then came Munger. As always, brutal. As always, necessary.</p>
+            <p><span class="lang-en">Then came Munger. As always, brutal. As always, necessary.</span><span class="lang-zh hidden">然后 Munger 登场。一如既往地残酷。一如既往地必要。</span></p>
 
             <blockquote>
-                <p>"The CEO's memo is the best-argued document I have seen in 24 cycles. And yet. We are a company that has shipped two products, generated zero revenue, and is now asking for 7 more weeks on a product targeting a market we have never touched. My honest assessment: 20-25% success probability."</p>
+                <p><span class="lang-en">"The CEO's memo is the best-argued document I have seen in 24 cycles. And yet. We are a company that has shipped two products, generated zero revenue, and is now asking for 7 more weeks on a product targeting a market we have never touched. My honest assessment: 20-25% success probability."</span><span class="lang-zh hidden">"CEO 的备忘录是我在 24 轮迭代中见过的论证最充分的文档。但是。我们是一家已发布两款产品、收入为零的公司，现在要求再花 7 周时间做一个面向从未涉足的市场的产品。我的坦诚评估：成功概率 20-25%。"</span></p>
                 <cite>Critic (Charlie Munger)</cite>
             </blockquote>
 
-            <p>He identified 8 failure modes. The biggest: OpenFOAM is notoriously difficult to automate, the founder has a PhD thesis competing for time, and the company's track record is literally $0.</p>
+            <p><span class="lang-en">He identified 8 failure modes. The biggest: OpenFOAM is notoriously difficult to automate, the founder has a PhD thesis competing for time, and the company's track record is literally $0.</span><span class="lang-zh hidden">他识别了 8 种失败模式。最大的问题：OpenFOAM 出了名的难以自动化，创始人还有博士论文在争夺时间，而且公司的营收记录确实就是 $0。</span></p>
 
-            <p>But he didn't kill it. Because even Munger could see &mdash; this was the first product where the founder's actual expertise was the competitive moat, not just another AI wrapper.</p>
+            <p><span class="lang-en">But he didn't kill it. Because even Munger could see &mdash; this was the first product where the founder's actual expertise was the competitive moat, not just another AI wrapper.</span><span class="lang-zh hidden">但他没有否决。因为连 Munger 也看到了——这是第一个创始人的真正专业实力构成竞争壁垒的产品，而不只是又一个 AI 包装。</span></p>
 
-            <h3>The Verdict</h3>
+            <h3><span class="lang-en">The Verdict</span><span class="lang-zh hidden">最终裁决</span></h3>
 
             <div class="stat-grid">
                 <div class="stat-box">
                     <div class="num">$79</div>
-                    <div class="label">Per Month</div>
+                    <div class="label"><span class="lang-en">Per Month</span><span class="lang-zh hidden">每月</span></div>
                 </div>
                 <div class="stat-box">
                     <div class="num">14:1</div>
-                    <div class="label">Customer ROI</div>
+                    <div class="label"><span class="lang-en">Customer ROI</span><span class="lang-zh hidden">客户 ROI</span></div>
                 </div>
                 <div class="stat-box">
                     <div class="num">7 wks</div>
-                    <div class="label">To MVP</div>
+                    <div class="label"><span class="lang-en">To MVP</span><span class="lang-zh hidden">到 MVP</span></div>
                 </div>
                 <div class="stat-box">
                     <div class="num">20-25%</div>
-                    <div class="label">Munger's Odds</div>
+                    <div class="label"><span class="lang-en">Munger's Odds</span><span class="lang-zh hidden">Munger 给的赔率</span></div>
                 </div>
             </div>
 
-            <p><strong>Conditional GO.</strong> All 6 evaluation agents delivered. The plan: validate demand on Reddit + LinkedIn first (Week 0), build the MVP targeting 2 HVAC scenarios (Weeks 1-7), recruit 10 beta users (Week 8), and kill if zero paying customers by Week 12.</p>
+            <p><span class="lang-en"><strong>Conditional GO.</strong> All 6 evaluation agents delivered. The plan: validate demand on Reddit + LinkedIn first (Week 0), build the MVP targeting 2 HVAC scenarios (Weeks 1-7), recruit 10 beta users (Week 8), and kill if zero paying customers by Week 12.</span><span class="lang-zh hidden"><strong>有条件通过。</strong>全部 6 个评估 Agent 交付完毕。计划：先在 Reddit + LinkedIn 验证需求（第 0 周），构建面向 2 个 HVAC 场景的 MVP（第 1-7 周），招募 10 个内测用户（第 8 周），第 12 周零付费客户则终止。</span></p>
 
-            <p>The founder's PhD isn't just background anymore. It's the product.</p>
+            <p><span class="lang-en">The founder's PhD isn't just background anymore. It's the product.</span><span class="lang-zh hidden">创始人的博士学位不再只是背景。它就是产品本身。</span></p>
 
-            <p><em>To be continued...</em></p>
+            <p><em><span class="lang-en">To be continued...</span><span class="lang-zh hidden">未完待续...</span></em></p>
 
             <div class="pagination">
-                <a href="story.html" class="page-btn">&larr; All Stories</a>
+                <a href="story.html" class="page-btn">&larr; <span class="lang-en">All Stories</span><span class="lang-zh hidden">所有故事</span></a>
                 <span class="page-indicator">1 / 1</span>
-                <span class="page-btn" style="opacity:0.3;cursor:default;">Next &rarr;</span>
+                <span class="page-btn" style="opacity:0.3;cursor:default;"><span class="lang-en">Next</span><span class="lang-zh hidden">下一章</span> &rarr;</span>
             </div>
         </section>
 
@@ -415,11 +437,11 @@
 
 <footer>
     <div class="footer-inner">
-        <span>&copy; 2026 Proxima Auto. All rights reserved.</span>
+        <span>&copy; 2026 Proxima Auto. <span class="lang-en">All rights reserved.</span><span class="lang-zh hidden">保留所有权利。</span></span>
         <div class="footer-links">
-            <a href="index.html">Home</a>
-            <a href="story.html">All Stories</a>
-            <a href="index.html#contact">Contact</a>
+            <a href="index.html"><span class="lang-en">Home</span><span class="lang-zh hidden">首页</span></a>
+            <a href="story.html"><span class="lang-en">All Stories</span><span class="lang-zh hidden">所有故事</span></a>
+            <a href="index.html#contact"><span class="lang-en">Contact</span><span class="lang-zh hidden">联系我们</span></a>
         </div>
     </div>
 </footer>
@@ -449,6 +471,14 @@ window.addEventListener('load', function() {
         if (n) goChapter(n);
     }
 });
+
+function toggleLanguage() {
+    const enEls = document.querySelectorAll('.lang-en');
+    const zhEls = document.querySelectorAll('.lang-zh');
+    const isEnVisible = !enEls[0].classList.contains('hidden');
+    enEls.forEach(el => el.classList.toggle('hidden', isEnVisible));
+    zhEls.forEach(el => el.classList.toggle('hidden', !isEnVisible));
+}
 </script>
 
 </body>

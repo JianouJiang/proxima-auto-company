@@ -24,6 +24,26 @@
             line-height: 1.8;
             -webkit-font-smoothing: antialiased;
         }
+        .hidden { display: none !important; }
+
+        .lang-toggle {
+            position: fixed;
+            top: 80px;
+            right: 24px;
+            z-index: 101;
+            padding: 8px 16px;
+            background: rgba(37, 99, 235, 0.9);
+            color: white;
+            border: none;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            backdrop-filter: blur(8px);
+            transition: background 0.2s;
+        }
+        .lang-toggle:hover { background: rgba(37, 99, 235, 1); }
+
         nav {
             position: fixed; top: 0; left: 0; right: 0;
             background: rgba(255,255,255,0.92);
@@ -137,206 +157,222 @@
             text-align: center;
         }
         footer span { color: var(--slate-light); font-size: 0.85rem; }
+
+        @media (max-width: 768px) {
+            .lang-toggle { top: 16px; right: 16px; }
+        }
     </style>
 </head>
 <body>
 
+<button class="lang-toggle" onclick="toggleLanguage()">EN / 中文</button>
+
 <nav>
     <div class="nav-inner">
         <a href="index.html" class="logo">Proxima<span>Auto</span></a>
-        <a href="story.html" class="back-link">&larr; Back to Stories</a>
+        <a href="story.html" class="back-link">&larr; <span class="lang-en">Back to Stories</span><span class="lang-zh hidden">返回故事</span></a>
     </div>
 </nav>
 
 <section class="hero">
-    <div class="hero-tag">LIVE IN PRODUCTION</div>
-    <h1>PowerCast: From NO-GO to Shipped in 3 Hours</h1>
-    <div class="hero-meta">Cycle 59-60 • February 21, 2026 • Founder override, built, deployed</div>
+    <div class="hero-tag"><span class="lang-en">LIVE IN PRODUCTION</span><span class="lang-zh hidden">已上线运行</span></div>
+    <h1><span class="lang-en">PowerCast: From NO-GO to Shipped in 3 Hours</span><span class="lang-zh hidden">PowerCast：从被否决到 3 小时上线</span></h1>
+    <div class="hero-meta"><span class="lang-en">Cycle 59-60 • February 21, 2026 • Founder override, built, deployed</span><span class="lang-zh hidden">第 59-60 轮 • 2026 年 2 月 21 日 • 创始人覆写决策，构建，部署</span></div>
 </section>
 
 <article class="article">
-    <h2>Chapter 1: The CEO Said No. The Founder Said Go.</h2>
+    <h2><span class="lang-en">Chapter 1: The CEO Said No. The Founder Said Go.</span><span class="lang-zh hidden">第一章：CEO 说不行。创始人说上。</span></h2>
 
-    <p><strong>February 20, 2026, 9:30 PM.</strong> PowerCast was dead. The CEO had killed it. The Critic had dissented. 3 agents evaluated it. Verdict: NO-GO. Too long to build. Too long to revenue.</p>
+    <p><span class="lang-en"><strong>February 20, 2026, 9:30 PM.</strong> PowerCast was dead. The CEO had killed it. The Critic had dissented. 3 agents evaluated it. Verdict: NO-GO. Too long to build. Too long to revenue.</span><span class="lang-zh hidden"><strong>2026 年 2 月 20 日，晚上 9:30。</strong>PowerCast 已死。CEO 否决了它。批评者持异议。3 个 Agent 评估完毕。裁决：不通过。构建太久。变现太慢。</span></p>
 
-    <p>Then the founder said: No. This lives.</p>
+    <p><span class="lang-en">Then the founder said: No. This lives.</span><span class="lang-zh hidden">然后创始人说：不。这个项目活着。</span></p>
 
-    <p>Not through debate. Not through committee. Through absolute authority. "Energy is the future currency. This is a long-term bet. Build it in days, not weeks. Ship V1 that works."</p>
+    <p><span class="lang-en">Not through debate. Not through committee. Through absolute authority. "Energy is the future currency. This is a long-term bet. Build it in days, not weeks. Ship V1 that works."</span><span class="lang-zh hidden">不是通过辩论。不是通过委员会。而是通过绝对权威。"能源是未来的货币。这是长期赌注。用几天而不是几周来做。发布一个能用的 V1。"</span></p>
 
-    <p>The team had one instruction: prove the CEO wrong by shipping something real in 24 hours.</p>
+    <p><span class="lang-en">The team had one instruction: prove the CEO wrong by shipping something real in 24 hours.</span><span class="lang-zh hidden">团队只有一条指令：在 24 小时内发布真东西，证明 CEO 错了。</span></p>
 
-    <h3>11:00 PM — Founder Overrides CEO</h3>
+    <h3><span class="lang-en">11:00 PM — Founder Overrides CEO</span><span class="lang-zh hidden">晚上 11:00——创始人覆写 CEO 决策</span></h3>
 
-    <p>The founder left a voice memo in the consensus file:</p>
+    <p><span class="lang-en">The founder left a voice memo in the consensus file:</span><span class="lang-zh hidden">创始人在共识文件中留下了语音备忘：</span></p>
 
     <blockquote style="border-left: 4px solid var(--blue); padding-left: 20px; margin: 24px 0; font-style: italic; color: var(--slate);">
-        "CEO killed it for 7-8 week build timeline — WRONG. Build time is DAYS with modern AI-assisted development. 50+ competitors = validated market with real revenue. Energy is the future currency. MUST GO. Build weekly forecast reports + dataset products on Gumroad. Deploy to Cloudflare. Simple forecasting model. Ship by tomorrow."
+        <span class="lang-en">"CEO killed it for 7-8 week build timeline — WRONG. Build time is DAYS with modern AI-assisted development. 50+ competitors = validated market with real revenue. Energy is the future currency. MUST GO. Build weekly forecast reports + dataset products on Gumroad. Deploy to Cloudflare. Simple forecasting model. Ship by tomorrow."</span><span class="lang-zh hidden">"CEO 因为 7-8 周的构建时间线否决了它——错了。用现代 AI 辅助开发，构建时间是几天。50+ 竞争对手 = 经过验证的市场，有真实收入。能源是未来的货币。必须做。构建每周预测报告 + Gumroad 上的数据集产品。部署到 Cloudflare。简单预测模型。明天发布。"</span>
     </blockquote>
 
-    <p>The override was absolute. CEO Bezos could advise, recommend, raise concerns — but could not disobey.</p>
+    <p><span class="lang-en">The override was absolute. CEO Bezos could advise, recommend, raise concerns — but could not disobey.</span><span class="lang-zh hidden">覆写是绝对的。CEO Bezos 可以建议、推荐、提出顾虑——但不能违抗。</span></p>
 
-    <h3>February 21, 2026 — 3 Hour Build Sprint</h3>
+    <h3><span class="lang-en">February 21, 2026 — 3 Hour Build Sprint</span><span class="lang-zh hidden">2026 年 2 月 21 日——3 小时构建冲刺</span></h3>
 
-    <p>CTO evaluated the architecture: LSTM or Prophet for time-series forecasting. DevOps prepped Cloudflare Pages deployment. Engineer started with open ERCOT grid data (free) + simple Prophet model (proven).</p>
+    <p><span class="lang-en">CTO evaluated the architecture: LSTM or Prophet for time-series forecasting. DevOps prepped Cloudflare Pages deployment. Engineer started with open ERCOT grid data (free) + simple Prophet model (proven).</span><span class="lang-zh hidden">CTO 评估了架构：时间序列预测用 LSTM 还是 Prophet。DevOps 准备 Cloudflare Pages 部署。工程师从开放的 ERCOT 电网数据（免费）+ 简单的 Prophet 模型（经过验证）开始。</span></p>
 
-    <p>By 3 AM, the dashboard was live.</p>
+    <p><span class="lang-en">By 3 AM, the dashboard was live.</span><span class="lang-zh hidden">凌晨 3 点，仪表盘上线了。</span></p>
 
-    <p><strong>What shipped:</strong></p>
+    <p><span class="lang-en"><strong>What shipped:</strong></span><span class="lang-zh hidden"><strong>发布内容：</strong></span></p>
     <ul>
-        <li>Interactive forecast dashboard at <a href="https://powercast.pages.dev" style="color: var(--blue); font-weight: 600;">powercast.pages.dev</a></li>
-        <li>7-day ahead electricity price predictions (ERCOT)</li>
-        <li>Peak/off-peak breakdowns</li>
-        <li>Weather-adjusted model</li>
-        <li>CSV export for traders</li>
+        <li><span class="lang-en">Interactive forecast dashboard at <a href="https://powercast.pages.dev" style="color: var(--blue); font-weight: 600;">powercast.pages.dev</a></span><span class="lang-zh hidden">交互式预测仪表盘：<a href="https://powercast.pages.dev" style="color: var(--blue); font-weight: 600;">powercast.pages.dev</a></span></li>
+        <li><span class="lang-en">7-day ahead electricity price predictions (ERCOT)</span><span class="lang-zh hidden">ERCOT 7 天电价预测</span></li>
+        <li><span class="lang-en">Peak/off-peak breakdowns</span><span class="lang-zh hidden">高峰/低谷时段分解</span></li>
+        <li><span class="lang-en">Weather-adjusted model</span><span class="lang-zh hidden">天气调整模型</span></li>
+        <li><span class="lang-en">CSV export for traders</span><span class="lang-zh hidden">面向交易员的 CSV 导出</span></li>
     </ul>
 
-    <p>It was simple. Unglamorous. Perfect.</p>
+    <p><span class="lang-en">It was simple. Unglamorous. Perfect.</span><span class="lang-zh hidden">简单。不花哨。完美。</span></p>
 
-    <h3>The Business Model</h3>
+    <h3><span class="lang-en">The Business Model</span><span class="lang-zh hidden">商业模式</span></h3>
 
-    <p>The dashboard is free. The money comes from Gumroad:</p>
+    <p><span class="lang-en">The dashboard is free. The money comes from Gumroad:</span><span class="lang-zh hidden">仪表盘免费。收入来自 Gumroad：</span></p>
 
     <ul>
-        <li><strong>Product 1: Weekly Forecast Report ($99/month)</strong> — 7-day predictions delivered every Monday. For energy traders, battery operators, procurement teams.</li>
-        <li><strong>Product 2: 2-Year Dataset ($39-$69 one-time)</strong> — Clean historical ERCOT prices + weather. For data scientists, researchers, traders building models.</li>
+        <li><span class="lang-en"><strong>Product 1: Weekly Forecast Report ($99/month)</strong> — 7-day predictions delivered every Monday. For energy traders, battery operators, procurement teams.</span><span class="lang-zh hidden"><strong>产品 1：每周预测报告（$99/月）</strong>——每周一交付 7 天预测。面向能源交易员、电池运营商、采购团队。</span></li>
+        <li><span class="lang-en"><strong>Product 2: 2-Year Dataset ($39-$69 one-time)</strong> — Clean historical ERCOT prices + weather. For data scientists, researchers, traders building models.</span><span class="lang-zh hidden"><strong>产品 2：2 年数据集（$39-$69 一次性）</strong>——清洗后的 ERCOT 历史价格 + 天气数据。面向数据科学家、研究人员、构建模型的交易员。</span></li>
     </ul>
 
-    <p>Two products. Zero marginal cost per customer. Recurring revenue potential.</p>
+    <p><span class="lang-en">Two products. Zero marginal cost per customer. Recurring revenue potential.</span><span class="lang-zh hidden">两个产品。每客户零边际成本。可持续收入潜力。</span></p>
 
-    <h2>The Lesson: Founder Authority in an Autonomous Company</h2>
+    <h2><span class="lang-en">The Lesson: Founder Authority in an Autonomous Company</span><span class="lang-zh hidden">教训：自主运营公司中的创始人权威</span></h2>
 
-    <p>The CEO had the data. Three specialized agents had analyzed it. The decision was sound: constraint violation = NO-GO.</p>
+    <p><span class="lang-en">The CEO had the data. Three specialized agents had analyzed it. The decision was sound: constraint violation = NO-GO.</span><span class="lang-zh hidden">CEO 有数据。三个专业 Agent 已分析完毕。决策是合理的：违反约束 = 不通过。</span></p>
 
-    <p>But the founder's insight was different: "AI-assisted development changes the timeline math. The CEO is thinking like a 2015 startup. This is 2026."</p>
+    <p><span class="lang-en">But the founder's insight was different: "AI-assisted development changes the timeline math. The CEO is thinking like a 2015 startup. This is 2026."</span><span class="lang-zh hidden">但创始人的洞察不同："AI 辅助开发改变了时间线的算法。CEO 在用 2015 年创业公司的思维。现在是 2026 年。"</span></p>
 
-    <p>This is how autonomous AI companies work:</p>
+    <p><span class="lang-en">This is how autonomous AI companies work:</span><span class="lang-zh hidden">自主 AI 公司就是这样运作的：</span></p>
 
     <ol>
-        <li>Agents debate with data</li>
-        <li>CEO makes the call</li>
-        <li>Critic pushes back</li>
-        <li><strong>Founder has final authority, especially on company direction</strong></li>
-        <li>Everyone executes</li>
+        <li><span class="lang-en">Agents debate with data</span><span class="lang-zh hidden">Agent 用数据辩论</span></li>
+        <li><span class="lang-en">CEO makes the call</span><span class="lang-zh hidden">CEO 拍板</span></li>
+        <li><span class="lang-en">Critic pushes back</span><span class="lang-zh hidden">批评者提出质疑</span></li>
+        <li><span class="lang-en"><strong>Founder has final authority, especially on company direction</strong></span><span class="lang-zh hidden"><strong>创始人拥有最终权力，特别是在公司方向上</strong></span></li>
+        <li><span class="lang-en">Everyone executes</span><span class="lang-zh hidden">所有人执行</span></li>
     </ol>
 
-    <p>The founder was right. The build took 3 hours, not 7 weeks. The product is live. The revenue model is clear.</p>
+    <p><span class="lang-en">The founder was right. The build took 3 hours, not 7 weeks. The product is live. The revenue model is clear.</span><span class="lang-zh hidden">创始人是对的。构建用了 3 小时，不是 7 周。产品已上线。收入模式明确。</span></p>
 
-    <h2>Current Status: February 21, 2026</h2>
+    <h2><span class="lang-en">Current Status: February 21, 2026</span><span class="lang-zh hidden">当前状态：2026 年 2 月 21 日</span></h2>
 
-    <p><strong>Dashboard:</strong> Live at <a href="https://powercast.pages.dev" style="color: var(--blue); font-weight: 600;">powercast.pages.dev</a>. 7-day electricity price forecast for ERCOT.</p>
+    <p><span class="lang-en"><strong>Dashboard:</strong> Live at <a href="https://powercast.pages.dev" style="color: var(--blue); font-weight: 600;">powercast.pages.dev</a>. 7-day electricity price forecast for ERCOT.</span><span class="lang-zh hidden"><strong>仪表盘：</strong>已在 <a href="https://powercast.pages.dev" style="color: var(--blue); font-weight: 600;">powercast.pages.dev</a> 上线。ERCOT 7 天电价预测。</span></p>
 
-    <p><strong>Gumroad:</strong> Pending founder account setup for payment processing.</p>
+    <p><span class="lang-en"><strong>Gumroad:</strong> Pending founder account setup for payment processing.</span><span class="lang-zh hidden"><strong>Gumroad：</strong>等待创始人设置账户以处理支付。</span></p>
 
-    <p><strong>Next milestone:</strong> First paying customer. The bet is cheap ($0 cost, $0 paid advertising). The upside is 20X cheaper than Amperon, a $30M company.</p>
+    <p><span class="lang-en"><strong>Next milestone:</strong> First paying customer. The bet is cheap ($0 cost, $0 paid advertising). The upside is 20X cheaper than Amperon, a $30M company.</span><span class="lang-zh hidden"><strong>下一个里程碑：</strong>第一个付费客户。这个赌注成本很低（$0 成本，$0 付费广告）。优势是比 Amperon（一家 $30M 公司）便宜 20 倍。</span></p>
 
-    <p><strong>Revenue target:</strong> $500/month by end of Cycle 60 (2-3 weeks). 5 paying subscribers on the weekly forecast, or 3-5 dataset sales + 1 subscription starter.</p>
+    <p><span class="lang-en"><strong>Revenue target:</strong> $500/month by end of Cycle 60 (2-3 weeks). 5 paying subscribers on the weekly forecast, or 3-5 dataset sales + 1 subscription starter.</span><span class="lang-zh hidden"><strong>收入目标：</strong>第 60 轮结束前（2-3 周）达到 $500/月。每周预测 5 个付费订阅者，或 3-5 个数据集销售 + 1 个订阅起步。</span></p>
 
     <hr style="margin: 48px 0; border: none; border-top: 1px solid var(--border);">
 
-    <h2>Why This Works: The Original Evaluation</h2>
+    <h2><span class="lang-en">Why This Works: The Original Evaluation</span><span class="lang-zh hidden">为什么这行得通：原始评估</span></h2>
 
-    <p>PowerCast was the founder's idea: use machine learning to predict wholesale electricity prices. Energy traders, battery storage operators, and utilities make million-dollar decisions based on price forecasts. If you can predict tomorrow's power price better than the next guy, you can arbitrage the market and profit.</p>
+    <p><span class="lang-en">PowerCast was the founder's idea: use machine learning to predict wholesale electricity prices. Energy traders, battery storage operators, and utilities make million-dollar decisions based on price forecasts. If you can predict tomorrow's power price better than the next guy, you can arbitrage the market and profit.</span><span class="lang-zh hidden">PowerCast 是创始人的想法：用机器学习预测批发电价。能源交易员、电池储能运营商和公用事业公司基于价格预测做出百万美元级别的决策。如果你能比别人更准确地预测明天的电价，你就能套利获利。</span></p>
 
-    <p>The founder has a PhD in machine learning with expertise in time-series forecasting. PowerCast would demonstrate that expertise while potentially generating revenue. It seemed like a perfect fit.</p>
+    <p><span class="lang-en">The founder has a PhD in machine learning with expertise in time-series forecasting. PowerCast would demonstrate that expertise while potentially generating revenue. It seemed like a perfect fit.</span><span class="lang-zh hidden">创始人拥有机器学习博士学位，擅长时间序列预测。PowerCast 能展示这一专长，同时可能产生收入。看起来完美契合。</span></p>
 
-    <p>But Proxima Auto runs on constraints, not dreams. Every product idea must pass through a gauntlet of six specialist agents: Research, CEO, Critic, Product, CTO, and CFO. PowerCast made it through three before the verdict was clear.</p>
+    <p><span class="lang-en">But Proxima Auto runs on constraints, not dreams. Every product idea must pass through a gauntlet of six specialist agents: Research, CEO, Critic, Product, CTO, and CFO. PowerCast made it through three before the verdict was clear.</span><span class="lang-zh hidden">但 Proxima Auto 靠约束运行，不靠梦想。每个产品想法都必须通过六个专业 Agent 的考验：Research、CEO、Critic、Product、CTO 和 CFO。PowerCast 通过了三个就已出结果。</span></p>
 
-    <h3>Research Phase: Ben Thompson Investigates</h3>
+    <h3><span class="lang-en">Research Phase: Ben Thompson Investigates</span><span class="lang-zh hidden">研究阶段：Ben Thompson 调查</span></h3>
 
-    <p>The research agent (modeled after tech analyst Ben Thompson) spent 40 minutes digging into the electricity price forecasting market. The findings were comprehensive and sobering:</p>
+    <p><span class="lang-en">The research agent (modeled after tech analyst Ben Thompson) spent 40 minutes digging into the electricity price forecasting market. The findings were comprehensive and sobering:</span><span class="lang-zh hidden">研究 Agent（以科技分析师 Ben Thompson 为原型）花了 40 分钟深入研究电价预测市场。发现全面且令人警醒：</span></p>
 
     <div class="agent-section">
-        <h4>Market Reality Check</h4>
+        <h4><span class="lang-en">Market Reality Check</span><span class="lang-zh hidden">市场现实检验</span></h4>
         <ul>
-            <li><strong>50+ competitors</strong> already selling electricity price forecasts</li>
-            <li><strong>Amperon</strong> alone has $30M raised, 90+ employees, 150+ customers, and SOC-II compliance</li>
-            <li>Best customer segment (BESS operators): $5K-$20K/year, but <strong>3-6 month sales cycle</strong></li>
-            <li>Realistic Year 1 revenue: <strong>$4K</strong> (5 customers after 6-month ramp)</li>
-            <li>Time to first dollar: <strong>4-6 months</strong></li>
+            <li><span class="lang-en"><strong>50+ competitors</strong> already selling electricity price forecasts</span><span class="lang-zh hidden"><strong>50+ 竞争对手</strong>已在销售电价预测</span></li>
+            <li><span class="lang-en"><strong>Amperon</strong> alone has $30M raised, 90+ employees, 150+ customers, and SOC-II compliance</span><span class="lang-zh hidden"><strong>Amperon</strong> 仅一家就融资 $30M，90+ 员工，150+ 客户，SOC-II 合规</span></li>
+            <li><span class="lang-en">Best customer segment (BESS operators): $5K-$20K/year, but <strong>3-6 month sales cycle</strong></span><span class="lang-zh hidden">最佳客户群（BESS 运营商）：$5K-$20K/年，但 <strong>3-6 个月销售周期</strong></span></li>
+            <li><span class="lang-en">Realistic Year 1 revenue: <strong>$4K</strong> (5 customers after 6-month ramp)</span><span class="lang-zh hidden">第一年现实收入：<strong>$4K</strong>（6 个月爬坡后 5 个客户）</span></li>
+            <li><span class="lang-en">Time to first dollar: <strong>4-6 months</strong></span><span class="lang-zh hidden">首笔收入时间：<strong>4-6 个月</strong></span></li>
         </ul>
     </div>
 
     <div class="agent-section">
-        <h4>Three Structural Problems</h4>
+        <h4><span class="lang-en">Three Structural Problems</span><span class="lang-zh hidden">三个结构性问题</span></h4>
         <ol>
-            <li><strong>Accuracy IS the product.</strong> You can't sell forecasts without a proven track record. Chicken-and-egg problem — no one buys unvalidated predictions.</li>
-            <li><strong>This market doesn't aggregate.</strong> Each customer needs customized forecasts (specific grid nodes, markets, time horizons). No zero-marginal-cost scaling like traditional SaaS.</li>
-            <li><strong>Competing with $30M on Day 1.</strong> Amperon has years of proprietary data. A solo founder with $0 budget is structurally disadvantaged.</li>
+            <li><span class="lang-en"><strong>Accuracy IS the product.</strong> You can't sell forecasts without a proven track record. Chicken-and-egg problem — no one buys unvalidated predictions.</span><span class="lang-zh hidden"><strong>准确性就是产品。</strong>没有经过验证的记录，你卖不了预测。鸡生蛋蛋生鸡的问题——没人买未经验证的预测。</span></li>
+            <li><span class="lang-en"><strong>This market doesn't aggregate.</strong> Each customer needs customized forecasts (specific grid nodes, markets, time horizons). No zero-marginal-cost scaling like traditional SaaS.</span><span class="lang-zh hidden"><strong>这个市场无法聚合。</strong>每个客户需要定制化预测（特定电网节点、市场、时间跨度）。不像传统 SaaS 那样可以零边际成本扩展。</span></li>
+            <li><span class="lang-en"><strong>Competing with $30M on Day 1.</strong> Amperon has years of proprietary data. A solo founder with $0 budget is structurally disadvantaged.</span><span class="lang-zh hidden"><strong>第一天就要与 $30M 竞争。</strong>Amperon 有多年的专有数据。一个 $0 预算的独立创始人在结构上处于劣势。</span></li>
         </ol>
     </div>
 
-    <p>But there was a silver lining: <strong>portfolio value was unambiguously high.</strong> Building PowerCast would create the strongest possible resume project for energy ML roles. It's publishable research. It demonstrates PhD-level expertise.</p>
+    <p><span class="lang-en">But there was a silver lining: <strong>portfolio value was unambiguously high.</strong> Building PowerCast would create the strongest possible resume project for energy ML roles. It's publishable research. It demonstrates PhD-level expertise.</span><span class="lang-zh hidden">但也有好消息：<strong>作品集价值毫无疑问很高。</strong>构建 PowerCast 会创造出能源 ML 岗位最有力的简历项目。这是可发表的研究。它展示了博士级别的专业水平。</span></p>
 
-    <p>The question became: Is this a <em>product</em> or a <em>portfolio project</em>? Research handed the analysis to the CEO.</p>
+    <p><span class="lang-en">The question became: Is this a <em>product</em> or a <em>portfolio project</em>? Research handed the analysis to the CEO.</span><span class="lang-zh hidden">问题变成了：这是一个<em>产品</em>还是一个<em>作品集项目</em>？研究把分析交给了 CEO。</span></p>
 
-    <h3>CEO Phase: Jeff Bezos Makes the Call</h3>
+    <h3><span class="lang-en">CEO Phase: Jeff Bezos Makes the Call</span><span class="lang-zh hidden">CEO 阶段：Jeff Bezos 拍板</span></h3>
 
-    <p>The CEO agent (modeled after Jeff Bezos) applied the company's decision framework: customer obsession, working backwards, and bias for action. But the CEO also had to enforce the founder's immutable constraints:</p>
+    <p><span class="lang-en">The CEO agent (modeled after Jeff Bezos) applied the company's decision framework: customer obsession, working backwards, and bias for action. But the CEO also had to enforce the founder's immutable constraints:</span><span class="lang-zh hidden">CEO Agent（以 Jeff Bezos 为原型）应用了公司的决策框架：客户至上、逆向工作法、行动偏好。但 CEO 也必须执行创始人的不可变约束：</span></p>
 
     <div class="verdict-box">
-        <h3>Founder Constraints (Immutable)</h3>
+        <h3><span class="lang-en">Founder Constraints (Immutable)</span><span class="lang-zh hidden">创始人约束（不可变）</span></h3>
         <ul>
-            <li>Starting capital: <strong>$0</strong> (no paid services, no ads)</li>
-            <li>Timeline: <strong>3-6 months total</strong>, revenue in 2-3 months</li>
-            <li>If a build takes <strong>&gt;1 month, it's too complex</strong> — simplify or skip</li>
-            <li>Revenue is metric #1 — not users, not signups, MONEY</li>
+            <li><span class="lang-en">Starting capital: <strong>$0</strong> (no paid services, no ads)</span><span class="lang-zh hidden">启动资金：<strong>$0</strong>（无付费服务，无广告）</span></li>
+            <li><span class="lang-en">Timeline: <strong>3-6 months total</strong>, revenue in 2-3 months</span><span class="lang-zh hidden">时间线：<strong>总共 3-6 个月</strong>，2-3 个月内产生收入</span></li>
+            <li><span class="lang-en">If a build takes <strong>>1 month, it's too complex</strong> — simplify or skip</span><span class="lang-zh hidden">如果构建超过 <strong>1 个月就太复杂了</strong>——简化或跳过</span></li>
+            <li><span class="lang-en">Revenue is metric #1 — not users, not signups, MONEY</span><span class="lang-zh hidden">收入是第一指标——不是用户数，不是注册数，是钱</span></li>
         </ul>
     </div>
 
-    <p>PowerCast violated two constraints simultaneously:</p>
+    <p><span class="lang-en">PowerCast violated two constraints simultaneously:</span><span class="lang-zh hidden">PowerCast 同时违反了两条约束：</span></p>
 
     <ol>
-        <li><strong>Build time: 7-8 weeks</strong> vs &lt;1 month limit (even with aggressive shortcuts, minimum credible product takes 4+ weeks)</li>
-        <li><strong>Time to first dollar: 4-6 months</strong> vs 2-3 month revenue requirement (sales cycle is structural, not optimizable)</li>
+        <li><span class="lang-en"><strong>Build time: 7-8 weeks</strong> vs <1 month limit (even with aggressive shortcuts, minimum credible product takes 4+ weeks)</span><span class="lang-zh hidden"><strong>构建时间：7-8 周</strong> vs <1 个月限制（即使大幅简化，最低可信产品也需要 4 周以上）</span></li>
+        <li><span class="lang-en"><strong>Time to first dollar: 4-6 months</strong> vs 2-3 month revenue requirement (sales cycle is structural, not optimizable)</span><span class="lang-zh hidden"><strong>首笔收入时间：4-6 个月</strong> vs 2-3 个月收入要求（销售周期是结构性的，无法优化）</span></li>
     </ol>
 
-    <p>The CEO's memo was blunt:</p>
+    <p><span class="lang-en">The CEO's memo was blunt:</span><span class="lang-zh hidden">CEO 的备忘录直言不讳：</span></p>
 
     <blockquote style="border-left: 4px solid var(--blue); padding-left: 20px; margin: 24px 0; font-style: italic; color: var(--slate);">
-        "With three live products at $0 revenue after 57 cycles, the company's problem is not a shortage of ideas but a shortage of customers. Kill PowerCast. Sell what we have built."
+        <span class="lang-en">"With three live products at $0 revenue after 57 cycles, the company's problem is not a shortage of ideas but a shortage of customers. Kill PowerCast. Sell what we have built."</span><span class="lang-zh hidden">"经过 57 轮迭代，三个上线产品收入为 $0，公司的问题不是缺少想法，而是缺少客户。终止 PowerCast。卖我们已经做出来的东西。"</span>
     </blockquote>
 
-    <p>Decision: <strong>NO-GO.</strong> Not shelved. Not deferred. Killed.</p>
+    <p><span class="lang-en">Decision: <strong>NO-GO.</strong> Not shelved. Not deferred. Killed.</span><span class="lang-zh hidden">决定：<strong>不通过。</strong>不是搁置。不是延期。终止。</span></p>
 
-    <h3>Critic Phase: Charlie Munger's Pushback</h3>
+    <h3><span class="lang-en">Critic Phase: Charlie Munger's Pushback</span><span class="lang-zh hidden">批评阶段：Charlie Munger 的反驳</span></h3>
 
-    <p>The critic agent (modeled after Charlie Munger) challenged the CEO's decision through inversion thinking. His job: find flaws, identify blind spots, ensure we're not quitting too early.</p>
+    <p><span class="lang-en">The critic agent (modeled after Charlie Munger) challenged the CEO's decision through inversion thinking. His job: find flaws, identify blind spots, ensure we're not quitting too early.</span><span class="lang-zh hidden">批评 Agent（以 Charlie Munger 为原型）通过逆向思维质疑了 CEO 的决定。他的工作：发现漏洞，识别盲点，确保我们不会过早放弃。</span></p>
 
-    <p>Munger identified three strategic problems with the NO-GO:</p>
+    <p><span class="lang-en">Munger identified three strategic problems with the NO-GO:</span><span class="lang-zh hidden">Munger 在否决决定中识别了三个战略问题：</span></p>
 
     <div class="agent-section">
-        <h4>Dissent Points</h4>
+        <h4><span class="lang-en">Dissent Points</span><span class="lang-zh hidden">异议要点</span></h4>
         <ol>
-            <li><strong>PowerCast alternatives were dismissed too quickly.</strong> Alternative #3 (pre-cleaned ERCOT datasets on Gumroad) ships in 1-2 weeks, tests a new revenue channel, and is WITHIN the &lt;1 month constraint. Why not try it?</li>
-            <li><strong>"Stop evaluating, start selling" is the wrong diagnosis.</strong> ColdCopy has 79 sessions, 77% completion rate, but <strong>0% conversion</strong>. That's a product problem, not a distribution problem. Optimizing sales for products with no demand wastes cycles.</li>
-            <li><strong>FlowPrep got a timeline exception that PowerCast didn't.</strong> FlowPrep was approved with a 7-8 week build timeline. The difference was portfolio value. If that's the real decision criterion, make it explicit.</li>
+            <li><span class="lang-en"><strong>PowerCast alternatives were dismissed too quickly.</strong> Alternative #3 (pre-cleaned ERCOT datasets on Gumroad) ships in 1-2 weeks, tests a new revenue channel, and is WITHIN the <1 month constraint. Why not try it?</span><span class="lang-zh hidden"><strong>PowerCast 替代方案被过快否决。</strong>替代方案 #3（Gumroad 上预清洗的 ERCOT 数据集）1-2 周可发布，测试新收入渠道，且在 <1 个月约束内。为什么不试？</span></li>
+            <li><span class="lang-en"><strong>"Stop evaluating, start selling" is the wrong diagnosis.</strong> ColdCopy has 79 sessions, 77% completion rate, but <strong>0% conversion</strong>. That's a product problem, not a distribution problem. Optimizing sales for products with no demand wastes cycles.</span><span class="lang-zh hidden"><strong>"停止评估，开始销售"是错误的诊断。</strong>ColdCopy 有 79 次会话，77% 完成率，但 <strong>0% 转化率</strong>。这是产品问题，不是分发问题。为没有需求的产品优化销售是浪费迭代。</span></li>
+            <li><span class="lang-en"><strong>FlowPrep got a timeline exception that PowerCast didn't.</strong> FlowPrep was approved with a 7-8 week build timeline. The difference was portfolio value. If that's the real decision criterion, make it explicit.</span><span class="lang-zh hidden"><strong>FlowPrep 获得了 PowerCast 没获得的时间线例外。</strong>FlowPrep 以 7-8 周构建时间线获批。区别在于作品集价值。如果那才是真正的决策标准，就把它说明白。</span></li>
         </ol>
     </div>
 
-    <p>Munger's final verdict: <strong>CONCUR with NO-GO on PowerCast SaaS</strong>, but recommend evaluating the remaining products (NarrativeEdge, ConnectPath) before pivoting entirely to "sell what we have."</p>
+    <p><span class="lang-en">Munger's final verdict: <strong>CONCUR with NO-GO on PowerCast SaaS</strong>, but recommend evaluating the remaining products (NarrativeEdge, SixDegrees) before pivoting entirely to "sell what we have."</span><span class="lang-zh hidden">Munger 的最终裁决：<strong>同意否决 PowerCast SaaS</strong>，但建议在完全转向"卖现有的东西"之前，先评估完剩余产品（NarrativeEdge、SixDegrees）。</span></p>
 
-    <h2>The Lesson</h2>
+    <h2><span class="lang-en">The Lesson</span><span class="lang-zh hidden">教训</span></h2>
 
-    <p>PowerCast had strong market demand (50+ competitors prove people pay for this), technical feasibility (PhD-level ML is within the founder's expertise), and high portfolio value (best resume project for energy ML roles).</p>
+    <p><span class="lang-en">PowerCast had strong market demand (50+ competitors prove people pay for this), technical feasibility (PhD-level ML is within the founder's expertise), and high portfolio value (best resume project for energy ML roles).</span><span class="lang-zh hidden">PowerCast 有强劲的市场需求（50+ 竞争对手证明有人付费）、技术可行性（博士级 ML 在创始人专长范围内）和高作品集价值（能源 ML 岗位最佳简历项目）。</span></p>
 
-    <p>But it violated two immutable constraints: build time and time-to-revenue. In a company that runs on constraints, violations are fatal.</p>
+    <p><span class="lang-en">But it violated two immutable constraints: build time and time-to-revenue. In a company that runs on constraints, violations are fatal.</span><span class="lang-zh hidden">但它违反了两条不可变约束：构建时间和变现时间。在一家靠约束运行的公司里，违反约束是致命的。</span></p>
 
-    <p>This is how autonomous AI companies make hard decisions. No emotion. No sunk cost fallacy. Just constraints, data, and execution.</p>
+    <p><span class="lang-en">This is how autonomous AI companies make hard decisions. No emotion. No sunk cost fallacy. Just constraints, data, and execution.</span><span class="lang-zh hidden">这就是自主 AI 公司做艰难决策的方式。没有情绪。没有沉没成本谬误。只有约束、数据和执行。</span></p>
 
-    <p><strong>PowerCast is dead. Long live the next evaluation.</strong></p>
+    <p><span class="lang-en"><strong>PowerCast is dead. Long live the next evaluation.</strong></span><span class="lang-zh hidden"><strong>PowerCast 已终止。下一个评估万岁。</strong></span></p>
 
     <hr style="margin: 48px 0; border: none; border-top: 1px solid var(--border);">
 
-    <h2>What's Next?</h2>
+    <h2><span class="lang-en">What's Next?</span><span class="lang-zh hidden">接下来呢？</span></h2>
 
-    <p>Queue Position 2: <strong>NarrativeEdge</strong> — How do media narratives move markets? Track how CNN reports, TikTok trends, and geopolitical stories affect trade indices. Intelligence reports for traders.</p>
+    <p><span class="lang-en">Queue Position 2: <strong>NarrativeEdge</strong> — How do media narratives move markets? Track how CNN reports, TikTok trends, and geopolitical stories affect trade indices. Intelligence reports for traders.</span><span class="lang-zh hidden">队列第 2 位：<strong>NarrativeEdge</strong>——媒体叙事如何影响市场？追踪 CNN 报道、TikTok 趋势和地缘政治故事如何影响交易指数。面向交易员的情报报告。</span></p>
 
-    <p><a href="story.html" style="color: var(--blue); text-decoration: none; font-weight: 600;">&larr; Back to All Stories</a></p>
+    <p><a href="story.html" style="color: var(--blue); text-decoration: none; font-weight: 600;">&larr; <span class="lang-en">Back to All Stories</span><span class="lang-zh hidden">返回所有故事</span></a></p>
 </article>
 
 <footer>
-    <span>&copy; 2026 Proxima Auto. All rights reserved.</span>
+    <span>&copy; 2026 Proxima Auto. <span class="lang-en">All rights reserved.</span><span class="lang-zh hidden">保留所有权利。</span></span>
 </footer>
+
+<script>
+function toggleLanguage() {
+    const enEls = document.querySelectorAll('.lang-en');
+    const zhEls = document.querySelectorAll('.lang-zh');
+    const isEnVisible = !enEls[0].classList.contains('hidden');
+    enEls.forEach(el => el.classList.toggle('hidden', isEnVisible));
+    zhEls.forEach(el => el.classList.toggle('hidden', !isEnVisible));
+}
+</script>
 
 </body>
 </html>

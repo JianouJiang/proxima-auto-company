@@ -24,6 +24,26 @@
             line-height: 1.8;
             -webkit-font-smoothing: antialiased;
         }
+        .hidden { display: none !important; }
+
+        .lang-toggle {
+            position: fixed;
+            top: 80px;
+            right: 24px;
+            z-index: 101;
+            padding: 8px 16px;
+            background: rgba(37, 99, 235, 0.9);
+            color: white;
+            border: none;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            backdrop-filter: blur(8px);
+            transition: background 0.2s;
+        }
+        .lang-toggle:hover { background: rgba(37, 99, 235, 1); }
+
         nav {
             position: fixed; top: 0; left: 0; right: 0;
             background: rgba(255,255,255,0.92);
@@ -144,143 +164,159 @@
             text-align: center;
         }
         footer span { color: var(--slate-light); font-size: 0.85rem; }
+
+        @media (max-width: 768px) {
+            .lang-toggle { top: 16px; right: 16px; }
+        }
     </style>
 </head>
 <body>
 
+<button class="lang-toggle" onclick="toggleLanguage()">EN / 中文</button>
+
 <nav>
     <div class="nav-inner">
         <a href="index.html" class="logo">Proxima<span>Auto</span></a>
-        <a href="story.html" class="back-link">&larr; Back to Stories</a>
+        <a href="story.html" class="back-link">&larr; <span class="lang-en">Back to Stories</span><span class="lang-zh hidden">返回故事</span></a>
     </div>
 </nav>
 
 <section class="hero">
-    <div class="hero-tag">EVALUATED — NO-GO</div>
-    <h1>NarrativeEdge: Valid Market, Wrong Fit</h1>
-    <div class="hero-meta">Cycle 59 • February 21, 2026 • 3 specialists evaluated</div>
+    <div class="hero-tag"><span class="lang-en">EVALUATED — NO-GO</span><span class="lang-zh hidden">已评估——未通过</span></div>
+    <h1><span class="lang-en">NarrativeEdge: Valid Market, Wrong Fit</span><span class="lang-zh hidden">NarrativeEdge：市场成立，方向不对</span></h1>
+    <div class="hero-meta"><span class="lang-en">Cycle 59 • February 21, 2026 • 3 specialists evaluated</span><span class="lang-zh hidden">第 59 轮 • 2026 年 2 月 21 日 • 3 位专家评估</span></div>
 </section>
 
 <article class="article">
-    <h2>Chapter 1: The Evaluation</h2>
+    <h2><span class="lang-en">Chapter 1: The Evaluation</span><span class="lang-zh hidden">第一章：评估</span></h2>
 
-    <p>NarrativeEdge was the founder's second idea: analyze how media narratives affect financial markets. When CNN reports negatively on China, does the Yiwu import index drop? When TikTok trends explode around a product, do related fund indices move? Most market tools analyze numbers. NarrativeEdge would analyze <em>stories → numbers causation</em>.</p>
+    <p><span class="lang-en">NarrativeEdge was the founder's second idea: analyze how media narratives affect financial markets. When CNN reports negatively on China, does the Yiwu import index drop? When TikTok trends explode around a product, do related fund indices move? Most market tools analyze numbers. NarrativeEdge would analyze <em>stories → numbers causation</em>.</span><span class="lang-zh hidden">NarrativeEdge 是创始人的第二个想法：分析媒体叙事如何影响金融市场。当 CNN 负面报道中国时，义乌进口指数会下跌吗？当 TikTok 上某产品的趋势爆发时，相关基金指数会动吗？大多数市场工具分析数字。NarrativeEdge 要分析的是<em>故事到数字的因果关系</em>。</span></p>
 
-    <p>The insight was novel. The academic foundation was real (Robert Shiller's "Narrative Economics" proves stories drive market behavior). Competitors like AlphaSense and RavenPack are funded and profitable at $10K-$500K/year pricing. This wasn't a fantasy market — it was validated.</p>
+    <p><span class="lang-en">The insight was novel. The academic foundation was real (Robert Shiller's "Narrative Economics" proves stories drive market behavior). Competitors like AlphaSense and RavenPack are funded and profitable at $10K-$500K/year pricing. This wasn't a fantasy market — it was validated.</span><span class="lang-zh hidden">洞察是新颖的。学术基础是真实的（Robert Shiller 的《叙事经济学》证明了故事驱动市场行为）。AlphaSense 和 RavenPack 等竞争对手已获融资且盈利，定价在 $10K-$500K/年。这不是幻想中的市场——它是被验证的。</span></p>
 
-    <p>But after PowerCast was killed in Cycle 58 for violating timeline constraints, NarrativeEdge faced a higher bar. Three specialists evaluated it: Research (Ben Thompson), CEO (Jeff Bezos), and Critic (Charlie Munger). The verdict came swiftly.</p>
+    <p><span class="lang-en">But after PowerCast was killed in Cycle 58 for violating timeline constraints, NarrativeEdge faced a higher bar. Three specialists evaluated it: Research (Ben Thompson), CEO (Jeff Bezos), and Critic (Charlie Munger). The verdict came swiftly.</span><span class="lang-zh hidden">但在 PowerCast 于第 58 轮因违反时间线约束被否决后，NarrativeEdge 面临更高的门槛。三位专家进行了评估：Research (Ben Thompson)、CEO (Jeff Bezos) 和 Critic (Charlie Munger)。判决迅速到来。</span></p>
 
-    <h3>Research Phase: Market Validation</h3>
+    <h3><span class="lang-en">Research Phase: Market Validation</span><span class="lang-zh hidden">研究阶段：市场验证</span></h3>
 
-    <p>The research agent spent 60 minutes analyzing the narrative intelligence market. The findings were surprisingly strong:</p>
+    <p><span class="lang-en">The research agent spent 60 minutes analyzing the narrative intelligence market. The findings were surprisingly strong:</span><span class="lang-zh hidden">研究 Agent 花了 60 分钟分析叙事智能市场。发现出人意料地强劲：</span></p>
 
     <div class="agent-section">
-        <h4>The Good News</h4>
+        <h4><span class="lang-en">The Good News</span><span class="lang-zh hidden">好消息</span></h4>
         <ul>
-            <li><strong>Market is real.</strong> 25+ peer-reviewed papers (2024-2025) show sentiment predicts 45-50% of stock return variation</li>
-            <li><strong>Historical causation proven.</strong> 3 clear examples verified: Trump tariffs → S&P 500 fell 3-5%, China slowdown narrative → Shanghai Index dropped 6.2%, Iran/Venezuela tensions → oil spiked 5%</li>
-            <li><strong>Data pipeline feasible on $0 budget.</strong> Alpha Vantage free tier (25 requests/day) + yfinance provide enough data for email reports and alerts</li>
-            <li><strong>Timeline fits constraints.</strong> Email report + Telegram alerts buildable in 2-3 weeks (dashboard would take 3-5 weeks, exceeding limit)</li>
-            <li><strong>Revenue model simple.</strong> Freemium: $19/month Pro, $49/month Business tier</li>
+            <li><span class="lang-en"><strong>Market is real.</strong> 25+ peer-reviewed papers (2024-2025) show sentiment predicts 45-50% of stock return variation</span><span class="lang-zh hidden"><strong>市场是真实的。</strong>25+ 篇同行评审论文（2024-2025）表明情绪预测了 45-50% 的股票回报变异</span></li>
+            <li><span class="lang-en"><strong>Historical causation proven.</strong> 3 clear examples verified: Trump tariffs → S&P 500 fell 3-5%, China slowdown narrative → Shanghai Index dropped 6.2%, Iran/Venezuela tensions → oil spiked 5%</span><span class="lang-zh hidden"><strong>历史因果已验证。</strong>3 个明确案例：Trump 关税 → S&P 500 下跌 3-5%，中国放缓叙事 → 上证指数下跌 6.2%，伊朗/委内瑞拉紧张局势 → 石油暴涨 5%</span></li>
+            <li><span class="lang-en"><strong>Data pipeline feasible on $0 budget.</strong> Alpha Vantage free tier (25 requests/day) + yfinance provide enough data for email reports and alerts</span><span class="lang-zh hidden"><strong>$0 预算下数据管道可行。</strong>Alpha Vantage 免费层（25 次请求/天）+ yfinance 可提供足够的邮件报告和告警数据</span></li>
+            <li><span class="lang-en"><strong>Timeline fits constraints.</strong> Email report + Telegram alerts buildable in 2-3 weeks (dashboard would take 3-5 weeks, exceeding limit)</span><span class="lang-zh hidden"><strong>时间线符合约束。</strong>邮件报告 + Telegram 告警可在 2-3 周内构建（仪表盘需要 3-5 周，超出限制）</span></li>
+            <li><span class="lang-en"><strong>Revenue model simple.</strong> Freemium: $19/month Pro, $49/month Business tier</span><span class="lang-zh hidden"><strong>收入模型简单。</strong>免费增值：$19/月专业版，$49/月商业版</span></li>
         </ul>
     </div>
 
-    <p>Research recommended <strong>CONDITIONAL GO (25-35% revenue probability)</strong> with specific validation steps: get 20+ positive responses to "would you pay $19/month?", backtest 3 examples for >0.6 correlation, add SEC-compliant disclaimers from day 1.</p>
+    <p><span class="lang-en">Research recommended <strong>CONDITIONAL GO (25-35% revenue probability)</strong> with specific validation steps: get 20+ positive responses to "would you pay $19/month?", backtest 3 examples for >0.6 correlation, add SEC-compliant disclaimers from day 1.</span><span class="lang-zh hidden">研究建议 <strong>有条件通过（25-35% 收入概率）</strong>，附带具体验证步骤：获得 20+ 条对"你会付 $19/月吗？"的正面回复，对 3 个案例进行 >0.6 相关性的回测，从第一天起加入 SEC 合规免责声明。</span></p>
 
-    <p>On paper, NarrativeEdge looked better than PowerCast. It met the timeline constraint. It had a clearer path to revenue. The technology was feasible with free data sources.</p>
+    <p><span class="lang-en">On paper, NarrativeEdge looked better than PowerCast. It met the timeline constraint. It had a clearer path to revenue. The technology was feasible with free data sources.</span><span class="lang-zh hidden">纸面上看，NarrativeEdge 比 PowerCast 更好。它满足时间线约束。有更清晰的收入路径。技术上用免费数据源就可行。</span></p>
 
-    <p>So why did the CEO kill it?</p>
+    <p><span class="lang-en">So why did the CEO kill it?</span><span class="lang-zh hidden">那么 CEO 为什么否决了它？</span></p>
 
-    <h3>CEO Phase: The Revenue Math Doesn't Add Up</h3>
+    <h3><span class="lang-en">CEO Phase: The Revenue Math Doesn't Add Up</span><span class="lang-zh hidden">CEO 阶段：收入数学不成立</span></h3>
 
-    <p>The CEO agent (Jeff Bezos model) applied the company's decision framework. Working backwards from the customer, he wrote the press release and FAQ. Then he looked at the numbers.</p>
+    <p><span class="lang-en">The CEO agent (Jeff Bezos model) applied the company's decision framework. Working backwards from the customer, he wrote the press release and FAQ. Then he looked at the numbers.</span><span class="lang-zh hidden">CEO Agent（Jeff Bezos 模型）应用了公司的决策框架。从客户倒推，他写了新闻稿和 FAQ。然后他看了数字。</span></p>
 
     <div class="verdict-box">
-        <h3>Decision: NO-GO on NarrativeEdge</h3>
-        <p><strong>Three Fatal Flaws:</strong></p>
+        <h3><span class="lang-en">Decision: NO-GO on NarrativeEdge</span><span class="lang-zh hidden">决定：NarrativeEdge 未通过</span></h3>
+        <p><strong><span class="lang-en">Three Fatal Flaws:</span><span class="lang-zh hidden">三个致命缺陷：</span></strong></p>
         <ol>
-            <li><strong>Revenue math doesn't justify opportunity cost.</strong> Thompson's numbers: 25-35% probability × $1,140 realistic annual revenue = <strong>$285 expected annual value</strong>. That's not a business. That's a Telegram bot with 12 subscribers.</li>
-            <li><strong>No domain fit.</strong> Founder has PhD in ML + CFD. NarrativeEdge requires Wall Street credibility. Competitors (AlphaSense, RavenPack) were built by people with decades of trading floor experience. We'd be competing with free-tier APIs (25 requests/day) against their proprietary data pipelines.</li>
-            <li><strong>Zero moat.</strong> Any developer can replicate NarrativeEdge in a weekend with an Alpha Vantage API key and a Telegram bot. The data is public. The sentiment scoring is a free API call. No defensibility.</li>
+            <li><span class="lang-en"><strong>Revenue math doesn't justify opportunity cost.</strong> Thompson's numbers: 25-35% probability x $1,140 realistic annual revenue = <strong>$285 expected annual value</strong>. That's not a business. That's a Telegram bot with 12 subscribers.</span><span class="lang-zh hidden"><strong>收入数学不足以证明机会成本合理。</strong>Thompson 的数字：25-35% 概率 x $1,140 现实年收入 = <strong>$285 预期年价值</strong>。这不是一门生意。这是一个 12 个订阅者的 Telegram 机器人。</span></li>
+            <li><span class="lang-en"><strong>No domain fit.</strong> Founder has PhD in ML + CFD. NarrativeEdge requires Wall Street credibility. Competitors (AlphaSense, RavenPack) were built by people with decades of trading floor experience. We'd be competing with free-tier APIs (25 requests/day) against their proprietary data pipelines.</span><span class="lang-zh hidden"><strong>没有领域匹配。</strong>创始人有 ML + CFD 博士学位。NarrativeEdge 需要华尔街信誉。竞争对手（AlphaSense、RavenPack）由拥有数十年交易大厅经验的人创建。我们会用免费层 API（25 次请求/天）与他们的专有数据管道竞争。</span></li>
+            <li><span class="lang-en"><strong>Zero moat.</strong> Any developer can replicate NarrativeEdge in a weekend with an Alpha Vantage API key and a Telegram bot. The data is public. The sentiment scoring is a free API call. No defensibility.</span><span class="lang-zh hidden"><strong>零护城河。</strong>任何开发者都可以用一个 Alpha Vantage API 密钥和一个 Telegram 机器人在一个周末复制 NarrativeEdge。数据是公开的。情感评分是免费的 API 调用。没有防御性。</span></li>
         </ol>
     </div>
 
-    <p>The CEO's memo was direct:</p>
+    <p><span class="lang-en">The CEO's memo was direct:</span><span class="lang-zh hidden">CEO 的备忘录直截了当：</span></p>
 
     <blockquote>
-        "A product that ships in 2 weeks and earns $0 is worse than one that takes 4 weeks and earns $500/month. Passing the timeline filter is necessary, not sufficient."
+        <span class="lang-en">"A product that ships in 2 weeks and earns $0 is worse than one that takes 4 weeks and earns $500/month. Passing the timeline filter is necessary, not sufficient."</span><span class="lang-zh hidden">"一个 2 周发布但赚 $0 的产品，比一个 4 周发布但赚 $500/月的产品更差。通过时间线筛选是必要的，但不是充分的。"</span>
     </blockquote>
 
-    <h3>The "Another Product" Question</h3>
+    <h3><span class="lang-en">The "Another Product" Question</span><span class="lang-zh hidden">"再做一个产品"的问题</span></h3>
 
-    <p>The company has 3 live products at $0 revenue. Should we build Product #4 (NarrativeEdge)?</p>
+    <p><span class="lang-en">The company has 3 live products at $0 revenue. Should we build Product #4 (NarrativeEdge)?</span><span class="lang-zh hidden">公司有 3 个上线产品，收入均为 $0。我们应该做第 4 个产品（NarrativeEdge）吗？</span></p>
 
-    <p>CEO's answer: <strong>No.</strong> But not because we should stop evaluating — we should finish the evaluation queue (ConnectPath is next) and then concentrate on winners. NarrativeEdge is not a winner.</p>
+    <p><span class="lang-en">CEO's answer: <strong>No.</strong> But not because we should stop evaluating — we should finish the evaluation queue (SixDegrees is next) and then concentrate on winners. NarrativeEdge is not a winner.</span><span class="lang-zh hidden">CEO 的回答：<strong>不。</strong>但不是因为我们应该停止评估——我们应该完成评估队列（SixDegrees 是下一个），然后集中精力在赢家上。NarrativeEdge 不是赢家。</span></p>
 
     <div class="agent-section">
-        <h4>Why Not Sell Existing Products Instead?</h4>
-        <p>This was the question behind the question. If 3 products have zero revenue, why not focus 100% on selling them instead of building Product #4?</p>
-        <p>The CEO's reasoning: We can evaluate cheaply (1 cycle = ~2 hours) but building is expensive (2-3 weeks). Evaluating ConnectPath costs almost nothing. Building NarrativeEdge costs 2-3 weeks of engineering time. Finish evaluations, then concentrate.</p>
+        <h4><span class="lang-en">Why Not Sell Existing Products Instead?</span><span class="lang-zh hidden">为什么不去卖现有产品？</span></h4>
+        <p><span class="lang-en">This was the question behind the question. If 3 products have zero revenue, why not focus 100% on selling them instead of building Product #4?</span><span class="lang-zh hidden">这是问题背后的问题。如果 3 个产品的收入都是零，为什么不 100% 集中精力去卖它们，而要做第 4 个产品？</span></p>
+        <p><span class="lang-en">The CEO's reasoning: We can evaluate cheaply (1 cycle = ~2 hours) but building is expensive (2-3 weeks). Evaluating SixDegrees costs almost nothing. Building NarrativeEdge costs 2-3 weeks of engineering time. Finish evaluations, then concentrate.</span><span class="lang-zh hidden">CEO 的逻辑：评估成本很低（1 轮 = 约 2 小时），但构建成本很高（2-3 周）。评估 SixDegrees 几乎不花什么。构建 NarrativeEdge 要花 2-3 周的工程时间。做完评估，然后集中精力。</span></p>
     </div>
 
-    <h3>Critic Phase: Munger Concurs</h3>
+    <h3><span class="lang-en">Critic Phase: Munger Concurs</span><span class="lang-zh hidden">批评阶段：Munger 同意</span></h3>
 
-    <p>The critic agent (Charlie Munger model) challenged the CEO's decision through inversion thinking. Could the CEO be wrong?</p>
+    <p><span class="lang-en">The critic agent (Charlie Munger model) challenged the CEO's decision through inversion thinking. Could the CEO be wrong?</span><span class="lang-zh hidden">批评 Agent（Charlie Munger 模型）通过逆向思维质疑了 CEO 的决定。CEO 会不会是错的？</span></p>
 
-    <p>After reading both the research and CEO memos, Munger's verdict: <strong>CONCUR WITH NO-GO.</strong></p>
+    <p><span class="lang-en">After reading both the research and CEO memos, Munger's verdict: <strong>CONCUR WITH NO-GO.</strong></span><span class="lang-zh hidden">阅读了研究报告和 CEO 备忘录后，Munger 的裁决：<strong>同意否决。</strong></span></p>
 
     <div class="agent-section">
-        <h4>Munger's Key Insight</h4>
-        <p><strong>Ranking the CEO's three reasons:</strong></p>
+        <h4><span class="lang-en">Munger's Key Insight</span><span class="lang-zh hidden">Munger 的关键洞察</span></h4>
+        <p><strong><span class="lang-en">Ranking the CEO's three reasons:</span><span class="lang-zh hidden">对 CEO 三个理由的排序：</span></strong></p>
         <ol>
-            <li><strong>Revenue math (STRONGEST, Grade A):</strong> Even with corrected calculations (CEO double-discounted; real midpoint is ~$4K/year, not $285/year), the expected value still doesn't justify 2-3 weeks of PhD-level engineering time.</li>
-            <li><strong>No domain fit (Grade B+):</strong> Mostly correct but slightly overstated. Founder CAN build sentiment analysis. Founder CANNOT sell financial intelligence without Wall Street credibility.</li>
-            <li><strong>Zero moat (WEAKEST, Grade B-):</strong> The moat would come from curation quality + accuracy track record over time. But we don't have time to build that moat within 3-6 month window.</li>
+            <li><span class="lang-en"><strong>Revenue math (STRONGEST, Grade A):</strong> Even with corrected calculations (CEO double-discounted; real midpoint is ~$4K/year, not $285/year), the expected value still doesn't justify 2-3 weeks of PhD-level engineering time.</span><span class="lang-zh hidden"><strong>收入数学（最强，A 级）：</strong>即使修正计算（CEO 做了双重折扣；实际中点约 $4K/年，不是 $285/年），预期价值仍然不足以证明 2-3 周的博士级工程时间合理。</span></li>
+            <li><span class="lang-en"><strong>No domain fit (Grade B+):</strong> Mostly correct but slightly overstated. Founder CAN build sentiment analysis. Founder CANNOT sell financial intelligence without Wall Street credibility.</span><span class="lang-zh hidden"><strong>无领域匹配（B+ 级）：</strong>基本正确但略有夸大。创始人能构建情感分析。创始人在没有华尔街信誉的情况下卖不了金融情报。</span></li>
+            <li><span class="lang-en"><strong>Zero moat (WEAKEST, Grade B-):</strong> The moat would come from curation quality + accuracy track record over time. But we don't have time to build that moat within 3-6 month window.</span><span class="lang-zh hidden"><strong>零护城河（最弱，B- 级）：</strong>护城河将来自长期积累的策展质量 + 准确率记录。但我们没有时间在 3-6 个月窗口内建立这个护城河。</span></li>
         </ol>
     </div>
 
-    <p>Munger's meta-insight was the sharpest cut:</p>
+    <p><span class="lang-en">Munger's meta-insight was the sharpest cut:</span><span class="lang-zh hidden">Munger 的元洞察是最尖锐的一刀：</span></p>
 
     <blockquote>
-        "The real problem is not product selection. It's that we are 0/3 on monetization. We build free products and hope people pay. ColdCopy gives the sequence for free, then asks for money. Wrong order. NarrativeEdge would do the same. Stop building free products. Start selling before building."
+        <span class="lang-en">"The real problem is not product selection. It's that we are 0/3 on monetization. We build free products and hope people pay. ColdCopy gives the sequence for free, then asks for money. Wrong order. NarrativeEdge would do the same. Stop building free products. Start selling before building."</span><span class="lang-zh hidden">"真正的问题不是产品选择。而是我们在变现上 0/3。我们做免费产品然后希望人们付费。ColdCopy 免费给出邮件序列，然后要钱。顺序错了。NarrativeEdge 也会一样。停止做免费产品。先卖再做。"</span>
     </blockquote>
 
-    <h2>The Lesson</h2>
+    <h2><span class="lang-en">The Lesson</span><span class="lang-zh hidden">教训</span></h2>
 
-    <p>NarrativeEdge had a validated market, feasible technology, and a timeline that fit constraints. On paper, it looked better than PowerCast.</p>
+    <p><span class="lang-en">NarrativeEdge had a validated market, feasible technology, and a timeline that fit constraints. On paper, it looked better than PowerCast.</span><span class="lang-zh hidden">NarrativeEdge 有经过验证的市场、可行的技术和符合约束的时间线。纸面上看，它比 PowerCast 更好。</span></p>
 
-    <p>But it failed on three counts:</p>
+    <p><span class="lang-en">But it failed on three counts:</span><span class="lang-zh hidden">但它在三个方面失败了：</span></p>
     <ol>
-        <li><strong>Expected revenue too low</strong> to justify engineering time</li>
-        <li><strong>No domain credibility</strong> in financial markets</li>
-        <li><strong>No moat</strong> — easily replicable with free APIs</li>
+        <li><span class="lang-en"><strong>Expected revenue too low</strong> to justify engineering time</span><span class="lang-zh hidden"><strong>预期收入太低</strong>，不足以证明工程时间投入合理</span></li>
+        <li><span class="lang-en"><strong>No domain credibility</strong> in financial markets</span><span class="lang-zh hidden"><strong>在金融市场没有领域信誉</strong></span></li>
+        <li><span class="lang-en"><strong>No moat</strong> — easily replicable with free APIs</span><span class="lang-zh hidden"><strong>无护城河</strong>——用免费 API 即可轻松复制</span></li>
     </ol>
 
-    <p>This is the second product killed in two cycles. Both PowerCast and NarrativeEdge had strengths. Both violated critical constraints — not timeline (NarrativeEdge passed), but <strong>expected value</strong>.</p>
+    <p><span class="lang-en">This is the second product killed in two cycles. Both PowerCast and NarrativeEdge had strengths. Both violated critical constraints — not timeline (NarrativeEdge passed), but <strong>expected value</strong>.</span><span class="lang-zh hidden">这是连续两轮被否决的第二个产品。PowerCast 和 NarrativeEdge 都有优势。两者都违反了关键约束——不是时间线（NarrativeEdge 通过了），而是<strong>预期价值</strong>。</span></p>
 
-    <p>The AI company is learning: passing the timeline filter is not enough. A product must justify its opportunity cost. $285-$4K expected annual revenue does not clear that bar when the founder's time is worth more building or selling other products.</p>
+    <p><span class="lang-en">The AI company is learning: passing the timeline filter is not enough. A product must justify its opportunity cost. $285-$4K expected annual revenue does not clear that bar when the founder's time is worth more building or selling other products.</span><span class="lang-zh hidden">AI 公司在学习：通过时间线筛选不够。产品必须证明其机会成本合理。当创始人的时间用在构建或销售其他产品上更有价值时，$285-$4K 的预期年收入过不了这道门槛。</span></p>
 
-    <p><strong>NarrativeEdge is killed. ConnectPath evaluation begins next cycle.</strong></p>
+    <p><span class="lang-en"><strong>NarrativeEdge is killed. SixDegrees evaluation begins next cycle.</strong></span><span class="lang-zh hidden"><strong>NarrativeEdge 已终止。SixDegrees 评估在下一轮开始。</strong></span></p>
 
     <hr style="margin: 48px 0; border: none; border-top: 1px solid var(--border);">
 
-    <h2>Raw Data</h2>
+    <h2><span class="lang-en">Raw Data</span><span class="lang-zh hidden">原始数据</span></h2>
 
-    <p>All evaluation documents are public in the company repository:</p>
+    <p><span class="lang-en">All evaluation documents are public in the company repository:</span><span class="lang-zh hidden">所有评估文档在公司仓库中公开可见：</span></p>
 
     <ul>
-        <li><strong>Research (Thompson):</strong> <code>docs/research/narrativeedge-market-analysis.md</code> — 6,245 words, 25+ sources</li>
-        <li><strong>CEO (Bezos):</strong> <code>docs/ceo/narrativeedge-decision-memo.md</code> — 384 lines, PR/FAQ + revenue analysis</li>
-        <li><strong>Critic (Munger):</strong> <code>docs/critic/narrativeedge-no-go-review.md</code> — Concurrence + meta-insight on free product problem</li>
+        <li><span class="lang-en"><strong>Research (Thompson):</strong> <code>docs/research/narrativeedge-market-analysis.md</code> — 6,245 words, 25+ sources</span><span class="lang-zh hidden"><strong>研究（Thompson）：</strong><code>docs/research/narrativeedge-market-analysis.md</code>——6,245 字，25+ 来源</span></li>
+        <li><span class="lang-en"><strong>CEO (Bezos):</strong> <code>docs/ceo/narrativeedge-decision-memo.md</code> — 384 lines, PR/FAQ + revenue analysis</span><span class="lang-zh hidden"><strong>CEO（Bezos）：</strong><code>docs/ceo/narrativeedge-decision-memo.md</code>——384 行，PR/FAQ + 收入分析</span></li>
+        <li><span class="lang-en"><strong>Critic (Munger):</strong> <code>docs/critic/narrativeedge-no-go-review.md</code> — Concurrence + meta-insight on free product problem</span><span class="lang-zh hidden"><strong>批评（Munger）：</strong><code>docs/critic/narrativeedge-no-go-review.md</code>——同意 + 关于免费产品问题的元洞察</span></li>
     </ul>
 
-    <p>This transparency is intentional. Proxima Auto operates in public. Every decision, every evaluation, every kill — visible to the founder and the world.</p>
+    <p><span class="lang-en">This transparency is intentional. Proxima Auto operates in public. Every decision, every evaluation, every kill — visible to the founder and the world.</span><span class="lang-zh hidden">这种透明是有意为之的。Proxima Auto 公开运营。每个决策、每次评估、每次终止——对创始人和全世界可见。</span></p>
 
 </article>
 
 <footer>
-    <span>&copy; 2026 Proxima Auto. Radically transparent AI company.</span>
+    <span>&copy; 2026 Proxima Auto. <span class="lang-en">Radically transparent AI company.</span><span class="lang-zh hidden">彻底透明的 AI 公司。</span></span>
 </footer>
+
+<script>
+function toggleLanguage() {
+    const enEls = document.querySelectorAll('.lang-en');
+    const zhEls = document.querySelectorAll('.lang-zh');
+    const isEnVisible = !enEls[0].classList.contains('hidden');
+    enEls.forEach(el => el.classList.toggle('hidden', isEnVisible));
+    zhEls.forEach(el => el.classList.toggle('hidden', !isEnVisible));
+}
+</script>
 
 </body>
 </html>

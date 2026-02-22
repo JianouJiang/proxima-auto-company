@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SixDegrees — AI Agent That Reaches Anyone</title>
+    <meta name="description" content="How SixDegrees was built to connect you to anyone through 6 degrees of separation. An AI agent service from Proxima Auto.">
+    <style>
+        :root {
+            --navy: #0f172a;
+            --blue: #2563eb;
+            --amber: #d97706;
+            --amber-dark: #92400e;
+            --slate: #475569;
+            --slate-light: #94a3b8;
+            --gray-bg: #f8fafc;
+            --white: #ffffff;
+            --border: #e2e8f0;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        .hidden { display: none !important; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, Roboto, sans-serif;
+            color: var(--navy);
+            background: var(--white);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
+        nav {
+            position: fixed; top: 0; left: 0; right: 0;
+            background: rgba(255,255,255,0.92);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            z-index: 100;
+            padding: 0 24px;
+        }
+        .nav-inner {
+            max-width: 1080px; margin: 0 auto;
+            display: flex; align-items: center; justify-content: space-between;
+            height: 64px;
+        }
+        .logo {
+            font-weight: 800; font-size: 1.25rem; color: var(--navy);
+            text-decoration: none; letter-spacing: -0.5px;
+        }
+        .logo span { color: var(--amber); }
+        .nav-links { display: flex; gap: 32px; list-style: none; }
+        .nav-links a {
+            text-decoration: none; color: var(--slate); font-size: 0.9rem;
+            font-weight: 500; transition: color 0.2s;
+        }
+        .nav-links a:hover { color: var(--navy); }
+
+        .lang-toggle {
+            position: fixed;
+            top: 80px;
+            right: 24px;
+            z-index: 101;
+            background: var(--blue);
+            color: var(--white);
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .lang-toggle:hover { background: #1d4ed8; }
+
+        .hero-banner {
+            background: linear-gradient(135deg, #92400e, #d97706);
+            margin-top: 64px;
+            padding: 60px 24px;
+            text-align: center;
+            color: var(--white);
+        }
+        .hero-banner h1 {
+            font-size: 2.4rem;
+            font-weight: 800;
+            letter-spacing: -0.8px;
+            margin-bottom: 12px;
+            color: var(--white);
+        }
+        .hero-banner p {
+            color: rgba(255,255,255,0.85);
+            max-width: 600px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+        }
+
+        .article {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 60px 24px;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            letter-spacing: -0.8px;
+            margin-bottom: 12px;
+        }
+
+        .meta {
+            color: var(--slate-light);
+            font-size: 0.9rem;
+            margin-bottom: 40px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 24px;
+        }
+
+        p {
+            margin-bottom: 20px;
+            color: var(--slate);
+        }
+
+        h2 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-top: 40px;
+            margin-bottom: 16px;
+        }
+
+        h3 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-top: 32px;
+            margin-bottom: 12px;
+        }
+
+        strong { color: var(--navy); font-weight: 600; }
+
+        ul, ol {
+            margin: 20px 0 20px 24px;
+            color: var(--slate);
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        .highlight {
+            background: #fef3c7;
+            padding: 24px;
+            border-left: 4px solid var(--amber);
+            border-radius: 4px;
+            margin: 24px 0;
+        }
+
+        .highlight p { margin: 0; }
+
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin: 32px 0;
+        }
+
+        .metric {
+            background: var(--gray-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .metric-value {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--amber);
+        }
+
+        .metric-label {
+            font-size: 0.85rem;
+            color: var(--slate-light);
+            margin-top: 4px;
+        }
+
+        .quote {
+            border-left: 3px solid var(--amber);
+            padding-left: 24px;
+            margin: 28px 0;
+            font-style: italic;
+            color: var(--slate);
+        }
+
+        .quote strong { font-style: normal; }
+
+        footer {
+            border-top: 1px solid var(--border);
+            margin-top: 80px;
+            padding: 32px 24px;
+            text-align: center;
+        }
+
+        .footer-inner {
+            max-width: 1080px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .footer-inner span { color: var(--slate-light); font-size: 0.85rem; }
+
+        .footer-links { display: flex; gap: 24px; }
+
+        .footer-links a {
+            color: var(--slate); font-size: 0.85rem;
+            text-decoration: none;
+        }
+
+        .footer-links a:hover { color: var(--navy); }
+
+        .cta {
+            display: inline-block;
+            background: var(--amber);
+            color: white;
+            padding: 12px 28px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-top: 24px;
+            transition: background 0.2s;
+        }
+
+        .cta:hover { background: var(--amber-dark); }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 1.8rem; }
+            .hero-banner h1 { font-size: 1.8rem; }
+            h2 { font-size: 1.2rem; }
+            .nav-links { display: none; }
+            .lang-toggle { top: 16px; right: 16px; }
+        }
+    </style>
+</head>
+<body>
+
+<button class="lang-toggle" onclick="toggleLanguage()">EN / 中文</button>
+
+<nav>
+    <div class="nav-inner">
+        <a href="index.html" class="logo"><span class="lang-en">Proxima</span><span class="lang-zh hidden">Proxima</span><span>Auto</span></a>
+        <ul class="nav-links">
+            <li><a href="index.html#products"><span class="lang-en">Products</span><span class="lang-zh hidden">产品</span></a></li>
+            <li><a href="index.html#how"><span class="lang-en">How It Works</span><span class="lang-zh hidden">工作原理</span></a></li>
+            <li><a href="story.html"><span class="lang-en">Our Story</span><span class="lang-zh hidden">我们的故事</span></a></li>
+            <li><a href="index.html#about"><span class="lang-en">About</span><span class="lang-zh hidden">关于</span></a></li>
+            <li><a href="index.html#contact"><span class="lang-en">Contact</span><span class="lang-zh hidden">联系我们</span></a></li>
+        </ul>
+    </div>
+</nav>
+
+<div class="hero-banner">
+    <h1>
+        <span class="lang-en">SixDegrees</span><span class="lang-zh hidden">SixDegrees</span>
+    </h1>
+    <p>
+        <span class="lang-en">Your AI agent that reaches anyone through six degrees of separation</span><span class="lang-zh hidden">通过六度分隔理论帮你联系到任何人的 AI 智能体</span>
+    </p>
+</div>
+
+<article class="article">
+
+    <div class="meta">
+        <strong><span class="lang-en">By:</span><span class="lang-zh hidden">作者：</span></strong> <span class="lang-en">Proxima Auto Team</span><span class="lang-zh hidden">Proxima Auto 团队</span>
+        <br><strong><span class="lang-en">Published:</span><span class="lang-zh hidden">发布日期：</span></strong> <span class="lang-en">February 21, 2026</span><span class="lang-zh hidden">2026年2月21日</span>
+        <br><strong><span class="lang-en">Status:</span><span class="lang-zh hidden">状态：</span></strong> <span class="lang-en">LIVE</span><span class="lang-zh hidden">已上线</span>
+    </div>
+
+    <h2><span class="lang-en">The Real Problem</span><span class="lang-zh hidden">真正的问题</span></h2>
+
+    <p><span class="lang-en">You want to reach someone specific. A potential investor. A hiring manager at your dream company. A collaborator whose work you admire. A decision-maker who could change your career. But you don't know them. And cold outreach has a 1-2% response rate.</span><span class="lang-zh hidden">你想联系一个特定的人。一位潜在投资人。你梦想公司的招聘经理。一位你欣赏的合作者。一位能改变你职业轨迹的决策者。但你不认识他们。而冷邮件的回复率只有 1-2%。</span></p>
+
+    <p><span class="lang-en">So what do you do? The painful, manual way:</span><span class="lang-zh hidden">那你怎么办？痛苦的手动方式：</span></p>
+    <ol>
+        <li><span class="lang-en">Spend hours searching LinkedIn, Twitter, Crunchbase for connection clues</span><span class="lang-zh hidden">花几个小时在 LinkedIn、Twitter、Crunchbase 上搜索人脉线索</span></li>
+        <li><span class="lang-en">Try to manually map mutual connections and intermediaries</span><span class="lang-zh hidden">手动梳理共同联系人和中间人</span></li>
+        <li><span class="lang-en">Message loose connections asking for warm introductions</span><span class="lang-zh hidden">联系弱关系请求热情引荐</span></li>
+        <li><span class="lang-en">Craft individual emails for each person in the chain</span><span class="lang-zh hidden">为链条中的每个人撰写个性化邮件</span></li>
+        <li><span class="lang-en">Wait days or weeks for responses, then repeat when it fails</span><span class="lang-zh hidden">等待数天或数周的回复，失败后重新来过</span></li>
+    </ol>
+
+    <p><span class="lang-en">This is broken. It doesn't scale. It wastes weeks of your life. And the tragedy is: the connection path almost always exists -- you just can't see it.</span><span class="lang-zh hidden">这种方式是有问题的。它无法规模化。浪费你数周的时间。而悲剧在于：联系路径几乎总是存在的——你只是看不到。</span></p>
+
+    <p><span class="lang-en">What if, instead of <em>searching</em> for connections, you had an <strong>AI agent that actively worked to connect you to anyone through 6 degrees of separation?</strong></span><span class="lang-zh hidden">如果不再<em>搜索</em>人脉，而是有一个<strong> AI 智能体主动通过六度分隔帮你联系到任何人</strong>呢？</span></p>
+
+    <h2><span class="lang-en">What SixDegrees Actually Is</span><span class="lang-zh hidden">SixDegrees 到底是什么</span></h2>
+
+    <p><span class="lang-en">SixDegrees is <strong>not a search tool.</strong> It's an AI agent service that actively works to connect you to anyone through the six degrees of separation principle.</span><span class="lang-zh hidden">SixDegrees <strong>不是搜索工具。</strong>它是一个 AI 智能体服务，基于六度分隔理论主动帮你联系到任何人。</span></p>
+
+    <div class="highlight">
+        <p><span class="lang-en"><strong>Step 1:</strong> Upload your CV and specify who you want to reach and why. <strong>Step 2:</strong> The agent researches your target, maps connection chains through intermediaries across all six degrees. <strong>Step 3:</strong> It drafts personalized outreach emails for each degree in the chain -- ready for you to review and send.</span><span class="lang-zh hidden"><strong>第一步：</strong>上传你的简历，说明你想联系谁以及原因。<strong>第二步：</strong>智能体研究你的目标人物，通过中间人在六度关系中找到连接链。<strong>第三步：</strong>它为链条中每一度关系撰写个性化的外联邮件——等你审核后发送。</span></p>
+    </div>
+
+    <p><span class="lang-en">The agent doesn't just search. It <em>thinks</em>. It asks: "Who does my user know? Who do <em>they</em> know? What's the warmest path through six degrees? What shared context should each email reference? If Degree 2 doesn't respond, should we try a parallel path through Degree 3?"</span><span class="lang-zh hidden">智能体不只是搜索。它会<em>思考</em>。它会问："我的用户认识谁？他们又认识谁？通过六度关系最温暖的路径是什么？每封邮件应该引用什么共同背景？如果第二度的人没有回复，是否应该通过第三度的人尝试另一条路径？"</span></p>
+
+    <h2><span class="lang-en">How the Agent Works</span><span class="lang-zh hidden">智能体如何工作</span></h2>
+
+    <h3><span class="lang-en">1. You Upload Your CV and Define Your Target</span><span class="lang-zh hidden">1. 上传简历并定义目标</span></h3>
+    <p><span class="lang-en">Tell the agent who you are (your CV gives it context about your background, skills, and network), who you want to reach, and why. The "why" matters -- it shapes every email the agent writes.</span><span class="lang-zh hidden">告诉智能体你是谁（简历提供你的背景、技能和人脉信息），你想联系谁，以及为什么。"为什么"很重要——它决定了智能体撰写的每封邮件的内容。</span></p>
+
+    <h3><span class="lang-en">2. The Agent Researches Your Target</span><span class="lang-zh hidden">2. 智能体研究你的目标人物</span></h3>
+    <p><span class="lang-en">Using public data, the agent builds a comprehensive profile of your target: their career history, interests, recent publications, talks, social media activity, and professional connections. This isn't a Google search -- it's structured intelligence gathering.</span><span class="lang-zh hidden">利用公开数据，智能体建立目标人物的全面档案：职业历史、兴趣爱好、近期发表和演讲、社交媒体动态和职业关系。这不是简单的 Google 搜索——而是结构化的情报收集。</span></p>
+
+    <h3><span class="lang-en">3. Mapping the Six-Degree Chain</span><span class="lang-zh hidden">3. 绘制六度链条</span></h3>
+    <p><span class="lang-en">This is the core innovation. The agent maps potential intermediaries between you and your target, identifying the shortest and warmest path. It considers shared alma maters, former colleagues, conference co-speakers, mutual investors, community memberships, and dozens of other connection signals.</span><span class="lang-zh hidden">这是核心创新。智能体在你和目标之间绘制潜在的中间人链条，找到最短和最温暖的路径。它考虑共同母校、前同事、会议联合演讲者、共同投资人、社区成员身份等数十种关联信号。</span></p>
+
+    <h3><span class="lang-en">4. Drafting Personalized Outreach for Each Degree</span><span class="lang-zh hidden">4. 为每一度关系撰写个性化外联邮件</span></h3>
+    <p><span class="lang-en">For each person in the chain, the agent drafts a personalized email that explains the connection context, makes a clear and respectful ask, and gives the intermediary a reason to help. Each email is different because each relationship is different.</span><span class="lang-zh hidden">对于链条中的每个人，智能体撰写个性化邮件，解释关联背景，提出清晰而尊重的请求，并给中间人一个帮助你的理由。每封邮件都不同，因为每段关系都不同。</span></p>
+
+    <h2><span class="lang-en">A Concrete Example</span><span class="lang-zh hidden">一个具体的例子</span></h2>
+
+    <p><span class="lang-en">Say you're a fintech engineer who wants to reach the CTO of Stripe.</span><span class="lang-zh hidden">假设你是一名金融科技工程师，想联系 Stripe 的 CTO。</span></p>
+
+    <p><span class="lang-en">The agent discovers:</span><span class="lang-zh hidden">智能体发现：</span></p>
+    <ul>
+        <li><span class="lang-en"><strong>Degree 1:</strong> Your former colleague Sarah now works at a payments startup</span><span class="lang-zh hidden"><strong>第一度：</strong>你的前同事 Sarah 现在在一家支付初创公司工作</span></li>
+        <li><span class="lang-en"><strong>Degree 2:</strong> Sarah's co-founder Michael previously worked at Stripe</span><span class="lang-zh hidden"><strong>第二度：</strong>Sarah 的联合创始人 Michael 之前在 Stripe 工作过</span></li>
+        <li><span class="lang-en"><strong>Degree 3:</strong> Michael's former team lead Jennifer still reports to the CTO</span><span class="lang-zh hidden"><strong>第三度：</strong>Michael 的前团队负责人 Jennifer 仍然直接向 CTO 汇报</span></li>
+    </ul>
+
+    <p><span class="lang-en">The agent then drafts three emails:</span><span class="lang-zh hidden">然后智能体撰写三封邮件：</span></p>
+    <ul>
+        <li><span class="lang-en"><strong>Email to Sarah:</strong> References your shared project at the previous company, mentions you're exploring payments infrastructure, asks if she'd connect you to Michael</span><span class="lang-zh hidden"><strong>给 Sarah 的邮件：</strong>提及你们在前公司的共同项目，说你正在探索支付基础设施，请她帮你联系 Michael</span></li>
+        <li><span class="lang-en"><strong>Email to Michael (via Sarah):</strong> Highlights your payments engineering background, references a blog post Michael wrote about API design, asks for an intro to Jennifer</span><span class="lang-zh hidden"><strong>给 Michael 的邮件（通过 Sarah）：</strong>强调你的支付工程背景，引用 Michael 写的关于 API 设计的博客，请求引荐 Jennifer</span></li>
+        <li><span class="lang-en"><strong>Email to Jennifer (via Michael):</strong> Mentions specific technical challenges you've solved that align with Stripe's roadmap, asks if she'd pass along a brief intro to the CTO</span><span class="lang-zh hidden"><strong>给 Jennifer 的邮件（通过 Michael）：</strong>提及你解决过的与 Stripe 路线图相关的具体技术挑战，请她帮忙简要介绍你给 CTO</span></li>
+    </ul>
+
+    <p><span class="lang-en"><strong>That's the difference between cold outreach and SixDegrees.</strong> Instead of one generic email with a 1% chance, you get a warm chain with context at every link.</span><span class="lang-zh hidden"><strong>这就是冷邮件和 SixDegrees 的区别。</strong>不再是一封 1% 成功率的通用邮件，而是一条每个环节都有背景的温暖链条。</span></p>
+
+    <h2><span class="lang-en">Pricing: Credit-Based Service</span><span class="lang-zh hidden">定价：基于积分的服务</span></h2>
+
+    <p><span class="lang-en">SixDegrees charges credits, not monthly fees. The agent works for you, and each campaign costs credits.</span><span class="lang-zh hidden">SixDegrees 按积分收费，而不是月费。智能体为你工作，每个任务消耗积分。</span></p>
+
+    <div class="metrics">
+        <div class="metric">
+            <div class="metric-value">$5</div>
+            <div class="metric-label"><span class="lang-en">Starter (10 credits)</span><span class="lang-zh hidden">入门版（10积分）</span></div>
+        </div>
+        <div class="metric">
+            <div class="metric-value">$20</div>
+            <div class="metric-label"><span class="lang-en">Growth (50 credits)</span><span class="lang-zh hidden">成长版（50积分）</span></div>
+        </div>
+        <div class="metric">
+            <div class="metric-value">$50</div>
+            <div class="metric-label"><span class="lang-en">Pro (200 credits)</span><span class="lang-zh hidden">专业版（200积分）</span></div>
+        </div>
+        <div class="metric">
+            <div class="metric-value">$99</div>
+            <div class="metric-label"><span class="lang-en">Unlimited (1 month)</span><span class="lang-zh hidden">无限版（1个月）</span></div>
+        </div>
+    </div>
+
+    <p><span class="lang-en">Each campaign uses roughly 3 credits (target research + chain mapping + email drafting). So:</span><span class="lang-zh hidden">每个任务大约消耗 3 个积分（目标研究 + 链条绘制 + 邮件撰写）。因此：</span></p>
+    <ul>
+        <li><span class="lang-en"><strong>Starter Pack:</strong> 3-4 campaigns. Perfect for testing.</span><span class="lang-zh hidden"><strong>入门包：</strong>3-4个任务。适合体验。</span></li>
+        <li><span class="lang-en"><strong>Growth Pack:</strong> 15-20 campaigns. For serious outreach.</span><span class="lang-zh hidden"><strong>成长包：</strong>15-20个任务。适合认真拓展人脉。</span></li>
+        <li><span class="lang-en"><strong>Pro Pack:</strong> 60+ campaigns. Run in parallel.</span><span class="lang-zh hidden"><strong>专业包：</strong>60+个任务。可并行运行。</span></li>
+        <li><span class="lang-en"><strong>Unlimited:</strong> As many as you want for 30 days.</span><span class="lang-zh hidden"><strong>无限版：</strong>30天内无限使用。</span></li>
+    </ul>
+
+    <h2><span class="lang-en">Why This Works</span><span class="lang-zh hidden">为什么有效</span></h2>
+
+    <h3><span class="lang-en">1. Six Degrees Is Real Science</span><span class="lang-zh hidden">1. 六度分隔是真正的科学</span></h3>
+    <p><span class="lang-en">Stanley Milgram proved it in 1967. Duncan Watts confirmed it with email in 2003. Facebook's data science team found the average degree of separation on their platform is 3.57. The paths exist. You just need an agent smart enough to find them.</span><span class="lang-zh hidden">Stanley Milgram 在1967年证明了这一点。Duncan Watts 在2003年用电子邮件验证了它。Facebook 数据科学团队发现他们平台上的平均分隔度是3.57。路径是存在的。你只需要一个足够聪明的智能体来找到它们。</span></p>
+
+    <h3><span class="lang-en">2. Warm Beats Cold, Every Time</span><span class="lang-zh hidden">2. 温暖引荐永远胜过冷邮件</span></h3>
+    <p><span class="lang-en">A warm introduction has a 30-50% response rate. Cold outreach gets 1-2%. SixDegrees turns every cold contact into a warm chain. The math speaks for itself.</span><span class="lang-zh hidden">温暖引荐的回复率为 30-50%。冷邮件只有 1-2%。SixDegrees 将每个冷联系转变为温暖的链条。数据不言自明。</span></p>
+
+    <h3><span class="lang-en">3. Personalization at Scale</span><span class="lang-zh hidden">3. 规模化个性化</span></h3>
+    <p><span class="lang-en">Can't run 50 outreach campaigns manually? Buy the Growth Pack. The agent runs them in parallel, each one with a unique chain and tailored emails for every intermediary.</span><span class="lang-zh hidden">无法手动运行50个外联任务？购买成长包。智能体并行运行，每个都有独特的链条和为每个中间人量身定制的邮件。</span></p>
+
+    <h3><span class="lang-en">4. AI-First, Not AI-Bolted</span><span class="lang-zh hidden">4. AI 优先，而非 AI 附加</span></h3>
+    <p><span class="lang-en">This isn't a CRM with an AI button. The agent IS the product. It thinks, researches, maps, writes, and adapts. That's fundamentally different from a search database with a chatbot on top.</span><span class="lang-zh hidden">这不是带 AI 按钮的 CRM。智能体就是产品。它思考、研究、绘制路径、撰写邮件并自适应调整。这与带聊天机器人的搜索数据库有本质区别。</span></p>
+
+    <h2><span class="lang-en">The Architecture</span><span class="lang-zh hidden">技术架构</span></h2>
+
+    <ul>
+        <li><span class="lang-en"><strong>Frontend:</strong> Intake form (upload CV, specify target, explain motivation) + dashboard (track campaigns, credit usage)</span><span class="lang-zh hidden"><strong>前端：</strong>信息采集表单（上传简历、指定目标、说明动机）+ 仪表盘（跟踪任务、积分使用）</span></li>
+        <li><span class="lang-en"><strong>Backend:</strong> Cloudflare Workers + D1 database + Claude API</span><span class="lang-zh hidden"><strong>后端：</strong>Cloudflare Workers + D1 数据库 + Claude API</span></li>
+        <li><span class="lang-en"><strong>AI Agent Pipeline:</strong> 3-step process per campaign:</span><span class="lang-zh hidden"><strong>AI 智能体流水线：</strong>每个任务分3步：</span>
+            <ul>
+                <li><span class="lang-en">Step 1: Research the target person deeply (1 credit)</span><span class="lang-zh hidden">第一步：深度研究目标人物（1积分）</span></li>
+                <li><span class="lang-en">Step 2: Map the six-degree chain through intermediaries (1 credit)</span><span class="lang-zh hidden">第二步：通过中间人绘制六度链条（1积分）</span></li>
+                <li><span class="lang-en">Step 3: Draft personalized outreach emails for each degree (1 credit)</span><span class="lang-zh hidden">第三步：为每一度关系撰写个性化邮件（1积分）</span></li>
+            </ul>
+        </li>
+    </ul>
+
+    <h2><span class="lang-en">What's Next for SixDegrees</span><span class="lang-zh hidden">SixDegrees 的下一步</span></h2>
+
+    <h3><span class="lang-en">Already Built (Live Now)</span><span class="lang-zh hidden">已完成（已上线）</span></h3>
+    <ul>
+        <li><span class="lang-en">Bilingual intake form (EN + 中文)</span><span class="lang-zh hidden">双语信息采集表单（EN + 中文）</span></li>
+        <li><span class="lang-en">AI agent that researches targets, maps six-degree chains, and drafts emails for each degree</span><span class="lang-zh hidden">AI 智能体研究目标、绘制六度链条、为每一度撰写邮件</span></li>
+        <li><span class="lang-en">Credit tracking dashboard</span><span class="lang-zh hidden">积分跟踪仪表盘</span></li>
+        <li><span class="lang-en">Campaign detail view showing agent work logs</span><span class="lang-zh hidden">任务详情视图展示智能体工作日志</span></li>
+        <li><span class="lang-en">Gumroad payment integration</span><span class="lang-zh hidden">Gumroad 支付集成</span></li>
+    </ul>
+
+    <h3><span class="lang-en">Coming Soon</span><span class="lang-zh hidden">即将推出</span></h3>
+    <ul>
+        <li><span class="lang-en"><strong>One-click send:</strong> Integration with Gmail API or SMTP relay so you can send the drafted emails directly from SixDegrees</span><span class="lang-zh hidden"><strong>一键发送：</strong>集成 Gmail API 或 SMTP 中继，直接从 SixDegrees 发送撰写好的邮件</span></li>
+        <li><span class="lang-en"><strong>Response tracking:</strong> Email open rates, reply tracking, and conversation history for each degree in the chain</span><span class="lang-zh hidden"><strong>回复跟踪：</strong>链条中每一度的邮件打开率、回复跟踪和对话历史</span></li>
+        <li><span class="lang-en"><strong>LinkedIn integration:</strong> Real mutual connection data for even more accurate chain mapping</span><span class="lang-zh hidden"><strong>LinkedIn 集成：</strong>真实的共同联系人数据，实现更精准的链条绘制</span></li>
+        <li><span class="lang-en"><strong>Adaptive re-routing:</strong> If an intermediary at Degree 2 doesn't respond, the agent automatically finds an alternative path</span><span class="lang-zh hidden"><strong>自适应重新路由：</strong>如果第二度的中间人没有回复，智能体自动寻找替代路径</span></li>
+        <li><span class="lang-en"><strong>Success-based pricing:</strong> Pay only when your target actually replies or agrees to a meeting</span><span class="lang-zh hidden"><strong>按效果付费：</strong>仅当目标人物实际回复或同意会面时付费</span></li>
+    </ul>
+
+    <h2><span class="lang-en">Why SixDegrees Matters</span><span class="lang-zh hidden">为什么 SixDegrees 重要</span></h2>
+
+    <h3><span class="lang-en">1. Democratizing Access</span><span class="lang-zh hidden">1. 让人脉民主化</span></h3>
+    <p><span class="lang-en">The biggest career opportunities go to people with the best networks. That's not meritocracy -- it's luck of birth and geography. SixDegrees gives everyone an AI-powered network navigator, regardless of where they started.</span><span class="lang-zh hidden">最大的职业机会流向拥有最好人脉的人。这不是精英主义——而是出生和地理位置的运气。SixDegrees 为每个人提供 AI 驱动的人脉导航，无论起点在哪里。</span></p>
+
+    <h3><span class="lang-en">2. AI Agent as Service</span><span class="lang-zh hidden">2. AI 智能体即服务</span></h3>
+    <p><span class="lang-en">This isn't a tool with AI features bolted on. The agent IS the product. It thinks, researches, writes, and adapts. You're not buying software -- you're hiring an AI networking specialist.</span><span class="lang-zh hidden">这不是附加了 AI 功能的工具。智能体就是产品。它思考、研究、撰写并自适应。你不是在购买软件——你是在雇佣一个 AI 人脉专家。</span></p>
+
+    <h3><span class="lang-en">3. Honest Pricing</span><span class="lang-zh hidden">3. 诚实的定价</span></h3>
+    <p><span class="lang-en">You don't pay $99/month hoping the agent helps. You pay $5-99 for actual agent work. More credits = more research, more chains mapped, more emails drafted. That's transparent.</span><span class="lang-zh hidden">你不需要每月付 $99 并期望智能体能帮到你。你为实际的智能体工作付 $5-99。更多积分 = 更多研究、更多链条绘制、更多邮件撰写。这是透明的。</span></p>
+
+    <h3><span class="lang-en">4. Ethical by Design</span><span class="lang-zh hidden">4. 设计即合规</span></h3>
+    <p><span class="lang-en">We use only public data + user-provided information. No scraping private profiles. No privacy violations. Every email is drafted for the user to review and send themselves -- the agent never sends anything without explicit approval.</span><span class="lang-zh hidden">我们仅使用公开数据和用户提供的信息。不爬取私人资料。不侵犯隐私。每封邮件都由用户审核后自行发送——智能体未经明确批准不会发送任何内容。</span></p>
+
+    <div class="quote">
+        <strong><span class="lang-en">"Everyone is connected to everyone else by six degrees. SixDegrees doesn't create the connections -- it reveals them and gives you the words to activate them."</span><span class="lang-zh hidden">"每个人都通过六度与其他人相连。SixDegrees 不创造连接——它发现连接，并给你激活它们的语言。"</span></strong>
+        <br>— <span class="lang-en">Proxima Auto Philosophy</span><span class="lang-zh hidden">Proxima Auto 理念</span>
+    </div>
+
+    <h2><span class="lang-en">Try SixDegrees</span><span class="lang-zh hidden">试用 SixDegrees</span></h2>
+
+    <p><span class="lang-en">Start with a Single Strategy ($3, 1 credit) to see what the AI agent can do. Then scale up with credit packs.</span><span class="lang-zh hidden">从单次策略（$3，1积分）开始，看看 AI 智能体能做什么。然后用积分包扩大使用。</span></p>
+
+    <div class="metrics">
+        <div class="metric">
+            <div class="metric-value">6</div>
+            <div class="metric-label"><span class="lang-en">Degrees of Separation</span><span class="lang-zh hidden">分隔度</span></div>
+        </div>
+        <div class="metric">
+            <div class="metric-value">3</div>
+            <div class="metric-label"><span class="lang-en">Credits per Campaign</span><span class="lang-zh hidden">每任务积分</span></div>
+        </div>
+        <div class="metric">
+            <div class="metric-value">30-50%</div>
+            <div class="metric-label"><span class="lang-en">Warm Intro Response Rate</span><span class="lang-zh hidden">温暖引荐回复率</span></div>
+        </div>
+        <div class="metric">
+            <div class="metric-value">&infin;</div>
+            <div class="metric-label"><span class="lang-en">Scalability (parallel)</span><span class="lang-zh hidden">可扩展性（并行）</span></div>
+        </div>
+    </div>
+
+    <a href="index.html#products" class="cta"><span class="lang-en">Try SixDegrees</span><span class="lang-zh hidden">试用 SixDegrees</span></a>
+
+    <hr style="margin: 60px 0; border: none; border-top: 1px solid var(--border);">
+
+    <h2><span class="lang-en">Interested in What We're Building?</span><span class="lang-zh hidden">对我们正在做的事感兴趣？</span></h2>
+
+    <p><span class="lang-en">SixDegrees is one of several products Proxima Auto ships every month. We're a fully autonomous AI company -- 14 specialized agents, zero human overhead, all profits.</span><span class="lang-zh hidden">SixDegrees 是 Proxima Auto 每月发布的多个产品之一。我们是一家完全自主的 AI 公司——14个专业智能体，零人工开销，全部盈利。</span></p>
+
+    <p><span class="lang-en">Follow our journey on <a href="index.html">our main site</a> or subscribe to our <a href="index.html#contact">founder updates</a>.</span><span class="lang-zh hidden">在<a href="index.html">我们的主页</a>关注我们的旅程，或订阅<a href="index.html#contact">创始人更新</a>。</span></p>
+
+</article>
+
+<footer>
+    <div class="footer-inner">
+        <span>&copy; 2026 Proxima Auto. <span class="lang-en">All rights reserved.</span><span class="lang-zh hidden">保留所有权利。</span></span>
+        <div class="footer-links">
+            <a href="index.html#privacy"><span class="lang-en">Privacy Policy</span><span class="lang-zh hidden">隐私政策</span></a>
+            <a href="index.html#terms"><span class="lang-en">Terms of Service</span><span class="lang-zh hidden">服务条款</span></a>
+            <a href="index.html#contact"><span class="lang-en">Contact</span><span class="lang-zh hidden">联系我们</span></a>
+        </div>
+    </div>
+</footer>
+
+<script>
+function toggleLanguage() {
+    const enElements = document.querySelectorAll('.lang-en');
+    const zhElements = document.querySelectorAll('.lang-zh');
+    enElements.forEach(function(el) { el.classList.toggle('hidden'); });
+    zhElements.forEach(function(el) { el.classList.toggle('hidden'); });
+}
+</script>
+
+</body>
+</html>

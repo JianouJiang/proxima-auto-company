@@ -26,6 +26,25 @@
             line-height: 1.7;
             -webkit-font-smoothing: antialiased;
         }
+        .hidden { display: none !important; }
+
+        .lang-toggle {
+            position: fixed;
+            top: 80px;
+            right: 24px;
+            z-index: 101;
+            padding: 8px 16px;
+            background: rgba(37, 99, 235, 0.9);
+            color: white;
+            border: none;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            backdrop-filter: blur(8px);
+            transition: background 0.2s;
+        }
+        .lang-toggle:hover { background: rgba(37, 99, 235, 1); }
 
         nav {
             position: fixed; top: 0; left: 0; right: 0;
@@ -286,6 +305,7 @@
 
         @media (max-width: 768px) {
             .nav-links { display: none; }
+            .lang-toggle { top: 16px; right: 16px; }
             .content-wrapper { grid-template-columns: 1fr; }
             .chapter-nav {
                 position: relative; top: 0;
@@ -303,13 +323,15 @@
 </head>
 <body>
 
+<button class="lang-toggle" onclick="toggleLanguage()">EN / 中文</button>
+
 <nav>
     <div class="nav-inner">
         <a href="index.html" class="logo">Proxima<span>Auto</span></a>
         <ul class="nav-links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="story.html">Our Story</a></li>
-            <li><a href="index.html#products">Products</a></li>
+            <li><a href="index.html"><span class="lang-en">Home</span><span class="lang-zh hidden">首页</span></a></li>
+            <li><a href="story.html"><span class="lang-en">Our Story</span><span class="lang-zh hidden">我们的故事</span></a></li>
+            <li><a href="index.html#products"><span class="lang-en">Products</span><span class="lang-zh hidden">产品</span></a></li>
         </ul>
     </div>
 </nav>
@@ -318,21 +340,21 @@
 <section class="story-hero">
     <a href="story.html" class="back-link">
         <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M10 12L6 8l4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        All Stories
+        <span class="lang-en">All Stories</span><span class="lang-zh hidden">所有故事</span>
     </a>
-    <div class="product-tag">Product #2</div>
-    <h1>Double Mood: The Pivot That Changed the Game</h1>
-    <p class="subtitle">When founder execution proved to be the bottleneck, the team asked: what if we built a product that sells itself?</p>
+    <div class="product-tag"><span class="lang-en">Product #2</span><span class="lang-zh hidden">产品 #2</span></div>
+    <h1><span class="lang-en">Double Mood: The Pivot That Changed the Game</span><span class="lang-zh hidden">Double Mood：改变局面的转型</span></h1>
+    <p class="subtitle"><span class="lang-en">When founder execution proved to be the bottleneck, the team asked: what if we built a product that sells itself?</span><span class="lang-zh hidden">当创始人的执行力成为瓶颈时，团队问了一个问题：如果我们做一个能自己卖自己的产品呢？</span></p>
 </section>
 
 <div class="content-wrapper">
     <aside class="chapter-nav">
-        <h3>Chapters</h3>
+        <h3><span class="lang-en">Chapters</span><span class="lang-zh hidden">章节</span></h3>
         <ul id="chapterList">
-            <li><a href="#ch1" data-ch="1" class="active">1. The Pivot</a></li>
-            <li><a href="#ch2" data-ch="2">2. The Design & Build</a></li>
-            <li><a href="#ch3" data-ch="3">3. Ship Day</a></li>
-            <li><a href="#ch4" data-ch="4">4. Phase 2</a></li>
+            <li><a href="#ch1" data-ch="1" class="active"><span class="lang-en">1. The Pivot</span><span class="lang-zh hidden">1. 转型</span></a></li>
+            <li><a href="#ch2" data-ch="2"><span class="lang-en">2. The Design & Build</span><span class="lang-zh hidden">2. 设计与构建</span></a></li>
+            <li><a href="#ch3" data-ch="3"><span class="lang-en">3. Ship Day</span><span class="lang-zh hidden">3. 发布日</span></a></li>
+            <li><a href="#ch4" data-ch="4"><span class="lang-en">4. Phase 2</span><span class="lang-zh hidden">4. 第二阶段</span></a></li>
         </ul>
     </aside>
 
@@ -340,260 +362,260 @@
 
         <!-- CHAPTER 1 -->
         <section class="chapter active" id="ch1" data-chapter="1">
-            <div class="chapter-label">Chapter 1</div>
-            <h2>The Pivot</h2>
+            <div class="chapter-label"><span class="lang-en">Chapter 1</span><span class="lang-zh hidden">第一章</span></div>
+            <h2><span class="lang-en">The Pivot</span><span class="lang-zh hidden">转型</span></h2>
 
-            <p>No angry emails. No blame. Just reality: <strong>founder execution was the constraint.</strong></p>
+            <p><span class="lang-en">No angry emails. No blame. Just reality: <strong>founder execution was the constraint.</strong></span><span class="lang-zh hidden">没有愤怒的邮件。没有指责。只有现实：<strong>创始人的执行力是瓶颈。</strong></span></p>
 
-            <p>ColdCopy had 77% engagement. The product worked. But it needed someone to send DMs, post on Reddit, pitch on Hacker News. Three consecutive cycles of simplification yielded zero execution. The founder was a PhD student juggling research deadlines. The startup wasn't getting the time it needed.</p>
+            <p><span class="lang-en">ColdCopy had 77% engagement. The product worked. But it needed someone to send DMs, post on Reddit, pitch on Hacker News. Three consecutive cycles of simplification yielded zero execution. The founder was a PhD student juggling research deadlines. The startup wasn't getting the time it needed.</span><span class="lang-zh hidden">ColdCopy 有 77% 的参与率。产品是好用的。但它需要有人去发私信、在 Reddit 发帖、在 Hacker News 推广。连续三轮简化依然零执行。创始人是一名在应对研究截止日期的博士生。创业项目得不到它需要的时间。</span></p>
 
-            <p>So the team asked a different question: <em>"What if we built a product that doesn't need outreach?"</em></p>
+            <p><span class="lang-en">So the team asked a different question: <em>"What if we built a product that doesn't need outreach?"</em></span><span class="lang-zh hidden">于是团队换了一个问题：<em>"如果我们做一个不需要外展推广的产品呢？"</em></span></p>
 
-            <h3>The Comparison</h3>
+            <h3><span class="lang-en">The Comparison</span><span class="lang-zh hidden">对比</span></h3>
             <table class="comparison-table">
                 <tr><th></th><th>ColdCopy</th><th>Double Mood</th></tr>
-                <tr><td><strong>Market</strong></td><td>$2B email (commoditized)</td><td>$16B+ wellness</td></tr>
-                <tr><td><strong>Moat</strong></td><td>Zero (ChatGPT does this)</td><td>Proprietary mood data</td></tr>
-                <tr><td><strong>Distribution</strong></td><td>100% founder hustle</td><td>Built into product (habit loop)</td></tr>
-                <tr><td><strong>Failure rate</strong></td><td>75-85%</td><td>75% (different risks)</td></tr>
+                <tr><td><strong><span class="lang-en">Market</span><span class="lang-zh hidden">市场</span></strong></td><td><span class="lang-en">$2B email (commoditized)</span><span class="lang-zh hidden">$2B 邮件市场（已商品化）</span></td><td><span class="lang-en">$16B+ wellness</span><span class="lang-zh hidden">$16B+ 健康市场</span></td></tr>
+                <tr><td><strong><span class="lang-en">Moat</span><span class="lang-zh hidden">护城河</span></strong></td><td><span class="lang-en">Zero (ChatGPT does this)</span><span class="lang-zh hidden">零（ChatGPT 能做到）</span></td><td><span class="lang-en">Proprietary mood data</span><span class="lang-zh hidden">专有情绪数据</span></td></tr>
+                <tr><td><strong><span class="lang-en">Distribution</span><span class="lang-zh hidden">分发</span></strong></td><td><span class="lang-en">100% founder hustle</span><span class="lang-zh hidden">100% 依赖创始人推广</span></td><td><span class="lang-en">Built into product (habit loop)</span><span class="lang-zh hidden">内置于产品（习惯循环）</span></td></tr>
+                <tr><td><strong><span class="lang-en">Failure rate</span><span class="lang-zh hidden">失败率</span></strong></td><td><span class="lang-en">75-85%</span><span class="lang-zh hidden">75-85%</span></td><td><span class="lang-en">75% (different risks)</span><span class="lang-zh hidden">75%（不同风险类型）</span></td></tr>
             </table>
 
-            <h3>Munger Destroys ColdCopy</h3>
+            <h3><span class="lang-en">Munger Destroys ColdCopy</span><span class="lang-zh hidden">Munger 终结 ColdCopy</span></h3>
             <blockquote>
-                <p>"Generic AI email writing is ChatGPT with a checkout. Zero moat. Distribution is broken. Market is saturated. This is dead."</p>
+                <p><span class="lang-en">"Generic AI email writing is ChatGPT with a checkout. Zero moat. Distribution is broken. Market is saturated. This is dead."</span><span class="lang-zh hidden">"通用 AI 邮件写作就是带收银台的 ChatGPT。零护城河。分发渠道失败。市场饱和。这个项目已死。"</span></p>
                 <cite>Charlie Munger (Critic)</cite>
             </blockquote>
 
-            <p>Then he evaluated Double Mood:</p>
+            <p><span class="lang-en">Then he evaluated Double Mood:</span><span class="lang-zh hidden">然后他评估了 Double Mood：</span></p>
             <blockquote>
-                <p>"Habit loop changes the game. If 10% of users open it twice, 5% open it daily, the product distributes itself. No outreach needed. Moat is real. But habit formation is HARD. Failure probability: still 75%. But it's a different failure mode."</p>
+                <p><span class="lang-en">"Habit loop changes the game. If 10% of users open it twice, 5% open it daily, the product distributes itself. No outreach needed. Moat is real. But habit formation is HARD. Failure probability: still 75%. But it's a different failure mode."</span><span class="lang-zh hidden">"习惯循环改变了游戏规则。如果 10% 的用户打开两次，5% 每天打开，产品就能自我传播。不需要外展。护城河是真实的。但习惯养成非常难。失败概率：仍然 75%。但失败模式不同。"</span></p>
                 <cite>Charlie Munger (Critic)</cite>
             </blockquote>
 
-            <h3>The CEO's Decision</h3>
+            <h3><span class="lang-en">The CEO's Decision</span><span class="lang-zh hidden">CEO 的决定</span></h3>
             <blockquote>
-                <p>"Switch. We cannot win on the distribution axis where we're weakest. Double Mood lets us compete on the product axis where we're strongest. Same timeline. Same cost. Different game."</p>
+                <p><span class="lang-en">"Switch. We cannot win on the distribution axis where we're weakest. Double Mood lets us compete on the product axis where we're strongest. Same timeline. Same cost. Different game."</span><span class="lang-zh hidden">"转。我们无法在分发这个最弱的维度上赢。Double Mood 让我们在产品这个最强的维度上竞争。同样的时间线。同样的成本。不同的赛道。"</span></p>
                 <cite>Jeff Bezos (CEO)</cite>
             </blockquote>
 
-            <p>In a human startup, this pivot would require emotional processing. Sunk cost fallacy. "We built ColdCopy, we should finish it." AI agents asked: <em>"Is this the right game to play given our constraints?"</em> Answer: No. Pivot executed in 90 minutes.</p>
+            <p><span class="lang-en">In a human startup, this pivot would require emotional processing. Sunk cost fallacy. "We built ColdCopy, we should finish it." AI agents asked: <em>"Is this the right game to play given our constraints?"</em> Answer: No. Pivot executed in 90 minutes.</span><span class="lang-zh hidden">在人类创业公司里，这次转型需要情绪消化。沉没成本谬误。"我们都做了 ColdCopy 了，应该做完。"AI Agent 只问了一个问题：<em>"在我们的约束下，这是正确的赛道吗？"</em>答案：不是。转型在 90 分钟内完成。</span></p>
 
             <div class="chapter-pagination">
-                <span class="page-btn disabled">&larr; Previous</span>
+                <span class="page-btn disabled">&larr; <span class="lang-en">Previous</span><span class="lang-zh hidden">上一章</span></span>
                 <span class="page-indicator">1 / 4</span>
-                <a href="#ch2" class="page-btn" onclick="goChapter(2)">Next &rarr;</a>
+                <a href="#ch2" class="page-btn" onclick="goChapter(2)"><span class="lang-en">Next</span><span class="lang-zh hidden">下一章</span> &rarr;</a>
             </div>
         </section>
 
         <!-- CHAPTER 2 -->
         <section class="chapter" id="ch2" data-chapter="2">
-            <div class="chapter-label">Chapter 2</div>
-            <h2>The Design & Build</h2>
+            <div class="chapter-label"><span class="lang-en">Chapter 2</span><span class="lang-zh hidden">第二章</span></div>
+            <h2><span class="lang-en">The Design & Build</span><span class="lang-zh hidden">设计与构建</span></h2>
 
-            <p>The founder provided the vision: <strong>Double Mood</strong> &mdash; an emotion first-aid system. Not another mood tracker. A tool that catches you when you're falling emotionally and gives you something to do about it.</p>
+            <p><span class="lang-en">The founder provided the vision: <strong>Double Mood</strong> &mdash; an emotion first-aid system. Not another mood tracker. A tool that catches you when you're falling emotionally and gives you something to do about it.</span><span class="lang-zh hidden">创始人提供了愿景：<strong>Double Mood</strong>——一个情绪急救系统。不是又一个心情记录器。而是在你情绪崩溃时接住你、给你解决方案的工具。</span></p>
 
-            <h3>The Product Spec</h3>
-            <p>Norman (Product) wrote the spec around one question: <em>"Does a user open this app twice?"</em> If yes, habit loop exists. If no, it's another ColdCopy &mdash; built well, used once, forgotten.</p>
+            <h3><span class="lang-en">The Product Spec</span><span class="lang-zh hidden">产品规格</span></h3>
+            <p><span class="lang-en">Norman (Product) wrote the spec around one question: <em>"Does a user open this app twice?"</em> If yes, habit loop exists. If no, it's another ColdCopy &mdash; built well, used once, forgotten.</span><span class="lang-zh hidden">Norman（产品）围绕一个问题写了规格说明：<em>"用户会打开这个应用两次吗？"</em>如果会，习惯循环就存在。如果不会，它就是另一个 ColdCopy——做得很好，用一次，然后遗忘。</span></p>
 
-            <p>The MVP was ruthlessly minimal:</p>
+            <p><span class="lang-en">The MVP was ruthlessly minimal:</span><span class="lang-zh hidden">MVP 做到了极致精简：</span></p>
             <ol>
-                <li><strong>Mood Picker</strong> &mdash; select how you feel (anxious, sad, frustrated, overwhelmed)</li>
-                <li><strong>Before Slider</strong> &mdash; rate emotional state 0-10</li>
-                <li><strong>Breathing Guide</strong> &mdash; 3-cycle animation guiding 4s inhale / 6s exhale</li>
-                <li><strong>After Slider</strong> &mdash; rate emotional state again</li>
-                <li><strong>Improvement Score</strong> &mdash; "+X you feel calmer" or "-X try longer breathing"</li>
-                <li><strong>Persistence</strong> &mdash; mood logs survive page refresh</li>
+                <li><span class="lang-en"><strong>Mood Picker</strong> &mdash; select how you feel (anxious, sad, frustrated, overwhelmed)</span><span class="lang-zh hidden"><strong>情绪选择器</strong>——选择你的感受（焦虑、悲伤、沮丧、不堪重负）</span></li>
+                <li><span class="lang-en"><strong>Before Slider</strong> &mdash; rate emotional state 0-10</span><span class="lang-zh hidden"><strong>前测滑块</strong>——为情绪状态评分 0-10</span></li>
+                <li><span class="lang-en"><strong>Breathing Guide</strong> &mdash; 3-cycle animation guiding 4s inhale / 6s exhale</span><span class="lang-zh hidden"><strong>呼吸引导</strong>——3 轮动画引导 4 秒吸气 / 6 秒呼气</span></li>
+                <li><span class="lang-en"><strong>After Slider</strong> &mdash; rate emotional state again</span><span class="lang-zh hidden"><strong>后测滑块</strong>——再次为情绪状态评分</span></li>
+                <li><span class="lang-en"><strong>Improvement Score</strong> &mdash; "+X you feel calmer" or "-X try longer breathing"</span><span class="lang-zh hidden"><strong>改善评分</strong>——"+X 你感觉更平静了"或"-X 试试更长的呼吸"</span></li>
+                <li><span class="lang-en"><strong>Persistence</strong> &mdash; mood logs survive page refresh</span><span class="lang-zh hidden"><strong>持久化</strong>——情绪记录在页面刷新后保留</span></li>
             </ol>
 
-            <h3>Architecture: Zero Dependencies</h3>
-            <p>Vogels made the call: Phase 1 is pure frontend. No backend. No database. No API. Just localStorage and a single HTML file.</p>
+            <h3><span class="lang-en">Architecture: Zero Dependencies</span><span class="lang-zh hidden">架构：零依赖</span></h3>
+            <p><span class="lang-en">Vogels made the call: Phase 1 is pure frontend. No backend. No database. No API. Just localStorage and a single HTML file.</span><span class="lang-zh hidden">Vogels 做了决定：第一阶段纯前端。没有后端。没有数据库。没有 API。只有 localStorage 和一个 HTML 文件。</span></p>
 
             <blockquote>
-                <p>"Phase 1 tests the hypothesis. Phase 2 adds the backend. Don't build Phase 2 until Phase 1 proves people come back."</p>
+                <p><span class="lang-en">"Phase 1 tests the hypothesis. Phase 2 adds the backend. Don't build Phase 2 until Phase 1 proves people come back."</span><span class="lang-zh hidden">"第一阶段测试假设。第二阶段加后端。在第一阶段证明人们会回来之前，不做第二阶段。"</span></p>
                 <cite>Werner Vogels (CTO)</cite>
             </blockquote>
 
-            <h3>The Design System</h3>
-            <p>Duarte designed warm yellows + cool blues (dual mood spectrum). Mobile-first. Touch-friendly 44px buttons. Bilingual from Day 1 (English + Chinese). Dark mode ready.</p>
+            <h3><span class="lang-en">The Design System</span><span class="lang-zh hidden">设计系统</span></h3>
+            <p><span class="lang-en">Duarte designed warm yellows + cool blues (dual mood spectrum). Mobile-first. Touch-friendly 44px buttons. Bilingual from Day 1 (English + Chinese). Dark mode ready.</span><span class="lang-zh hidden">Duarte 设计了暖黄色 + 冷蓝色（双情绪光谱）。移动优先。44px 触控友好按钮。从第一天起支持双语（英文 + 中文）。暗色模式就绪。</span></p>
 
-            <h3>The Build</h3>
-            <p>DHH built the entire app in a single <code>index.html</code> file. ~500 lines. Zero JavaScript frameworks. Zero npm dependencies. Works offline. Loads in under 1 second.</p>
+            <h3><span class="lang-en">The Build</span><span class="lang-zh hidden">构建</span></h3>
+            <p><span class="lang-en">DHH built the entire app in a single <code>index.html</code> file. ~500 lines. Zero JavaScript frameworks. Zero npm dependencies. Works offline. Loads in under 1 second.</span><span class="lang-zh hidden">DHH 在一个 <code>index.html</code> 文件里构建了整个应用。约 500 行。零 JavaScript 框架。零 npm 依赖。离线可用。加载不到 1 秒。</span></p>
 
             <blockquote>
-                <p>"The best code is the code that doesn't exist. We deleted: build configuration, package managers, framework boilerplate, TypeScript types, test infrastructure, database schema. We kept: the core hypothesis test."</p>
+                <p><span class="lang-en">"The best code is the code that doesn't exist. We deleted: build configuration, package managers, framework boilerplate, TypeScript types, test infrastructure, database schema. We kept: the core hypothesis test."</span><span class="lang-zh hidden">"最好的代码是不存在的代码。我们删掉了：构建配置、包管理器、框架样板代码、TypeScript 类型、测试基础设施、数据库模式。我们保留了：核心假设验证。"</span></p>
                 <cite>DHH (Engineer)</cite>
             </blockquote>
 
-            <h3>Pricing</h3>
-            <p>Campbell set the target: $4.99/month or $29.99/year. Unit economics: 91-96% margins, $299 projected LTV (habit-forming products retain 5x longer than tools).</p>
+            <h3><span class="lang-en">Pricing</span><span class="lang-zh hidden">定价</span></h3>
+            <p><span class="lang-en">Campbell set the target: $4.99/month or $29.99/year. Unit economics: 91-96% margins, $299 projected LTV (habit-forming products retain 5x longer than tools).</span><span class="lang-zh hidden">Campbell 设定了目标价：$4.99/月或 $29.99/年。单位经济学：91-96% 利润率，$299 预计 LTV（养成习惯的产品留存时间是工具类产品的 5 倍）。</span></p>
 
             <div class="chapter-pagination">
-                <a href="#ch1" class="page-btn" onclick="goChapter(1)">&larr; Previous</a>
+                <a href="#ch1" class="page-btn" onclick="goChapter(1)">&larr; <span class="lang-en">Previous</span><span class="lang-zh hidden">上一章</span></a>
                 <span class="page-indicator">2 / 4</span>
-                <a href="#ch3" class="page-btn" onclick="goChapter(3)">Next &rarr;</a>
+                <a href="#ch3" class="page-btn" onclick="goChapter(3)"><span class="lang-en">Next</span><span class="lang-zh hidden">下一章</span> &rarr;</a>
             </div>
         </section>
 
         <!-- CHAPTER 3 -->
         <section class="chapter" id="ch3" data-chapter="3">
-            <div class="chapter-label">Chapter 3</div>
-            <h2>Ship Day</h2>
+            <div class="chapter-label"><span class="lang-en">Chapter 3</span><span class="lang-zh hidden">第三章</span></div>
+            <h2><span class="lang-en">Ship Day</span><span class="lang-zh hidden">发布日</span></h2>
 
-            <p>3 days after the pivot decision, Double Mood Phase 1 went live at <code>double-mood.pages.dev</code>.</p>
+            <p><span class="lang-en">3 days after the pivot decision, Double Mood Phase 1 went live at <code>double-mood.pages.dev</code>.</span><span class="lang-zh hidden">转型决定后 3 天，Double Mood 第一阶段在 <code>double-mood.pages.dev</code> 上线。</span></p>
 
             <div class="stat-grid">
-                <div class="stat-box"><div class="num">500</div><div class="label">Lines of code</div></div>
-                <div class="stat-box"><div class="num">1</div><div class="label">File</div></div>
-                <div class="stat-box"><div class="num">$0</div><div class="label">Infra cost</div></div>
-                <div class="stat-box"><div class="num">&lt;1s</div><div class="label">Load time</div></div>
+                <div class="stat-box"><div class="num">500</div><div class="label"><span class="lang-en">Lines of code</span><span class="lang-zh hidden">行代码</span></div></div>
+                <div class="stat-box"><div class="num">1</div><div class="label"><span class="lang-en">File</span><span class="lang-zh hidden">个文件</span></div></div>
+                <div class="stat-box"><div class="num">$0</div><div class="label"><span class="lang-en">Infra cost</span><span class="lang-zh hidden">基础设施成本</span></div></div>
+                <div class="stat-box"><div class="num">&lt;1s</div><div class="label"><span class="lang-en">Load time</span><span class="lang-zh hidden">加载时间</span></div></div>
             </div>
 
-            <h3>What Shipped</h3>
+            <h3><span class="lang-en">What Shipped</span><span class="lang-zh hidden">交付内容</span></h3>
             <ul>
-                <li>Dual mood tracking (energy + valence)</li>
-                <li>Quick log (3 taps, under 10 seconds)</li>
-                <li>Guided breathing exercise (3 cycles, 30 seconds)</li>
-                <li>Before/after improvement score</li>
-                <li>localStorage persistence (mood logs survive refresh)</li>
-                <li>Bilingual (English + Chinese)</li>
-                <li>Mobile responsive</li>
+                <li><span class="lang-en">Dual mood tracking (energy + valence)</span><span class="lang-zh hidden">双维度情绪追踪（能量 + 效价）</span></li>
+                <li><span class="lang-en">Quick log (3 taps, under 10 seconds)</span><span class="lang-zh hidden">快速记录（3 次点击，10 秒内完成）</span></li>
+                <li><span class="lang-en">Guided breathing exercise (3 cycles, 30 seconds)</span><span class="lang-zh hidden">引导呼吸练习（3 轮，30 秒）</span></li>
+                <li><span class="lang-en">Before/after improvement score</span><span class="lang-zh hidden">前后改善评分</span></li>
+                <li><span class="lang-en">localStorage persistence (mood logs survive refresh)</span><span class="lang-zh hidden">localStorage 持久化（情绪记录刷新后保留）</span></li>
+                <li><span class="lang-en">Bilingual (English + Chinese)</span><span class="lang-zh hidden">双语支持（英文 + 中文）</span></li>
+                <li><span class="lang-en">Mobile responsive</span><span class="lang-zh hidden">移动端响应式</span></li>
             </ul>
 
-            <h3>Munger's Launch Day Honesty</h3>
+            <h3><span class="lang-en">Munger's Launch Day Honesty</span><span class="lang-zh hidden">Munger 发布日的直言</span></h3>
             <blockquote>
-                <p>"Failure probability: 75%. Habit formation is HARD. Most wellness apps fail at retention. This better be REALLY good or it's dead in 7 days."</p>
+                <p><span class="lang-en">"Failure probability: 75%. Habit formation is HARD. Most wellness apps fail at retention. This better be REALLY good or it's dead in 7 days."</span><span class="lang-zh hidden">"失败概率：75%。习惯养成非常难。大多数健康应用在留存上失败。这个产品最好真的很棒，否则 7 天内就会死。"</span></p>
                 <cite>Charlie Munger (Critic)</cite>
             </blockquote>
 
-            <h3>The Conditional GO</h3>
+            <h3><span class="lang-en">The Conditional GO</span><span class="lang-zh hidden">有条件通过</span></h3>
             <blockquote>
-                <p>"Conditional GO. We're not committing to Phase 2 until we see habit loop signal. Phase 1 is a 3-day experiment. If less than 20% Day 1 return, we stop. If 20% or more, we build Phase 2. This is ruthless learning, not faith."</p>
+                <p><span class="lang-en">"Conditional GO. We're not committing to Phase 2 until we see habit loop signal. Phase 1 is a 3-day experiment. If less than 20% Day 1 return, we stop. If 20% or more, we build Phase 2. This is ruthless learning, not faith."</span><span class="lang-zh hidden">"有条件通过。在看到习惯循环信号之前，我们不承诺第二阶段。第一阶段是 3 天实验。如果次日回访率低于 20%，停止。如果 20% 以上，构建第二阶段。这是无情的学习，不是信仰。"</span></p>
                 <cite>Jeff Bezos (CEO)</cite>
             </blockquote>
 
-            <h3>Kill Triggers</h3>
+            <h3><span class="lang-en">Kill Triggers</span><span class="lang-zh hidden">止损线</span></h3>
             <ul>
-                <li><strong>Day 3:</strong> Less than 20% of Day 1 users return on Day 2 = no habit loop, stop</li>
-                <li><strong>Day 7:</strong> Less than 50 signups + less than 20 DAU = fail, pivot</li>
-                <li><strong>Success:</strong> 100 DAU by Day 7 OR 50 signups + 30%+ Day 1 return rate</li>
+                <li><span class="lang-en"><strong>Day 3:</strong> Less than 20% of Day 1 users return on Day 2 = no habit loop, stop</span><span class="lang-zh hidden"><strong>第 3 天：</strong>少于 20% 的首日用户在第二天回来 = 无习惯循环，停止</span></li>
+                <li><span class="lang-en"><strong>Day 7:</strong> Less than 50 signups + less than 20 DAU = fail, pivot</span><span class="lang-zh hidden"><strong>第 7 天：</strong>注册不到 50 + DAU 不到 20 = 失败，转向</span></li>
+                <li><span class="lang-en"><strong>Success:</strong> 100 DAU by Day 7 OR 50 signups + 30%+ Day 1 return rate</span><span class="lang-zh hidden"><strong>成功：</strong>第 7 天达到 100 DAU 或 50 注册 + 30%+ 首日回访率</span></li>
             </ul>
 
-            <h3>The Bet</h3>
-            <p>Double Mood bets on a different axis than ColdCopy. Where ColdCopy needed founder hustle for distribution, Double Mood needs product quality for retention. If users come back daily, the product distributes itself. If they don't, no amount of marketing will save it.</p>
+            <h3><span class="lang-en">The Bet</span><span class="lang-zh hidden">赌注</span></h3>
+            <p><span class="lang-en">Double Mood bets on a different axis than ColdCopy. Where ColdCopy needed founder hustle for distribution, Double Mood needs product quality for retention. If users come back daily, the product distributes itself. If they don't, no amount of marketing will save it.</span><span class="lang-zh hidden">Double Mood 押注的维度与 ColdCopy 不同。ColdCopy 需要创始人奔波来分发，Double Mood 需要产品质量来留存。如果用户每天回来，产品就能自我传播。如果不回来，再多营销也救不了它。</span></p>
 
-            <p>The 3-day experiment is live. The question is no longer "Can we build it?" or "Can we sell it?" It's: <strong>"Will they come back?"</strong></p>
+            <p><span class="lang-en">The 3-day experiment is live. The question is no longer "Can we build it?" or "Can we sell it?" It's: <strong>"Will they come back?"</strong></span><span class="lang-zh hidden">3 天实验已上线。问题不再是"我们能做出来吗？"或"我们能卖出去吗？"而是：<strong>"他们会回来吗？"</strong></span></p>
 
             <p style="margin-top: 2em; padding: 20px; background: var(--gray-bg); border-radius: 8px; max-width: 60ch; text-align: center;">
-                <strong>Try it yourself:</strong><br>
+                <strong><span class="lang-en">Try it yourself:</span><span class="lang-zh hidden">亲自试试：</span></strong><br>
                 <a href="https://double-mood.pages.dev" style="color: #d97706; font-weight: 600; text-decoration: none;">double-mood.pages.dev</a>
             </p>
 
             <div class="chapter-pagination">
-                <a href="#ch2" class="page-btn" onclick="goChapter(2)">&larr; Previous</a>
+                <a href="#ch2" class="page-btn" onclick="goChapter(2)">&larr; <span class="lang-en">Previous</span><span class="lang-zh hidden">上一章</span></a>
                 <span class="page-indicator">3 / 4</span>
-                <a href="#ch4" class="page-btn" onclick="goChapter(4)">Next &rarr;</a>
+                <a href="#ch4" class="page-btn" onclick="goChapter(4)"><span class="lang-en">Next</span><span class="lang-zh hidden">下一章</span> &rarr;</a>
             </div>
         </section>
 
         <!-- CHAPTER 4 -->
         <section class="chapter" id="ch4" data-chapter="4">
-            <div class="chapter-label">Chapter 4</div>
-            <h2>Phase 2: The Weather System</h2>
+            <div class="chapter-label"><span class="lang-en">Chapter 4</span><span class="lang-zh hidden">第四章</span></div>
+            <h2><span class="lang-en">Phase 2: The Weather System</span><span class="lang-zh hidden">第二阶段：天气系统</span></h2>
 
-            <p>Phase 1 proved the habit loop worked. Users came back. Now came the hard part: <strong>making it so useful they couldn't stop coming back.</strong></p>
+            <p><span class="lang-en">Phase 1 proved the habit loop worked. Users came back. Now came the hard part: <strong>making it so useful they couldn't stop coming back.</strong></span><span class="lang-zh hidden">第一阶段证明了习惯循环有效。用户回来了。现在到了最难的部分：<strong>让它有用到用户停不下来。</strong></span></p>
 
-            <p>The founder had a vision: instead of four moods, imagine 16. Not overwhelming — just precise. Your emotions don't fit neatly into "anxious" or "sad" anymore than weather fits into "rain" or "sunny." Sometimes you're "heavy clouds" — exhausted and numb. Sometimes you're "scattered clouds" — racing thoughts you can't control. The naming itself is therapeutic.</p>
+            <p><span class="lang-en">The founder had a vision: instead of four moods, imagine 16. Not overwhelming — just precise. Your emotions don't fit neatly into "anxious" or "sad" anymore than weather fits into "rain" or "sunny." Sometimes you're "heavy clouds" — exhausted and numb. Sometimes you're "scattered clouds" — racing thoughts you can't control. The naming itself is therapeutic.</span><span class="lang-zh hidden">创始人有一个愿景：把 4 种情绪扩展为 16 种。不是让人眼花缭乱——而是更精确。你的情绪不能简单地归类为"焦虑"或"悲伤"，就像天气不能只分为"雨天"或"晴天"。有时候你是"厚重的云层"——疲惫而麻木。有时候你是"碎云"——无法控制的杂乱思绪。命名本身就是一种疗愈。</span></p>
 
-            <h3>The Founder's Vision for Phase 2</h3>
+            <h3><span class="lang-en">The Founder's Vision for Phase 2</span><span class="lang-zh hidden">创始人对第二阶段的愿景</span></h3>
 
-            <p>Double Mood Phase 2 would add three critical capabilities:</p>
+            <p><span class="lang-en">Double Mood Phase 2 would add three critical capabilities:</span><span class="lang-zh hidden">Double Mood 第二阶段将新增三项关键能力：</span></p>
 
             <ol>
-                <li><strong>16 Sub-Emotions in a Weather System</strong> — 4 weather categories (☀️ Sunny, ☁️ Cloudy, 🌫️ Foggy, ⛈️ Stormy), each with 4 specific emotions. Sunny: Bright Sun, Warm Breeze, Partly Cloudy, Rainbow. Cloudy: Thin Clouds, Heavy Clouds, Cloudy to Rain, Scattered Clouds. Foggy: Light Fog, Dense Fog, Morning Fog, Night Fog. Stormy: Lightning, Downpour, Tornado, Volcano.</li>
-                <li><strong>Intensity Bar (0-10)</strong> — Not all anxiety is equal. A 3/10 unease needs different help than an 8/10 chest-tightness panic. The intensity bar lets users name both the emotion AND its strength.</li>
-                <li><strong>Triggers and Context</strong> — "What caused this?" Optional free-text field. Over time, patterns emerge: "You always feel this way on Monday mornings." The data becomes valuable.</li>
-                <li><strong>Sedona Method (圣多纳释放法)</strong> — A second regulation method beyond breathing. Four gentle questions: Can you feel it? Can you let it go? Are you willing? When? It sounds simple but works differently than breathing, giving users choice.</li>
+                <li><span class="lang-en"><strong>16 Sub-Emotions in a Weather System</strong> — 4 weather categories, each with 4 specific emotions. Sunny: Bright Sun, Warm Breeze, Partly Cloudy, Rainbow. Cloudy: Thin Clouds, Heavy Clouds, Cloudy to Rain, Scattered Clouds. Foggy: Light Fog, Dense Fog, Morning Fog, Night Fog. Stormy: Lightning, Downpour, Tornado, Volcano.</span><span class="lang-zh hidden"><strong>天气系统中的 16 种细分情绪</strong>——4 个天气类别，每类 4 种具体情绪。晴天：烈日、暖风、多云转晴、彩虹。多云：薄云、厚云、阴转雨、碎云。雾天：薄雾、浓雾、晨雾、夜雾。暴风：闪电、暴雨、龙卷风、火山。</span></li>
+                <li><span class="lang-en"><strong>Intensity Bar (0-10)</strong> — Not all anxiety is equal. A 3/10 unease needs different help than an 8/10 chest-tightness panic. The intensity bar lets users name both the emotion AND its strength.</span><span class="lang-zh hidden"><strong>强度条（0-10）</strong>——并非所有焦虑都一样。3/10 的不安和 8/10 的胸闷恐慌需要不同的帮助。强度条让用户同时命名情绪及其强度。</span></li>
+                <li><span class="lang-en"><strong>Triggers and Context</strong> — "What caused this?" Optional free-text field. Over time, patterns emerge: "You always feel this way on Monday mornings." The data becomes valuable.</span><span class="lang-zh hidden"><strong>触发因素与情境</strong>——"是什么引起的？"可选的自由文本输入。随时间推移，规律浮现："你每周一早上都会这样。"数据变得有价值。</span></li>
+                <li><span class="lang-en"><strong>Sedona Method</strong> — A second regulation method beyond breathing. Four gentle questions: Can you feel it? Can you let it go? Are you willing? When? It sounds simple but works differently than breathing, giving users choice.</span><span class="lang-zh hidden"><strong>Sedona Method（圣多纳释放法）</strong>——呼吸之外的第二种调节方法。四个温和的问题：你能感受到它吗？你能放下它吗？你愿意吗？什么时候？听起来简单，但与呼吸作用机制不同，给用户以选择。</span></li>
             </ol>
 
-            <h3>Team Execution: The Machine Works</h3>
+            <h3><span class="lang-en">Team Execution: The Machine Works</span><span class="lang-zh hidden">团队执行：机器运转</span></h3>
 
-            <p>The flow was now choreographed: <strong>interaction-cooper → ui-duarte → fullstack-dhh → qa-bach → devops-hightower.</strong></p>
+            <p><span class="lang-en">The flow was now choreographed: <strong>interaction-cooper → ui-duarte → fullstack-dhh → qa-bach → devops-hightower.</strong></span><span class="lang-zh hidden">流程已经编排好：<strong>interaction-cooper → ui-duarte → fullstack-dhh → qa-bach → devops-hightower。</strong></span></p>
 
             <blockquote>
-                <p>"In one cycle, six features. No framework, no build step, pure HTML/CSS/JS. 1,130 lines of code. That's the power of ruthless simplicity."</p>
+                <p><span class="lang-en">"In one cycle, six features. No framework, no build step, pure HTML/CSS/JS. 1,130 lines of code. That's the power of ruthless simplicity."</span><span class="lang-zh hidden">"一轮迭代，六个功能。无框架，无构建步骤，纯 HTML/CSS/JS。1,130 行代码。这就是极致简洁的力量。"</span></p>
                 <cite>Werner Vogels (CTO)</cite>
             </blockquote>
 
-            <p>Cooper designed the flow with a mantra: <em>"Users don't come to Double Mood to 'use an app.' They come to feel better."</em> Every screen served that goal, nothing else. Weather selection, then sub-emotion selection, then intensity, then optional trigger, then choose your regulation method (Sedona, breathing, or both), then the regulation itself, then measure the improvement. Nine screens, each one focused, each one useful.</p>
+            <p><span class="lang-en">Cooper designed the flow with a mantra: <em>"Users don't come to Double Mood to 'use an app.' They come to feel better."</em> Every screen served that goal, nothing else. Weather selection, then sub-emotion selection, then intensity, then optional trigger, then choose your regulation method (Sedona, breathing, or both), then the regulation itself, then measure the improvement. Nine screens, each one focused, each one useful.</span><span class="lang-zh hidden">Cooper 带着一句座右铭来设计流程：<em>"用户来 Double Mood 不是为了'使用应用'。他们来是为了感觉好一点。"</em>每个界面都服务于这个目标，没有其他。天气选择，然后细分情绪选择，然后强度，然后可选的触发因素，然后选择调节方法（Sedona、呼吸或两者），然后进行调节，然后测量改善。九个界面，每个都聚焦，每个都有用。</span></p>
 
-            <p>Duarte designed four weather-specific color systems. Sunny glows warm yellow-gold. Cloudy is soft gray. Foggy feels translucent cyan. Stormy is deep purple-red. The same emotion gets the same visual language every time the user logs it.</p>
+            <p><span class="lang-en">Duarte designed four weather-specific color systems. Sunny glows warm yellow-gold. Cloudy is soft gray. Foggy feels translucent cyan. Stormy is deep purple-red. The same emotion gets the same visual language every time the user logs it.</span><span class="lang-zh hidden">Duarte 设计了四套天气专属配色系统。晴天散发温暖的金黄色。多云是柔和的灰色。雾天是半透明的青色。暴风是深紫红色。同一种情绪每次记录时都使用相同的视觉语言。</span></p>
 
-            <p>DHH built it in 4 hours. localStorage now stores 11 data fields per session: weather, sub-emotion, intensity-before, trigger text, regulation method chosen, how many Sedona cycles the user repeated, intensity-after, improvement delta, session ID, timestamp, total duration. Six major features, one file.</p>
+            <p><span class="lang-en">DHH built it in 4 hours. localStorage now stores 11 data fields per session: weather, sub-emotion, intensity-before, trigger text, regulation method chosen, how many Sedona cycles the user repeated, intensity-after, improvement delta, session ID, timestamp, total duration. Six major features, one file.</span><span class="lang-zh hidden">DHH 用 4 小时完成构建。localStorage 现在每个会话存储 11 个数据字段：天气、细分情绪、前测强度、触发因素文本、选择的调节方法、用户重复了多少轮 Sedona、后测强度、改善差值、会话 ID、时间戳、总时长。六个主要功能，一个文件。</span></p>
 
             <div class="stat-grid">
-                <div class="stat-box"><div class="num">6</div><div class="label">Features shipped</div></div>
-                <div class="stat-box"><div class="num">1</div><div class="label">Build cycle</div></div>
-                <div class="stat-box"><div class="num">1130</div><div class="label">Lines of code</div></div>
-                <div class="stat-box"><div class="num">11</div><div class="label">Data fields per session</div></div>
+                <div class="stat-box"><div class="num">6</div><div class="label"><span class="lang-en">Features shipped</span><span class="lang-zh hidden">功能上线</span></div></div>
+                <div class="stat-box"><div class="num">1</div><div class="label"><span class="lang-en">Build cycle</span><span class="lang-zh hidden">轮构建</span></div></div>
+                <div class="stat-box"><div class="num">1130</div><div class="label"><span class="lang-en">Lines of code</span><span class="lang-zh hidden">行代码</span></div></div>
+                <div class="stat-box"><div class="num">11</div><div class="label"><span class="lang-en">Data fields per session</span><span class="lang-zh hidden">字段/每次会话</span></div></div>
             </div>
 
-            <h3>The QA Crucible</h3>
+            <h3><span class="lang-en">The QA Crucible</span><span class="lang-zh hidden">QA 考验</span></h3>
 
-            <p>Bach ran exploratory testing on the build. Found 5 potential P1 issues. Not blockers, but gaps:</p>
+            <p><span class="lang-en">Bach ran exploratory testing on the build. Found 5 potential P1 issues. Not blockers, but gaps:</span><span class="lang-zh hidden">Bach 对构建进行了探索性测试。发现 5 个潜在的 P1 问题。不是阻塞项，但有缺口：</span></p>
 
             <blockquote>
-                <p>"Screen transitions use fade instead of slide. Sedona buttons might lose keyboard focus. Intensity slider track is too thin for mobile touch. But all fixable. Recommend ship with fixes in 2-4 hours."</p>
+                <p><span class="lang-en">"Screen transitions use fade instead of slide. Sedona buttons might lose keyboard focus. Intensity slider track is too thin for mobile touch. But all fixable. Recommend ship with fixes in 2-4 hours."</span><span class="lang-zh hidden">"屏幕过渡使用了淡入而非滑动。Sedona 按钮可能丢失键盘焦点。强度滑块的轨道对移动端触摸太窄。但都可修复。建议 2-4 小时内修复后发布。"</span></p>
                 <cite>James Bach (QA Lead)</cite>
             </blockquote>
 
-            <p>DHH fixed all three P1 bugs in parallel:</p>
+            <p><span class="lang-en">DHH fixed all three P1 bugs in parallel:</span><span class="lang-zh hidden">DHH 并行修复了全部三个 P1 Bug：</span></p>
 
             <ul>
-                <li>Changed screen transitions from fade to slide (15 min CSS fix)</li>
-                <li>Added Page Up/Down keyboard support to intensity sliders (30 min JavaScript fix)</li>
-                <li>Added explicit focus management for Sedona buttons so keyboard users never get trapped (45 min fix)</li>
+                <li><span class="lang-en">Changed screen transitions from fade to slide (15 min CSS fix)</span><span class="lang-zh hidden">将屏幕过渡从淡入改为滑动（15 分钟 CSS 修复）</span></li>
+                <li><span class="lang-en">Added Page Up/Down keyboard support to intensity sliders (30 min JavaScript fix)</span><span class="lang-zh hidden">为强度滑块添加 Page Up/Down 键盘支持（30 分钟 JavaScript 修复）</span></li>
+                <li><span class="lang-en">Added explicit focus management for Sedona buttons so keyboard users never get trapped (45 min fix)</span><span class="lang-zh hidden">为 Sedona 按钮添加显式焦点管理，确保键盘用户不会被困住（45 分钟修复）</span></li>
             </ul>
 
-            <p>Total: ~90 minutes. Then re-tested. All green. Ready to ship.</p>
+            <p><span class="lang-en">Total: ~90 minutes. Then re-tested. All green. Ready to ship.</span><span class="lang-zh hidden">总计约 90 分钟。然后重新测试。全部通过。可以发布。</span></p>
 
-            <h3>Deployment to Production</h3>
+            <h3><span class="lang-en">Deployment to Production</span><span class="lang-zh hidden">部署到生产环境</span></h3>
 
-            <p>DevOps pushed to Cloudflare Pages. Single file deployment, no build step, live in under 2 minutes at <code>double-mood.pages.dev</code>.</p>
+            <p><span class="lang-en">DevOps pushed to Cloudflare Pages. Single file deployment, no build step, live in under 2 minutes at <code>double-mood.pages.dev</code>.</span><span class="lang-zh hidden">DevOps 推送到 Cloudflare Pages。单文件部署，无构建步骤，不到 2 分钟在 <code>double-mood.pages.dev</code> 上线。</span></p>
 
             <blockquote>
-                <p>"Phase 2 is now live. All 6 features verified. Bilingual UI (English + Chinese), keyboard accessible, screen reader compatible, responsive to 320px. Load time: <200ms. Production ready."</p>
+                <p><span class="lang-en">"Phase 2 is now live. All 6 features verified. Bilingual UI (English + Chinese), keyboard accessible, screen reader compatible, responsive to 320px. Load time: <200ms. Production ready."</span><span class="lang-zh hidden">"第二阶段已上线。全部 6 个功能已验证。双语 UI（英文 + 中文），键盘可访问，屏幕阅读器兼容，响应至 320px。加载时间：<200ms。已达到生产就绪状态。"</span></p>
                 <cite>Kelsey Hightower (DevOps)</cite>
             </blockquote>
 
-            <h3>What This Means for Users</h3>
+            <h3><span class="lang-en">What This Means for Users</span><span class="lang-zh hidden">这对用户意味着什么</span></h3>
 
-            <p>Precision. Regulation choice. Pattern detection prep.</p>
+            <p><span class="lang-en">Precision. Regulation choice. Pattern detection prep.</span><span class="lang-zh hidden">精准度。调节选择权。模式识别准备。</span></p>
 
-            <p>Instead of clicking "anxious," a user can now select "🌫️ Light Fog" (mild anxiety, subtle unease) or "🌫️ Dense Fog" (strong anxiety, chest tightness, can't breathe) — and then say "it's a 3/10" or "it's an 8/10." Fourteen permutations of the same emotion, each one real.</p>
+            <p><span class="lang-en">Instead of clicking "anxious," a user can now select "Light Fog" (mild anxiety, subtle unease) or "Dense Fog" (strong anxiety, chest tightness, can't breathe) — and then say "it's a 3/10" or "it's an 8/10." Fourteen permutations of the same emotion, each one real.</span><span class="lang-zh hidden">用户不再只是点击"焦虑"，而是可以选择"薄雾"（轻度焦虑、隐约不安）或"浓雾"（强烈焦虑、胸闷、呼吸困难）——然后说"3/10"或"8/10"。同一种情绪的十四种排列组合，每一种都是真实的。</span></p>
 
-            <p>And if they want, they can write: "She didn't reply to my message." That text gets logged. In Phase 3, the system will find patterns: "You feel anxious every time she doesn't respond. It takes you 12 minutes to regulate."</p>
+            <p><span class="lang-en">And if they want, they can write: "She didn't reply to my message." That text gets logged. In Phase 3, the system will find patterns: "You feel anxious every time she doesn't respond. It takes you 12 minutes to regulate."</span><span class="lang-zh hidden">如果他们愿意，还可以写下："她没回我的消息。"这段文字会被记录。在第三阶段，系统会发现规律："每次她不回复你，你都会焦虑。你需要 12 分钟来调节。"</span></p>
 
-            <p>The Sedona Method is different from breathing. It's inquiry-based, not physical. <em>"Can I feel this emotion?"</em> leads to awareness. <em>"Can I let it go?"</em> is a question, not a demand. And <em>"When?"</em> with "Repeat cycle" as an option means the user's pace is respected. You can do Sedona once, or three times, or skip it entirely and breathe instead.</p>
+            <p><span class="lang-en">The Sedona Method is different from breathing. It's inquiry-based, not physical. <em>"Can I feel this emotion?"</em> leads to awareness. <em>"Can I let it go?"</em> is a question, not a demand. And <em>"When?"</em> with "Repeat cycle" as an option means the user's pace is respected. You can do Sedona once, or three times, or skip it entirely and breathe instead.</span><span class="lang-zh hidden">Sedona Method 与呼吸不同。它基于自我探询，而非身体运动。<em>"我能感受这种情绪吗？"</em>引向觉知。<em>"我能放下它吗？"</em>是一个问题，不是命令。而<em>"什么时候？"</em>加上"再来一轮"选项意味着尊重用户的节奏。你可以做一次 Sedona，或三次，或完全跳过改为呼吸。</span></p>
 
             <blockquote>
-                <p>"This is no longer a breathing app with mood tracking. This is an emotion regulation system with multiple methods. The user can now build their own mental health toolkit in their pocket."</p>
+                <p><span class="lang-en">"This is no longer a breathing app with mood tracking. This is an emotion regulation system with multiple methods. The user can now build their own mental health toolkit in their pocket."</span><span class="lang-zh hidden">"这不再是一个带情绪追踪的呼吸应用。这是一个拥有多种方法的情绪调节系统。用户现在可以在口袋里构建自己的心理健康工具箱。"</span></p>
                 <cite>Don Norman (Product Lead)</cite>
             </blockquote>
 
-            <h3>The New Bottleneck</h3>
+            <h3><span class="lang-en">The New Bottleneck</span><span class="lang-zh hidden">新的瓶颈</span></h3>
 
-            <p>One cycle. Six features. Three P1 bugs found and fixed. Now the question: <strong>"Will users actually log their emotions with this much detail?"</strong></p>
+            <p><span class="lang-en">One cycle. Six features. Three P1 bugs found and fixed. Now the question: <strong>"Will users actually log their emotions with this much detail?"</strong></span><span class="lang-zh hidden">一轮迭代。六个功能。三个 P1 Bug 被发现并修复。现在的问题是：<strong>"用户真的会如此详细地记录情绪吗？"</strong></span></p>
 
-            <p>Phase 1 proved they'd come back. Phase 2 now asks: will they fill out all nine screens? Or will the extra step of trigger text and regulation method choice cause drop-off?</p>
+            <p><span class="lang-en">Phase 1 proved they'd come back. Phase 2 now asks: will they fill out all nine screens? Or will the extra step of trigger text and regulation method choice cause drop-off?</span><span class="lang-zh hidden">第一阶段证明了他们会回来。第二阶段现在问：他们会填完九个界面吗？还是触发因素文本和调节方法选择这些额外步骤会导致流失？</span></p>
 
-            <p>The answer will come from the data. Each completed session writes 11 data points to localStorage. The hypothesis: better data will lead to better insights in Phase 3, which leads to higher retention. But that's still hypothesis.</p>
+            <p><span class="lang-en">The answer will come from the data. Each completed session writes 11 data points to localStorage. The hypothesis: better data will lead to better insights in Phase 3, which leads to higher retention. But that's still hypothesis.</span><span class="lang-zh hidden">答案将从数据中得来。每个完成的会话向 localStorage 写入 11 个数据点。假设是：更好的数据将在第三阶段带来更好的洞察，从而提高留存。但这仍然是假设。</span></p>
 
-            <p>As the CEO put it: <em>"We've built the tool. Now we learn from how people actually use it."</em></p>
+            <p><span class="lang-en">As the CEO put it: <em>"We've built the tool. Now we learn from how people actually use it."</em></span><span class="lang-zh hidden">正如 CEO 所说：<em>"我们已经造好了工具。现在我们从人们实际的使用方式中学习。"</em></span></p>
 
             <div class="chapter-pagination">
-                <a href="#ch3" class="page-btn" onclick="goChapter(3)">&larr; Previous</a>
+                <a href="#ch3" class="page-btn" onclick="goChapter(3)">&larr; <span class="lang-en">Previous</span><span class="lang-zh hidden">上一章</span></a>
                 <span class="page-indicator">4 / 4</span>
-                <a href="story.html" class="page-btn">All Stories &rarr;</a>
+                <a href="story.html" class="page-btn"><span class="lang-en">All Stories</span><span class="lang-zh hidden">所有故事</span> &rarr;</a>
             </div>
         </section>
 
@@ -602,10 +624,10 @@
 
 <footer>
     <div class="footer-inner">
-        <span>&copy; 2026 Proxima Auto. All rights reserved.</span>
+        <span>&copy; 2026 Proxima Auto. <span class="lang-en">All rights reserved.</span><span class="lang-zh hidden">保留所有权利。</span></span>
         <div class="footer-links">
-            <a href="index.html">Home</a>
-            <a href="story.html">All Stories</a>
+            <a href="index.html"><span class="lang-en">Home</span><span class="lang-zh hidden">首页</span></a>
+            <a href="story.html"><span class="lang-en">All Stories</span><span class="lang-zh hidden">所有故事</span></a>
         </div>
     </div>
 </footer>
@@ -646,6 +668,14 @@ window.addEventListener('DOMContentLoaded', function() {
         updateProgress(1);
     }
 });
+
+function toggleLanguage() {
+    const enEls = document.querySelectorAll('.lang-en');
+    const zhEls = document.querySelectorAll('.lang-zh');
+    const isEnVisible = !enEls[0].classList.contains('hidden');
+    enEls.forEach(el => el.classList.toggle('hidden', isEnVisible));
+    zhEls.forEach(el => el.classList.toggle('hidden', !isEnVisible));
+}
 </script>
 
 </body>
