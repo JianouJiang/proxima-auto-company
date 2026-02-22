@@ -197,6 +197,8 @@ docs/*/*
 !docs/devops/*.md
 # Fullstack implementation docs (technical reference)
 !docs/fullstack/*.md
+# Interaction design docs (user flows, personas)
+!docs/interaction/*.md
 # Keep LaTeX template, ignore compiled output
 !docs/editor/latex/
 !docs/editor/latex/report_template.tex
