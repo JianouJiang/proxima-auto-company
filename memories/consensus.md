@@ -1,10 +1,10 @@
 # Auto Company Consensus
 
 ## Last Updated
-2026-02-22 20:45 UTC (Cycle 65 COMPLETE — ColdCopy Paywall LIVE, Revenue Conversion READY ✅)
+2026-02-22 23:30 UTC (Founder directive — SixDegrees REBUILD as full web dashboard)
 
 ## Current Phase
-**REVENUE PHASE — All 6 products LIVE, paywall deployed, ready to convert first paying customer**
+**REBUILD SIXDEGREES — Full web dashboard with Gmail sign-in, campaign visualization, payment**
 
 ---
 
@@ -62,82 +62,60 @@
 
 ---
 
-### BUILD #2: SixDegrees — AI Agent That Reaches Anyone For You 🔗 95% COMPLETE
+### 🚨 BUILD #2: SixDegrees — REBUILD AS FULL WEB DASHBOARD 🔗 MUST REBUILD
 
-**Status: V2 BUILT in Cycle 62. Email infrastructure ready, awaiting DNS config.**
+**Status: PREVIOUS CLI VERSION SCRAPPED. Founder wants a FULL WEB APP, not terminal scripts.**
 
-**✅ Completed in Cycle 62:**
-- Project renamed ConnectPath → SixDegrees
-- Email API built (`/api/send-email` using MailChannels)
-- D1 database migrated with `email_outreach` tracking table
-- Test UI deployed at https://sixdegrees.pages.dev/test-email.html
-- 6-degree chain mapped: Jianou → Prof. Tom Brown (PyPSA) → Stanford → Tesla → Elon
-- Degree 1 email drafted and ready to send
-
-**⏳ Remaining blocker:** MailChannels needs DNS record `_mailchannels.jianou.works` TXT (founder action, 5 min)
-
-**Once DNS fixed:** Email API goes live, 6-degree Elon test can execute
-
----
-
-**FULL VISION (for future iterations):**
+**⚠️ FOUNDER DIRECTIVE — THIS IS THE NEXT BUILD PRIORITY ⚠️**
 
 **What SixDegrees ACTUALLY is:**
 SixDegrees is an **AI agent service** that actively works to connect you to anyone in the world through 6 degrees of separation. It's NOT a search tool — it's an agent that TAKES ACTION on your behalf.
 
-**How it works (user flow):**
-1. **User uploads CV/intro** — tell the agent who you are, your background, skills, achievements
-2. **User specifies target person** — e.g., "Elon Musk", "the CEO of Stripe", "a senior ML engineer at DeepMind"
-3. **User explains motivation** — WHY do you need to reach this person? (job, investment, partnership, mentorship, collaboration)
-4. **AI agent goes to work** — uses Claude to autonomously:
-   - Research the target person (public profiles, articles, interviews, social media)
-   - Map potential connection chains (you → intermediary A → intermediary B → ... → target)
-   - Draft personalized outreach emails for each step in the chain
-   - SEND emails on the user's behalf (with user's SMTP credentials or via our relay)
-   - Follow up if no response
-   - Adapt strategy based on responses (if intermediary A says no, try intermediary B)
-   - Report progress back to the user
-5. **Result:** The agent keeps working until it reaches the target or exhausts all paths
+**🚨 USER FLOW (EXACTLY AS FOUNDER DESCRIBED — DO NOT DEVIATE):**
 
-**This is HEAVILY Claude-agentic.** The agent must think, research, write, send, follow up, and adapt. This is NOT a simple search — it's an autonomous multi-step campaign.
+1. **Landing page** — User fills in their info (name, background, who they want to reach, why)
+2. **Click "Start AI Agent Campaign"**
+3. **Sign-in page** — User signs in with Gmail (Google OAuth or simple Gmail login)
+4. **Dashboard** — After sign-in, user sees a FULL DASHBOARD with:
+   - **Strategy/Plan** — The AI's plan to reach the target (6-degree chain visualization)
+   - **Connections** — Who has been contacted, who replied, who's next
+   - **Live Status** — What's happening right now (emails sent, waiting for replies, next steps)
+   - **Email History** — All emails sent and received, with timestamps
+   - **Payment Section** — Buy credits or upgrade plan (Stripe Payment Links)
+5. **Email sending happens FROM THE WEBSITE** — NOT from terminal/CLI
+   - The backend sends emails via Gmail SMTP (using `projects/gmail-engine/` module)
+   - User does NOT need to open terminal or run commands
+   - Everything is automated through the web UI
 
-**Pricing model (TWO options, implement both):**
+**🚨 KEY REQUIREMENTS:**
+- **NO TERMINAL COMMANDS** for sending emails. Everything through the web dashboard.
+- **Gmail sign-in** for authentication (Google OAuth preferred, or simple email+password)
+- **Dashboard must show:** strategy visualization, connection chain, email status, payment
+- **Multiple contacts per degree** (3-5 people per degree, not just 1)
+- **Bilingual** EN/中文 with toggle
+- **Email sending via Gmail SMTP** using the shared `projects/gmail-engine/` module
+  - Gmail: jianou.works@gmail.com
+  - App Password from env var GMAIL_APP_PASSWORD
+  - MailChannels is DEAD — do NOT use it
 
-**Option A: Pay-per-outcome (premium)**
-| Outcome | Price |
-|---------|-------|
-| Email reply from target | £50 |
-| Video/phone call with target | £200 |
-| In-person meeting with target | £500 |
-| No result after 30 days | £0 (money-back guarantee) |
-
-**Option B: Pay-per-search credits (like dating app Spotlight/Boost)**
-| Credits | Price | What you get |
-|---------|-------|-------------|
-| 10 agent searches | £5 | Agent researches 10 potential intermediaries |
-| 50 agent searches | £20 | Agent researches 50 potential intermediaries |
-| 200 agent searches | £50 | Agent researches 200 potential intermediaries |
-| Unlimited (1 month) | £99 | Agent works non-stop for 1 month |
-
-Credits don't guarantee outcome but increase the agent's effort (like Spotlight in dating apps — more exposure, better chances).
+**Existing assets to keep/reuse:**
+- `projects/sixdegrees/` — project directory (rebuild frontend here)
+- `projects/gmail-engine/` — shared Gmail send/read module (USE THIS for email)
+- `outreach-chain.json` — 6-degree chain config (extend with multiple contacts per degree)
+- D1 database — `email_outreach` table (reuse for tracking)
+- Bilingual story page at `projects/landing-page/story-sixdegrees.html`
 
 **Tech stack:**
-- Frontend: landing page + dashboard (Cloudflare Pages)
-- Backend: Cloudflare Workers + D1 (track campaigns, credits, progress)
-- AI: Claude API for all reasoning, research, email drafting
-- Email: User provides SMTP creds, or we use a relay service (SendGrid/Mailgun)
-- Billing: Gumroad or Stripe
+- **Frontend:** React or vanilla JS SPA (Cloudflare Pages)
+- **Backend:** Cloudflare Workers + D1
+- **Email:** Gmail SMTP via `projects/gmail-engine/` (runs server-side, NOT in browser)
+- **Auth:** Google OAuth (or simple token-based)
+- **Payment:** Stripe Payment Links
+- **AI:** Claude API for strategy generation, email drafting
 
-**V1 scope (this cycle):**
-1. Landing page explaining the service (bilingual EN/中文)
-2. Intake form (upload CV, target person, motivation)
-3. Basic agent that researches target + drafts first outreach email
-4. Credit system (track agent searches per user)
-5. Deploy + Gumroad payment link
+**Team:** `interaction-cooper` (user flow) → `ui-duarte` (dashboard design) → `fullstack-dhh` (build) → `devops-hightower` (deploy)
 
-**DO NOT build the simple GitHub graph search again. That is WRONG.**
-
-**Team:** `fullstack-dhh` (rebuild) → `devops-hightower` (deploy) → `marketing-godin` (launch)
+**DO NOT build CLI scripts. DO NOT use MailChannels. Build a WEB APP with DASHBOARD.**
 
 ---
 
@@ -230,31 +208,29 @@ This means the system MUST use **Playwright browser automation** (or Xiaohongshu
 
 **⚠️ DO NOT REMOVE THIS SECTION. THIS IS A FOUNDER DIRECTIVE. ⚠️**
 
-**Status: EMAIL INFRASTRUCTURE READY ✅ (Cycle 62) — awaiting DNS to send**
+**Status: REBUILDING AS WEB DASHBOARD (MailChannels scrapped, using Gmail SMTP now)**
 
-**✅ Completed in Cycle 62:**
-- Email API built: `/api/send-email` using MailChannels (free)
-- 6-degree chain mapped: Jianou → Prof. Tom Brown (PyPSA lead) → Stanford energy profs → Tesla engineers → Elon
-- Degree 1 email drafted and ready (to tom.brown@tu-berlin.de)
-- Test UI deployed: https://sixdegrees.pages.dev/test-email.html
-- Database tracking: `email_outreach` table logs all sends
+**✅ What's done:**
+- Gmail foundation module built: `projects/gmail-engine/` (send + read via Gmail SMTP/IMAP)
+- MailChannels REMOVED — no DNS blocker anymore
+- 6-degree chain mapped in `projects/sixdegrees/outreach-chain.json`
+- D1 database with `email_outreach` table
 
-**⏳ Blocker:** MailChannels needs DNS TXT record: `_mailchannels.jianou.works` (founder action, 5 min)
-
-**Once DNS added:**
-1. Test email sending at https://sixdegrees.pages.dev/test-email.html
-2. Click "Send Email Now" to send Degree 1 email to Prof. Tom Brown
-3. Monitor response + track in dashboard
-4. If reply → proceed to Degree 2
-5. If no reply after 1 week → try alternate Degree 1 contact
+**⏳ What's needed: FULL WEB DASHBOARD (see BUILD #2 above)**
+- User signs in with Gmail on the website
+- Dashboard shows strategy, connections, email history, payment
+- Email sending triggered from web UI (backend uses gmail-engine)
+- No terminal commands needed
 
 **Full chain (from `docs/research/elon-musk-6-degree-chain.md`):**
-- **Degree 1:** Prof. Tom Brown (TU Berlin, PyPSA lead) — Jianou is PyPSA contributor
-- **Degree 2:** Prof. Adam Brandt (Stanford) — Energy optimization research network
+- **Degree 1:** Prof. Tom Brown (TU Berlin, PyPSA lead) — Jianou is PyPSA contributor + MULTIPLE alternates
+- **Degree 2:** Prof. Adam Brandt (Stanford) — Energy optimization research network + alternates
 - **Degree 3:** Stanford PhD alumni (2019-2023) — Recent energy optimization graduates
 - **Degree 4:** Tesla Energy engineer — ML/optimization, Stanford hire pipeline
 - **Degree 5:** Tesla Energy leadership — VP/Director reporting to Elon
 - **Degree 6:** Elon Musk — Oversees Tesla Energy strategy
+
+**Each degree should target 3-5 people, not just 1.**
 
 ---
 
@@ -333,6 +309,71 @@ This means the system MUST use **Playwright browser automation** (or Xiaohongshu
 
 ---
 
+## 🚨 FOUNDER DIRECTIVE — DOUBLE MOOD PRODUCT UPGRADE 🚨
+
+**⚠️ DO NOT REMOVE. FOUNDER DIRECTIVE. EXECUTE IN NEXT CYCLE (alongside SixDegrees). ⚠️**
+
+**Double Mood is an emotional first-aid + mood tracking product. Here are the founder's specific requirements:**
+
+### 1. Visual: Warm Yellow Color Scheme
+- Change the entire app color palette to **warm yellow tones** (暖黄色调)
+- Think: warm amber, honey gold, soft cream — calming and warm, not cold blue/purple
+- This is a mood/wellness product — colors should feel warm, safe, comforting
+
+### 2. Breathing Exercise Text Fix
+- Change "跟着圆圈呼吸" → **"跟着圆圈做深呼吸"**
+- Change "Follow the circle to breathe" → **"Follow the circle for deep breathing"**
+- The emphasis is on DEEP breathing (深呼吸), not just breathing
+
+### 3. Sedona Method: Add Audio Guidance Option
+- Add a toggle/button for users to **enable voice guidance** (开启声音引导)
+- The guided voice should speak these prompts in a **soft, soothing, gentle tone** (轻柔舒缓):
+  - "你能让它离开吗？" / "Could you let it go?"
+  - "如果你可以的话，你愿意让它离开吗？" / "If you could, would you let it go?"
+  - "你愿意什么时候让它离开？" / "When would you let it go?"
+- Voice should guide the user to **close eyes and take deep breaths** between prompts
+- **NO robotic tone** — must sound natural, warm, human-like (不要有人机味)
+- Use Web Speech API (SpeechSynthesis) with a warm female voice, slow rate, or pre-recorded audio files
+- Voice is OPTIONAL — user can toggle it on/off
+
+### 4. Product Positioning (MOST IMPORTANT)
+**What we are selling — TWO things:**
+
+**A. Emotional First Aid (情绪急救)**
+- Uses CBT, Sedona Release Method to catch/process emotions in the moment
+- When you're anxious, angry, sad — open the app, get immediate relief
+- This is the ACUTE use case
+
+**B. Mood Journal Replacement (情绪记录 — 替代觉察笔记)**
+- Writing a diary is tedious (麻烦). DoubleMood replaces journaling with quick taps
+- User selects mood icon + trigger reason → done in 10 seconds vs 10 minutes of writing
+- **PROBLEM NOW:** After using for a week, nothing is saved. User has NO history. No review function.
+- **SOLUTION:** Sync each mood entry to the user's **Apple Calendar / Android Calendar**:
+  - Create a calendar event at the time of the mood entry
+  - Event title = mood emoji + mood name (e.g. "😰 Anxious")
+  - Event description/notes = trigger reason (触发原因放在备注里)
+  - User can then open their native calendar app and see their mood history over weeks/months
+  - This gives the "journal review" experience WITHOUT building a custom account system
+- Use the **Web Calendar API** or generate `.ics` file downloads, or use CalDAV
+- Alternatively: "Add to Calendar" button after each mood entry that creates an .ics event
+
+### 5. NO Account Registration Required
+- **Zero friction:** No phone number, no email, no sign-up, no login
+- The entire experience must work WITHOUT any account
+- Calendar sync works by generating .ics files or using the device's native calendar API
+- This is non-negotiable — DO NOT add any registration/login flow
+
+### Implementation Notes
+- DoubleMood is at `projects/double-mood/public/index.html` (single HTML file app)
+- Currently deployed at https://double-mood.pages.dev
+- The app uses vanilla JS with dynamic content generation (`langSpan()` helper for bilingual)
+- Cloudflare Web Analytics token: `d373debf0c0e4b8cbc752883cd00c8cb`
+- Keep bilingual toggle working (EN/中文)
+
+**Team:** `ui-duarte` (color scheme) → `fullstack-dhh` (all features) → `qa-bach` (test) → `devops-hightower` (deploy)
+
+---
+
 ## Company Infrastructure
 - **Cloudflare:** Pages + Workers + D1 + KV (free tier)
 - **GitHub:** repos (landing page, ColdCopy)
@@ -346,48 +387,63 @@ This means the system MUST use **Playwright browser automation** (or Xiaohongshu
 
 ## Next Action
 
-**NEXT CYCLE: FOUNDER EXECUTES COLDCOPY LAUNCH — Paywall live, Stripe ready, 50K+ words of marketing copy prepared. Revenue conversion now possible.**
+**🚨 NEXT CYCLE: TWO BUILDS — SIXDEGREES DASHBOARD + DOUBLE MOOD UPGRADE 🚨**
 
-**✅ TECHNICAL BLOCKERS REMOVED. CONVERSION INFRASTRUCTURE LIVE.**
+**The founder has given detailed directives for BOTH products. Execute them.**
 
-**What happened this cycle (Cycle 63):**
-- ✅ RedFlow FULLY BUILT — 1,200 lines of production code shipped
-- ✅ Playwright automation complete (auto-login + auto-post to 小红书)
-- ✅ Content generator using Claude API (800-1200 char native format)
-- ✅ Deployed to Cloudflare (Worker + D1 database live at https://redflow-worker.jianou-works.workers.dev)
-- ✅ Bilingual dashboard (EN/中文)
-- ✅ Cron trigger configured (daily 10:00 AM Beijing time)
-- ✅ 14,300 words technical documentation
-- ✅ Content strategy: 50 hooks, 7-day calendar, 5 product positioning statements
-- ✅ Team execution: 2h 17min (research → build → deploy → marketing → chronicle)
+---
 
-**Current State:**
-- **6 products LIVE:** ColdCopy, DoubleMood, FlowPrep, PowerCast, SixDegrees, RedFlow
-- **All bilingual:** EN/中文 toggles on all products + story pages
-- **All deployed:** Cloudflare free tier ($0/month infrastructure)
-- **All documented:** ~100K+ words across docs/
-- **Revenue:** $0 (awaiting first sale)
+### Priority A: REBUILD SIXDEGREES AS WEB DASHBOARD
 
-**Blockers (all founder-side, 30 minutes total):**
-1. **RedFlow:** Founder provides 小红书 credentials + ANTHROPIC_API_KEY (15 min)
-2. **SixDegrees:** Founder adds DNS TXT record for MailChannels (5 min)
-3. **All products:** Founder begins marketing/promotion (ongoing)
+**CLI/terminal email scripts are NOT acceptable. SixDegrees must be a web application with:**
+1. Landing page with intake form (user info + target person)
+2. "Start AI Agent Campaign" button
+3. Gmail sign-in (Google OAuth)
+4. Full dashboard: strategy, connections, live status, email history, payment
+5. Email sending from BACKEND (via `projects/gmail-engine/`), triggered by web UI
+6. Multiple contacts per degree (3-5 people)
+7. Bilingual EN/中文
 
-**Strategic Pivot:**
-We've completed the BUILD phase. Next cycle should focus on MARKETING and getting first paying customer from existing products. Options:
-- Launch on Product Hunt (one product at a time)
-- Reddit/HN outreach (use ColdCopy to dogfood)
-- 小红书 content starts flowing (once RedFlow credentials added)
-- Community outreach (ph-community-outreach skill)
+**Build order:** `interaction-cooper` → `ui-duarte` → `fullstack-dhh` → `devops-hightower`
+
+**Existing infrastructure:**
+- `projects/gmail-engine/` — Shared email module (nodemailer + imapflow). USE THIS.
+- `projects/sixdegrees/` — Project dir. Rebuild frontend here.
+- `projects/sixdegrees/outreach-chain.json` — 6-degree chain config
+- D1 database with `email_outreach` table
+- Cloudflare Pages project: `sixdegrees`
+
+---
+
+### Priority B: DOUBLE MOOD PRODUCT UPGRADE
+
+**See full directive in "🚨 FOUNDER DIRECTIVE — DOUBLE MOOD PRODUCT UPGRADE" section above. Summary:**
+1. Warm yellow color scheme (暖黄色调)
+2. "跟着圆圈做深呼吸" (deep breathing, not just breathing)
+3. Sedona Method voice guidance (optional toggle, soft/soothing Web Speech API)
+4. Calendar sync — mood entries → Apple/Android calendar events (.ics files)
+5. NO account/registration — zero friction
+
+**Build order:** `ui-duarte` (colors) → `fullstack-dhh` (features) → `qa-bach` (test) → `devops-hightower` (deploy)
+
+---
+
+**What was done today (founder session):**
+- ✅ FlowPrep updated: "Jianou Jiang, PhD from Oxford University" + contact email + redeployed
+- ✅ PowerCast Gumroad links confirmed live (3 products, links in dashboard, redeployed)
+- ✅ Gmail foundation module built: `projects/gmail-engine/` (send.js + read.js)
+- ✅ SixDegrees MailChannels REMOVED — Gmail SMTP is the email method now
+
+**DO NOT skip to marketing. Build these two products first.**
 
 ---
 
 ## Company State
 
-- **Phase:** BUILD COMPLETE ✅ — Now pivoting to MARKETING + REVENUE
+- **Phase:** PRODUCT UPGRADE — SixDegrees web dashboard + Double Mood feature upgrade
 - **Revenue:** $0 (6 products live, awaiting first sale)
 - **Live Products:** ColdCopy, Double Mood, FlowPrep AI, PowerCast, SixDegrees, RedFlow (6 total, all bilingual)
-- **Building:** NOTHING — all builds complete
+- **Building:** SixDegrees (web dashboard rebuild) + Double Mood (color + voice + calendar sync)
 - **Company Homepage:** https://proxima-auto.pages.dev (bilingual, all products listed)
 - **Infrastructure:** Cloudflare Pages (free), Gumroad (live), Stripe (live)
 - **Runway:** Infinite (free tier infra)

@@ -1,0 +1,52 @@
+{
+  "target": "Elon Musk",
+  "goal": "Get an introduction to Elon Musk through a 6-degree professional chain, starting from open-source energy research connections.",
+  "sender": {
+    "name": "Jianou Jiang",
+    "title": "Researcher, Oxford Thermofluids Institute",
+    "email": "jianou.works@gmail.com"
+  },
+  "degrees": [
+    {
+      "degree": 1,
+      "label": "PyPSA open-source contributors — direct professional network",
+      "contacts": [
+        {
+          "name": "Prof. Tom Brown",
+          "email": "tom.brown@tu-berlin.de",
+          "role": "PyPSA Lead Developer, TU Berlin",
+          "connection": "Fellow open-source energy systems researcher. PyPSA contributor network.",
+          "emailTemplate": {
+            "subject": "PyPSA Contributors Network — Energy-Tesla Bridge Project",
+            "body": "Dear Prof. Brown,\n\nI'm Jianou Jiang, a researcher at Oxford Thermofluids Institute and contributor to PyPSA's stochastic optimization features for energy system planning. I've been working on large-scale energy optimization for electrified systems (MINLP models with 60K+ variables) and believe there's a strategic opportunity to connect energy systems research with industrial AI applications at companies like Tesla.\n\nWould you be open to a brief conversation about how PyPSA's framework could inform industrial energy optimization, and potentially connecting with researchers who might be interested in this bridge? Your perspective on the research-to-industry pathway would be invaluable.\n\nBest regards,\nJianou Jiang\nOxford Thermofluids Institute\njianou.works@gmail.com"
+          }
+        }
+      ]
+    },
+    {
+      "degree": 2,
+      "label": "Energy policy / industry bridge contacts",
+      "contacts": []
+    },
+    {
+      "degree": 3,
+      "label": "Industry researchers / Tesla-adjacent",
+      "contacts": []
+    },
+    {
+      "degree": 4,
+      "label": "Tesla engineering / energy team",
+      "contacts": []
+    },
+    {
+      "degree": 5,
+      "label": "Tesla leadership / executive circle",
+      "contacts": []
+    },
+    {
+      "degree": 6,
+      "label": "Direct connection to target",
+      "contacts": []
+    }
+  ]
+}

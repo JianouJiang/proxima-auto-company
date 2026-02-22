@@ -6,12 +6,16 @@
   "main": "send-test-email.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "send-email": "node send-test-email.js"
+    "send-email": "node send-gmail.js",
+    "outreach": "node auto-outreach.js",
+    "outreach:status": "node auto-outreach.js --status",
+    "outreach:replies": "node auto-outreach.js --check-replies"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "imapflow": "^1.0.171",
     "nodemailer": "^8.0.1"
   }
 }

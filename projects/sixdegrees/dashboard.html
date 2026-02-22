@@ -3,173 +3,561 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - SixDegrees</title>
+    <title>Dashboard — SixDegrees</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Helvetica Neue", sans-serif, "Noto Sans CJK SC", "Noto Sans";
+        }
+        .tab-active {
+            border-bottom: 2px solid #2563eb;
+            color: #2563eb;
+            font-weight: 600;
+        }
+        .tab-inactive {
+            border-bottom: 2px solid transparent;
+            color: #94a3b8;
+        }
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .spinner {
+            animation: spin 1s linear infinite;
+        }
+    </style>
 </head>
 <body class="bg-gray-50">
-    <!-- Language Toggle -->
-    <div class="fixed top-4 right-4 z-50">
-        <button onclick="toggleLanguage()" class="bg-white px-4 py-2 rounded-lg shadow-sm border border-gray-200 hover:bg-gray-50">
-            <span id="lang-toggle">中文</span>
-        </button>
+    <!-- Header -->
+    <header class="sticky top-0 bg-white shadow-sm z-40 px-4 md:px-6 py-4">
+        <div class="flex items-center justify-between max-w-7xl mx-auto">
+            <div class="flex items-center gap-4">
+                <a href="/public/index.html" class="text-2xl font-bold text-blue-600">
+                    <span data-en="SixDegrees" data-zh="六度人脉">SixDegrees</span>
+                </a>
+                <div class="hidden md:flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 text-blue-700 text-sm">
+                    <span id="campaign-target" class="font-semibold">Loading...</span>
+                </div>
+            </div>
+            <div class="flex items-center gap-4">
+                <button id="lang-en" class="px-3 py-1 text-sm font-semibold text-blue-600 border-b-2 border-blue-600">EN</button>
+                <button id="lang-zh" class="px-3 py-1 text-sm font-semibold text-gray-400 border-b-2 border-transparent hover:text-gray-600">中文</button>
+                <button id="settings-btn" class="p-2 hover:bg-gray-100 rounded-lg">
+                    <span class="text-xl">⚙️</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Tab Navigation -->
+    <div class="bg-white border-b border-gray-200 px-4 md:px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex overflow-x-auto gap-0">
+                <button id="tab-campaign" class="tab-active px-4 md:px-6 py-4 text-sm md:text-base whitespace-nowrap transition-colors">
+                    <span data-en="Your Campaign" data-zh="你的活动">Your Campaign</span>
+                </button>
+                <button id="tab-connections" class="tab-inactive px-4 md:px-6 py-4 text-sm md:text-base whitespace-nowrap hover:text-gray-600 transition-colors">
+                    <span data-en="Connections" data-zh="连接记录">Connections</span>
+                </button>
+                <button id="tab-credits" class="tab-inactive px-4 md:px-6 py-4 text-sm md:text-base whitespace-nowrap hover:text-gray-600 transition-colors">
+                    <span data-en="Credits & Payment" data-zh="积分与支付">Credits & Payment</span>
+                </button>
+                <button id="tab-settings" class="tab-inactive px-4 md:px-6 py-4 text-sm md:text-base whitespace-nowrap hover:text-gray-600 transition-colors">
+                    <span data-en="Settings" data-zh="设置">Settings</span>
+                </button>
+            </div>
+        </div>
     </div>
 
-    <div class="min-h-screen py-12 px-4">
-        <div class="max-w-6xl mx-auto">
-            <div class="mb-8">
-                <a href="index.html" class="text-blue-600 hover:underline">
-                    <span data-en="← Back to Home" data-zh="← 返回首页">← Back to Home</span>
-                </a>
-                <h1 class="text-4xl font-bold mt-4 mb-2">
-                    <span data-en="Your Dashboard" data-zh="你的仪表盘">Your Dashboard</span>
-                </h1>
-            </div>
-
-            <!-- Credits Balance -->
-            <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-8">
-                <div class="flex justify-between items-center">
-                    <div>
-                        <h2 class="text-lg font-semibold mb-1">
-                            <span data-en="Credits Balance" data-zh="积分余额">Credits Balance</span>
-                        </h2>
-                        <p class="text-3xl font-bold text-blue-600" id="credits-balance">Loading...</p>
+    <!-- Main Content -->
+    <div class="px-4 md:px-6 py-8">
+        <div class="max-w-7xl mx-auto">
+            <!-- TAB 1: Your Campaign -->
+            <div id="content-campaign" class="space-y-6">
+                <!-- Status Card -->
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center gap-3">
+                            <h2 class="text-2xl font-bold text-gray-900">
+                                <span data-en="AI Strategy" data-zh="AI策略">AI Strategy</span>
+                            </h2>
+                            <span id="status-badge" class="px-3 py-1 rounded-full bg-yellow-100 text-yellow-700 text-xs font-semibold">
+                                <span data-en="⏳ In Progress" data-zh="⏳ 进行中">⏳ In Progress</span>
+                            </span>
+                        </div>
+                        <button id="refresh-btn" class="px-4 py-2 border border-gray-300 rounded hover:bg-gray-50 text-sm">
+                            <span data-en="Refresh" data-zh="刷新">Refresh</span>
+                        </button>
                     </div>
-                    <a href="intake.html" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700">
-                        <span data-en="Buy More Credits" data-zh="购买更多积分">Buy More Credits</span>
-                    </a>
+
+                    <!-- 6-Degree Chain Visualization -->
+                    <div class="mb-6">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-4">
+                            <span data-en="Connection Path" data-zh="连接路径">Connection Path</span>
+                        </h3>
+
+                        <!-- Desktop: SVG Horizontal Chain -->
+                        <div class="hidden md:block overflow-x-auto">
+                            <div id="chain-svg-container" class="min-w-[600px]"></div>
+                        </div>
+
+                        <!-- Mobile: Vertical Stack -->
+                        <div class="md:hidden space-y-4" id="chain-mobile"></div>
+                    </div>
+
+                    <!-- Strategy Text Summary -->
+                    <div class="bg-gray-50 rounded p-4 mb-4">
+                        <p id="strategy-summary" class="text-sm text-gray-700 leading-relaxed">
+                            Loading strategy...
+                        </p>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="flex gap-3">
+                        <button id="start-campaign-btn" class="flex-1 px-6 py-3 bg-blue-600 text-white font-semibold rounded hover:bg-blue-700 transition-colors">
+                            <span data-en="Start Campaign" data-zh="启动活动">Start Campaign</span>
+                        </button>
+                        <button id="edit-target-btn" class="px-6 py-3 border border-gray-300 text-gray-700 font-semibold rounded hover:bg-gray-50 transition-colors">
+                            <span data-en="Edit Target" data-zh="编辑目标">Edit Target</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Email Carousel -->
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">
+                        <span data-en="Email Sequence" data-zh="邮件序列">Email Sequence</span>
+                    </h3>
+                    <div id="email-carousel" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <!-- Email cards will be dynamically inserted here -->
+                    </div>
+                </div>
+
+                <!-- What's Happening Now (Timeline) -->
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">
+                        <span data-en="What's Happening Now" data-zh="当前进展">What's Happening Now</span>
+                    </h3>
+                    <div id="timeline" class="space-y-3">
+                        <!-- Timeline events will be inserted here -->
+                    </div>
                 </div>
             </div>
 
-            <!-- Campaigns -->
-            <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-                <h2 class="text-2xl font-bold mb-6">
-                    <span data-en="Your Campaigns" data-zh="你的活动">Your Campaigns</span>
-                </h2>
-                <div id="campaigns-list">
-                    <div class="text-center py-12 text-gray-500">
-                        <span data-en="Loading campaigns..." data-zh="加载活动中...">Loading campaigns...</span>
+            <!-- TAB 2: Connections -->
+            <div id="content-connections" class="hidden space-y-6">
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-4">
+                        <span data-en="Email History" data-zh="邮件历史">Email History</span>
+                    </h2>
+
+                    <!-- Filters -->
+                    <div class="flex gap-2 mb-6">
+                        <button class="px-4 py-2 bg-blue-600 text-white rounded text-sm font-semibold">
+                            <span data-en="All" data-zh="全部">All</span>
+                        </button>
+                        <button class="px-4 py-2 bg-gray-100 text-gray-700 rounded text-sm hover:bg-gray-200">
+                            <span data-en="Sent" data-zh="已发送">Sent</span>
+                        </button>
+                        <button class="px-4 py-2 bg-gray-100 text-gray-700 rounded text-sm hover:bg-gray-200">
+                            <span data-en="Replied" data-zh="已回复">Replied</span>
+                        </button>
+                        <button class="px-4 py-2 bg-gray-100 text-gray-700 rounded text-sm hover:bg-gray-200">
+                            <span data-en="No Reply" data-zh="未回复">No Reply</span>
+                        </button>
+                    </div>
+
+                    <!-- Email List -->
+                    <div id="email-list" class="space-y-4">
+                        <p class="text-gray-500 text-center py-8">
+                            <span data-en="No emails sent yet" data-zh="尚未发送邮件">No emails sent yet</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 3: Credits & Payment -->
+            <div id="content-credits" class="hidden space-y-6">
+                <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-2">
+                        <span data-en="Credits Balance" data-zh="积分余额">Credits Balance</span>
+                    </h2>
+                    <p class="text-4xl font-bold text-blue-600 mb-2" id="credits-display">7 campaigns</p>
+                    <p class="text-sm text-gray-600">
+                        <span data-en="Current Plan: Free ($0/month)" data-zh="当前计划：免费 ($0/月)">Current Plan: Free ($0/month)</span>
+                    </p>
+                </div>
+
+                <!-- Pricing Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Free Plan -->
+                    <div class="bg-white rounded-lg shadow-md border border-gray-200 p-6 text-center">
+                        <h3 class="text-xl font-bold text-gray-900 mb-4">
+                            <span data-en="Free" data-zh="免费">Free</span>
+                        </h3>
+                        <p class="text-3xl font-bold text-blue-600 mb-4">$0</p>
+                        <p class="text-sm text-gray-600 mb-6">
+                            <span data-en="1 campaign/month" data-zh="每月1个活动">1 campaign/month</span>
+                        </p>
+                        <button class="w-full px-4 py-2 bg-gray-100 text-gray-700 rounded font-semibold">
+                            <span data-en="Current Plan ✓" data-zh="当前计划 ✓">Current Plan ✓</span>
+                        </button>
+                    </div>
+
+                    <!-- Starter Plan -->
+                    <div class="bg-white rounded-lg shadow-md border-2 border-blue-600 p-6 text-center ring-2 ring-blue-600 ring-offset-2">
+                        <div class="inline-block px-3 py-1 bg-blue-600 text-white text-xs font-semibold rounded-full mb-3">
+                            <span data-en="Popular" data-zh="热门">Popular</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-4">
+                            <span data-en="Starter" data-zh="入门">Starter</span>
+                        </h3>
+                        <p class="text-3xl font-bold text-blue-600 mb-1">$29<span class="text-lg text-gray-600">/mo</span></p>
+                        <p class="text-sm text-gray-600 mb-6">
+                            <span data-en="10 campaigns/month" data-zh="每月10个活动">10 campaigns/month</span>
+                        </p>
+                        <a href="https://buy.stripe.com/test_YOUR_LINK" target="_blank" class="block w-full px-4 py-2 bg-blue-600 text-white rounded font-semibold hover:bg-blue-700">
+                            <span data-en="Upgrade" data-zh="升级">Upgrade</span>
+                        </a>
+                    </div>
+
+                    <!-- Pro Plan -->
+                    <div class="bg-white rounded-lg shadow-md border border-gray-200 p-6 text-center">
+                        <h3 class="text-xl font-bold text-gray-900 mb-4">
+                            <span data-en="Pro" data-zh="专业">Pro</span>
+                        </h3>
+                        <p class="text-3xl font-bold text-blue-600 mb-4">$99<span class="text-lg text-gray-600">/mo</span></p>
+                        <p class="text-sm text-gray-600 mb-6">
+                            <span data-en="Unlimited + API" data-zh="无限+API">Unlimited + API</span>
+                        </p>
+                        <a href="https://buy.stripe.com/test_YOUR_LINK" target="_blank" class="block w-full px-4 py-2 bg-gray-100 text-gray-700 rounded font-semibold hover:bg-gray-200">
+                            <span data-en="Upgrade" data-zh="升级">Upgrade</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 4: Settings -->
+            <div id="content-settings" class="hidden space-y-6">
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-6">
+                        <span data-en="Account Settings" data-zh="账户设置">Account Settings</span>
+                    </h2>
+
+                    <!-- Account Info -->
+                    <div class="mb-6">
+                        <label class="block text-sm font-semibold text-gray-900 mb-2">
+                            <span data-en="Email" data-zh="电子邮件">Email</span>
+                        </label>
+                        <input type="email" id="settings-email" class="w-full px-4 py-2 border border-gray-300 rounded bg-gray-50" readonly />
+                    </div>
+
+                    <div class="mb-6">
+                        <label class="block text-sm font-semibold text-gray-900 mb-2">
+                            <span data-en="Name" data-zh="姓名">Name</span>
+                        </label>
+                        <input type="text" id="settings-name" class="w-full px-4 py-2 border border-gray-300 rounded" />
+                    </div>
+
+                    <!-- Language Toggle -->
+                    <div class="mb-6">
+                        <label class="block text-sm font-semibold text-gray-900 mb-2">
+                            <span data-en="Language" data-zh="语言">Language</span>
+                        </label>
+                        <div class="flex gap-3">
+                            <button id="settings-lang-en" class="px-4 py-2 border-2 border-blue-600 bg-blue-600 text-white rounded font-semibold">English</button>
+                            <button id="settings-lang-zh" class="px-4 py-2 border-2 border-gray-300 text-gray-700 rounded font-semibold hover:bg-gray-50">中文</button>
+                        </div>
+                    </div>
+
+                    <!-- Save Button -->
+                    <button class="px-6 py-2 bg-blue-600 text-white rounded font-semibold hover:bg-blue-700">
+                        <span data-en="Save Changes" data-zh="保存更改">Save Changes</span>
+                    </button>
+
+                    <!-- Danger Zone -->
+                    <div class="mt-8 pt-8 border-t border-gray-200">
+                        <h3 class="text-lg font-bold text-red-600 mb-4">
+                            <span data-en="Danger Zone" data-zh="危险区域">Danger Zone</span>
+                        </h3>
+                        <button class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700">
+                            <span data-en="Delete Account" data-zh="删除账户">Delete Account</span>
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- Email Preview Modal (hidden by default) -->
+    <div id="email-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 px-4">
+        <div class="bg-white rounded-lg shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <div class="border-b border-gray-200 px-6 py-4 flex justify-between items-center">
+                <h2 class="text-xl font-semibold text-gray-900">
+                    <span data-en="Email Preview" data-zh="邮件预览">Email Preview</span>
+                </h2>
+                <button id="modal-close" class="text-gray-400 hover:text-gray-600 text-2xl">&times;</button>
+            </div>
+            <div class="px-6 py-6 space-y-4">
+                <div>
+                    <p class="text-xs font-semibold text-gray-500 mb-1">TO</p>
+                    <p id="modal-to" class="text-base text-gray-900"></p>
+                </div>
+                <div>
+                    <p class="text-xs font-semibold text-gray-500 mb-1">SUBJECT</p>
+                    <p id="modal-subject" class="text-base text-gray-900"></p>
+                </div>
+                <div class="bg-gray-50 rounded p-4">
+                    <p id="modal-body" class="text-sm text-gray-700 whitespace-pre-wrap leading-relaxed"></p>
+                </div>
+            </div>
+            <div class="border-t border-gray-200 px-6 py-4 flex gap-3">
+                <button id="modal-send" class="flex-1 px-4 py-2 bg-blue-600 text-white rounded font-semibold hover:bg-blue-700">
+                    <span data-en="Send As-Is" data-zh="直接发送">Send As-Is</span>
+                </button>
+                <button id="modal-edit" class="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded font-semibold hover:bg-gray-50">
+                    <span data-en="Edit Email" data-zh="编辑邮件">Edit Email</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
     <script>
+        // Language management
         let currentLang = 'en';
+        let campaignId = null;
+        let campaignData = null;
+        let autoRefreshInterval = null;
 
-        function toggleLanguage() {
-            currentLang = currentLang === 'en' ? 'zh' : 'en';
-            document.getElementById('lang-toggle').textContent = currentLang === 'en' ? '中文' : 'EN';
+        // Parse campaign ID from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        campaignId = urlParams.get('campaign');
 
+        if (!campaignId) {
+            alert('No campaign ID provided. Redirecting to intake form.');
+            window.location.href = '/intake.html';
+        }
+
+        // Language toggle
+        document.getElementById('lang-en').addEventListener('click', () => {
+            currentLang = 'en';
+            updateLanguage();
+            updateLanguageButtons();
+        });
+
+        document.getElementById('lang-zh').addEventListener('click', () => {
+            currentLang = 'zh';
+            updateLanguage();
+            updateLanguageButtons();
+        });
+
+        function updateLanguage() {
             document.querySelectorAll('[data-en]').forEach(el => {
-                el.textContent = currentLang === 'en' ? el.dataset.en : el.dataset.zh;
+                const text = currentLang === 'en' ? el.getAttribute('data-en') : el.getAttribute('data-zh');
+                if (text) el.textContent = text;
+            });
+            localStorage.setItem('sixdegrees_language', currentLang);
+        }
+
+        function updateLanguageButtons() {
+            const enBtn = document.getElementById('lang-en');
+            const zhBtn = document.getElementById('lang-zh');
+            if (currentLang === 'en') {
+                enBtn.classList.add('text-blue-600', 'border-blue-600');
+                enBtn.classList.remove('text-gray-400', 'border-transparent');
+                zhBtn.classList.remove('text-blue-600', 'border-blue-600');
+                zhBtn.classList.add('text-gray-400', 'border-transparent');
+            } else {
+                zhBtn.classList.add('text-blue-600', 'border-blue-600');
+                zhBtn.classList.remove('text-gray-400', 'border-transparent');
+                enBtn.classList.remove('text-blue-600', 'border-blue-600');
+                enBtn.classList.add('text-gray-400', 'border-transparent');
+            }
+        }
+
+        // Restore saved language
+        const savedLang = localStorage.getItem('sixdegrees_language');
+        if (savedLang === 'zh') {
+            currentLang = 'zh';
+            updateLanguage();
+            updateLanguageButtons();
+        }
+
+        // Tab switching
+        const tabs = {
+            campaign: { btn: 'tab-campaign', content: 'content-campaign' },
+            connections: { btn: 'tab-connections', content: 'content-connections' },
+            credits: { btn: 'tab-credits', content: 'content-credits' },
+            settings: { btn: 'tab-settings', content: 'content-settings' }
+        };
+
+        Object.keys(tabs).forEach(tabName => {
+            document.getElementById(tabs[tabName].btn).addEventListener('click', () => {
+                switchTab(tabName);
+            });
+        });
+
+        function switchTab(activeTab) {
+            Object.keys(tabs).forEach(tabName => {
+                const btn = document.getElementById(tabs[tabName].btn);
+                const content = document.getElementById(tabs[tabName].content);
+
+                if (tabName === activeTab) {
+                    btn.classList.remove('tab-inactive');
+                    btn.classList.add('tab-active');
+                    content.classList.remove('hidden');
+                } else {
+                    btn.classList.remove('tab-active');
+                    btn.classList.add('tab-inactive');
+                    content.classList.add('hidden');
+                }
             });
         }
 
-        // Get email from URL parameter
-        const urlParams = new URLSearchParams(window.location.search);
-        const userEmail = urlParams.get('email');
-
-        if (!userEmail) {
-            document.getElementById('campaigns-list').innerHTML = `
-                <div class="text-center py-12">
-                    <p class="text-gray-600 mb-4">Please provide your email to view campaigns</p>
-                    <input type="email" id="email-input" class="border px-4 py-2 rounded-lg" placeholder="you@example.com">
-                    <button onclick="loadDashboard()" class="bg-blue-600 text-white px-6 py-2 rounded-lg ml-2">View Dashboard</button>
-                </div>
-            `;
-        } else {
-            loadDashboard();
+        // Fetch campaign data
+        async function fetchCampaignData() {
+            try {
+                const response = await fetch(`/api/campaign/${campaignId}`);
+                if (!response.ok) {
+                    throw new Error('Failed to fetch campaign');
+                }
+                campaignData = await response.json();
+                renderCampaignData();
+            } catch (error) {
+                console.error('Error fetching campaign:', error);
+                alert('Failed to load campaign. Please try again.');
+            }
         }
 
-        async function loadDashboard() {
-            const email = userEmail || document.getElementById('email-input').value;
-            if (!email) return;
+        function renderCampaignData() {
+            if (!campaignData) return;
 
-            // Update URL if email was entered
-            if (!userEmail) {
-                window.location.search = `?email=${encodeURIComponent(email)}`;
+            // Update header
+            document.getElementById('campaign-target').textContent = `Campaign: ${campaignData.target_name || 'Loading...'}`;
+
+            // Update status badge
+            const statusBadge = document.getElementById('status-badge');
+            const status = campaignData.status || 'draft';
+            if (status === 'completed') {
+                statusBadge.innerHTML = '<span data-en="🎉 Connected!" data-zh="🎉 已连接！">🎉 Connected!</span>';
+                statusBadge.className = 'px-3 py-1 rounded-full bg-green-100 text-green-700 text-xs font-semibold';
+            } else if (status === 'in_progress') {
+                statusBadge.innerHTML = '<span data-en="⏳ In Progress" data-zh="⏳ 进行中">⏳ In Progress</span>';
+                statusBadge.className = 'px-3 py-1 rounded-full bg-yellow-100 text-yellow-700 text-xs font-semibold';
+            } else {
+                statusBadge.innerHTML = '<span data-en="Ready to Launch" data-zh="准备启动">Ready to Launch</span>';
+                statusBadge.className = 'px-3 py-1 rounded-full bg-blue-100 text-blue-700 text-xs font-semibold';
+            }
+
+            // Update strategy summary
+            document.getElementById('strategy-summary').textContent =
+                campaignData.strategy || 'AI is analyzing your request and building connection paths...';
+
+            // Render 6-degree chain (simplified version)
+            renderChain(campaignData.selected_path || {});
+
+            // Render email carousel
+            renderEmailCarousel(campaignData.emails || []);
+
+            // Update language
+            updateLanguage();
+        }
+
+        function renderChain(pathData) {
+            const chain = pathData.chain || [];
+
+            // Mobile version
+            const mobileContainer = document.getElementById('chain-mobile');
+            mobileContainer.innerHTML = chain.map((node, index) => `
+                <div class="flex flex-col items-center">
+                    <div class="w-16 h-16 rounded-full ${getNodeColor(node.status)} shadow-md flex items-center justify-center text-white text-2xl">
+                        ${getNodeIcon(node.status)}
+                    </div>
+                    <p class="text-sm font-semibold text-gray-900 mt-2">${node.name || `Node ${index}`}</p>
+                    <p class="text-xs text-gray-500">${node.role || ''}</p>
+                    ${index < chain.length - 1 ? '<div class="w-1 h-8 bg-gray-300 mt-2"></div>' : ''}
+                </div>
+            `).join('');
+
+            // Desktop SVG version (simplified)
+            const svgContainer = document.getElementById('chain-svg-container');
+            svgContainer.innerHTML = chain.map((node, index) => `
+                <div style="display: inline-block; text-align: center; margin: 0 20px;">
+                    <div style="width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, #2563eb, #1d4ed8);
+                                display: flex; align-items: center; justify-content: center; color: white; font-size: 20px; margin: 0 auto;">
+                        ${getNodeIcon(node.status)}
+                    </div>
+                    <p style="font-size: 14px; font-weight: 600; margin-top: 8px;">${node.name || `Node ${index}`}</p>
+                    <p style="font-size: 11px; color: #6b7280;">${node.role || ''}</p>
+                </div>
+            `).join('→');
+        }
+
+        function getNodeColor(status) {
+            if (status === 'replied') return 'bg-gradient-to-br from-green-500 to-green-600';
+            if (status === 'sent') return 'bg-gradient-to-br from-blue-500 to-blue-600';
+            if (status === 'waiting') return 'bg-gradient-to-br from-yellow-500 to-yellow-600';
+            return 'bg-gradient-to-br from-gray-400 to-gray-500';
+        }
+
+        function getNodeIcon(status) {
+            if (status === 'replied') return '↩️';
+            if (status === 'sent') return '✓';
+            if (status === 'waiting') return '⏳';
+            return '✎';
+        }
+
+        function renderEmailCarousel(emails) {
+            const carousel = document.getElementById('email-carousel');
+            if (emails.length === 0) {
+                carousel.innerHTML = '<p class="text-gray-500 col-span-3 text-center py-8">No emails yet. Start your campaign to begin.</p>';
                 return;
             }
 
-            try {
-                // Fetch user credits and campaigns
-                const response = await fetch(`/api/dashboard?email=${encodeURIComponent(email)}`);
-                const data = await response.json();
-
-                // Update credits balance
-                document.getElementById('credits-balance').textContent = data.credits || 0;
-
-                // Render campaigns
-                if (data.campaigns && data.campaigns.length > 0) {
-                    document.getElementById('campaigns-list').innerHTML = data.campaigns.map(campaign => `
-                        <div class="border-b border-gray-200 py-6 last:border-b-0">
-                            <div class="flex justify-between items-start mb-3">
-                                <div>
-                                    <h3 class="text-lg font-semibold">${campaign.target_name}</h3>
-                                    <p class="text-sm text-gray-600">${campaign.target_role || ''}</p>
-                                </div>
-                                <span class="px-3 py-1 rounded-full text-sm font-semibold ${getStatusColor(campaign.status)}">
-                                    ${getStatusText(campaign.status)}
-                                </span>
-                            </div>
-                            <p class="text-sm text-gray-700 mb-3">${campaign.motivation}</p>
-                            <div class="flex justify-between items-center text-sm">
-                                <span class="text-gray-500">Credits used: ${campaign.credits_used || 0}</span>
-                                <button onclick="viewCampaign('${campaign.id}')" class="text-blue-600 hover:underline">
-                                    View Details →
-                                </button>
-                            </div>
-                            ${campaign.status === 'completed' && campaign.results ? `
-                                <div class="mt-4 p-4 bg-green-50 border border-green-200 rounded-lg">
-                                    <p class="text-sm font-semibold text-green-900 mb-2">Results Ready:</p>
-                                    <pre class="text-xs text-green-800 whitespace-pre-wrap">${campaign.results}</pre>
-                                </div>
-                            ` : ''}
-                        </div>
-                    `).join('');
-                } else {
-                    document.getElementById('campaigns-list').innerHTML = `
-                        <div class="text-center py-12">
-                            <p class="text-gray-600 mb-4">No campaigns yet</p>
-                            <a href="intake.html" class="text-blue-600 hover:underline">Start your first campaign →</a>
-                        </div>
-                    `;
-                }
-            } catch (error) {
-                console.error('Failed to load dashboard:', error);
-                document.getElementById('campaigns-list').innerHTML = `
-                    <div class="text-center py-12 text-red-600">
-                        Failed to load campaigns. Please try again.
+            carousel.innerHTML = emails.map((email, index) => `
+                <div class="border border-gray-200 rounded p-4 bg-gray-50 hover:shadow-md transition-shadow">
+                    <div class="flex items-center justify-between mb-3">
+                        <h4 class="font-semibold text-gray-900">Email #${index + 1}</h4>
+                        <span class="px-2 py-1 rounded-full ${getStatusBadgeClass(email.status)} text-xs font-semibold">
+                            ${email.status || 'draft'}
+                        </span>
                     </div>
-                `;
-            }
+                    <p class="text-xs text-gray-500 mb-2">To: ${email.recipient_name || 'N/A'}</p>
+                    <p class="text-sm text-gray-900 font-semibold mb-3">${email.subject || 'No subject'}</p>
+                    <button onclick="showEmailModal(${index})" class="text-sm text-blue-600 hover:underline">View Full Email</button>
+                </div>
+            `).join('');
         }
 
-        function getStatusColor(status) {
-            const colors = {
-                pending: 'bg-yellow-100 text-yellow-800',
-                processing: 'bg-blue-100 text-blue-800',
-                completed: 'bg-green-100 text-green-800',
-                failed: 'bg-red-100 text-red-800'
-            };
-            return colors[status] || 'bg-gray-100 text-gray-800';
+        function getStatusBadgeClass(status) {
+            if (status === 'sent') return 'bg-green-100 text-green-700';
+            if (status === 'replied') return 'bg-blue-100 text-blue-700';
+            if (status === 'waiting') return 'bg-yellow-100 text-yellow-700';
+            return 'bg-gray-100 text-gray-700';
         }
 
-        function getStatusText(status) {
-            const texts = {
-                pending: 'Pending Payment',
-                processing: 'AI Agent Working',
-                completed: 'Results Ready',
-                failed: 'Failed'
-            };
-            return texts[status] || status;
+        function showEmailModal(emailIndex) {
+            const email = campaignData.emails[emailIndex];
+            if (!email) return;
+
+            document.getElementById('modal-to').textContent = email.recipient_email || 'N/A';
+            document.getElementById('modal-subject').textContent = email.subject || 'No subject';
+            document.getElementById('modal-body').textContent = email.body || 'No content';
+            document.getElementById('email-modal').classList.remove('hidden');
         }
 
-        function viewCampaign(campaignId) {
-            // Navigate to detailed campaign view (to be implemented)
-            window.location.href = `/campaign.html?id=${campaignId}`;
-        }
+        document.getElementById('modal-close').addEventListener('click', () => {
+            document.getElementById('email-modal').classList.add('hidden');
+        });
+
+        // Refresh button
+        document.getElementById('refresh-btn').addEventListener('click', fetchCampaignData);
+
+        // Auto-refresh every 30 seconds
+        autoRefreshInterval = setInterval(fetchCampaignData, 30000);
+
+        // Initial load
+        fetchCampaignData();
     </script>
 </body>
 </html>

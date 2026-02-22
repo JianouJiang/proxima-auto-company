@@ -30,6 +30,20 @@ queue = "sixdegrees-queue"
 
 [site]
 bucket = "./"
+pages_build_output_dir = "public"
 
 [env.production]
 vars = { ENVIRONMENT = "production" }
+
+[[env.production.d1_databases]]
+binding = "DB"
+database_name = "connectpath-db"
+database_id = "ae0567a4-85ea-4e21-a764-074e20ba53bf"
+
+[[env.production.kv_namespaces]]
+binding = "KV"
+id = "ffef3056ad904d3abd891481dc9c7528"
+
+[[env.production.queues.producers]]
+binding = "QUEUE"
+queue = "sixdegrees-queue"

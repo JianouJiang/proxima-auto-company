@@ -3,224 +3,282 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SixDegrees - AI Agent That Reaches Anyone For You</title>
+    <title>SixDegrees — AI Agent That Reaches Anyone For You</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-light: #3b82f6;
+            --primary-dark: #1d4ed8;
+            --primary-surface: #eff6ff;
+            --secondary-surface: #f1f5f9;
+            --neutral-dark: #1f2937;
+            --neutral-base: #374151;
+            --neutral-light: #d1d5db;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Helvetica Neue", sans-serif, "Noto Sans CJK SC", "Noto Sans";
+        }
+    </style>
 </head>
-<body class="bg-gray-50">
-    <!-- Language Toggle -->
-    <div class="fixed top-4 right-4 z-50">
-        <button onclick="toggleLanguage()" class="bg-white px-4 py-2 rounded-lg shadow-sm border border-gray-200 hover:bg-gray-50">
-            <span id="lang-toggle">中文</span>
-        </button>
-    </div>
+<body class="bg-white text-gray-900">
+    <!-- Header -->
+    <header class="sticky top-0 bg-white shadow-sm z-40 px-4 md:px-6 py-4">
+        <div class="flex items-center justify-between max-w-6xl mx-auto">
+            <h1 class="text-2xl font-bold text-blue-600">
+                <span data-en="SixDegrees" data-zh="六度人脉">SixDegrees</span>
+            </h1>
+            <div class="flex items-center gap-4">
+                <button id="lang-en" class="px-3 py-1 text-sm font-semibold text-blue-600 border-b-2 border-blue-600">EN</button>
+                <button id="lang-zh" class="px-3 py-1 text-sm font-semibold text-gray-400 border-b-2 border-transparent hover:text-gray-600">中文</button>
+                <a href="/intake.html" class="px-4 py-2 rounded bg-blue-600 text-white font-semibold text-sm hover:bg-blue-700 transition-colors">
+                    <span data-en="Start Now" data-zh="开始">Start Now</span>
+                </a>
+            </div>
+        </div>
+    </header>
 
     <!-- Hero Section -->
-    <div class="min-h-screen flex items-center justify-center px-4">
+    <section class="px-4 md:px-6 py-12 md:py-20 bg-blue-50">
         <div class="max-w-4xl mx-auto text-center">
-            <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
-                <span data-en="AI Agent That Reaches Anyone For You" data-zh="AI 智能体为你找到任何人">AI Agent That Reaches Anyone For You</span>
-            </h1>
-            <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-                <span data-en="Stop cold emailing strangers. Let our AI agent research your target, find the connection chain, and draft personalized outreach — all while you sleep."
-                      data-zh="不再盲目冷邮件。我们的 AI 智能体会研究你的目标人物，找到连接链条，起草个性化邮件——全程自动化。">
-                    Stop cold emailing strangers. Let our AI agent research your target, find the connection chain, and draft personalized outreach — all while you sleep.
+            <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+                <span data-en="AI Agent That Reaches Anyone For You" data-zh="AI代理为你联系任何人">
+                    AI Agent That Reaches Anyone For You
                 </span>
-            </p>
-            <div class="flex gap-4 justify-center mb-12">
-                <a href="#how-it-works" class="bg-blue-600 text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-blue-700">
-                    <span data-en="See How It Works" data-zh="了解工作原理">See How It Works</span>
-                </a>
-                <a href="intake.html" class="bg-white text-blue-600 px-8 py-3 rounded-lg text-lg font-semibold border-2 border-blue-600 hover:bg-blue-50">
-                    <span data-en="Start Your First Connection" data-zh="开始第一次连接">Start Your First Connection</span>
-                </a>
-            </div>
-            <p class="text-sm text-gray-500">
-                <span data-en="6 degrees of separation. Your AI agent finds the shortest path." data-zh="六度分隔理论。你的 AI 智能体找到最短路径。">
-                    6 degrees of separation. Your AI agent finds the shortest path.
-                </span>
-            </p>
-        </div>
-    </div>
-
-    <!-- How It Works -->
-    <div id="how-it-works" class="py-20 bg-white">
-        <div class="max-w-6xl mx-auto px-4">
-            <h2 class="text-4xl font-bold text-center mb-16">
-                <span data-en="How It Works" data-zh="工作原理">How It Works</span>
             </h2>
-            <div class="grid md:grid-cols-4 gap-8">
-                <div class="text-center">
-                    <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <span class="text-2xl font-bold text-blue-600">1</span>
-                    </div>
-                    <h3 class="font-semibold text-lg mb-2">
-                        <span data-en="Upload Your Intro" data-zh="上传你的简介">Upload Your Intro</span>
-                    </h3>
-                    <p class="text-gray-600 text-sm">
-                        <span data-en="Share your CV or a brief intro about yourself and your goals"
-                              data-zh="分享你的简历或简短介绍你自己和目标">
-                            Share your CV or a brief intro about yourself and your goals
-                        </span>
-                    </p>
-                </div>
-                <div class="text-center">
-                    <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <span class="text-2xl font-bold text-blue-600">2</span>
-                    </div>
-                    <h3 class="font-semibold text-lg mb-2">
-                        <span data-en="Specify Your Target" data-zh="指定目标人物">Specify Your Target</span>
-                    </h3>
-                    <p class="text-gray-600 text-sm">
-                        <span data-en="Tell us who you want to reach and why it matters to you"
-                              data-zh="告诉我们你想联系谁，为什么这对你很重要">
-                            Tell us who you want to reach and why it matters to you
-                        </span>
-                    </p>
-                </div>
-                <div class="text-center">
-                    <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <span class="text-2xl font-bold text-blue-600">3</span>
-                    </div>
-                    <h3 class="font-semibold text-lg mb-2">
-                        <span data-en="AI Agent Works" data-zh="AI 智能体工作">AI Agent Works</span>
-                    </h3>
-                    <p class="text-gray-600 text-sm">
-                        <span data-en="Our agent researches your target, maps connection chains, and drafts outreach emails"
-                              data-zh="我们的智能体研究目标人物，绘制连接链条，起草联系邮件">
-                            Our agent researches your target, maps connection chains, and drafts outreach emails
-                        </span>
-                    </p>
-                </div>
-                <div class="text-center">
-                    <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <span class="text-2xl font-bold text-blue-600">4</span>
-                    </div>
-                    <h3 class="font-semibold text-lg mb-2">
-                        <span data-en="Get Results" data-zh="获得结果">Get Results</span>
-                    </h3>
-                    <p class="text-gray-600 text-sm">
-                        <span data-en="Review personalized emails, connection strategy, and send when ready"
-                              data-zh="查看个性化邮件、连接策略，准备好后发送">
-                            Review personalized emails, connection strategy, and send when ready
-                        </span>
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Pricing -->
-    <div class="py-20 bg-gray-50">
-        <div class="max-w-6xl mx-auto px-4">
-            <h2 class="text-4xl font-bold text-center mb-4">
-                <span data-en="Simple Credit-Based Pricing" data-zh="简单的积分制定价">Simple Credit-Based Pricing</span>
-            </h2>
-            <p class="text-center text-gray-600 mb-12">
-                <span data-en="1 credit = 1 agent search operation (research a person, find intermediary, or draft email)"
-                      data-zh="1 积分 = 1 次智能体搜索操作（研究一个人、找到中间人或起草邮件）">
-                    1 credit = 1 agent search operation (research a person, find intermediary, or draft email)
+            <p class="text-lg md:text-xl text-gray-600 mb-8">
+                <span data-en="Get replies from hard-to-reach people in 3–7 days through warm intros." data-zh="通过熟人介绍，在3-7天内获得难以接触的人的回复。">
+                    Get replies from hard-to-reach people in 3–7 days through warm intros.
                 </span>
             </p>
-            <div class="grid md:grid-cols-4 gap-6">
-                <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-                    <h3 class="font-semibold text-lg mb-2">
-                        <span data-en="Starter" data-zh="入门">Starter</span>
-                    </h3>
-                    <div class="text-3xl font-bold mb-4">£5</div>
-                    <p class="text-gray-600 mb-4">
-                        <span data-en="10 credits" data-zh="10 积分">10 credits</span>
-                    </p>
-                    <ul class="text-sm text-gray-600 space-y-2 mb-6">
-                        <li>✓ <span data-en="Basic research" data-zh="基础研究">Basic research</span></li>
-                        <li>✓ <span data-en="Email drafts" data-zh="邮件草稿">Email drafts</span></li>
-                    </ul>
-                    <a href="intake.html?plan=starter" class="block w-full bg-blue-600 text-white text-center py-2 rounded-lg hover:bg-blue-700">
-                        <span data-en="Get Started" data-zh="开始">Get Started</span>
-                    </a>
-                </div>
-                <div class="bg-white rounded-lg shadow-sm border-2 border-blue-600 p-6 relative">
-                    <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-blue-600 text-white px-3 py-1 rounded-full text-xs font-semibold">
-                        <span data-en="Popular" data-zh="热门">Popular</span>
-                    </div>
-                    <h3 class="font-semibold text-lg mb-2">
-                        <span data-en="Growth" data-zh="成长">Growth</span>
-                    </h3>
-                    <div class="text-3xl font-bold mb-4">£20</div>
-                    <p class="text-gray-600 mb-4">
-                        <span data-en="50 credits" data-zh="50 积分">50 credits</span>
-                    </p>
-                    <ul class="text-sm text-gray-600 space-y-2 mb-6">
-                        <li>✓ <span data-en="Deep research" data-zh="深度研究">Deep research</span></li>
-                        <li>✓ <span data-en="Multi-step chains" data-zh="多步链条">Multi-step chains</span></li>
-                    </ul>
-                    <a href="intake.html?plan=growth" class="block w-full bg-blue-600 text-white text-center py-2 rounded-lg hover:bg-blue-700">
-                        <span data-en="Get Started" data-zh="开始">Get Started</span>
-                    </a>
-                </div>
-                <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-                    <h3 class="font-semibold text-lg mb-2">
-                        <span data-en="Pro" data-zh="专业">Pro</span>
-                    </h3>
-                    <div class="text-3xl font-bold mb-4">£50</div>
-                    <p class="text-gray-600 mb-4">
-                        <span data-en="200 credits" data-zh="200 积分">200 credits</span>
-                    </p>
-                    <ul class="text-sm text-gray-600 space-y-2 mb-6">
-                        <li>✓ <span data-en="Bulk campaigns" data-zh="批量活动">Bulk campaigns</span></li>
-                        <li>✓ <span data-en="Priority support" data-zh="优先支持">Priority support</span></li>
-                    </ul>
-                    <a href="intake.html?plan=pro" class="block w-full bg-blue-600 text-white text-center py-2 rounded-lg hover:bg-blue-700">
-                        <span data-en="Get Started" data-zh="开始">Get Started</span>
-                    </a>
-                </div>
-                <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-                    <h3 class="font-semibold text-lg mb-2">
-                        <span data-en="Unlimited" data-zh="无限">Unlimited</span>
-                    </h3>
-                    <div class="text-3xl font-bold mb-4">£99</div>
-                    <p class="text-gray-600 mb-4">
-                        <span data-en="1 month unlimited" data-zh="1 个月无限">1 month unlimited</span>
-                    </p>
-                    <ul class="text-sm text-gray-600 space-y-2 mb-6">
-                        <li>✓ <span data-en="Unlimited searches" data-zh="无限搜索">Unlimited searches</span></li>
-                        <li>✓ <span data-en="Premium features" data-zh="高级功能">Premium features</span></li>
-                    </ul>
-                    <a href="intake.html?plan=unlimited" class="block w-full bg-blue-600 text-white text-center py-2 rounded-lg hover:bg-blue-700">
-                        <span data-en="Get Started" data-zh="开始">Get Started</span>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- CTA -->
-    <div class="py-20 bg-blue-600 text-white">
-        <div class="max-w-4xl mx-auto text-center px-4">
-            <h2 class="text-4xl font-bold mb-6">
-                <span data-en="Ready to Connect?" data-zh="准备好建立连接了吗？">Ready to Connect?</span>
-            </h2>
-            <p class="text-xl mb-8">
-                <span data-en="Your next breakthrough connection is one AI agent away."
-                      data-zh="你的下一个突破性连接只需一个 AI 智能体的距离。">
-                    Your next breakthrough connection is one AI agent away.
+            <a href="/intake.html" class="inline-block px-8 py-4 rounded bg-blue-600 text-white font-bold text-lg hover:bg-blue-700 transition-colors shadow-md hover:shadow-lg">
+                <span data-en="Start Your First Connection" data-zh="开始你的第一次联系">
+                    Start Your First Connection
                 </span>
-            </p>
-            <a href="intake.html" class="inline-block bg-white text-blue-600 px-8 py-3 rounded-lg text-lg font-semibold hover:bg-gray-100">
-                <span data-en="Start Your First Connection" data-zh="开始第一次连接">Start Your First Connection</span>
             </a>
         </div>
-    </div>
+    </section>
+
+    <!-- Proof Points -->
+    <section class="px-4 md:px-6 py-12 md:py-16">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+                <!-- Point 1 -->
+                <div class="text-center">
+                    <div class="text-4xl mb-4">🔍</div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">
+                        <span data-en="Research" data-zh="研究">Research</span>
+                    </h3>
+                    <p class="text-sm text-gray-600">
+                        <span data-en="AI analyzes your target's background, interests, and connections." data-zh="AI分析目标人物的背景、兴趣和联系。">
+                            AI analyzes your target's background, interests, and connections.
+                        </span>
+                    </p>
+                </div>
+                <!-- Point 2 -->
+                <div class="text-center">
+                    <div class="text-4xl mb-4">🔗</div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">
+                        <span data-en="Find Path" data-zh="寻找路径">Find Path</span>
+                    </h3>
+                    <p class="text-sm text-gray-600">
+                        <span data-en="We find the shortest connection through YOUR network." data-zh="我们通过您的网络找到最短的连接。">
+                            We find the shortest connection through YOUR network.
+                        </span>
+                    </p>
+                </div>
+                <!-- Point 3 -->
+                <div class="text-center">
+                    <div class="text-4xl mb-4">✉️</div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">
+                        <span data-en="Send" data-zh="发送">Send</span>
+                    </h3>
+                    <p class="text-sm text-gray-600">
+                        <span data-en="Personalized emails from YOU (not a bot)." data-zh="来自您的个性化电子邮件（不是机器人）。">
+                            Personalized emails from YOU (not a bot).
+                        </span>
+                    </p>
+                </div>
+                <!-- Point 4 -->
+                <div class="text-center">
+                    <div class="text-4xl mb-4">📊</div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">
+                        <span data-en="Track" data-zh="追踪">Track</span>
+                    </h3>
+                    <p class="text-sm text-gray-600">
+                        <span data-en="Real-time status, replies, and next steps." data-zh="实时状态、回复和后续步骤。">
+                            Real-time status, replies, and next steps.
+                        </span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trust Section -->
+    <section class="px-4 md:px-6 py-12 md:py-16 bg-gray-50">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-8">
+                <span data-en="Why SixDegrees?" data-zh="为什么选择SixDegrees?">Why SixDegrees?</span>
+            </h2>
+            <div class="space-y-4 text-gray-700">
+                <p class="text-base">
+                    <strong data-en="Privacy First" data-zh="隐私优先">Privacy First</strong> —
+                    <span data-en="We never sell your data or access without permission." data-zh="我们从不在未经许可的情况下出售或访问您的数据。">
+                        We never sell your data or access without permission.
+                    </span>
+                </p>
+                <p class="text-base">
+                    <strong data-en="No Spam" data-zh="无垃圾邮件">No Spam</strong> —
+                    <span data-en="Warm introductions only. One email chain per campaign." data-zh="仅限热情介绍。每个活动一个电子邮件链。">
+                        Warm introductions only. One email chain per campaign.
+                    </span>
+                </p>
+                <p class="text-base">
+                    <strong data-en="Guaranteed Results" data-zh="保证结果">Guaranteed Results</strong> —
+                    <span data-en="Get a reply in 48 hours or your credits back." data-zh="在48小时内获得回复，否则退回您的积分。">
+                        Get a reply in 48 hours or your credits back.
+                    </span>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="px-4 md:px-6 py-12 md:py-16">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-2xl md:text-3xl font-bold text-gray-900 text-center mb-12">
+                <span data-en="Transparent Pricing" data-zh="透明定价">Transparent Pricing</span>
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Free Plan -->
+                <div class="rounded bg-white shadow-md border border-gray-200 p-6 text-center hover:shadow-lg transition-shadow">
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">
+                        <span data-en="Free" data-zh="免费">Free</span>
+                    </h3>
+                    <p class="text-3xl font-bold text-blue-600 mb-4">$0</p>
+                    <p class="text-sm text-gray-600 mb-6">
+                        <span data-en="1 campaign/month" data-zh="每月1个活动">1 campaign/month</span>
+                    </p>
+                    <button class="w-full px-4 py-2 rounded bg-gray-100 border border-gray-200 text-gray-700 font-semibold hover:bg-gray-200 transition-colors">
+                        <span data-en="Current Plan" data-zh="当前计划">Current Plan</span>
+                    </button>
+                </div>
+
+                <!-- Starter Plan -->
+                <div class="rounded bg-white shadow-md border-2 border-blue-600 p-6 text-center ring-2 ring-blue-600 ring-offset-2 hover:shadow-lg transition-shadow">
+                    <div class="inline-block px-3 py-1 rounded-full bg-blue-600 text-white text-xs font-semibold mb-3">
+                        <span data-en="Popular" data-zh="热门">Popular</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">
+                        <span data-en="Starter" data-zh="入门">Starter</span>
+                    </h3>
+                    <p class="text-3xl font-bold text-blue-600 mb-1">$29<span class="text-lg text-gray-600">/mo</span></p>
+                    <p class="text-sm text-gray-600 mb-6">
+                        <span data-en="10 campaigns/month" data-zh="每月10个活动">10 campaigns/month</span>
+                    </p>
+                    <a href="/intake.html?plan=starter" class="block w-full px-4 py-2 rounded bg-blue-600 text-white font-semibold hover:bg-blue-700 transition-colors">
+                        <span data-en="Upgrade" data-zh="升级">Upgrade</span>
+                    </a>
+                </div>
+
+                <!-- Pro Plan -->
+                <div class="rounded bg-white shadow-md border border-gray-200 p-6 text-center hover:shadow-lg transition-shadow">
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">
+                        <span data-en="Pro" data-zh="专业">Pro</span>
+                    </h3>
+                    <p class="text-3xl font-bold text-blue-600 mb-4">$99<span class="text-lg text-gray-600">/mo</span></p>
+                    <p class="text-sm text-gray-600 mb-6">
+                        <span data-en="Unlimited + API Access" data-zh="无限+API访问">Unlimited + API Access</span>
+                    </p>
+                    <a href="/intake.html?plan=pro" class="block w-full px-4 py-2 rounded bg-gray-100 border border-gray-200 text-gray-700 font-semibold hover:bg-gray-200 transition-colors">
+                        <span data-en="Upgrade" data-zh="升级">Upgrade</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="px-4 md:px-6 py-12 md:py-16 bg-blue-50">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                <span data-en="Ready to reach your target?" data-zh="准备好联系您的目标了吗？">
+                    Ready to reach your target?
+                </span>
+            </h2>
+            <p class="text-lg text-gray-600 mb-8">
+                <span data-en="Your first campaign is free. No credit card required." data-zh="您的第一个活动是免费的。无需信用卡。">
+                    Your first campaign is free. No credit card required.
+                </span>
+            </p>
+            <a href="/intake.html" class="inline-block px-8 py-4 rounded bg-blue-600 text-white font-bold text-lg hover:bg-blue-700 transition-colors shadow-md hover:shadow-lg">
+                <span data-en="Get Started Now" data-zh="立即开始">Get Started Now</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="px-4 md:px-6 py-8 bg-gray-50 border-t border-gray-200">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+            <p class="text-sm text-gray-500">
+                &copy; 2026 SixDegrees. All rights reserved.
+            </p>
+            <div class="flex gap-6 text-sm text-gray-500">
+                <a href="#privacy" class="hover:text-gray-900">Privacy</a>
+                <a href="#terms" class="hover:text-gray-900">Terms</a>
+                <a href="mailto:jianou.works@gmail.com" class="hover:text-gray-900">Contact</a>
+            </div>
+        </div>
+    </footer>
 
     <script>
+        // Language toggle
         let currentLang = 'en';
 
-        function toggleLanguage() {
-            currentLang = currentLang === 'en' ? 'zh' : 'en';
-            document.getElementById('lang-toggle').textContent = currentLang === 'en' ? '中文' : 'EN';
+        document.getElementById('lang-en').addEventListener('click', () => {
+            currentLang = 'en';
+            updateLanguage();
+            updateLanguageButtons();
+        });
 
+        document.getElementById('lang-zh').addEventListener('click', () => {
+            currentLang = 'zh';
+            updateLanguage();
+            updateLanguageButtons();
+        });
+
+        function updateLanguage() {
             document.querySelectorAll('[data-en]').forEach(el => {
-                el.textContent = currentLang === 'en' ? el.dataset.en : el.dataset.zh;
+                const text = currentLang === 'en' ? el.getAttribute('data-en') : el.getAttribute('data-zh');
+                if (text) el.textContent = text;
             });
+            localStorage.setItem('sixdegrees_language', currentLang);
+        }
+
+        function updateLanguageButtons() {
+            const enBtn = document.getElementById('lang-en');
+            const zhBtn = document.getElementById('lang-zh');
+
+            if (currentLang === 'en') {
+                enBtn.classList.add('text-blue-600', 'border-blue-600');
+                enBtn.classList.remove('text-gray-400', 'border-transparent');
+                zhBtn.classList.remove('text-blue-600', 'border-blue-600');
+                zhBtn.classList.add('text-gray-400', 'border-transparent');
+            } else {
+                zhBtn.classList.add('text-blue-600', 'border-blue-600');
+                zhBtn.classList.remove('text-gray-400', 'border-transparent');
+                enBtn.classList.remove('text-blue-600', 'border-blue-600');
+                enBtn.classList.add('text-gray-400', 'border-transparent');
+            }
+        }
+
+        // Restore saved language on load
+        const savedLang = localStorage.getItem('sixdegrees_language');
+        if (savedLang === 'zh') {
+            currentLang = 'zh';
+            updateLanguage();
+            updateLanguageButtons();
         }
     </script>
 </body>
