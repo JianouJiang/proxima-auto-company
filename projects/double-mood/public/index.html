@@ -479,6 +479,10 @@
             <p><span class="lang-en">Take a moment. You deserve it.</span><span class="lang-zh hidden">给自己一点时间，你值得。</span></p>
           </div>
 
+          <button id="btn-add-to-calendar" type="button" class="w-full max-w-md mx-auto block py-3 px-4 bg-white border-2 border-breath-primary text-breath-primary hover:bg-breath-primary/10 rounded-lg font-medium transition">
+            <span class="lang-en">Add to Apple Calendar</span><span class="lang-zh hidden">添加到 Apple 日历</span>
+          </button>
+
           <button id="btn-again" class="w-full max-w-md mx-auto block py-3 px-4 bg-breath-primary hover:bg-breath-primary/90 text-white rounded-lg font-medium transition">
             <span class="lang-en">Again</span><span class="lang-zh hidden">再来一次</span>
           </button>
@@ -1193,6 +1197,50 @@
     }
 
     // ============================================================================
+    // EXPORT TO APPLE CALENDAR (.ics)
+    // ============================================================================
+    function escapeIcsText(s) {
+      if (!s || typeof s !== 'string') return '';
+      return s.replace(/\\/g, '\\\\').replace(/;/g, '\\;').replace(/,/g, '\\,').replace(/\n/g, '\\n');
+    }
+
+    function addSessionToAppleCalendar() {
+      const emotion = Object.values(EMOTIONS).flat().find(e => e.id === state.subEmotion);
+      const name = currentLang === 'zh' ? emotion.nameZh : emotion.nameEn;
+      const summary = `${emotion.emoji} ${name} — Double Mood`;
+      const parts = [];
+      if (state.trigger && state.trigger.trim()) parts.push((currentLang === 'zh' ? '触发原因：' : 'Trigger: ') + state.trigger.trim());
+      if (state.writingNotes && state.writingNotes.trim()) parts.push((currentLang === 'zh' ? '日记：' : 'Diary: ') + state.writingNotes.trim());
+      const description = parts.join('\n\n');
+      const start = new Date(state.startTime || state.timestamp);
+      const end = new Date(start.getTime() + 30 * 60 * 1000);
+      const fmt = (d) => d.toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
+      const ics = [
+        'BEGIN:VCALENDAR',
+        'VERSION:2.0',
+        'PRODID:-//Double Mood//EN',
+        'CALSCALE:GREGORIAN',
+        'BEGIN:VEVENT',
+        'UID:double-mood-' + state.sessionId + '@double-mood.pages.dev',
+        'DTSTAMP:' + fmt(new Date()),
+        'DTSTART:' + fmt(start) + 'Z',
+        'DTEND:' + fmt(end) + 'Z',
+        'SUMMARY:' + escapeIcsText(summary),
+        'DESCRIPTION:' + escapeIcsText(description),
+        'END:VEVENT',
+        'END:VCALENDAR'
+      ].join('\r\n');
+      const blob = new Blob([ics], { type: 'text/calendar;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'double-mood-session.ics';
+      a.click();
+      URL.revokeObjectURL(url);
+      announceToScreenReader(currentLang === 'zh' ? '已生成日历文件，可添加到 Apple 日历' : 'Calendar file downloaded. Open it to add to Apple Calendar.');
+    }
+
+    // ============================================================================
     // SCREEN 9: SUCCESS
     // ============================================================================
     function renderSuccessScreen() {
@@ -1220,6 +1268,10 @@
         <p class="text-sm text-breath-muted">${langSpan("You're doing great", '你做得很好')}</p>
       `;
     }
+
+    document.getElementById('btn-add-to-calendar').addEventListener('click', () => {
+      addSessionToAppleCalendar();
+    });
 
     document.getElementById('btn-again').addEventListener('click', () => {
       // Reset state
