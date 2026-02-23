@@ -479,18 +479,16 @@
             <p><span class="lang-en">Take a moment. You deserve it.</span><span class="lang-zh hidden">给自己一点时间，你值得。</span></p>
           </div>
 
-          <button id="btn-add-to-calendar" type="button" class="w-full max-w-md mx-auto block py-3 px-4 bg-white border-2 border-breath-primary text-breath-primary hover:bg-breath-primary/10 rounded-lg font-medium transition">
-            <span class="lang-en">Add to Calendar</span><span class="lang-zh hidden">添加到日历</span>
-          </button>
-          <p class="text-xs text-breath-muted max-w-md mx-auto">
-            <span class="lang-en">Opens your calendar in a new tab.</span><span class="lang-zh hidden">在新标签页打开日历。</span>
-          </p>
-          <button id="btn-download-ics" type="button" class="text-sm text-breath-muted hover:text-breath-primary underline transition">
-            <span class="lang-en">Download .ics for Apple Calendar</span><span class="lang-zh hidden">下载 .ics 用于 Apple 日历</span>
-          </button>
-
-          <button id="btn-again" class="w-full max-w-md mx-auto block py-3 px-4 bg-breath-primary hover:bg-breath-primary/90 text-white rounded-lg font-medium transition">
-            <span class="lang-en">Again</span><span class="lang-zh hidden">再来一次</span>
+          <div class="flex gap-3 max-w-md mx-auto">
+            <button id="btn-again" class="flex-1 py-3 px-4 bg-breath-primary hover:bg-breath-primary/90 text-white rounded-lg font-medium transition shadow-md hover:shadow-lg">
+              <span class="lang-en">Again</span><span class="lang-zh hidden">再来一次</span>
+            </button>
+            <button id="btn-add-to-calendar" type="button" class="flex-1 py-3 px-4 rounded-lg font-medium transition shadow-md hover:shadow-lg text-white" style="background: linear-gradient(135deg, #4A90E2 0%, #50C9B8 100%);">
+              <span class="text-lg mr-1">📅</span> <span class="lang-en">Add to Calendar</span><span class="lang-zh hidden">添加到日历</span>
+            </button>
+          </div>
+          <button id="btn-download-ics" type="button" class="text-xs text-breath-muted hover:text-breath-primary underline transition mt-1">
+            <span class="lang-en">Or download .ics for Apple Calendar</span><span class="lang-zh hidden">或下载 .ics 用于 Apple 日历</span>
           </button>
         </div>
       </div>
