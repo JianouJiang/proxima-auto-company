@@ -1242,13 +1242,16 @@
     // ============================================================================
     function getCalendarEventData() {
       const emotion = Object.values(EMOTIONS).flat().find(e => e.id === state.subEmotion);
-      const name = currentLang === 'zh' ? emotion.nameZh : emotion.nameEn;
-      const summary = `${emotion.emoji} ${name} — Double Mood`;
+      const name = emotion ? (currentLang === 'zh' ? emotion.nameZh : emotion.nameEn) : 'Mood';
+      const emoji = emotion ? emotion.emoji : '✨';
+      const summary = `${emoji} ${name} — Double Mood`;
       const parts = [];
       if (state.trigger && state.trigger.trim()) parts.push((currentLang === 'zh' ? '触发原因：' : 'Trigger: ') + state.trigger.trim());
       if (state.writingNotes && state.writingNotes.trim()) parts.push((currentLang === 'zh' ? '日记：' : 'Diary: ') + state.writingNotes.trim());
       const description = parts.join('\n\n');
-      const start = new Date(state.startTime || state.timestamp);
+      const startRaw = state.startTime || state.timestamp;
+      let start = new Date(startRaw);
+      if (isNaN(start.getTime())) start = new Date();
       const end = new Date(start.getTime() + 30 * 60 * 1000);
       return { summary, description, start, end };
     }
@@ -1257,28 +1260,15 @@
       return d.toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '') + 'Z';
     }
 
-    function openCalendarDirect() {
-      const { summary, description, start, end } = getCalendarEventData();
-      const params = new URLSearchParams({
-        action: 'TEMPLATE',
-        text: summary,
-        dates: formatGoogleCalendarDate(start) + '/' + formatGoogleCalendarDate(end),
-        details: description
-      });
-      const url = 'https://calendar.google.com/calendar/render?' + params.toString();
-      window.open(url, '_blank', 'noopener,noreferrer');
-      announceToScreenReader(currentLang === 'zh' ? '已打开日历' : 'Calendar opened.');
+    function isAppleDeviceOrSafari() {
+      const ua = navigator.userAgent;
+      return /iPad|iPhone|iPod|Macintosh|Mac OS/.test(ua) || (ua.includes('Safari') && !ua.includes('Chrome'));
     }
 
-    function escapeIcsText(s) {
-      if (!s || typeof s !== 'string') return '';
-      return s.replace(/\\/g, '\\\\').replace(/;/g, '\\;').replace(/,/g, '\\,').replace(/\n/g, '\\n');
-    }
-
-    function downloadIcsForAppleCalendar() {
+    function buildIcsString() {
       const { summary, description, start, end } = getCalendarEventData();
       const fmt = (d) => d.toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '') + 'Z';
-      const ics = [
+      return [
         'BEGIN:VCALENDAR',
         'VERSION:2.0',
         'PRODID:-//Double Mood//EN',
@@ -1293,6 +1283,51 @@
         'END:VEVENT',
         'END:VCALENDAR'
       ].join('\r\n');
+    }
+
+    function openCalendarDirect() {
+      try {
+        const { summary, description, start, end } = getCalendarEventData();
+        if (isAppleDeviceOrSafari()) {
+          const ics = buildIcsString();
+          const dataUrl = 'data:text/calendar;charset=utf-8,' + encodeURIComponent(ics);
+          if (dataUrl.length <= 2000000) {
+            announceToScreenReader(currentLang === 'zh' ? '正在打开 Apple 日历' : 'Opening Apple Calendar.');
+            window.location.href = dataUrl;
+          } else {
+            downloadIcsForAppleCalendar();
+          }
+        } else {
+          const params = new URLSearchParams({
+            action: 'TEMPLATE',
+            text: summary,
+            dates: formatGoogleCalendarDate(start) + '/' + formatGoogleCalendarDate(end),
+            details: description
+          });
+          const url = 'https://calendar.google.com/calendar/render?' + params.toString();
+          const a = document.createElement('a');
+          a.href = url;
+          a.target = '_blank';
+          a.rel = 'noopener noreferrer';
+          a.style.display = 'none';
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          announceToScreenReader(currentLang === 'zh' ? '已打开日历' : 'Calendar opened.');
+        }
+      } catch (e) {
+        console.error('Add to calendar failed', e);
+        announceToScreenReader(currentLang === 'zh' ? '打开日历失败' : 'Could not open calendar.');
+      }
+    }
+
+    function escapeIcsText(s) {
+      if (!s || typeof s !== 'string') return '';
+      return s.replace(/\\/g, '\\\\').replace(/;/g, '\\;').replace(/,/g, '\\,').replace(/\n/g, '\\n');
+    }
+
+    function downloadIcsForAppleCalendar() {
+      const ics = buildIcsString();
       const blob = new Blob([ics], { type: 'text/calendar;charset=utf-8' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
