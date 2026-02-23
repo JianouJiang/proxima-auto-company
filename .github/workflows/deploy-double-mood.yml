@@ -1,0 +1,20 @@
+name: Deploy Double Mood
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'projects/double-mood/**'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: 68ec8b1ccccb48e1a7cf898d2228c713
+          command: pages deploy projects/double-mood/public --project-name=double-mood --commit-dirty=true
