@@ -1222,12 +1222,11 @@
     }
 
     function formatGoogleCalendarDate(d) {
-      return d.toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '') + 'Z';
+      return d.toISOString().replace(/[-:]/g, '').replace(/\.\d{3}Z/, 'Z');
     }
 
-    function isAppleDeviceOrSafari() {
-      const ua = navigator.userAgent;
-      return /iPad|iPhone|iPod|Macintosh|Mac OS/.test(ua) || (ua.includes('Safari') && !ua.includes('Chrome'));
+    function isIOSDevice() {
+      return /iPad|iPhone|iPod/.test(navigator.userAgent);
     }
 
     function buildIcsString() {
@@ -1250,34 +1249,34 @@
       ].join('\r\n');
     }
 
+    function getIcsServerUrl() {
+      const { summary, description, start, end } = getCalendarEventData();
+      const fmt = (d) => d.toISOString().replace(/[-:]/g, '').replace(/\.\d{3}Z/, 'Z');
+      const params = new URLSearchParams({
+        summary: summary,
+        description: description,
+        dtstart: fmt(start),
+        dtend: fmt(end),
+        uid: 'double-mood-' + state.sessionId + '@double-mood.pages.dev'
+      });
+      return '/calendar?' + params.toString();
+    }
+
     function openCalendarDirect() {
       try {
         const { summary, description, start, end } = getCalendarEventData();
-        if (isAppleDeviceOrSafari()) {
-          const ics = buildIcsString();
-          const dataUrl = 'data:text/calendar;charset=utf-8,' + encodeURIComponent(ics);
-          if (dataUrl.length <= 2000000) {
-            announceToScreenReader(currentLang === 'zh' ? '正在打开 Apple 日历' : 'Opening Apple Calendar.');
-            window.location.href = dataUrl;
-          } else {
-            downloadIcsForAppleCalendar();
-          }
+        if (isIOSDevice()) {
+          // iOS: navigate to server-served .ics file → Apple Calendar opens it
+          window.location.href = getIcsServerUrl();
         } else {
+          // Desktop/Android: open Google Calendar
           const params = new URLSearchParams({
             action: 'TEMPLATE',
             text: summary,
             dates: formatGoogleCalendarDate(start) + '/' + formatGoogleCalendarDate(end),
             details: description
           });
-          const url = 'https://calendar.google.com/calendar/render?' + params.toString();
-          const a = document.createElement('a');
-          a.href = url;
-          a.target = '_blank';
-          a.rel = 'noopener noreferrer';
-          a.style.display = 'none';
-          document.body.appendChild(a);
-          a.click();
-          document.body.removeChild(a);
+          window.open('https://calendar.google.com/calendar/render?' + params.toString(), '_blank');
           announceToScreenReader(currentLang === 'zh' ? '已打开日历' : 'Calendar opened.');
         }
       } catch (e) {
@@ -1292,14 +1291,21 @@
     }
 
     function downloadIcsForAppleCalendar() {
-      const ics = buildIcsString();
-      const blob = new Blob([ics], { type: 'text/calendar;charset=utf-8' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'double-mood-session.ics';
-      a.click();
-      URL.revokeObjectURL(url);
+      if (isIOSDevice()) {
+        // iOS: server-served .ics with proper headers
+        window.location.href = getIcsServerUrl();
+      } else {
+        const ics = buildIcsString();
+        const blob = new Blob([ics], { type: 'text/calendar;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'double-mood-session.ics';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      }
       announceToScreenReader(currentLang === 'zh' ? '已下载 .ics 文件' : 'Downloaded .ics file.');
     }
 
