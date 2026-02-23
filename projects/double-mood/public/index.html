@@ -401,13 +401,29 @@
               </div>
             </div>
           </button>
+
+          <!-- Writing Release -->
+          <button class="method-card w-full p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition border-2 border-transparent hover:border-breath-primary text-left"
+                  data-method="writing">
+            <div class="flex items-start gap-4">
+              <div class="text-4xl">✍️</div>
+              <div class="flex-1">
+                <div class="text-lg font-semibold text-breath-text"><span class="lang-en">Writing Release</span><span class="lang-zh hidden">书写释放</span></div>
+                <div class="text-sm text-breath-muted mb-2"><span class="lang-en">Put it into words</span><span class="lang-zh hidden">用文字把感受写出来</span></div>
+                <div class="text-sm text-breath-muted"><span class="lang-en">2–5 min of free writing</span><span class="lang-zh hidden">2–5分钟自由书写</span></div>
+              </div>
+            </div>
+          </button>
         </div>
       </div>
 
       <!-- Screen 6: Sedona Method (4 Questions) -->
       <div id="screen-sedona" class="hidden min-h-screen flex flex-col items-center justify-center py-12"></div>
 
-      <!-- Screen 7: Breathing Exercise -->
+      <!-- Screen 7: Writing Release -->
+      <div id="screen-writing" class="hidden space-y-6"></div>
+
+      <!-- Screen 8: Breathing Exercise -->
       <div id="screen-breathing" class="hidden space-y-6">
         <div class="text-center">
           <p class="text-base font-medium text-breath-text mb-4">
@@ -448,10 +464,10 @@
         </section>
       </div>
 
-      <!-- Screen 8: After Rating -->
+      <!-- Screen 9: After Rating -->
       <div id="screen-after" class="hidden space-y-6"></div>
 
-      <!-- Screen 9: Success -->
+      <!-- Screen 10: Success -->
       <div id="screen-success" class="hidden space-y-6">
         <div class="text-center space-y-4">
           <div class="text-6xl mb-4">✨</div>
@@ -579,7 +595,8 @@
       intensityAfter: 5,
       improvementDelta: 0,
       durationSeconds: 0,
-      startTime: null
+      startTime: null,
+      writingNotes: ''
     };
 
     function saveSessions() {
@@ -593,6 +610,7 @@
         trigger: state.trigger,
         regulationMethod: state.regulationMethod,
         sedonaCycles: state.sedonaCycles,
+        writingNotes: state.writingNotes,
         intensityAfter: state.intensityAfter,
         improvementDelta: state.improvementDelta,
         durationSeconds: state.durationSeconds
@@ -830,9 +848,12 @@
         if (state.regulationMethod === 'sedona' || state.regulationMethod === 'both') {
           renderSedonaQuestion(1);
           showScreen('screen-sedona');
-        } else {
+        } else if (state.regulationMethod === 'breathing') {
           startBreathingExercise();
           showScreen('screen-breathing');
+        } else if (state.regulationMethod === 'writing') {
+          renderWritingScreen();
+          showScreen('screen-writing');
         }
       });
     });
@@ -938,7 +959,71 @@
     }
 
     // ============================================================================
-    // SCREEN 7: BREATHING EXERCISE
+    // SCREEN 7: WRITING RELEASE
+    // ============================================================================
+    function renderWritingScreen() {
+      const emotion = Object.values(EMOTIONS).flat().find(e => e.id === state.subEmotion);
+      const container = document.getElementById('screen-writing');
+
+      container.innerHTML = `
+        <header class="text-center space-y-3">
+          <div class="text-4xl mb-1">✍️</div>
+          <h2 class="text-2xl font-semibold text-breath-text">
+            ${langSpan('Writing Release', '书写释放')}
+          </h2>
+          <p class="text-sm text-breath-muted max-w-md mx-auto">
+            ${langSpan(
+              'Write freely for a few minutes. Don’t worry about grammar or perfection.',
+              '接下来几分钟，随心所欲地写下你的感受，不用在意语法或是否写得好。'
+            )}
+          </p>
+        </header>
+
+        <section class="space-y-4 max-w-lg mx-auto">
+          <div class="bg-white rounded-lg p-4 shadow-sm border border-breath-primary/20">
+            <p class="text-sm font-medium text-breath-text mb-2">
+              ${langSpan('You can start with:', '你可以从这些句子开始：')}
+            </p>
+            <ul class="text-sm text-breath-muted space-y-1 list-disc list-inside">
+              <li>${langSpan('What hurts me the most is…', '现在最让我难受的是……')}</li>
+              <li>${langSpan('What I fear the most is…', '我最害怕的是……')}</li>
+              <li>${langSpan('What I need right now is…', '我现在最需要的是……')}</li>
+            </ul>
+          </div>
+
+          <textarea
+            id="writing-notes"
+            class="w-full block p-4 border-2 border-breath-primary/30 rounded-lg focus:outline-none focus:border-breath-primary resize-none min-h-[180px]"
+            placeholder="..."
+            aria-label="Free writing area for your thoughts"></textarea>
+
+          <button
+            id="btn-complete-writing"
+            class="w-full py-3 bg-breath-primary text-white rounded-lg font-medium hover:bg-breath-primary/90 transition">
+            ${langSpan('I’m done writing', '我写完了')}
+          </button>
+        </section>
+      `;
+
+      const textarea = document.getElementById('writing-notes');
+      if (textarea) {
+        textarea.value = state.writingNotes || '';
+        textarea.addEventListener('input', (e) => {
+          state.writingNotes = e.target.value;
+        });
+      }
+
+      const completeBtn = document.getElementById('btn-complete-writing');
+      if (completeBtn) {
+        completeBtn.addEventListener('click', () => {
+          renderAfterScreen();
+          showScreen('screen-after');
+        });
+      }
+    }
+
+    // ============================================================================
+    // SCREEN 8: BREATHING EXERCISE
     // ============================================================================
     const BREATH_CYCLE = 10000;
     const INHALE_DURATION = 4000;
@@ -1146,6 +1231,7 @@
       state.trigger = '';
       state.regulationMethod = null;
       state.sedonaCycles = 0;
+      state.writingNotes = '';
       state.intensityAfter = 5;
       state.improvementDelta = 0;
       state.durationSeconds = 0;
