@@ -119,56 +119,30 @@ SixDegrees is an **AI agent service** that actively works to connect you to anyo
 
 ---
 
-### BUILD #3: RedFlow — Fully Automated 小红书 Content Engine 📱 MUST GO
+### ❌ BUILD #3: RedFlow — ARCHIVED (Founder Decision, 2026-02-25) 📱
 
-**Status: RENAMED FROM RedFlow. Founder pivot — NOT about selling fiction anymore.**
+**Status: ARCHIVED. AI-generated content cannot compete on 小红书.**
 
-**Why this exists:** If we have a 小红书 account with a large following, promoting ANY Proxima Auto product (ColdCopy, DoubleMood, FlowPrep, PowerCast, SixDegrees) becomes 10x easier. RedFlow is NOT a revenue product — it's the **promotional foundation** for all other products.
+**What was built:** Full automation pipeline (1200 LOC, 90 min build):
+- Content generator (Claude API, bilingual, 小红书 native style)
+- Playwright browser automation (auto-login, auto-post)
+- Cloudflare Worker (cron scheduling, D1 tracking, dashboard)
+- Deployed at `https://redflow-worker.jianou-works.workers.dev`
 
-**What RedFlow ACTUALLY is:**
-A **fully automated 小红书 (Xiaohongshu/RedNote) content engine** that:
-1. Researches trending topics on 小红书 (AI, tech, productivity, career, energy, mental health)
-2. Creates compelling content (text + images) tailored for 小红书's format and audience
-3. **POSTS AUTOMATICALLY** — the founder does NOT copy-paste. The system uses browser automation (Playwright) to log in and post directly
-4. Tracks engagement (likes, comments, followers, shares)
-5. Iterates: analyzes what works, creates more of that content
-6. Cross-promotes Proxima Auto products naturally within high-performing content
+**Why it's archived:**
+The founder's assessment: AI-generated 小红书 content looks too artificial. Posts that get real engagement on 小红书 have:
+- **Beautiful original photos** (not stock, not AI-generated)
+- **Real videos** (face on camera, behind-the-scenes, authentic moments)
+- **Human authenticity** (genuine personality, real experiences, 人味)
 
-**⚠️ KEY REQUIREMENT: FULLY AUTOMATED POSTING**
-The founder explicitly said: "I don't want to copy and paste the post from you to Xiaohongshu."
-This means the system MUST use **Playwright browser automation** (or Xiaohongshu's unofficial API) to:
-- Log in to founder's 小红书 account
-- Create new posts (text + images)
-- Schedule/publish posts automatically
-- No human involvement in the posting process
+AI agents can write text that mimics the style, but **cannot produce the visual authenticity** that 小红书's algorithm and audience demand. This is a hard limitation of current AI capabilities.
 
-**Content strategy per product:**
-| Product | 小红书 Content Angle |
-|---------|---------------------|
-| ColdCopy | "How to write cold emails that get replies" tips, career advice |
-| DoubleMood | Mental health tips, breathing exercises, 情绪管理 content |
-| FlowPrep | Engineering career content, HVAC/建筑 industry insights |
-| PowerCast | Energy market analysis, 电力 price trends, clean energy |
-| SixDegrees | Networking tips, "how to reach anyone" strategies, 人脉 |
-| General | AI company behind-the-scenes, "14 AI agents run a company" story |
+**Lesson learned:** Social media promotion — especially on visual-first platforms like 小红书 — is beyond what AI agents can do well. The content "smells" like AI. Find real people for promotion.
 
-**Tech stack:**
-- **Playwright** with stealth mode for 小红书 posting automation
-- **Claude API** for content generation (bilingual, 小红书 native style)
-- **Cloudflare Workers** for scheduling (cron triggers)
-- **D1** for tracking posts, engagement metrics, content performance
-- **Image generation** (if needed): use screenshot of product dashboards, infographics
+**Decision:** Archive the project. Hire/find real humans for social media promotion when the time comes. The automation code remains in `projects/redflow/` if ever needed as infrastructure for human-created content.
 
-**V1 scope (this cycle):**
-1. Research 小红书 trending content in relevant niches (AI, career, productivity)
-2. Build Playwright automation script that can log in and post to 小红书
-3. Generate 5 test posts (bilingual, 小红书 native format)
-4. Deploy automation on Cloudflare Workers (cron schedule: 1-2 posts/day)
-5. Track engagement and iterate
-
-**DO NOT build a novel writing system. That vision is DEAD. RedFlow = 小红书 automation.**
-
-**Team:** `research-thompson` (trending content research) → `fullstack-dhh` (Playwright automation + content generation) → `devops-hightower` (deploy cron worker) → `marketing-godin` (content strategy)
+**Code preserved at:** `projects/redflow/`
+**Docs preserved at:** `docs/fullstack/redflow-*.md`, `docs/devops/redflow-*.md`, `docs/research/redflow-*.md`, `docs/marketing/redflow-content-strategy.md`
 
 ---
 
@@ -263,11 +237,11 @@ This means the system MUST use **Playwright browser automation** (or Xiaohongshu
 - ✅ story-narrativeedge.html — 60 bilingual pairs (ConnectPath→SixDegrees fixed)
 - ✅ story-powercast.html — 91 bilingual pairs (ConnectPath→SixDegrees fixed)
 - ✅ story-sixdegrees.html — NEW, bilingual, amber theme
-- ✅ story-autonovel.html — NEW, 5 chapters, bilingual, purple theme (will rename to RedFlow)
+- ✅ story-autonovel.html — RedFlow story (ARCHIVED — AI content too artificial for 小红书)
 
 **ConnectPath→SixDegrees rename COMPLETE:** Zero ConnectPath references remain in any landing page file.
 
-**RedFlow (not built yet — must launch bilingual from day 1)**
+**RedFlow: ARCHIVED (2026-02-25).** AI-generated content can't compete on visual-first platforms. Promotion needs real humans.
 
 ---
 
@@ -298,7 +272,7 @@ This means the system MUST use **Playwright browser automation** (or Xiaohongshu
 | FlowPrep AI | https://flowprep-ai.pages.dev | LIVE, bilingual | $0 |
 | PowerCast | https://powercast.pages.dev | LIVE, Gumroad products live | $0 |
 | SixDegrees V2 | https://sixdegrees.pages.dev | LIVE, dashboard working, D1 connected | $0 |
-| RedFlow | https://redflow-worker.jianou-works.workers.dev | LIVE, awaiting credentials | $0 |
+| RedFlow | https://redflow-worker.jianou-works.workers.dev | ARCHIVED — AI content too artificial for 小红书 | $0 |
 
 ### Company Homepage
 | URL | Status |
